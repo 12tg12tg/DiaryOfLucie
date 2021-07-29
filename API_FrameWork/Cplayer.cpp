@@ -15,6 +15,11 @@ HRESULT Cplayer::init()
 	return S_OK;
 }
 
+HRESULT Cplayer::init(int setX, int setY)
+{
+	return E_NOTIMPL;
+}
+
 void Cplayer::release()
 {
 }
