@@ -43,9 +43,6 @@
     <Filter Include="이펙트">
       <UniqueIdentifier>{cbc2bffc-abb2-4cb5-9970-639497ba2fff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="이펙트\이펙트테스트">
-      <UniqueIdentifier>{0af599bf-8274-4dfa-8022-23a59a909826}</UniqueIdentifier>
-    </Filter>
     <Filter Include="맵툴">
       <UniqueIdentifier>{e3922ca6-9d5f-4c7a-a20e-7f72caa6fe44}</UniqueIdentifier>
     </Filter>
@@ -114,9 +111,6 @@
     <ClInclude Include="effect.h">
       <Filter>이펙트</Filter>
     </ClInclude>
-    <ClInclude Include="effectTest.h">
-      <Filter>이펙트\이펙트테스트</Filter>
-    </ClInclude>
     <ClInclude Include="effectManager.h">
       <Filter>manager</Filter>
     </ClInclude>
@@ -169,9 +163,6 @@
     </ClCompile>
     <ClCompile Include="effect.cpp">
       <Filter>이펙트</Filter>
-    </ClCompile>
-    <ClCompile Include="effectTest.cpp">
-      <Filter>이펙트\이펙트테스트</Filter>
     </ClCompile>
     <ClCompile Include="effectManager.cpp">
       <Filter>manager</Filter>

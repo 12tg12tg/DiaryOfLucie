@@ -1,7 +1,5 @@
 #pragma once
 #include "gameNode.h"
-#include "effectTest.h"
-#include "mapTool.h"
 class mainGame : public gameNode
 {
 private:
