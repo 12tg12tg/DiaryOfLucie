@@ -31,6 +31,7 @@ enum class MOVESTATE
 
 enum WEAPONKIND
 {
+	NULLWEAPON,
 	SWORD,
 	BOW,
 	STAFF
