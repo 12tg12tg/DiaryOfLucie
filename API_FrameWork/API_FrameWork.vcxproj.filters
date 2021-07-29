@@ -46,6 +46,21 @@
     <Filter Include="맵툴">
       <UniqueIdentifier>{e3922ca6-9d5f-4c7a-a20e-7f72caa6fe44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DOL">
+      <UniqueIdentifier>{6565b5be-dde9-4f4e-800e-20a14ddb6358}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOL\bullet">
+      <UniqueIdentifier>{36af2e70-7ea2-4b78-b995-fc8072cd778a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOL\player">
+      <UniqueIdentifier>{2fa5e2d3-ba00-42e2-90dc-782fa39e9f51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOL\monsters">
+      <UniqueIdentifier>{816c170c-d46d-4155-8a14-e1c82144d357}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOL\DOL_Manager">
+      <UniqueIdentifier>{38de8317-e6c7-4781-9bb7-8d07bd95154b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -117,6 +132,27 @@
     <ClInclude Include="mapTool.h">
       <Filter>맵툴</Filter>
     </ClInclude>
+    <ClInclude Include="mainDOL.h">
+      <Filter>DOL</Filter>
+    </ClInclude>
+    <ClInclude Include="collisionManager.h">
+      <Filter>DOL\DOL_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="monsterManager.h">
+      <Filter>DOL\DOL_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="bulletManager.h">
+      <Filter>DOL\DOL_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Cplayer.h">
+      <Filter>DOL\player</Filter>
+    </ClInclude>
+    <ClInclude Include="Cmonsters.h">
+      <Filter>DOL\monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="Cbullets.h">
+      <Filter>DOL\bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -169,6 +205,27 @@
     </ClCompile>
     <ClCompile Include="mapTool.cpp">
       <Filter>맵툴</Filter>
+    </ClCompile>
+    <ClCompile Include="mainDOL.cpp">
+      <Filter>DOL</Filter>
+    </ClCompile>
+    <ClCompile Include="collisionManager.cpp">
+      <Filter>DOL\DOL_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="bulletManager.cpp">
+      <Filter>DOL\DOL_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="monsterManager.cpp">
+      <Filter>DOL\DOL_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Cplayer.cpp">
+      <Filter>DOL\player</Filter>
+    </ClCompile>
+    <ClCompile Include="Cmonsters.cpp">
+      <Filter>DOL\monsters</Filter>
+    </ClCompile>
+    <ClCompile Include="Cbullets.cpp">
+      <Filter>DOL\bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

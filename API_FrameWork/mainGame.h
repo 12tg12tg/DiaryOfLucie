@@ -1,15 +1,16 @@
 #pragma once
 #include "gameNode.h"
+#include "mainDOL.h"
 class mainGame : public gameNode
 {
 private:
+	mainDOL* _mDOL;
 
 
 
 
-
-	bool isDebug;
-	bool showFPS;
+	bool _isDebug;
+	bool _showFPS;
 public:
 	mainGame();
 	~mainGame();
@@ -23,10 +24,11 @@ public:
 
 
 
-	void setFPSprint() { if (InputManager->isOnceKeyDown(VK_F2)) showFPS = !showFPS; }
+	void setFPSprint() { if (InputManager->isOnceKeyDown(VK_F2)) _showFPS = !_showFPS; }
 	void setIsDebug() {
 		if (InputManager->isOnceKeyDown(VK_F1)) {
-			isDebug = !isDebug;
+			_isDebug = !_isDebug;
+			_mDOL->setIsdebug(_isDebug);
 		}
 	}
 };  
