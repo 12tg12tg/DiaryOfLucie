@@ -24,7 +24,7 @@ HRESULT monsterManager::init()
 void monsterManager::release()
 {
     _snaby->release();
-
+    SAFE_DELETE(_snaby);
 
 
 
