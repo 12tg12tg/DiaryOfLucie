@@ -8,7 +8,8 @@ private:
 	CpArrowBullet* _CpArrowBullet;
 	CmTripleBullet* _CmTripleBullet;
 	CmCircleBullet* _CmCircleBullet;
-
+	CmReturnBullet* _CmReturnBullet;
+	CmWideBullet* _CmWideBullet;
 
 	 
 
