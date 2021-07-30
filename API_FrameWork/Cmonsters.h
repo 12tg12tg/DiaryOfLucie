@@ -1,30 +1,32 @@
 #pragma once
-#include "gameNode.h"
-//////////////////////////전방선언영역/////////////////////////
-			
-
-//////////////////////////////////////////////////////////////
-class Csnaby : public gameNode
+#include "monster.h"
+class Cplayer;
+class Csnaby : public monster
 {
 private:
+	//연습용더미
+	RECT fackpy;
 
 
 
 
-
-
-private:
-	bool _isDebug;
 public:
 	Csnaby();
 	~Csnaby();
 
 	HRESULT init();
 	void release();
-	void update();
+	void update(Cplayer* py);
 	void render();
 
-	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+	virtual void addMonster(float x, float y);
+	virtual void move();
+	virtual void checkAngle();
+	virtual void giveFrame();
+	virtual void deathCheck();
+	virtual void knockback(float x, float y, bool stun = false);
+	virtual void stuncheck();
+
+	void checkPlayerXY(Cplayer* py);
 };
 //////////////////////////////////////////////////////////////
-

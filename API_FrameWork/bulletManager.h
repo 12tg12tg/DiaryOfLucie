@@ -22,7 +22,7 @@ public:
 
 	void setIsDebug(bool isDebug) {
 		_isDebug = isDebug;
-		_playerBullet->setIsDebug(_isDebug);
+		//_playerBullet->setIsDebug(_isDebug);
 	}
 };
 
