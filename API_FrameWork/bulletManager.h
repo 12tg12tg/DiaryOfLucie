@@ -4,8 +4,12 @@
 class bulletManager : public gameNode
 {
 private:
-	CplayerBullet* _playerBullet;
-
+	CpMagicBullet* _CpMagicBullet;
+	CpArrowBullet* _CpArrowBullet;
+	CmTripleBullet* _CmTripleBullet;
+	CmCircleBullet* _CmCircleBullet;
+	CmReturnBullet* _CmReturnBullet;
+	CmWideBullet* _CmWideBullet;
 
 	 
 
@@ -22,7 +26,11 @@ public:
 
 	void setIsDebug(bool isDebug) {
 		_isDebug = isDebug;
+<<<<<<< HEAD
 		//_playerBullet->setIsDebug(_isDebug);
+=======
+		_CpMagicBullet->setIsDebug(_isDebug);
+>>>>>>> 965137fac9d5407bcc3c4986dd0a6e2ce77899f1
 	}
 };
 
