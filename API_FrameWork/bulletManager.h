@@ -24,13 +24,13 @@ public:
 	void update();
 	void render();
 
+
+
+
+	CmTripleBullet* getTriBulInstance() { return _CmTripleBullet; }
 	void setIsDebug(bool isDebug) {
 		_isDebug = isDebug;
-<<<<<<< HEAD
-		//_playerBullet->setIsDebug(_isDebug);
-=======
 		_CpMagicBullet->setIsDebug(_isDebug);
->>>>>>> 965137fac9d5407bcc3c4986dd0a6e2ce77899f1
 	}
 };
 

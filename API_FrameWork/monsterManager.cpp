@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "monsterManager.h"
 #include "Cplayer.h"
+#include "bulletManager.h"
 monsterManager::monsterManager()
 {
 }
@@ -33,7 +34,7 @@ void monsterManager::release()
 
 void monsterManager::update()
 {
-    _snaby->update(_py);
+    _snaby->update(_py, _bm);
 
 
 

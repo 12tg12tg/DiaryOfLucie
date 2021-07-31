@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "Cmonsters.h"
 #include "Cplayer.h"
+#include "bulletManager.h"
 /*
 =================================================
 	Find monster class ctrl+F4 ("name!")
@@ -36,14 +37,14 @@ void Csnaby::release()
 {
 }
 
-void Csnaby::update(Cplayer* py)
+void Csnaby::update(Cplayer* py, bulletManager* bm)
 {
 	//업뎃
 	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
 	{
 		stuncheck();
 		checkPlayerXY(py);
-		move();
+		move(bm);
 		checkAngle();
 		giveFrame();
 		deathCheck();
@@ -129,7 +130,7 @@ void Csnaby::addMonster(float x, float y)
 	_vMonster.push_back(newMonster);
 }
 
-void Csnaby::move()
+void Csnaby::move(bulletManager* bm)
 {
 	_viMonster->patternCount++;
 	switch (_viMonster->activestate)
@@ -147,7 +148,10 @@ void Csnaby::move()
 			_viMonster->y -= sinf(_viMonster->angle) * 1;
 			_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 6, _viMonster->y, _viMonster->width, _viMonster->height);
 			if (_viMonster->patternCount % 30 == 0) {
-				/*발사함수 호출*/
+				bm->getTriBulInstance()->fire(
+					_viMonster->x + _viMonster->img->getFrameWidth()/2,
+					_viMonster->y + _viMonster->img->getFrameHeight()/2,
+					_viMonster->angle);
 			}
 		}
 		else {

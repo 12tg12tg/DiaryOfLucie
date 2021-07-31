@@ -1,5 +1,8 @@
 #pragma once
 #include "gameNode.h"
+class Cplayer;
+class bulletManager;
+
 enum class MONSTERMOVESTATE
 {
 	NONE,
@@ -57,16 +60,18 @@ public:
 
 	HRESULT init();
 	void release();
-	void update();
+	void update(Cplayer* py, bulletManager* bm);
 	void render();
 
 	virtual void addMonster(float x, float y);
-	virtual void move();
+	virtual void move(bulletManager* bm);
 	virtual void checkAngle();
 	virtual void giveFrame();
 	virtual void deathCheck();
 	virtual void knockback(float x, float y, bool stun = false);
 	virtual void stuncheck();
+	virtual void checkPlayerXY(Cplayer* py);
+
 
 	vector<tagMonster>& getVMonster() { return _vMonster; }
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }

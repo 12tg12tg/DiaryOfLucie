@@ -1,6 +1,5 @@
 #pragma once
 #include "monster.h"
-class Cplayer;
 class Csnaby : public monster
 {
 private:
@@ -16,17 +15,16 @@ public:
 
 	HRESULT init();
 	void release();
-	void update(Cplayer* py);
+	void update(Cplayer* py, bulletManager* bm);
 	void render();
 
 	virtual void addMonster(float x, float y);
-	virtual void move();
+	virtual void move(bulletManager* bm);
 	virtual void checkAngle();
 	virtual void giveFrame();
 	virtual void deathCheck();
 	virtual void knockback(float x, float y, bool stun = false);
 	virtual void stuncheck();
-
-	void checkPlayerXY(Cplayer* py);
+	virtual void checkPlayerXY(Cplayer* py);
 };
 //////////////////////////////////////////////////////////////

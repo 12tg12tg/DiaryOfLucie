@@ -15,14 +15,11 @@ HRESULT mainDOL::init()
 	_cm = new collisionManager;
 	_mm = new monsterManager;
 
-
-
-
-
 	_bm->init();
 	_cm->init();
 	_mm->init();
 
+	_mm->setBulletManagerMemoryLink(_bm);
 
 
 

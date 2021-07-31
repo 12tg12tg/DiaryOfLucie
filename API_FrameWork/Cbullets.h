@@ -94,6 +94,8 @@ public:
 	void fire(float x, float y, float angle);
 	void move();
 	void removeBullet(int arrNum);
+
+	vector<tagBullet>& getTriBulletVector() { return _vBullet; }
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
 

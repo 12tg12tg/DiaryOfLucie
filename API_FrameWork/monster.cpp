@@ -1,5 +1,7 @@
 #include "framework.h"
 #include "monster.h"
+#include "Cplayer.h"
+#include "bulletmanager.h"
 monster::monster()
 {
 }
@@ -17,7 +19,7 @@ void monster::release()
 {
 }
 
-void monster::update()
+void monster::update(Cplayer* py, bulletManager* bm)
 {
 }
 
@@ -29,7 +31,7 @@ void monster::addMonster(float x, float y)
 {
 }
 
-void monster::move()
+void monster::move(bulletManager* bm)
 {
 }
 
@@ -50,5 +52,9 @@ void monster::knockback(float x, float y, bool stun)
 }
 
 void monster::stuncheck()
+{
+}
+
+void monster::checkPlayerXY(Cplayer* py)
 {
 }
