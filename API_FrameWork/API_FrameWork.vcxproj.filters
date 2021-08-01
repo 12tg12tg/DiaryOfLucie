@@ -153,6 +153,9 @@
     <ClInclude Include="Cbullets.h">
       <Filter>DOL\bullet</Filter>
     </ClInclude>
+    <ClInclude Include="monster.h">
+      <Filter>DOL\monsters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -226,6 +229,9 @@
     </ClCompile>
     <ClCompile Include="Cbullets.cpp">
       <Filter>DOL\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="monster.cpp">
+      <Filter>DOL\monsters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
