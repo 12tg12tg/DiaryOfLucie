@@ -1,8 +1,11 @@
 #pragma once
 #include "gameNode.h"
 #include "Cmonsters.h"
+class Cplayer;
 class monsterManager : public gameNode
 {
+private:
+	Cplayer* _py;
 private:
 	Csnaby* _snaby;
 
@@ -21,6 +24,7 @@ public:
 	void update();
 	void render();
 
+	void setPlayerMemoryLink(Cplayer* py) { _py = py; }
 	void setIsDebug(bool isDebug) {
 		_isDebug = isDebug; 
 		_snaby->setIsDebug(_isDebug);

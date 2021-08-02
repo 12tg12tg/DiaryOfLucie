@@ -23,6 +23,7 @@ HRESULT mainDOL::init()
 	_cm->init();
 	_mm->init();
 
+	PLAYER->init();
 
 
 
@@ -57,6 +58,7 @@ void mainDOL::update()
 	_cm->update();
 	_mm->update();
 
+	PLAYER->update();
 
 
 
@@ -71,6 +73,7 @@ void mainDOL::render()
 	_cm->render();
 	_mm->render();
 
+	PLAYER->render();
 
 
 

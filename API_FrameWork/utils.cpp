@@ -25,4 +25,8 @@ namespace UTIL
 		}
 		return angle;
 	}
+	float RadianToDegree(float rad)
+	{
+		return rad * (180 / PI);
+	}
 }

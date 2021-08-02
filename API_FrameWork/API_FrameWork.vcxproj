@@ -163,6 +163,7 @@
     <ClInclude Include="mainDOL.h" />
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="mapTool.h" />
+    <ClInclude Include="monster.h" />
     <ClInclude Include="monsterManager.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="mainDOL.cpp" />
     <ClCompile Include="mainGame.cpp" />
     <ClCompile Include="mapTool.cpp" />
+    <ClCompile Include="monster.cpp" />
     <ClCompile Include="monsterManager.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="soundManager.cpp" />

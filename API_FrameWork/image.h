@@ -101,7 +101,9 @@ public:
 	void alphaRender(HDC hdc, BYTE alpha);
 	void alphaRender(HDC hdc, const int destX, const int destY, BYTE alpha);
 	void alphaRender(HDC hdc, const int destX, const int destY, const int sourX, const int sourY, const int sourWidth, const int sourHeight,BYTE alpha);
+	void alphaFrameRender(HDC hdc, const int destX, const int destY, const int currentFrameX, const int currentFrameY, BYTE alpha);
 
+	//애니메이션인스턴스 렌더
 	void aniRender(HDC hdc, const int destX, const int destY, animation* ani);
 
 

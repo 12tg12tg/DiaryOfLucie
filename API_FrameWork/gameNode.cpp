@@ -75,6 +75,10 @@ void gameNode::release()
 		SOUND->release();
 		ANIMATION->release();
 		EFFECT->release();
+
+		//플레이어 해제
+		PLAYER->release();
+		PLAYER->releaseSingleton();
 	}
 	ReleaseDC(m_hWnd, _hdc);
 

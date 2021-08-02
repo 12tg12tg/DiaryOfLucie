@@ -26,7 +26,7 @@ public:
 
 	void setIsDebug(bool isDebug) {
 		_isDebug = isDebug;
-		_CpMagicBullet->setIsDebug(_isDebug);
+		//_playerBullet->setIsDebug(_isDebug);
 	}
 };
 
