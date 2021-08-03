@@ -3,7 +3,7 @@
 class Csnaby : public monster
 {
 private:
-	//연습용더미
+	//연습용더미 - 삭제예정
 	RECT fackpy;
 
 
