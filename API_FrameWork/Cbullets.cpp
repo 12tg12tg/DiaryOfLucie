@@ -210,7 +210,7 @@ void CmTripleBullet::fire(float x, float y, float angle)
 	{
 		ZeroMemory(&bullet, sizeof(tagBullet));
 		bullet.bulletImage = new  image;
-		bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 26, 8, true);
+		bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 12, 12, true);
 		bullet.angle = angle - 0.2 + 0.2 * i;
 		bullet.speed = 5.0f;
 		bullet.x = bullet.fireX = x;
@@ -291,7 +291,7 @@ void CmCircleBullet::fire(float x, float y, float angle)
 	{
 		ZeroMemory(&bullet, sizeof(tagBullet));
 		bullet.bulletImage = new  image;
-		bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 26, 8, true);
+		bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 12, 12, true);
 		bullet.angle = angle + 0.628 * i;
 		bullet.speed = 5.0f;
 		bullet.x = bullet.fireX = x;
@@ -372,7 +372,7 @@ void CmReturnBullet::fire(float x, float y, float angle)
 	{
 		ZeroMemory(&bullet, sizeof(tagBullet));
 		bullet.bulletImage = new  image;
-		bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 26, 8, true);
+		bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 12, 12, true);
 		bullet.angle2 = angle;
 		bullet.angle = angle + 0.209 * i;
 		bullet.speed = 2.0f;
@@ -479,7 +479,7 @@ void CmWideBullet::fire(float x, float y, float angle)
 		{
 			ZeroMemory(&bullet, sizeof(tagBullet));
 			bullet.bulletImage = new  image;
-			bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 26, 8, true);
+			bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 12, 12, true);
 			bullet.angle = angle - 0.04 * k;
 			bullet.speed = 1 + 0.03 * i;
 			bullet.x = bullet.fireX = x;
@@ -493,7 +493,7 @@ void CmWideBullet::fire(float x, float y, float angle)
 
 			ZeroMemory(&bullet, sizeof(tagBullet));
 			bullet.bulletImage = new  image;
-			bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 26, 8, true);
+			bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 12, 12, true);
 			bullet.angle = angle + 0.04 * k;
 			bullet.speed = 1 + 0.03 * i;;
 			bullet.x = bullet.fireX = x;
@@ -575,7 +575,7 @@ void CmHomingBullet::fire(float x, float y, float angle)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë2", "images/bullet_bmp/MBullet_normal.bmp", 26, 8, true);
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë2", "images/bullet_bmp/MBullet_normal.bmp", 12,12, true);
 	bullet.angle = angle;
 	bullet.x = bullet.fireX = x;
 	bullet.y = bullet.fireY = y;
