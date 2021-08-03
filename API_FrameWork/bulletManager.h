@@ -11,7 +11,7 @@ private:
 	CmReturnBullet* _CmReturnBullet;
 	CmWideBullet* _CmWideBullet;
 	CmHomingBullet* _CmHomingBullet;
-
+	CmPoisonBullet* _CmPoisonBullet;
 	 
 
 private:
@@ -34,6 +34,13 @@ public:
 	CmReturnBullet* getRtnBulInstance() { return _CmReturnBullet; }
 	CmWideBullet* getWidBulInstance() { return _CmWideBullet; }
 	CmHomingBullet* getHomBulInstance() { return _CmHomingBullet; }
+	CmPoisonBullet* getPsnBulInstance() { return _CmPoisonBullet; }
+
+
+
+
+
+
 	void setIsDebug(bool isDebug) {
 		_isDebug = isDebug;
 		_CpMagicBullet->setIsDebug(_isDebug);
@@ -43,6 +50,7 @@ public:
 		_CmReturnBullet->setIsDebug(_isDebug);
 		_CmWideBullet->setIsDebug(_isDebug);
 		_CmHomingBullet->setIsDebug(_isDebug);
+		_CmPoisonBullet->setIsDebug(_isDebug);
 		
 	}
 };

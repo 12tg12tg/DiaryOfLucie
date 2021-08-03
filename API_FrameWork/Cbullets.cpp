@@ -634,3 +634,150 @@ void CmHomingBullet::removeBullet(int arrNum)
 {
 	_vBullet.erase(_vBullet.begin() + arrNum);
 }
+
+CmPoisonBullet::CmPoisonBullet()
+{
+}
+
+CmPoisonBullet::~CmPoisonBullet()
+{
+}
+
+HRESULT CmPoisonBullet::init()
+{
+	return S_OK;
+}
+
+void CmPoisonBullet::release()
+{
+}
+
+void CmPoisonBullet::update()
+{
+	move();
+}
+
+void CmPoisonBullet::render()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		_viBullet->bulletImage->render(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
+	}
+}
+
+void CmPoisonBullet::fire(float x, float y, float angle)
+{
+	tagBullet bullet;
+
+	for (int i = 0; i < 6; i++)
+	{
+
+		ZeroMemory(&bullet, sizeof(tagBullet));
+		bullet.bulletImage = new image;
+		bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/poison.bmp", 40, 40, true);
+		bullet.angle = 1.046 * i;
+		bullet.angle2 = PI / 2 + 1.046 * i;
+		bullet.speed = 2.0f;
+		bullet.x = bullet.fireX = x;
+		bullet.y = bullet.fireY = y;
+		bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+			bullet.bulletImage->getWidth(),
+			bullet.bulletImage->getHeight());
+		bullet.count = 0;
+
+		_vBullet.push_back(bullet);
+	}
+	for (int i = 0; i < 6; i++)
+	{
+
+		ZeroMemory(&bullet, sizeof(tagBullet));
+		bullet.bulletImage = new image;
+		bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/poison.bmp", 40, 40, true);
+		bullet.angle = 1.046 * i;
+		bullet.angle2 = -PI / 2 + 1.046 * i;
+		bullet.speed = 2.0f;
+		bullet.x = bullet.fireX = x;
+		bullet.y = bullet.fireY = y;
+		bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+			bullet.bulletImage->getWidth(),
+			bullet.bulletImage->getHeight());
+		bullet.count = 0;
+
+		_vBullet.push_back(bullet);
+	}
+}
+
+void CmPoisonBullet::move()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end();)
+	{
+		_viBullet->count++;
+		if (_vBullet.size() == 0)
+		{
+			_viBullet->count = 0;
+		}
+		if (_viBullet->count < 100)
+		{
+			_viBullet->x += cosf(_viBullet->angle) * 1;
+			_viBullet->y -= sinf(_viBullet->angle) * 1;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+
+
+		}
+		else if (_viBullet->count >= 100 && _viBullet->count < 150)
+		{
+
+
+			_viBullet->x += cosf(_viBullet->angle) * 0;
+			_viBullet->y -= sinf(_viBullet->angle) * 0;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+
+
+		}
+		else if (_viBullet->count >= 150 && _viBullet->count < 180)
+		{
+
+
+			_viBullet->x += cosf(_viBullet->angle2) * 1;
+			_viBullet->y -= sinf(_viBullet->angle2) * 1;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+
+
+		}
+		else if (_viBullet->count >= 180 && _viBullet->count < 300)
+		{
+
+
+			_viBullet->x += cosf(_viBullet->angle2) * 0;
+			_viBullet->y -= sinf(_viBullet->angle2) * 0;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+
+
+		}
+		else if (_viBullet->count >= 300)
+		{
+			_viBullet = _vBullet.erase(_viBullet);
+			continue;
+		}
+		++_viBullet;
+	}
+}
+
+void CmPoisonBullet::removeBullet(int arrNum)
+{
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}
