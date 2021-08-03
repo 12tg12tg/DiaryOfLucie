@@ -1,5 +1,4 @@
 #pragma once
-#include "animation.h"
 #include "singleton.h"
 
 enum class PLACE {
@@ -7,8 +6,9 @@ enum class PLACE {
 	DUNGEON
 };
 
-enum class STATE{
+enum class STATE {
 	IDLE,
+	WALK,
 	RUN,
 	DASH,
 	ATTSTAFF,
@@ -81,7 +81,7 @@ private:
 	int _speed;
 	STATE _state;
 	Player _player;
-	DIRECTION _drection;
+	DIRECTION _direction;
 
 	int _frameX;
 	int _frameY;
@@ -99,9 +99,12 @@ public:
 	HRESULT init();
 	void release();
 	void update();
-	void render();
+	void render(HDC hdc);
 
 	void imageInit();
-	void animation(DIRECTION direction);
+	void inputCheck();
+	void directionCheck();
+	void stateCheck();
+	void movePlayer();
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };

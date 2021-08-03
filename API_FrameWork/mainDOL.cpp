@@ -73,7 +73,7 @@ void mainDOL::render()
 	_cm->render();
 	_mm->render();
 
-	PLAYER->render();
+	PLAYER->render(getMemDC());
 
 
 
