@@ -10,6 +10,7 @@ private:
 	CmCircleBullet* _CmCircleBullet;
 	CmReturnBullet* _CmReturnBullet;
 	CmWideBullet* _CmWideBullet;
+	CmHomingBullet* _CmHomingBullet;
 
 	 
 
@@ -26,11 +27,23 @@ public:
 
 
 
-
+	CpMagicBullet* getMgcBulInstance() { return _CpMagicBullet; }
+	CpArrowBullet* getArwBulInstance() { return _CpArrowBullet; }
 	CmTripleBullet* getTriBulInstance() { return _CmTripleBullet; }
+	CmCircleBullet* getCirBulInstance() { return _CmCircleBullet; }
+	CmReturnBullet* getRtnBulInstance() { return _CmReturnBullet; }
+	CmWideBullet* getWidBulInstance() { return _CmWideBullet; }
+	CmHomingBullet* getHomBulInstance() { return _CmHomingBullet; }
 	void setIsDebug(bool isDebug) {
 		_isDebug = isDebug;
 		_CpMagicBullet->setIsDebug(_isDebug);
+		_CpArrowBullet->setIsDebug(_isDebug);
+		_CmTripleBullet->setIsDebug(_isDebug);
+		_CmCircleBullet->setIsDebug(_isDebug);
+		_CmReturnBullet->setIsDebug(_isDebug);
+		_CmWideBullet->setIsDebug(_isDebug);
+		_CmHomingBullet->setIsDebug(_isDebug);
+		
 	}
 };
 

@@ -43,6 +43,10 @@ public:
 	void fire(float x, float y, float angle);
 	void move();
 	void removeBullet(int arrNum);
+
+	vector<tagBullet> getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
 
@@ -69,6 +73,10 @@ public:
 	void fire(float x, float y, float angle);
 	void move();
 	void removeBullet(int arrNum);
+
+	vector<tagBullet> getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
 
@@ -95,7 +103,9 @@ public:
 	void move();
 	void removeBullet(int arrNum);
 
-	vector<tagBullet>& getTriBulletVector() { return _vBullet; }
+	vector<tagBullet> getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
 
@@ -119,6 +129,10 @@ public:
 	void fire(float x, float y, float angle);
 	void move();
 	void removeBullet(int arrNum);
+
+	vector<tagBullet> getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
 
@@ -142,6 +156,10 @@ public:
 	void fire(float x, float y, float angle);
 	void move();
 	void removeBullet(int arrNum);
+
+	vector<tagBullet> getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
 
@@ -165,6 +183,10 @@ public:
 	void fire(float x, float y, float angle);
 	void move();
 	void removeBullet(int arrNum);
+
+	vector<tagBullet> getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
 
@@ -188,5 +210,9 @@ public:
 	void fire(float x, float y, float angle);
 	void move();
 	void removeBullet(int arrNum);
+
+	vector<tagBullet> getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
