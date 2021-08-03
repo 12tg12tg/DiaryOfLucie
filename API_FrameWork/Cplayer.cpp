@@ -22,6 +22,8 @@ void Cplayer::update()
 	directionCheck();
 	stateCheck();
 	movePlayer();
+	_player.playerRect = RectMakeCenter(_player.x, _player.y, 25, 45);
+
 }
 
 void Cplayer::render(HDC hdc)
@@ -53,7 +55,7 @@ void Cplayer::inputCheck()
 
 void Cplayer::directionCheck()
 {
-	if (_inputDirection.isUp && !_inputDirection.isLeft && !_inputDirection.isLeft)
+	if (_inputDirection.isUp && !_inputDirection.isLeft && !_inputDirection.isRight)
 		_direction = UP;
 	else if (_inputDirection.isUp && _inputDirection.isLeft)
 		_direction = UPLEFT;
@@ -62,7 +64,7 @@ void Cplayer::directionCheck()
 	if (_inputDirection.isRight && !_inputDirection.isUp && !_inputDirection.isDown)
 		_direction = RIGHT;
 	
-	if (_inputDirection.isDown && !_inputDirection.isLeft && !_inputDirection.isLeft)
+	if (_inputDirection.isDown && !_inputDirection.isLeft && !_inputDirection.isRight)
 		_direction = DOWN;
 	else if (_inputDirection.isDown && _inputDirection.isLeft)
 		_direction = DOWNLEFT;
@@ -76,7 +78,7 @@ void Cplayer::stateCheck()
 {
 	if (!_inputDirection.isUp && !_inputDirection.isRight && !_inputDirection.isDown && !_inputDirection.isLeft)
 		_state = STATE::IDLE;
-	if (INPUT->isStayKeyDown(VK_RSHIFT)) {
+	if (INPUT->isStayKeyDown(VK_LSHIFT)) {
 		if (_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft)
 			_state = STATE::RUN;
 	}
@@ -109,12 +111,16 @@ void Cplayer::movePlayer()
 				break;
 			case UP:
 				_player.y -= _speed;
+				break;
 			case DOWN:
 				_player.y += _speed;
+				break;
 			case LEFT:
 				_player.x -= _speed;
+				break;
 			case RIGHT:
 				_player.x += _speed;
+				break;
 			}
 			break;
 	//case STATE::RUN:

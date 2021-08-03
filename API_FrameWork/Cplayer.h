@@ -91,7 +91,6 @@ private:
 	int _dashIndex;
 	float _dashAngle;
 
-
 private:
 
 	image* _walk_img;
@@ -107,4 +106,6 @@ public:
 	void stateCheck();
 	void movePlayer();
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+
+	Player& getPlayerAddress() { return _player; }
 };

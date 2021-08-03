@@ -29,6 +29,7 @@ public:
 		if (InputManager->isOnceKeyDown(VK_F1)) {
 			_isDebug = !_isDebug;
 			_mDOL->setIsdebug(_isDebug);
+			PLAYER->setIsDebug(_isDebug);
 		}
 	}
 };  

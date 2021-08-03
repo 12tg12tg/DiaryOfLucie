@@ -16,7 +16,7 @@ mainGame mg;
 
 
 
-LPTSTR m_lpszClass = TEXT("루시의 일기");
+LPTSTR m_lpszClass = WINNAME;
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 void setWindowSize(int x, int y, int width, int height);
 
