@@ -544,10 +544,10 @@ void Cslime::move(bulletManager* bm)
 				_viMonster->y += 25;
 			}
 			if (_viMonster->patternCount % 97 == 0) {
-				//bm->getCirBulInstance()->fire(
-				//	_viMonster->x + _viMonster->img->getFrameWidth() / 2,
-				//	_viMonster->y + _viMonster->img->getFrameHeight() / 2,
-				//	_viMonster->angle);
+				bm->getCirBulInstance()->fire(
+					_viMonster->x + _viMonster->img->getFrameWidth() / 2,
+					_viMonster->y + _viMonster->img->getFrameHeight() / 2,
+					_viMonster->angle);
 			}
 		}
 		else {
