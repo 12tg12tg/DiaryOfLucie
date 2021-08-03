@@ -216,3 +216,30 @@ public:
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
+
+class CmPoisonBullet : public gameNode
+{
+private:
+
+	vector<tagBullet> _vBullet;
+	vector<tagBullet>::iterator _viBullet;
+private:
+	bool _isDebug;
+public:
+	CmPoisonBullet();
+	~CmPoisonBullet();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+	void fire(float x, float y, float angle);
+	void move();
+	void removeBullet(int arrNum);
+
+	vector<tagBullet> getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+};
