@@ -21,6 +21,7 @@ enum class MONSTERACTIVE
 	FINDING,
 	RNDMOVE,
 	ATTACK,
+	ATTACK2,
 	DEATH,
 };
 struct tagMonster
@@ -46,6 +47,7 @@ struct tagMonster
 	int patternCount;
 	int deathalpha;
 	MONSTERACTIVE activestate;
+	MONSTERACTIVE oldactivestate;
 	MONSTERMOVESTATE movestate;
 };
 class monster : public gameNode

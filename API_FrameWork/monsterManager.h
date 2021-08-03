@@ -10,6 +10,7 @@ private:
 	bulletManager* _bm;
 private:
 	Csnaby* _snaby;
+	Cslime* _slime;
 
 
 

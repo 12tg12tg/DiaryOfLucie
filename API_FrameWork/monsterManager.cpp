@@ -13,7 +13,10 @@ monsterManager::~monsterManager()
 HRESULT monsterManager::init()
 {
     _snaby = new Csnaby;
+    _slime = new Cslime;
+
     _snaby->addMonster(WINSIZEX / 2, 100);
+    _slime->addMonster(WINSIZEX / 2, 300);
 
 
 
@@ -25,7 +28,10 @@ HRESULT monsterManager::init()
 void monsterManager::release()
 {
     _snaby->release();
+    _slime->release();
+
     SAFE_DELETE(_snaby);
+    SAFE_DELETE(_slime);
 
 
 
@@ -35,7 +41,7 @@ void monsterManager::release()
 void monsterManager::update()
 {
     _snaby->update(_py, _bm);
-
+    _slime->update(_py, _bm);
 
 
 
@@ -46,6 +52,7 @@ void monsterManager::update()
 void monsterManager::render()
 {
     _snaby->render();
+    _slime->render();
 
 
 
