@@ -40,7 +40,6 @@ public:
 
 	void setIsdebug(bool isDebug) {
 		_isDebug = isDebug;
-		PLAYER->setIsDebug(_isDebug);
 		_bm->setIsDebug(_isDebug);
 		_cm->setIsDebug(_isDebug);
 		_mm->setIsDebug(_isDebug);
