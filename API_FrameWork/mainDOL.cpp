@@ -15,11 +15,13 @@ HRESULT mainDOL::init()
 	_cm = new collisionManager;
 	_mm = new monsterManager;
 
+	PLAYER->init();
 	_bm->init();
 	_cm->init();
 	_mm->init();
 
-	_mm->setBulletManagerMemoryLink(_bm);
+	_mm->setBulletManagerMemoryLink(_bm);	//몬스터에서 블릿링크
+
 
 
 
@@ -54,6 +56,7 @@ void mainDOL::update()
 	_cm->update();
 	_mm->update();
 
+	PLAYER->update();
 
 
 
@@ -68,6 +71,7 @@ void mainDOL::render()
 	_cm->render();
 	_mm->render();
 
+	PLAYER->render(getMemDC());
 
 
 

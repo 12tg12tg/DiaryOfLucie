@@ -39,10 +39,13 @@ using namespace std;
 #include"utils.h"
 #include"txtData.h"
 
+#include"Cplayer.h"
+
 //=======================//
 //		Manager			//
 //=====================//
 #define InputManager	Input::getSingleton()
+#define INPUT			Input::getSingleton()
 #define RND				RandomFunction::getSingleton()
 #define IMAGE			imageManager::getSingleton()
 #define TIME			timeManager::getSingleton()
@@ -52,11 +55,13 @@ using namespace std;
 #define ANIMATION		animationManager::getSingleton()
 #define EFFECT			effectManager::getSingleton()
 
+#define PLAYER			Cplayer::getSingleton()
+
 //===================//
 //	매크로 설정부분	//
 //=================//
 
-#define WINNAME			(LPTSTR)(TEXT("지옥으로 떠나는 여행"))
+#define WINNAME			(LPTSTR)(TEXT("루시의 일기"))
 #define WINSTARTX		100//시작점
 #define WINSTARTY		100
 //#define WINSIZEX		1500

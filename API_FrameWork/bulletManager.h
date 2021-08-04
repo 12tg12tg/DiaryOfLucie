@@ -51,7 +51,6 @@ public:
 		_CmWideBullet->setIsDebug(_isDebug);
 		_CmHomingBullet->setIsDebug(_isDebug);
 		_CmPoisonBullet->setIsDebug(_isDebug);
-		
 	}
 };
 
