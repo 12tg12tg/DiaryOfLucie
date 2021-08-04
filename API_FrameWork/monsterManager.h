@@ -11,8 +11,8 @@ private:
 private:
 	Csnaby* _snaby;
 	Cslime* _slime;
-
-
+	Cmushman* _mushman;
+	Cmushman_mushroom* _mushman_mushroom;
 
 
 
@@ -33,6 +33,8 @@ public:
 		_isDebug = isDebug; 
 		_snaby->setIsDebug(_isDebug);
 		_slime->setIsDebug(_isDebug);
+		_mushman->setIsDebug(_isDebug);
+		_mushman_mushroom->setIsDebug(_isDebug);
 	}
 };
 

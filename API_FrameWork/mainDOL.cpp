@@ -27,7 +27,6 @@ HRESULT mainDOL::init()
 
 
 
-
 	return S_OK;
 }
 
@@ -57,7 +56,6 @@ void mainDOL::update()
 	_mm->update();
 
 	PLAYER->update();
-
 
 
 
