@@ -78,7 +78,7 @@ private:
 	vector<tagDamegeFont*> _damageFont;
 private:
 	int ManaPoint;
-	int _speed;
+	int _walkspeed;
 	STATE _state;
 	Player _player;
 	DIRECTION _direction;
@@ -106,6 +106,7 @@ public:
 	void stateCheck();
 	void movePlayer();
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+	void setPlayerFrame();
 
 	Player& getPlayerAddress() { return _player; }
 };

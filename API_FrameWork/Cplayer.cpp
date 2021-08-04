@@ -6,7 +6,7 @@ HRESULT Cplayer::init()
 	this->imageInit();
 	_player.x = WINSIZEX / 2;
 	_player.y = WINSIZEY / 2;
-	_speed = 5;
+	_walkspeed = 2;
 	_player.playerRect = RectMakeCenter(_player.x, _player.y, 25, 45);
 	_direction = DIRECTION::DOWN;
 	_player.weapon = WEAPONSTATE::EMPTY;
@@ -23,18 +23,20 @@ void Cplayer::update()
 	stateCheck();
 	movePlayer();
 	_player.playerRect = RectMakeCenter(_player.x, _player.y, 25, 45);
-
+	setPlayerFrame();
 }
 
 void Cplayer::render(HDC hdc)
 {
 	if (_isDebug)
 		RectangleMake(hdc, _player.playerRect);
+
+	IMAGE->frameRender("務晦", hdc, _player.playerRect.left-38 , _player.playerRect.top-28 , _walk_img->getFrameX(), _walk_img->getFrameY());
 }
 
 void Cplayer::imageInit()
 {
-	_walk_img = IMAGE->addFrameImage("務晦", "images/Player/務晦.bmp", 300, 800, 3, 8, true, RGB(255, 0, 255));
+	_walk_img = IMAGE->addFrameImage("務晦", "images/Player/務晦牖憮熱薑.bmp", 300, 800, 3, 8, true, RGB(255, 0, 255));
 }
 
 void Cplayer::inputCheck()
@@ -57,6 +59,7 @@ void Cplayer::directionCheck()
 {
 	if (_inputDirection.isUp && !_inputDirection.isLeft && !_inputDirection.isRight)
 		_direction = UP;
+	
 	else if (_inputDirection.isUp && _inputDirection.isLeft)
 		_direction = UPLEFT;
 	else if (_inputDirection.isUp && _inputDirection.isRight)
@@ -94,36 +97,39 @@ void Cplayer::movePlayer()
 			switch(_direction)
 			{
 			case UPLEFT:
-				_player.x+= cosf(DEGREE(135))*_speed;
-				_player.y-= sinf(DEGREE(135))*_speed;
+				_player.x+= cosf(DEGREE(135))*_walkspeed;
+				_player.y-= sinf(DEGREE(135))*_walkspeed;
 				break;
 			case UPRIGHT:
-				_player.x+= cosf(DEGREE(45))*_speed;
-				_player.y-= sinf(DEGREE(45))*_speed;
+				_player.x+= cosf(DEGREE(45))*_walkspeed;
+				_player.y-= sinf(DEGREE(45))*_walkspeed;
 				break;
 			case DOWNRIGHT:
-				_player.x+= cosf(DEGREE(315))*_speed;
-				_player.y-= sinf(DEGREE(315))*_speed;
+				_player.x+= cosf(DEGREE(315))*_walkspeed;
+				_player.y-= sinf(DEGREE(315))*_walkspeed;
 				break;
 			case DOWNLEFT:
-				_player.x+= cosf(DEGREE(225))*_speed;
-				_player.y-= sinf(DEGREE(225))*_speed;
+				_player.x+= cosf(DEGREE(225))*_walkspeed;
+				_player.y-= sinf(DEGREE(225))*_walkspeed;
 				break;
 			case UP:
-				_player.y -= _speed;
+				_player.y -= _walkspeed;
 				break;
 			case DOWN:
-				_player.y += _speed;
+				_player.y += _walkspeed;
 				break;
 			case LEFT:
-				_player.x -= _speed;
+				_player.x -= _walkspeed;
 				break;
 			case RIGHT:
-				_player.x += _speed;
+				_player.x += _walkspeed;
 				break;
 			}
 			break;
-	//case STATE::RUN:
-
 	}
+}
+
+void Cplayer::setPlayerFrame()
+{
+	_walk_img->setFrameY(_direction);
 }
