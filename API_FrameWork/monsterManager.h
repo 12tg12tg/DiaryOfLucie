@@ -32,7 +32,7 @@ public:
 	void setIsDebug(bool isDebug) {
 		_isDebug = isDebug; 
 		_snaby->setIsDebug(_isDebug);
-
+		_slime->setIsDebug(_isDebug);
 	}
 };
 

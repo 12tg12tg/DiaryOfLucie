@@ -22,7 +22,6 @@
 Csnaby::Csnaby()
 {
 	IMAGE->addFrameImage("뱀", "images/monsters/snaby-snaby.bmp", 144, 624, 3, 13, true);
-	//fackpy = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2, 30, 50);
 }
 
 Csnaby::~Csnaby()
@@ -60,21 +59,6 @@ void Csnaby::update(Cplayer* py, bulletManager* bm)
 			++_viMonster;
 		}
 	}
-	//더미움직이기
-	//{
-	//	if (InputManager->isStayKeyDown(VK_LEFT)) {
-	//		OffsetRect(&fackpy, -3, 0);
-	//	}
-	//	if (InputManager->isStayKeyDown(VK_RIGHT)) {
-	//		OffsetRect(&fackpy, 3, 0);
-	//	}
-	//	if (InputManager->isStayKeyDown(VK_UP)) {
-	//		OffsetRect(&fackpy, 0, -3);
-	//	}
-	//	if (InputManager->isStayKeyDown(VK_DOWN)) {
-	//		OffsetRect(&fackpy, 0, 3);
-	//	}
-	//}
 }
 
 void Csnaby::render()
@@ -357,7 +341,7 @@ void Csnaby::checkPlayerXY(Cplayer* py)
 {
 	if (_viMonster->activestate != MONSTERACTIVE::FINDING) return;
 	//플레이어의 좌표를 확인후 사거리내로 들어왔다면 공격상태돌입.
-	float distance = UTIL::getDistance(_viMonster->x, _viMonster->y, fackpy.left, fackpy.top);//py->getX(), py->getY());
+	float distance = UTIL::getDistance(_viMonster->x, _viMonster->y, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	if (distance < _viMonster->range)
 	{
 		_viMonster->frameX = 0;
@@ -365,9 +349,9 @@ void Csnaby::checkPlayerXY(Cplayer* py)
 		_viMonster->patternCount = 0;
 		_viMonster->activestate = MONSTERACTIVE::ATTACK;
 		//목표 지점과 각 설정
-		_viMonster->targetX = fackpy.left;
-		_viMonster->targetY = fackpy.right;
-		_viMonster->angle = UTIL::getAngle(_viMonster->x, _viMonster->y, fackpy.left, fackpy.top);
+		_viMonster->targetX = PLAYER->getPlayerAddress().x;
+		_viMonster->targetY = PLAYER->getPlayerAddress().y;
+		_viMonster->angle = UTIL::getAngle(_viMonster->x, _viMonster->y, _viMonster->targetX, _viMonster->targetY);
 	}
 	//사거리내가 아니라면 랜덤무브 진입.
 	else {
@@ -383,8 +367,7 @@ void Csnaby::checkPlayerXY(Cplayer* py)
 //////////////////////////////////////////////////////////////
 Cslime::Cslime()
 {
-	IMAGE->addFrameImage("슬라임", "images/monsters/slime.bmp", 120, 520, 3, 13, true);
-	fackpy = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2, 30, 50);
+	IMAGE->addFrameImage("슬라임", "images/monsters/slime.bmp", 180, 780, 3, 13, true);
 }
 
 Cslime::~Cslime()
@@ -422,21 +405,6 @@ void Cslime::update(Cplayer* py, bulletManager* bm)
 			++_viMonster;
 		}
 	}
-	//더미움직이기
-	{
-		if (InputManager->isStayKeyDown(VK_LEFT)) {
-			OffsetRect(&fackpy, -3, 0);
-		}
-		if (InputManager->isStayKeyDown(VK_RIGHT)) {
-			OffsetRect(&fackpy, 3, 0);
-		}
-		if (InputManager->isStayKeyDown(VK_UP)) {
-			OffsetRect(&fackpy, 0, -3);
-		}
-		if (InputManager->isStayKeyDown(VK_DOWN)) {
-			OffsetRect(&fackpy, 0, 3);
-		}
-	}
 }
 
 void Cslime::render()
@@ -460,9 +428,8 @@ void Cslime::render()
 		}
 	}
 	TCHAR str[128];
-	_stprintf_s(str, "벡터의 갯수 : %d", _vMonster.size());
+	_stprintf_s(str, "플레이어좌표 : %.1f, %.1f", PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	TextOut(getMemDC(), 100, 0, str, lstrlen(str));
-	RectangleMake(getMemDC(), fackpy);
 }
 
 void Cslime::addMonster(float x, float y)
@@ -786,7 +753,7 @@ void Cslime::checkPlayerXY(Cplayer* py)
 {
 	if (_viMonster->activestate != MONSTERACTIVE::FINDING) return;
 	//플레이어의 좌표를 확인후 사거리내로 들어왔다면 공격상태돌입.
-	float distance = UTIL::getDistance(_viMonster->x, _viMonster->y, fackpy.left, fackpy.top);//py->getX(), py->getY());
+	float distance = UTIL::getDistance(_viMonster->x, _viMonster->y, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	if (distance < _viMonster->range)
 	{
 		_viMonster->frameX = 0;
@@ -796,9 +763,9 @@ void Cslime::checkPlayerXY(Cplayer* py)
 		else _viMonster->activestate = MONSTERACTIVE::ATTACK;
 		_viMonster->oldactivestate = MONSTERACTIVE::NONE;
 		//목표 지점과 각 설정
-		_viMonster->targetX = fackpy.left;
-		_viMonster->targetY = fackpy.right;
-		_viMonster->angle = UTIL::getAngle(_viMonster->x, _viMonster->y, fackpy.left, fackpy.top);
+		_viMonster->targetX = PLAYER->getPlayerAddress().x;
+		_viMonster->targetY = PLAYER->getPlayerAddress().y;
+		_viMonster->angle = UTIL::getAngle(_viMonster->x, _viMonster->y, _viMonster->targetX, _viMonster->targetY);
 	}
 	//사거리내가 아니라면 랜덤무브 진입.
 	else {

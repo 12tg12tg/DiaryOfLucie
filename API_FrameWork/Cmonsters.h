@@ -3,8 +3,6 @@
 class Csnaby : public monster
 {
 private:
-	//연습용더미 - 삭제예정 커밋에서 즉시푸시
-	RECT fackpy;
 
 
 
@@ -31,8 +29,6 @@ public:
 class Cslime : public monster
 {
 private:
-	//연습용더미
-	RECT fackpy;
 
 
 

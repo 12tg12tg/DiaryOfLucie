@@ -122,6 +122,7 @@ void Cplayer::movePlayer()
 				_player.x += _speed;
 				break;
 			}
+			_player.playerRect = RectMakeCenter(_player.x, _player.y, 25, 45);
 			break;
 	//case STATE::RUN:
 
