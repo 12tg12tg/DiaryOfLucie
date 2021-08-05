@@ -62,7 +62,6 @@ struct Player
 	float x, y;
 	bool isATT;
 	int HealthPoint;
-	int count;
 };
 
 //////////////////////////전방선언영역/////////////////////////
@@ -74,14 +73,19 @@ class Cplayer : public Singleton<Cplayer>
 {
 private:
 	bool _isDebug;
+	bool _isAutoRun;
+	bool _frameswitching;
 private:
 	vector<tagDamegeFont*> _damageFont;
 private:
 	int ManaPoint;
-	int _speed;
+	int _walkspeed;
 	STATE _state;
 	Player _player;
 	DIRECTION _direction;
+
+	int _count;
+	int _index;
 
 	int _frameX;
 	int _frameY;
@@ -91,10 +95,11 @@ private:
 	int _dashIndex;
 	float _dashAngle;
 
-
 private:
 
 	image* _walk_img;
+	image* _run_img;
+
 public:
 	HRESULT init();
 	void release();
@@ -107,4 +112,7 @@ public:
 	void stateCheck();
 	void movePlayer();
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+	void setPlayerFrame();
+
+	Player& getPlayerAddress() { return _player; }
 };
