@@ -62,7 +62,6 @@ struct Player
 	float x, y;
 	bool isATT;
 	int HealthPoint;
-	int count;
 };
 
 //////////////////////////전방선언영역/////////////////////////
@@ -83,6 +82,9 @@ private:
 	Player _player;
 	DIRECTION _direction;
 
+	int _count;
+	int _index;
+
 	int _frameX;
 	int _frameY;
 	tagInputDirection _inputDirection;
@@ -94,6 +96,7 @@ private:
 private:
 
 	image* _walk_img;
+	image* _run_img;
 public:
 	HRESULT init();
 	void release();
