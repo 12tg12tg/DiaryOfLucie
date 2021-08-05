@@ -35,6 +35,8 @@ struct tagMonster
 	int height;
 	float speed;
 	int hp;
+	int attackNum;	//20210805추가 - 공격횟수카운트필요한 몬스터를 위함.
+	bool isHit;		//20210805추가 - 맞았을때 자동 추격위함
 	bool isStun;
 	bool isDeath;
 	bool afterDeath;

@@ -117,11 +117,11 @@ public:
 
 	HRESULT init();
 	void release();
-	void update(Cplayer* py, bulletManager* bm, Cmushman_mushroom* _mushroom);
+	void update(Cplayer* py, bulletManager* bm);
 	void render();
 
 	virtual void addMonster(float x, float y);
-	virtual void move(bulletManager* bm, Cmushman_mushroom* _mushroom);
+	virtual void move(bulletManager* bm);
 	virtual void checkAngle();
 	virtual void giveFrame();
 	virtual void deathCheck();
