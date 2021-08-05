@@ -13,6 +13,7 @@ struct tagBullet
 	float radius;
 	float angle;
 	float angle2;
+	float rotateangle;
 	float speed;
 	bool fire;
 	int count;
