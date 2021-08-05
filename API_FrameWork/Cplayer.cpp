@@ -108,6 +108,9 @@ void Cplayer::stateCheck()
 	}
 	else if (_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft)
 		_state = STATE::WALK;
+	if (INPUT->isStayKeyDown(VK_SPACE)) {
+
+	}
 }
 
 void Cplayer::movePlayer()
