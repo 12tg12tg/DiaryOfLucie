@@ -73,6 +73,8 @@ class Cplayer : public Singleton<Cplayer>
 {
 private:
 	bool _isDebug;
+	bool _isAutoRun;
+	bool _frameswitching;
 private:
 	vector<tagDamegeFont*> _damageFont;
 private:
@@ -97,6 +99,7 @@ private:
 
 	image* _walk_img;
 	image* _run_img;
+
 public:
 	HRESULT init();
 	void release();
