@@ -8,7 +8,7 @@ HRESULT Cplayer::init()
 	this->imageInit();
 	_player.x = WINSIZEX / 2;
 	_player.y = WINSIZEY / 2;
-	_walkspeed = 1;
+	_walkspeed = 2;
 	_player.playerRect = RectMakeCenter(_player.x, _player.y, 25, 45);
 	_direction = DIRECTION::DOWN;
 	_player.weapon = WEAPONSTATE::EMPTY;
@@ -108,8 +108,12 @@ void Cplayer::stateCheck()
 	}
 	else if (_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft)
 		_state = STATE::WALK;
-	if (INPUT->isStayKeyDown(VK_SPACE)) {
-
+	if (INPUT->isStayKeyDown(VK_SPACE))
+	{
+		if (_state == STATE::RUN || _state == STATE::WALK) {
+			_state = STATE::DASH;
+			_dashCount = 20;
+		}
 	}
 }
 
