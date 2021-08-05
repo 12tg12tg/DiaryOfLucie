@@ -7,6 +7,7 @@
 struct tagBullet
 {
 	image* bulletImage;
+	image* bulletImage2;
 	RECT rc;
 	float x, y;
 	float fireX, fireY;
@@ -17,7 +18,10 @@ struct tagBullet
 	float speed;
 	bool fire;
 	int count;
+	int plussize;
 	bool isPlayerBullet;
+	bool iscollison;
+	int alpha;
 };
 
 class CpMagicBullet : public gameNode
@@ -27,7 +31,7 @@ private:
 	vector<tagBullet> _vBullet;
 	vector<tagBullet>::iterator _viBullet;
 	float _range;
-
+	
 
 
 private:
@@ -41,7 +45,7 @@ public:
 	void update();
 	void render();
 
-	void fire(float x, float y, float angle);
+	void fire(float x, float y, float angle,int plussize);
 	void move();
 	void removeBullet(int arrNum);
 
@@ -71,7 +75,7 @@ public:
 	void update();
 	void render();
 
-	void fire(float x, float y, float angle);
+	void fire(float x, float y, float angle, int plussize);
 	void move();
 	void removeBullet(int arrNum);
 
@@ -100,7 +104,7 @@ public:
 	void update();
 	void render();
 
-	void fire(float x, float y, float angle);
+	void fire(float x, float y, float angle, int plussize);
 	void move();
 	void removeBullet(int arrNum);
 
@@ -127,7 +131,7 @@ public:
 	void update();
 	void render();
 
-	void fire(float x, float y, float angle);
+	void fire(float x, float y, float angle, int plussize);
 	void move();
 	void removeBullet(int arrNum);
 
@@ -154,7 +158,7 @@ public:
 	void update();
 	void render();
 
-	void fire(float x, float y, float angle);
+	void fire(float x, float y, float angle, int plussize);
 	void move();
 	void removeBullet(int arrNum);
 
@@ -181,7 +185,7 @@ public:
 	void update();
 	void render();
 
-	void fire(float x, float y, float angle);
+	void fire(float x, float y, float angle, int plussize);
 	void move();
 	void removeBullet(int arrNum);
 
@@ -197,6 +201,8 @@ private:
 
 	vector<tagBullet> _vBullet;
 	vector<tagBullet>::iterator _viBullet;
+
+	Cplayer* cp;
 private:
 	bool _isDebug;
 public:
@@ -208,7 +214,7 @@ public:
 	void update();
 	void render();
 
-	void fire(float x, float y, float angle);
+	void fire(float x, float y, float angle, int plussize);
 	void move();
 	void removeBullet(int arrNum);
 
@@ -235,7 +241,88 @@ public:
 	void update();
 	void render();
 
-	void fire(float x, float y, float angle);
+	void fire(float x, float y, float angle, int plussize);
+	void move();
+	void removeBullet(int arrNum);
+
+	vector<tagBullet> getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+};
+
+class CmWarningBullet : public gameNode
+{
+private:
+
+	vector<tagBullet> _vBullet;
+	vector<tagBullet>::iterator _viBullet;
+private:
+	bool _isDebug;
+public:
+	CmWarningBullet();
+	~CmWarningBullet();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+	void fire(float x, float y, float angle, int plussize);
+	void move();
+	void removeBullet(int arrNum);
+
+	vector<tagBullet> getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+};
+
+class CmNiddleBullet : public gameNode
+{
+private:
+
+	vector<tagBullet> _vBullet;
+	vector<tagBullet>::iterator _viBullet;
+private:
+	bool _isDebug;
+public:
+	CmNiddleBullet();
+	~CmNiddleBullet();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+	void fire(float x, float y, float angle, int plussize);
+	void move();
+	void removeBullet(int arrNum);
+
+	vector<tagBullet> getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+};
+
+class CmSBoss1Bullet : public gameNode
+{
+private:
+
+	vector<tagBullet> _vBullet;
+	vector<tagBullet>::iterator _viBullet;
+private:
+	bool _isDebug;
+public:
+	CmSBoss1Bullet();
+	~CmSBoss1Bullet();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+	void fire(float x, float y, float angle, int plussize);
 	void move();
 	void removeBullet(int arrNum);
 

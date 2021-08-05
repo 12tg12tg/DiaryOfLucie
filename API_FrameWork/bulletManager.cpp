@@ -19,6 +19,8 @@ HRESULT bulletManager::init()
 	_CmWideBullet = new CmWideBullet;
 	_CmHomingBullet = new CmHomingBullet;
 	_CmPoisonBullet = new CmPoisonBullet;
+	_CmWarningBullet = new CmWarningBullet;
+	_CmNiddleBullet = new CmNiddleBullet;
 	return S_OK;
 }
 
@@ -32,6 +34,8 @@ void bulletManager::release()
 	SAFE_DELETE(_CmWideBullet);
 	SAFE_DELETE(_CmHomingBullet);
 	SAFE_DELETE(_CmPoisonBullet);
+	SAFE_DELETE(_CmWarningBullet);
+	SAFE_DELETE(_CmNiddleBullet);
 }
 
 void bulletManager::update()
@@ -44,6 +48,8 @@ void bulletManager::update()
 	_CmWideBullet->update();
 	_CmHomingBullet->update();
 	_CmPoisonBullet->update();
+	_CmWarningBullet->update();
+	_CmNiddleBullet->update();
 } 
 
 void bulletManager::render()
@@ -56,4 +62,6 @@ void bulletManager::render()
 	_CmWideBullet->render();
 	_CmHomingBullet->render();
 	_CmPoisonBullet->render();
+	_CmWarningBullet->render();
+	_CmNiddleBullet->render();
 }

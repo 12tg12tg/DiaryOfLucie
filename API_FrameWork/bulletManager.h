@@ -12,7 +12,8 @@ private:
 	CmWideBullet* _CmWideBullet;
 	CmHomingBullet* _CmHomingBullet;
 	CmPoisonBullet* _CmPoisonBullet;
-	 
+	CmWarningBullet* _CmWarningBullet;
+	CmNiddleBullet* _CmNiddleBullet;
 
 private:
 	bool _isDebug;
@@ -35,6 +36,8 @@ public:
 	CmWideBullet* getWidBulInstance() { return _CmWideBullet; }
 	CmHomingBullet* getHomBulInstance() { return _CmHomingBullet; }
 	CmPoisonBullet* getPsnBulInstance() { return _CmPoisonBullet; }
+	CmWarningBullet* getwrnBulInstance() { return _CmWarningBullet; }
+	CmNiddleBullet* getnidBulInstance() { return _CmNiddleBullet; }
 
 
 
@@ -51,6 +54,8 @@ public:
 		_CmWideBullet->setIsDebug(_isDebug);
 		_CmHomingBullet->setIsDebug(_isDebug);
 		_CmPoisonBullet->setIsDebug(_isDebug);
+		_CmWarningBullet->setIsDebug(_isDebug);
+		_CmNiddleBullet->setIsDebug(_isDebug);
 	}
 };
 
