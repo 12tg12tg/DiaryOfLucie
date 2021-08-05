@@ -414,12 +414,12 @@ void CmReturnBullet::move()
 
 
 		}
-		else if ((_viBullet->count >= 100 || _viBullet->iscollison) && _viBullet->count < 200)
+		else if ((_viBullet->count >= 100 || _viBullet->iscollison) && _viBullet->count < 250)
 		{
-			float omega = 0.03;
+			float omega = 0.02;
 
-			_viBullet->x += cosf(_viBullet->angle += omega) * 4;
-			_viBullet->y -= sinf(_viBullet->angle += omega) * 4;
+			_viBullet->x += cosf(_viBullet->angle += omega) * 2;
+			_viBullet->y -= sinf(_viBullet->angle += omega) * 2;
 
 			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
 				_viBullet->bulletImage->getWidth(),
@@ -427,7 +427,7 @@ void CmReturnBullet::move()
 
 
 		}
-		else if (_viBullet->count >= 200)
+		else if (_viBullet->count >= 250)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 			continue;
@@ -571,6 +571,11 @@ void CmHomingBullet::render()
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
 		_viBullet->bulletImage->rotateRender(getMemDC(), _viBullet->rc.right - (_viBullet->rc.right - _viBullet->rc.left) / 2, _viBullet->rc.bottom - (_viBullet->rc.bottom - _viBullet->rc.top) / 2, _viBullet->angle + PI/2);
+		if (_isDebug)
+		{
+			if (_isDebug) RectangleMake(getMemDC(), _viBullet->rc);
+			_viBullet->bulletImage->rotateRender(getMemDC(), _viBullet->rc.right - (_viBullet->rc.right - _viBullet->rc.left) / 2, _viBullet->rc.bottom - (_viBullet->rc.bottom - _viBullet->rc.top) / 2, _viBullet->angle + PI / 2);
+		}
 	}
 
 }
