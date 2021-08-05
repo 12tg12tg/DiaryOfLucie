@@ -65,7 +65,7 @@ private:
 	//알파용
 	BLENDFUNCTION	_blendFunc;			//알파블렌드를 사용하기위한 정보
 	LPIMAGE_INFO	_blendImage;		//알파블렌드를 사용하기위한 이미지 정보
-
+	LPIMAGE_INFO	_rotateImage;		//회전이미지
 
 
 public:
@@ -77,7 +77,8 @@ public:
 	//프레임이지초기화
 	HRESULT init(const char* fileName, const int width, const int height, const int frameX, const int frameY, bool isTrans = false, COLORREF transColor = RGB(255, 0, 255));
 	HRESULT init(const char* fileName, const float x, const float y, const int width, const int height, const int frameX, const int frameY, bool isTrans = false, COLORREF transColor = RGB(255, 0, 255));
-
+	//회전을 위한 초기화
+	HRESULT initForRotate();
 	//투명값 셋팅
 	void setTransColor(bool isTrans, COLORREF transColor);
 	
@@ -106,7 +107,8 @@ public:
 	//애니메이션인스턴스 렌더
 	void aniRender(HDC hdc, const int destX, const int destY, animation* ani);
 
-
+	//회전 랜더
+	void rotateRender(HDC hdc, float centerX, float centerY, float angle);
 	//DC를 가져와라
 	inline HDC getMemDC()const { return _imageInfo->hMemDC; }
 

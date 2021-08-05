@@ -12,7 +12,7 @@
 5.	CmReturnBullet  /   ¸ó½ºÅÍÃÑ¾Ë
 6.	CmWideBullet	/	¸ó½ºÅÍÃÑ¾Ë
 7.	CmHomingBullet	/   ¸ó½ºÅÍÃÑ¾Ë2
-8.					/
+8.	CmPoisonBullet /	µ¶ÃÑ¾Ë				
 */
 //////////////////////////////////////////////////////////////
 /////	CpMagicBullet!	    	¸¶¹ýÃÑ¾Ë!	//////////////////
@@ -121,7 +121,7 @@ void CpArrowBullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->render(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
+		_viBullet->bulletImage->rotateRender(getMemDC(), _viBullet->rc.right - (_viBullet->rc.right - _viBullet->rc.left) / 2, _viBullet->rc.bottom - (_viBullet->rc.bottom - _viBullet->rc.top) / 2, _viBullet->rotateangle);
 	}
 }
 
@@ -132,6 +132,7 @@ void CpArrowBullet::fire(float x, float y, float angle)
 	bullet.bulletImage = new  image;
 	bullet.bulletImage = IMAGE->addImage("È­»ì", "images/bullet_bmp/PBullet_arrow.bmp", 26, 8, true);
 	bullet.angle = angle;
+	bullet.rotateangle = angle + PI/2;
 	bullet.speed = 5.0f;
 	bullet.x = bullet.fireX = x;
 	bullet.y = bullet.fireY = y;
@@ -634,7 +635,9 @@ void CmHomingBullet::removeBullet(int arrNum)
 {
 	_vBullet.erase(_vBullet.begin() + arrNum);
 }
-
+//////////////////////////////////////////////////////////////
+/////	CmPoisonBullet!	    	µ¶ÃÑ¾Ë    !	//////////////////
+//////////////////////////////////////////////////////////////
 CmPoisonBullet::CmPoisonBullet()
 {
 }
