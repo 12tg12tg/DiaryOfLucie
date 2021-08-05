@@ -121,11 +121,46 @@ void Cplayer::movePlayer()
 	case STATE::RUN:
 		speed = _walkspeed * 2;
 	case STATE::WALK:
+<<<<<<< HEAD
+			switch(_direction)
+			{
+			case UPLEFT:
+				_player.x+= cosf(DEGREE(135))*_speed;
+				_player.y-= sinf(DEGREE(135))*_speed;
+				break;
+			case UPRIGHT:
+				_player.x+= cosf(DEGREE(45))*_speed;
+				_player.y-= sinf(DEGREE(45))*_speed;
+				break;
+			case DOWNRIGHT:
+				_player.x+= cosf(DEGREE(315))*_speed;
+				_player.y-= sinf(DEGREE(315))*_speed;
+				break;
+			case DOWNLEFT:
+				_player.x+= cosf(DEGREE(225))*_speed;
+				_player.y-= sinf(DEGREE(225))*_speed;
+				break;
+			case UP:
+				_player.y -= _speed;
+				break;
+			case DOWN:
+				_player.y += _speed;
+				break;
+			case LEFT:
+				_player.x -= _speed;
+				break;
+			case RIGHT:
+				_player.x += _speed;
+				break;
+			}
+			_player.playerRect = RectMakeCenter(_player.x, _player.y, 25, 45);
+=======
 		switch (_direction)
 		{
 		case UPLEFT:
 			_player.x += cosf(DEGREE(135)) * speed;
 			_player.y -= sinf(DEGREE(135)) * speed;
+>>>>>>> 고성민의브런치(플레이어구현)
 			break;
 		case UPRIGHT:
 			_player.x += cosf(DEGREE(45)) * speed;
