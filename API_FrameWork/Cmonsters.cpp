@@ -136,7 +136,7 @@ void Csnaby::move(bulletManager* bm)
 				bm->getTriBulInstance()->fire(
 					_viMonster->x + _viMonster->img->getFrameWidth()/2,
 					_viMonster->y + _viMonster->img->getFrameHeight()/2,
-					_viMonster->angle);
+					_viMonster->angle, 0);
 			}
 		}
 		else {
@@ -485,7 +485,7 @@ void Cslime::move(bulletManager* bm)
 				bm->getTriBulInstance()->fire(
 					_viMonster->x + _viMonster->img->getFrameWidth() / 2,
 					_viMonster->y + _viMonster->img->getFrameHeight() / 2,
-					_viMonster->angle);
+					_viMonster->angle, 0);
 			}
 		}
 		else {
@@ -515,7 +515,7 @@ void Cslime::move(bulletManager* bm)
 				bm->getCirBulInstance()->fire(
 					_viMonster->x + _viMonster->img->getFrameWidth() / 2,
 					_viMonster->y + _viMonster->img->getFrameHeight() / 2,
-					_viMonster->angle);
+					_viMonster->angle, 0);
 			}
 		}
 		else {
@@ -1275,7 +1275,7 @@ void Cmushman_mushroom::move(bulletManager* bm)
 	case MONSTERACTIVE::ATTACK:
 		bm->getHomBulInstance()->fire(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
 			_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
-			_viMonster->angle);
+			_viMonster->angle, 0);
 		_viMonster->activestate = MONSTERACTIVE::NONE;
 		break;
 	case MONSTERACTIVE::ATTACK2:
@@ -1284,12 +1284,12 @@ void Cmushman_mushroom::move(bulletManager* bm)
 			if (snum == 0) {
 				bm->getCirBulInstance()->fire(_viMonster->rc.left + (_viMonster->rc.right- _viMonster->rc.left)/2,
 					_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
-					_viMonster->angle);
+					_viMonster->angle, 0);
 			}
 			else {
 				bm->getPsnBulInstance()->fire(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
 					_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
-					_viMonster->angle);
+					_viMonster->angle, 0);
 			}
 			_viMonster->afterDeath = true;
 		}
@@ -1541,7 +1541,7 @@ void Cfairy::move(bulletManager* bm)
 				bm->getWidBulInstance()->fire(
 					_viMonster->x + _viMonster->img->getFrameWidth() / 2,
 					_viMonster->y + _viMonster->img->getFrameHeight() / 2,
-					_viMonster->angle);
+					_viMonster->angle, 0);
 			}
 		}
 		else {
@@ -1558,7 +1558,7 @@ void Cfairy::move(bulletManager* bm)
 				bm->getRtnBulInstance()->fire(
 					_viMonster->x + _viMonster->img->getFrameWidth() / 2,
 					_viMonster->y + _viMonster->img->getFrameHeight() / 2,
-					_viMonster->angle);
+					_viMonster->angle, 0);
 			}
 		}
 		else {

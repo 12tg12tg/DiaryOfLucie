@@ -213,8 +213,9 @@ void CmTripleBullet::fire(float x, float y, float angle, int plussize)
 	for (int i = 0; i < 3; i++)
 	{
 		ZeroMemory(&bullet, sizeof(tagBullet));
+		bullet.plussize = plussize;
 		bullet.bulletImage = new  image;
-		bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 12 + plussize, 12 + plussize, true);
+		bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 12 + bullet.plussize, 12 + bullet.plussize, true);
 		bullet.angle = angle - 0.2 + 0.2 * i;
 		bullet.speed = 5.0f;
 		bullet.x = bullet.fireX = x;
@@ -569,7 +570,7 @@ void CmHomingBullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->rotateRender(getMemDC(), _viBullet->rc.right - (_viBullet->rc.right - _viBullet->rc.left) / 2, _viBullet->rc.bottom - (_viBullet->rc.bottom - _viBullet->rc.top) / 2, _viBullet->rotateangle);
+		_viBullet->bulletImage->rotateRender(getMemDC(), _viBullet->rc.right - (_viBullet->rc.right - _viBullet->rc.left) / 2, _viBullet->rc.bottom - (_viBullet->rc.bottom - _viBullet->rc.top) / 2, _viBullet->angle + PI/2);
 	}
 
 }
@@ -581,7 +582,8 @@ void CmHomingBullet::fire(float x, float y, float angle, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë2", "images/bullet_bmp/MBullet_squar.bmp", 12 + plussize,21 + plussize, true);
+	
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë2", "images/bullet_bmp/MBullet_squar.bmp", 12 +plussize,21 +plussize, true);
 	bullet.angle = angle;
 	bullet.rotateangle = angle + PI / 2;
 	bullet.speed = 5.0f;
@@ -618,7 +620,7 @@ void CmHomingBullet::move()
 		}
 		else if (_viBullet->count >= 100 && _viBullet->count < 110)
 		{
-			_viBullet->angle = UTIL::getAngle(_viBullet->fireX, _viBullet->fireY, cp->getPlayerAddress().x, cp->getPlayerAddress().y);
+			_viBullet->angle = UTIL::getAngle(_viBullet->fireX, _viBullet->fireY, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 			_viBullet->x += cosf(_viBullet->angle) * 4;
 			_viBullet->y -= sinf(_viBullet->angle) * 4;
 			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,

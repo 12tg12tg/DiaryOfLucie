@@ -202,7 +202,6 @@ private:
 	vector<tagBullet> _vBullet;
 	vector<tagBullet>::iterator _viBullet;
 
-	Cplayer* cp;
 private:
 	bool _isDebug;
 public:
