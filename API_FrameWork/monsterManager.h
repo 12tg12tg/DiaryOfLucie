@@ -14,6 +14,7 @@ private:
 	Cmushman* _mushman;
 	Cmushman_mushroom* _mushman_mushroom;
 	Cfairy* _fairy;
+	Cflime* _flime;
 
 
 private:
@@ -36,6 +37,7 @@ public:
 		_mushman->setIsDebug(_isDebug);
 		_mushman_mushroom->setIsDebug(_isDebug);
 		_fairy->setIsDebug(_isDebug);
+		_flime->setIsDebug(_isDebug);
 		
 	}
 };

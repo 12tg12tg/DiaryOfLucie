@@ -129,3 +129,30 @@ public:
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
 };
+//////////////////////////////////////////////////////////////
+class Cflime : public monster
+{
+private:
+
+
+
+
+public:
+	Cflime();
+	~Cflime();
+
+	HRESULT init();
+	void release();
+	void update(Cplayer* py, bulletManager* bm);
+	void render();
+
+	virtual void addMonster(float x, float y);
+	virtual void move(bulletManager* bm);
+	//virtual void checkAngle();
+	virtual void giveFrame();
+	//virtual void deathCheck();
+	virtual void knockback(float x, float y, bool stun = false);
+	virtual void stuncheck();
+	virtual void checkPlayerXY(Cplayer* py);
+};
+
