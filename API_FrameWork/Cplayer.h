@@ -13,8 +13,8 @@ enum class STATE {
 	DASH,
 	ATTSTAFF,
 	STAFFCHARGE,
-	PLAYERTALK,
-	PLAYER_DIE
+	TALK,
+	DIE
 };
 
 enum class WEAPONSTATE{
@@ -57,17 +57,13 @@ struct Player
 {
 	RECT playerRect;
 	PLACE _place;
-	tagAttackBox AttackBox;
 	WEAPONSTATE weapon;
+	tagAttackBox AttackBox;
 	float x, y;
 	bool isATT;
 	int HealthPoint;
+	int ManaPoint;
 };
-
-//////////////////////////전방선언영역/////////////////////////
-
-
-//////////////////////////////////////////////////////////////
 
 class Cplayer : public Singleton<Cplayer>
 {
@@ -78,11 +74,10 @@ private:
 private:
 	vector<tagDamegeFont*> _damageFont;
 private:
-	int ManaPoint;
-	int _walkspeed;
-	STATE _state;
+	float _walkspeed;
 	Player _player;
 	DIRECTION _direction;
+	STATE _state;
 
 	int _count;
 	int _index;
@@ -99,6 +94,7 @@ private:
 
 	image* _walk_img;
 	image* _run_img;
+	image* _dash_img;
 
 public:
 	HRESULT init();
@@ -113,6 +109,7 @@ public:
 	void movePlayer();
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	void setPlayerFrame();
+	void angleCheckDirection(float angle);
 
 	Player& getPlayerAddress() { return _player; }
 };
