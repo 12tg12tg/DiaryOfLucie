@@ -16,6 +16,7 @@ struct tagBullet
 	float angle2;
 	float rotateangle;
 	float speed;
+	float speed2;
 	bool fire;
 	int count;
 	int plussize;
@@ -147,6 +148,10 @@ private:
 
 	vector<tagBullet> _vBullet;
 	vector<tagBullet>::iterator _viBullet;
+
+	vector<tagBullet> _vBullet2;
+	vector<tagBullet>::iterator _viBullet2;
+
 private:
 	bool _isDebug;
 public:
@@ -159,11 +164,18 @@ public:
 	void render();
 
 	void fire(float x, float y, float angle, int plussize);
+	void fire2(float x, float y, float angle, int plussize);
 	void move();
+	void move2();
 	void removeBullet(int arrNum);
+	void removeBullet2(int arrNum);
 
 	vector<tagBullet> getVBullet() { return _vBullet; }
 	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	
+	vector<tagBullet> getVBullet2() { return _vBullet2; }
+	vector<tagBullet>::iterator getVIBullet2() { return _viBullet2; }
+
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
@@ -176,6 +188,7 @@ private:
 	vector<tagBullet>::iterator _viBullet;
 private:
 	bool _isDebug;
+	int Maxi = 13;
 public:
 	CmWideBullet();
 	~CmWideBullet();
@@ -283,6 +296,10 @@ private:
 
 	vector<tagBullet> _vBullet;
 	vector<tagBullet>::iterator _viBullet;
+
+	vector<tagBullet> _vBullet2;
+	vector<tagBullet>::iterator _viBullet2;
+
 private:
 	bool _isDebug;
 public:
@@ -295,11 +312,17 @@ public:
 	void render();
 
 	void fire(float x, float y, float angle, int plussize);
+	void fire2(float x, float y, float angle, int plussize);
 	void move();
+	void move2();
 	void removeBullet(int arrNum);
+	void removeBullet2(int arrNum);
 
 	vector<tagBullet> getVBullet() { return _vBullet; }
 	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+
+	vector<tagBullet> getVBullet2() { return _vBullet2; }
+	vector<tagBullet>::iterator getVIBullet2() { return _viBullet2; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
@@ -310,6 +333,9 @@ private:
 
 	vector<tagBullet> _vBullet;
 	vector<tagBullet>::iterator _viBullet;
+
+	vector<tagBullet> _vBullet2;
+	vector<tagBullet>::iterator _viBullet2;
 private:
 	bool _isDebug;
 public:
@@ -322,11 +348,50 @@ public:
 	void render();
 
 	void fire(float x, float y, float angle, int plussize);
+	void fire2(float x, float y, float angle, int plussize);
 	void move();
+	void move2();
 	void removeBullet(int arrNum);
+	void removeBullet2(int arrNum);
 
 	vector<tagBullet> getVBullet() { return _vBullet; }
 	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
 
+	vector<tagBullet> getVBullet2() { return _vBullet2; }
+	vector<tagBullet>::iterator getVIBullet2() { return _viBullet2; }
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+};
+class CmFBoss1Bullet : public gameNode
+{
+private:
+
+	vector<tagBullet> _vBullet;
+	vector<tagBullet>::iterator _viBullet;
+
+	vector<tagBullet> _vBullet2;
+	vector<tagBullet>::iterator _viBullet2;
+private:
+	bool _isDebug;
+public:
+	CmFBoss1Bullet();
+	~CmFBoss1Bullet();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+	void fire(float x, float y, float angle, int plussize);
+	void fire2(float x, float y, float angle, int plussize);
+	void move();
+	void move2();
+	void removeBullet(int arrNum);
+	void removeBullet2(int arrNum);
+
+	vector<tagBullet> getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+
+	vector<tagBullet> getVBullet2() { return _vBullet2; }
+	vector<tagBullet>::iterator getVIBullet2() { return _viBullet2; }
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };

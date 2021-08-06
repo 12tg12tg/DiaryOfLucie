@@ -79,6 +79,7 @@ using namespace std;
 #define SAFE_DELETE(p) {if(p) {delete p; (p) = nullptr;}}
 #define SAFE_DELETE_ARRAY(p)	{if(p) {delete[] (p); (p) = NULL;}}
 
+
 //===============================================//
 //	전역변수 (인스턴스, 윈도우 핸들, 마우스 좌표)	//
 //=============================================//

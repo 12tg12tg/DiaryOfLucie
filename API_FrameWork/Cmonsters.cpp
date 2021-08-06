@@ -485,7 +485,7 @@ void Cslime::move(bulletManager* bm)
 				bm->getTriBulInstance()->fire(
 					_viMonster->x + _viMonster->img->getFrameWidth() / 2,
 					_viMonster->y + _viMonster->img->getFrameHeight() / 2,
-					_viMonster->angle, 0);
+					_viMonster->angle, 10);
 			}
 		}
 		else {

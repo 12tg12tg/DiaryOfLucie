@@ -331,6 +331,14 @@ HRESULT image::initForRotate()
 	_rotateImage->width = size;
 	_rotateImage->height = size;
 
+
+	//리소스를 얻어오는데 실패하면
+	if (_imageInfo->hBit == NULL)
+	{
+		release();
+		return E_FAIL;
+	}
+
 	ReleaseDC(m_hWnd, hdc);
 
 	return S_OK;
@@ -434,7 +442,30 @@ void image::render(HDC hdc, const int destX, const int destY)
 			_imageInfo->hMemDC, 0, 0, SRCCOPY);
 	}
 }
-
+void image::render(HDC hdc, const int destX, const int destY, int plusSize)
+{
+	if (_isTrans)
+	{
+		//Gdi가 비트맵파일을 불러올때 특정 색상을 제외하고 복사해주는 함수.
+		GdiTransparentBlt(
+			hdc,						//복사될 장소의 DC
+			destX,							//복사될 좌표의 시작점x
+			destY,							//복사될 좌표의 시작점y
+			_imageInfo->width + plusSize,			//복사될 이미지의 가로크기
+			_imageInfo->height + plusSize,			//복사될 이미지의 세로크기
+			_imageInfo->hMemDC,			//복사될 대상 DC
+			0,							//복사 시작 지점의 x
+			0,							//복사 시작 지점의 y
+			_imageInfo->width,			//복사영역 가로 크기
+			_imageInfo->height,			//복사영역 세로 크기
+			_transColor);
+	}
+	else {
+		//BitBlt : DC영역끼리 고속 복사.
+		BitBlt(hdc, destX, destY, _imageInfo->width + plusSize, _imageInfo->height + plusSize,
+			_imageInfo->hMemDC, 0, 0, SRCCOPY);
+	}
+}
 void image::render(HDC hdc, const int destX, const int destY, const int sourX, const int sourY, const int sourWidth, const int sourheight)
 {
 	if (_isTrans)

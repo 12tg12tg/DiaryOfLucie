@@ -43,6 +43,7 @@ inline void RectangleMakeCenter(HDC hdc, int x, int y, int width, int height)
 	Rectangle(hdc, x - (width / 2), y - (height / 2), x + (width / 2), y + (height / 2));
 }
 
+
 //원그리기
 inline void EllipseMake(HDC hdc, int x, int y, int width, int height)
 {
