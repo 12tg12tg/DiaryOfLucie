@@ -384,9 +384,9 @@ public:
 	void update();
 	void render();
 
-	void fire(float x, float y, float angle, int plussize);
-	void fire2(float x, float y, float angle, int plussize);
-	void fire3(float x, float y, float angle, int plussize);
+	void fire(float x, float y, bool isleft, int plussize);
+	void fire2(float x, float y, int plussize);
+	void fire3(float x, float y, int plussize);
 	void move();
 	void move2();
 	void move3();
@@ -426,12 +426,11 @@ public:
 	void update();
 	void render();
 
-	void fire(float x, float y, float angle, int plussize);
-	void fire2(float x, float y, float angle, int plussize);
+	void fire(float x, float y, int maxSize);
+	void fire2(float x, float y,int plussize);
 
 	void move();
 	void move2();
-	void move3();
 	void removeBullet(int arrNum);
 	void removeBullet2(int arrNum);
 
@@ -467,7 +466,7 @@ public:
 	void update();
 	void render();
 
-	void fire(float x, float y, float angle, int plussize);
+	void fire(float x, float y, int plussize);
 	
 	void move();
 	void removeBullet(int arrNum);
