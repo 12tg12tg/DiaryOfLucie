@@ -5,7 +5,6 @@ enum class PLACE {
 	ROOM,
 	DUNGEON
 };
-
 enum class STATE {
 	IDLE,
 	WALK,
@@ -16,24 +15,20 @@ enum class STATE {
 	TALK,
 	DIE
 };
-
-enum class WEAPONSTATE{
+enum class WEAPONTYPE{
 	EMPTY,
 	SWORD,
 	BOW,
 	STAFF
 };
-
 struct tagAttackBox {
 	RECT rc;
 	bool isHit;
 };
-
 struct tagDamegeFont {
 	int damage;
 	bool isActivate;
 };
-
 enum DIRECTION
 {
 	UPLEFT=0,
@@ -45,25 +40,33 @@ enum DIRECTION
 	DOWNLEFT,
 	LEFT
 };
-
 struct tagInputDirection {
 	bool isRight;
 	bool isDown;
 	bool isLeft;
 	bool isUp;
 };
-
 struct Player
 {
 	RECT playerRect;
 	PLACE _place;
-	WEAPONSTATE weapon;
+	WEAPONTYPE weapon;
 	tagAttackBox AttackBox;
 	float x, y;
 	bool isATT;
 	int HealthPoint;
 	int ManaPoint;
 };
+
+struct DashEffect {
+	image* dashEffect;
+	int x, y;
+	int dashFrameX;
+	DIRECTION direction;
+	int dashAlpha;
+};
+
+/////////////////////////////////////////////////////////
 
 class Cplayer : public Singleton<Cplayer>
 {
@@ -76,7 +79,9 @@ private:
 private:
 	float _walkspeed;
 	Player _player;
+	tagInputDirection _inputDirection;
 	DIRECTION _direction;
+	DIRECTION _moveDirection;
 	STATE _state;
 
 	int _count;
@@ -84,17 +89,22 @@ private:
 
 	int _frameX;
 	int _frameY;
-	tagInputDirection _inputDirection;
 
 	int _dashCount;
 	int _dashIndex;
 	float _dashAngle;
+	int _attCount;
+	int _attIndex;
+	float _attAngle;
 
 private:
 
 	image* _walk_img;
 	image* _run_img;
 	image* _dash_img;
+	image* _attstaff_img;
+	vector<DashEffect> _vectDashEffect;
+	vector<DashEffect>::iterator _iterDashEffect;
 
 public:
 	HRESULT init();
@@ -104,12 +114,15 @@ public:
 
 	void imageInit();
 	void inputCheck();
-	void directionCheck();
+	void inputDirectionCheck();
 	void stateCheck();
 	void movePlayer();
-	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	void setPlayerFrame();
 	void angleCheckDirection(float angle);
 
+	void pushbackDashEffect(int x,int y, int FrameX,DIRECTION direction);
+	void renderDashEffecct(HDC hdc);
+
 	Player& getPlayerAddress() { return _player; }
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
