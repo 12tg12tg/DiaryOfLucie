@@ -150,11 +150,11 @@
     <ClInclude Include="Cmonsters.h">
       <Filter>DOL\monsters</Filter>
     </ClInclude>
-    <ClInclude Include="Cbullets.h">
-      <Filter>DOL\bullet</Filter>
-    </ClInclude>
     <ClInclude Include="monster.h">
       <Filter>DOL\monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="Cbullets.h">
+      <Filter>DOL\bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

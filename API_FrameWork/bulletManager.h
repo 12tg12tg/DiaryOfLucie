@@ -18,6 +18,9 @@ private:
 	CmFBoss1Bullet* _CmFBoss1Bullet;
 	CmFBoss2Bullet* _CmFBoss2Bullet;
 	CmFBoss3Bullet* _CmFBoss3Bullet;
+	CmTBoss1Bullet* _CmTBoss1Bullet;
+	CmTBoss2Bullet* _CmTBoss2Bullet;
+	CmTBoss3Bullet* _CmTBoss3Bullet;
 
 private:
 	bool _isDebug;
@@ -46,6 +49,9 @@ public:
 	CmFBoss1Bullet* getFlwBos1Bullnstance() { return _CmFBoss1Bullet; }
 	CmFBoss2Bullet* getFlwBos2Bullnstance() { return _CmFBoss2Bullet; }
 	CmFBoss3Bullet* getFlwBos3Bullnstance() { return _CmFBoss3Bullet; }
+	CmTBoss1Bullet* getTreBos1Bullnstance() { return _CmTBoss1Bullet; }
+	CmTBoss2Bullet* getTreBos2Bullnstance() { return _CmTBoss2Bullet; }
+	CmTBoss3Bullet* getTreBos3Bullnstance() { return _CmTBoss3Bullet; }
 
 
 
@@ -66,6 +72,9 @@ public:
 		_CmFBoss1Bullet->setIsDebug(_isDebug);
 		_CmFBoss2Bullet->setIsDebug(_isDebug);
 		_CmFBoss3Bullet->setIsDebug(_isDebug);
+		_CmTBoss1Bullet->setIsDebug(_isDebug);
+		_CmTBoss2Bullet->setIsDebug(_isDebug);
+		_CmTBoss3Bullet->setIsDebug(_isDebug);
 	}
 };
 

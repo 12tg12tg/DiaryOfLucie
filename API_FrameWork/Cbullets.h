@@ -21,6 +21,7 @@ struct tagBullet
 	float speed2;
 	bool fire;
 	int count;
+	int rendercount;
 	int plussize;
 	bool isPlayerBullet;
 	bool iscollison;
@@ -477,6 +478,85 @@ public:
 	vector<tagBullet> getVBullet2() { return _vBullet2; }
 	vector<tagBullet>::iterator getVIBullet2() { return _viBullet2; }
 
+
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+};
+class CmTBoss1Bullet : public gameNode
+{
+private:
+
+	vector<tagBullet> _vBullet;
+	vector<tagBullet>::iterator _viBullet;
+private:
+	bool _isDebug;
+public:
+	CmTBoss1Bullet();
+	~CmTBoss1Bullet();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+	void fire(float x, float y, float angle, bool isLeft, int plussize);
+	void move();
+	void removeBullet(int arrNum);
+
+	vector<tagBullet> getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+};
+
+class CmTBoss2Bullet : public gameNode
+{
+private:
+
+	vector<tagBullet> _vBullet;
+	vector<tagBullet>::iterator _viBullet;
+private:
+	bool _isDebug;
+public:
+	CmTBoss2Bullet();
+	~CmTBoss2Bullet();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+	void fire(float x, float y, float angle, bool isLeft, int plussize);
+	void move();
+	void removeBullet(int arrNum);
+
+	vector<tagBullet> getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+};
+class CmTBoss3Bullet : public gameNode
+{
+private:
+
+	vector<tagBullet> _vBullet;
+	vector<tagBullet>::iterator _viBullet;
+private:
+	bool _isDebug;
+public:
+	CmTBoss3Bullet();
+	~CmTBoss3Bullet();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+	void fire(float x, float y, float angle, bool isLeft, int plussize);
+	void move();
+	void removeBullet(int arrNum);
+
+	vector<tagBullet> getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };

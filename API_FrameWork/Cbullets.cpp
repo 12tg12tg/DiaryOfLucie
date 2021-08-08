@@ -19,7 +19,10 @@
 10.	CmSBoss1Bullet  /	¹öºí , ¸ó½ºÅÍÃÑ¾Ë
 11.	CmFBoss1Bullet  /    Åõ¸í,°¡½Ã,°æ°í
 12. CmFBoss2Bullet	/	°¡½Ã,°æ°í
-12. CmFBoss3Bullet	/	¸ó½ºÅÍÃÑ¾Ë
+13. CmFBoss3Bullet	/	¸ó½ºÅÍÃÑ¾Ë
+14. CmTBoss1Bullet	/	ºê·¹½º
+15. CmTBoss2Bullet	/	³ª¹«º¸½ºÃÑ¾Ë
+15. CmTBoss3Bullet	/	¸ó½ºÅÍÃÑ¾Ë
 */
 //////////////////////////////////////////////////////////////
 /////	CpMagicBullet!	    	¸¶¹ýÃÑ¾Ë!	//////////////////
@@ -635,7 +638,6 @@ void CmHomingBullet::render()
 		{
 		
 			if (_isDebug) RectangleMake(getMemDC(), _viBullet->rc);
-			_viBullet->bulletImage->rotateRender(getMemDC(), _viBullet->rc.right - (_viBullet->rc.right - _viBullet->rc.left) / 2, _viBullet->rc.bottom - (_viBullet->rc.bottom - _viBullet->rc.top) / 2, _viBullet->angle + PI / 2);
 		}
 	}
 
@@ -1614,7 +1616,7 @@ void CmFBoss2Bullet::move()
 		}
 		else if (_viBullet->count == 80)
 		{
-			fire2(_viBullet->fireX, _viBullet->fireY, 0, 0);
+			fire2(_viBullet->fireX, _viBullet->fireY, 0);
 			_viBullet = _vBullet.erase(_viBullet);
 			continue;
 		}
@@ -1702,7 +1704,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	tagBullet bullet;
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = 0.01;
 	bullet.angle = 0;
 	bullet.speed = 2;
@@ -1718,7 +1720,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = 0.01;
 	bullet.angle = 0 + 1.046;
 	bullet.speed = 2;
@@ -1734,7 +1736,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = 0.01;
 	bullet.angle = 2.092;
 	bullet.speed = 2;
@@ -1750,7 +1752,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = 0.01;
 	bullet.angle = 3.138;
 	bullet.speed = 2;
@@ -1766,7 +1768,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = 0.01;
 	bullet.angle = 4.184;
 	bullet.speed = 2;
@@ -1782,7 +1784,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = 0.01;
 	bullet.angle = 5.23;
 	bullet.speed = 2;
@@ -1798,7 +1800,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = 0.01;
 	bullet.angle = 0;
 	bullet.speed = 2;
@@ -1814,7 +1816,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = 0.01;
 	bullet.angle = 0 + 1.046;
 	bullet.speed = 2;
@@ -1830,7 +1832,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = 0.01;
 	bullet.angle = 2.092;
 	bullet.speed = 2;
@@ -1846,7 +1848,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = 0.01;
 	bullet.angle = 3.138;
 	bullet.speed = 2;
@@ -1862,7 +1864,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = 0.01;
 	bullet.angle = 4.184;
 	bullet.speed = 2;
@@ -1878,7 +1880,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = 0.01;
 	bullet.angle = 5.23;
 	bullet.speed = 2;
@@ -1894,7 +1896,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = -0.01;
 	bullet.angle = 0;
 	bullet.speed = 2;
@@ -1910,7 +1912,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = -0.01;
 	bullet.angle = 0 + 1.046;
 	bullet.speed = 2;
@@ -1926,7 +1928,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = -0.01;
 	bullet.angle = 2.092;
 	bullet.speed = 2;
@@ -1942,7 +1944,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = -0.01;
 	bullet.angle = 3.138;
 	bullet.speed = 2;
@@ -1958,7 +1960,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = -0.01;
 	bullet.angle = 4.184;
 	bullet.speed = 2;
@@ -1974,7 +1976,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet1.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
 	bullet.omega = -0.01;
 	bullet.angle = 5.23;
 	bullet.speed = 2;
@@ -2021,6 +2023,302 @@ void CmFBoss3Bullet::move()
 }
 
 void CmFBoss3Bullet::removeBullet(int arrNum)
+{
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}
+//////////////////////////////////////////////////////////////
+/////	CmTBoss1Bullet!		 ºê·¹½º	       !//////////////////
+//////////////////////////////////////////////////////////////
+CmTBoss1Bullet::CmTBoss1Bullet()
+{
+}
+
+CmTBoss1Bullet::~CmTBoss1Bullet()
+{
+}
+
+HRESULT CmTBoss1Bullet::init()
+{
+	return S_OK;
+}
+
+void CmTBoss1Bullet::release()
+{
+}
+
+void CmTBoss1Bullet::update()
+{
+	move();
+}
+
+void CmTBoss1Bullet::render()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		_viBullet->bulletImage->alphaRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->alpha);
+	}
+}
+
+void CmTBoss1Bullet::fire(float x, float y, float angle, bool isLeft, int plussize)
+{
+	tagBullet bullet;
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("³ª¹«ºê·¹½º", "images/bullet_bmp/entskill.bmp", 96, 98, true, RGB(255, 0, 255));
+	if (isLeft)
+	{
+		bullet.omega = 0.005;
+	}
+	else
+	{
+		bullet.omega = -0.005;
+	}
+	bullet.angle = angle;
+	bullet.speed = 4;
+	bullet.x = bullet.fireX = x;
+	bullet.y = bullet.fireY = y;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+}
+
+void CmTBoss1Bullet::move()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end();)
+	{
+		_viBullet->count++;
+		if (_vBullet.size() == 0)
+		{
+			_viBullet->count = 0;
+		}
+		if (_viBullet->count >= 0 && _viBullet->count < 300 && !(_viBullet->iscollison))
+		{
+			_viBullet->x -= cosf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
+			_viBullet->y += sinf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+		}
+		else if (_viBullet->count >= 300 || _viBullet->iscollison)
+		{
+			_viBullet = _vBullet.erase(_viBullet);
+			continue;
+		}
+		++_viBullet;
+	}
+}
+
+void CmTBoss1Bullet::removeBullet(int arrNum)
+{
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}
+//////////////////////////////////////////////////////////////
+/////	CmTBoss2Bullet!		³ª¹«º¸½ºÃÑ¾Ë   !//////////////////
+//////////////////////////////////////////////////////////////
+CmTBoss2Bullet::CmTBoss2Bullet()
+{
+}
+
+CmTBoss2Bullet::~CmTBoss2Bullet()
+{
+}
+
+HRESULT CmTBoss2Bullet::init()
+{
+	return S_OK;
+}
+
+void CmTBoss2Bullet::release()
+{
+}
+
+void CmTBoss2Bullet::update()
+{
+	move();
+}
+
+void CmTBoss2Bullet::render()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		_viBullet->bulletImage->frameRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->bulletImage->getFrameX(), 0);
+		_viBullet->rendercount++;
+
+		if (_viBullet->rendercount % 10 == 0)
+		{
+			_viBullet->bulletImage->setFrameX(_viBullet->bulletImage->getFrameX() + 1);
+
+
+			if (_viBullet->bulletImage->getFrameX() >= _viBullet->bulletImage->getMaxFrameX())
+			{
+				_viBullet->bulletImage->setFrameX(0);
+			}
+			_viBullet->rendercount = 0;
+		}
+	}
+}
+
+void CmTBoss2Bullet::fire(float x, float y, float angle, bool isLeft, int plussize)
+{
+	tagBullet bullet;
+	for (int i = 0; i < 3; i++)
+	{
+		ZeroMemory(&bullet, sizeof(tagBullet));
+		bullet.bulletImage = new  image;
+		bullet.bulletImage = IMAGE->addFrameImage("³ª¹«º¸½ºÃÑ¾Ë", "images/bullet_bmp/TBossBullet.bmp", 200, 24, 8, 1, true, RGB(255, 0, 255));
+		if (isLeft)
+		{
+			bullet.omega = 0.0005;
+		}
+		bullet.angle = angle - 0.2 + 0.2 * i;
+		bullet.speed = 4;
+		bullet.x = bullet.fireX = x;
+		bullet.y = bullet.fireY = y;
+		bullet.fire = false;
+		bullet.alpha = 160;
+		bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+			bullet.bulletImage->getFrameWidth(),
+			bullet.bulletImage->getFrameHeight());
+		bullet.rendercount = 0;
+		bullet.count = 0;
+		_vBullet.push_back(bullet);
+	}
+}
+
+void CmTBoss2Bullet::move()
+{
+	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end();)
+	{
+		_viBullet->x += cosf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
+		_viBullet->y -= sinf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
+
+		_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+			_viBullet->bulletImage->getFrameWidth(),
+			_viBullet->bulletImage->getFrameHeight());
+
+		if (_viBullet->x < 0 || _viBullet->x > WINSIZEX || _viBullet->y <0 || _viBullet->y > WINSIZEY)
+		{
+			_viBullet = _vBullet.erase(_viBullet);
+		}
+		else ++_viBullet;
+
+	}
+}
+
+void CmTBoss2Bullet::removeBullet(int arrNum)
+{
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}
+
+CmTBoss3Bullet::CmTBoss3Bullet()
+{
+}
+
+CmTBoss3Bullet::~CmTBoss3Bullet()
+{
+}
+
+HRESULT CmTBoss3Bullet::init()
+{
+	return S_OK;
+}
+
+void CmTBoss3Bullet::release()
+{
+}
+
+void CmTBoss3Bullet::update()
+{
+	move();
+}
+
+void CmTBoss3Bullet::render()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		_viBullet->bulletImage->render(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
+	}
+}
+
+void CmTBoss3Bullet::fire(float x, float y, float angle, bool isLeft, int plussize)
+{
+	tagBullet bullet;
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.angle = angle;
+	bullet.angle2 = PI / 2 / 2 * RND->getFromInTo(0, 16);
+	bullet.rotateangle = angle + PI / 2;
+	bullet.speed = 5.0f;
+	bullet.x = bullet.fireX = x;
+	bullet.y = bullet.fireY = y;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+}
+
+void CmTBoss3Bullet::move()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end();)
+	{
+		_viBullet->count++;
+		if (_vBullet.size() == 0)
+		{
+			_viBullet->count = 0;
+		}
+		if (_viBullet->count < 100)
+		{
+
+			_viBullet->x += cosf(_viBullet->angle2) * 0.5;
+			_viBullet->y -= sinf(_viBullet->angle2) * 0.5;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+			_viBullet->fireX = _viBullet->x;
+			_viBullet->fireY = _viBullet->y;
+
+		}
+		else if (_viBullet->count >= 100 && _viBullet->count < 110)
+		{
+			_viBullet->angle = UTIL::getAngle(_viBullet->fireX, _viBullet->fireY, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+			_viBullet->x += cosf(_viBullet->angle) * 4;
+			_viBullet->y -= sinf(_viBullet->angle) * 4;
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+		}
+		else if (_viBullet->count >= 110)
+		{
+			_viBullet->x += cosf(_viBullet->angle) * 4;
+			_viBullet->y -= sinf(_viBullet->angle) * 4;
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+		}
+
+		if (_viBullet->x < 0 || _viBullet->x > WINSIZEX || _viBullet->y <0 || _viBullet->y > WINSIZEY)
+		{
+			_viBullet = _vBullet.erase(_viBullet);
+		}
+		else ++_viBullet;
+	}
+}
+
+void CmTBoss3Bullet::removeBullet(int arrNum)
 {
 	_vBullet.erase(_vBullet.begin() + arrNum);
 }
