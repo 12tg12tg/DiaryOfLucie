@@ -1,9 +1,6 @@
 #pragma once
 #include"gameNode.h"
 
-class OBBCollision
-{
-public:
 struct VECTOR {
 	double x, y;
 };
@@ -11,6 +8,9 @@ struct VECTOR {
 struct SHAPE { //define shape
 	double top, left, height, width, rot;
 };
+
+class OBBCollision
+{
 	VECTOR addVector(VECTOR a, VECTOR b)//vector plus
 	{
 		VECTOR ret;
@@ -53,7 +53,7 @@ struct SHAPE { //define shape
 		ret.y = a.y / size;
 		return ret;
 	}
-
+public:
 	bool OBB(SHAPE a, SHAPE b);
 	
 };

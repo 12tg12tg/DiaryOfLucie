@@ -166,7 +166,18 @@ void collisionManager::bulletToplayer()
     }
     for (int i = 0; i < bm->getHomBulInstance()->getVBullet().size(); i++)
     {
-       
+        a.top = bm->getHomBulInstance()->getVBullet()[i].rc.top;
+        a.left = bm->getHomBulInstance()->getVBullet()[i].rc.left;
+        a.width = bm->getHomBulInstance()->getVBullet()[i].rc.right - (bm->getHomBulInstance()->getVBullet()[i].rc.top- bm->getHomBulInstance()->getVBullet()[i].rc.left);
+        a.height = bm->getHomBulInstance()->getVBullet()[i].rc.bottom - (bm->getHomBulInstance()->getVBullet()[i].rc.bottom - bm->getHomBulInstance()->getVBullet()[i].rc.left);
+        a.rot = bm->getHomBulInstance()->getVBullet()[i].rotateangle;
+
+        b.top = PLAYER->getPlayerAddress().playerRect.top;
+        b.left = PLAYER->getPlayerAddress().playerRect.left;
+        b.width = PLAYER->getPlayerAddress().playerRect.right - (PLAYER->getPlayerAddress().playerRect.right - PLAYER->getPlayerAddress().playerRect.left) / 2;
+        b.height = PLAYER->getPlayerAddress().playerRect.bottom - (PLAYER->getPlayerAddress().playerRect.bottom - PLAYER->getPlayerAddress().playerRect.top) / 2;
+        b.rot = 0;
+        obb->OBB(a, b);
         
     }
 
