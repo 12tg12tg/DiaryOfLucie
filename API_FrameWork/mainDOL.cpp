@@ -53,8 +53,8 @@ void mainDOL::release()
 void mainDOL::update()
 {
 	_bm->update();
-	_cm->update();
 	_mm->update();
+	_cm->update();
 
 	PLAYER->update();
 
@@ -67,8 +67,8 @@ void mainDOL::update()
 void mainDOL::render()
 {
 	_bm->render();
-	_cm->render();
 	_mm->render();
+	_cm->render();
 
 	PLAYER->render(getMemDC());
 

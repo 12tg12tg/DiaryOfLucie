@@ -53,8 +53,8 @@ public:
 	void move();
 	void removeBullet(int arrNum);
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet>& getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator& getVIBullet() { return _viBullet; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };

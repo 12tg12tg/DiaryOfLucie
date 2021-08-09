@@ -376,6 +376,7 @@ public:
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	void checkPhase();
 };
 
 
