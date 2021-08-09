@@ -172,12 +172,15 @@ void collisionManager::bulletToplayer()
         a.height = bm->getHomBulInstance()->getVBullet()[i].rc.bottom - (bm->getHomBulInstance()->getVBullet()[i].rc.bottom - bm->getHomBulInstance()->getVBullet()[i].rc.left);
         a.rot = bm->getHomBulInstance()->getVBullet()[i].rotateangle;
 
-        b.top = PLAYER->getPlayerAddress().playerRect.top;
-        b.left = PLAYER->getPlayerAddress().playerRect.left;
-        b.width = PLAYER->getPlayerAddress().playerRect.right - (PLAYER->getPlayerAddress().playerRect.right - PLAYER->getPlayerAddress().playerRect.left) / 2;
-        b.height = PLAYER->getPlayerAddress().playerRect.bottom - (PLAYER->getPlayerAddress().playerRect.bottom - PLAYER->getPlayerAddress().playerRect.top) / 2;
+        b.top = PLAYER->getPlayerAddress().x;
+        b.left = PLAYER->getPlayerAddress().y;
+        b.width = 25;
+        b.height = 25;
         b.rot = 0;
-        obb->OBB(a, b);
+        if (obb->OBB(a, b))
+        {
+           bm->getHomBulInstance()->removeBullet(i);
+        }
         
     }
 

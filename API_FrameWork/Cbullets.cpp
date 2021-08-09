@@ -640,7 +640,8 @@ void CmHomingBullet::render()
 		if (_isDebug)
 		{
 		
-			if (_isDebug) RectangleMake(getMemDC(), _viBullet->rc);
+			if (_isDebug)RectangleMakeRotate(getMemDC(), _viBullet->rc, 0);// RectangleMake(getMemDC(), _viBullet->rc);
+			
 		}
 	}
 
