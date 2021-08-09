@@ -450,8 +450,12 @@ void CmReturnBullet::move()
 
 			_viBullet->fireX = _viBullet->x;
 			_viBullet->fireY = _viBullet->y;
+			if (_viBullet->iscollison)
+			{
+				_viBullet->count = 99;
+			}
 		}
-		else if (_viBullet->count == 100 || _viBullet->iscollison)
+		else if (_viBullet->count == 100 )
 		{
 			fire2(_viBullet->fireX, _viBullet->fireY, UTIL::getAngle(WINSIZEX / 2, WINSIZEY / 2, m_ptMouse.x, m_ptMouse.y),  0);
 			_viBullet = _vBullet.erase(_viBullet);
@@ -1159,6 +1163,7 @@ void CmSBoss1Bullet::fire(float x, float y, float angle, int plussize)
 			bullet.alpha = 70;
 			bullet.x = bullet.fireX = x;
 			bullet.y = bullet.fireY = y;
+			bullet.iscollison = false;
 			bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 				bullet.bulletImage->getWidth(),
 				bullet.bulletImage->getHeight());
@@ -1214,8 +1219,12 @@ void CmSBoss1Bullet::move()
 
 			_viBullet->fireX = _viBullet->x;
 			_viBullet->fireY = _viBullet->y;
+			if (_viBullet->iscollison == true)
+			{
+				_viBullet->count = 99;
+			}
 		}
-		else if ((_viBullet->count == 100) || _viBullet->iscollison)
+		else if ((_viBullet->count == 100))
 		{
 			fire2(_viBullet->fireX, _viBullet->fireY, UTIL::getAngle(WINSIZEX / 2, WINSIZEY / 2, m_ptMouse.x, m_ptMouse.y), 0);
 			_viBullet = _vBullet.erase(_viBullet);
@@ -1298,12 +1307,7 @@ void CmFBoss1Bullet::update()
 
 void CmFBoss1Bullet::render()
 {
-	_viBullet = _vBullet.begin();
-	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
-	{
-		_viBullet->bulletImage->render(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
 
-	}
 
 	_viBullet2 = _vBullet2.begin();
 	for (_viBullet2; _viBullet2 != _vBullet2.end(); ++_viBullet2)
@@ -1328,7 +1332,7 @@ void CmFBoss1Bullet::fire(float x, float y,bool isleft, int plussize)
 	{
 		ZeroMemory(&bullet, sizeof(tagBullet));
 		bullet.bulletImage = new  image;
-		bullet.bulletImage = IMAGE->addImage("투명", "images/bullet_bmp/bubble4.bmp", 50, 60 , true, RGB(255, 0, 255));
+		bullet.bulletImage = IMAGE->addImage("투명", "images/bullet_bmp/bubble.bmp", 50, 60 , true, RGB(255, 0, 255));
 		bullet.angle = 1.046 * i;
 		bullet.speed = 4.0;
 		if (isleft)

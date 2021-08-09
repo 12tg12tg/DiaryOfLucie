@@ -83,8 +83,8 @@ public:
 	void move();
 	void removeBullet(int arrNum);
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet> &getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator &getVIBullet() { return _viBullet; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
@@ -112,8 +112,8 @@ public:
 	void move();
 	void removeBullet(int arrNum);
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet> &getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator &getVIBullet() { return _viBullet; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
@@ -139,8 +139,8 @@ public:
 	void move();
 	void removeBullet(int arrNum);
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet> &getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator &getVIBullet() { return _viBullet; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
@@ -173,11 +173,11 @@ public:
 	void removeBullet(int arrNum);
 	void removeBullet2(int arrNum);
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet> &getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator &getVIBullet() { return _viBullet; }
 	
-	vector<tagBullet> getVBullet2() { return _vBullet2; }
-	vector<tagBullet>::iterator getVIBullet2() { return _viBullet2; }
+	vector<tagBullet> &getVBullet2() { return _vBullet2; }
+	vector<tagBullet>::iterator &getVIBullet2() { return _viBullet2; }
 
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
@@ -205,8 +205,8 @@ public:
 	void move();
 	void removeBullet(int arrNum);
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet> &getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator &getVIBullet() { return _viBullet; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
@@ -233,8 +233,8 @@ public:
 	void move();
 	void removeBullet(int arrNum);
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet> &getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator &getVIBullet() { return _viBullet; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
@@ -260,8 +260,8 @@ public:
 	void move();
 	void removeBullet(int arrNum);
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet> &getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator &getVIBullet() { return _viBullet; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
@@ -295,11 +295,11 @@ public:
 	void removeBullet(int arrNum);
 	void removeBullet2(int arrNum);
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet> &getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator &getVIBullet() { return _viBullet; }
 
-	vector<tagBullet> getVBullet2() { return _vBullet2; }
-	vector<tagBullet>::iterator getVIBullet2() { return _viBullet2; }
+	vector<tagBullet> &getVBullet2() { return _vBullet2; }
+	vector<tagBullet>::iterator &getVIBullet2() { return _viBullet2; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
@@ -324,8 +324,8 @@ public:
 	void move();
 	void removeBullet(int arrNum);
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet> &getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator &getVIBullet() { return _viBullet; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
@@ -356,11 +356,11 @@ public:
 	void removeBullet(int arrNum);
 	void removeBullet2(int arrNum);
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet> &getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator &getVIBullet() { return _viBullet; }
 
-	vector<tagBullet> getVBullet2() { return _vBullet2; }
-	vector<tagBullet>::iterator getVIBullet2() { return _viBullet2; }
+	vector<tagBullet> &getVBullet2() { return _vBullet2; }
+	vector<tagBullet>::iterator &getVIBullet2() { return _viBullet2; }
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
 class CmFBoss1Bullet : public gameNode
@@ -395,14 +395,14 @@ public:
 	void removeBullet2(int arrNum);
 	void removeBullet3(int arrNum);
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet> &getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator &getVIBullet() { return _viBullet; }
 
-	vector<tagBullet> getVBullet2() { return _vBullet2; }
-	vector<tagBullet>::iterator getVIBullet2() { return _viBullet2; }
+	vector<tagBullet> &getVBullet2() { return _vBullet2; }
+	vector<tagBullet>::iterator &getVIBullet2() { return _viBullet2; }
 
-	vector<tagBullet> getVBullet3() { return _vBullet3; }
-	vector<tagBullet>::iterator getVIBullet3() { return _viBullet3; }
+	vector<tagBullet> &getVBullet3() { return _vBullet3; }
+	vector<tagBullet>::iterator &getVIBullet3() { return _viBullet3; }
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
 
@@ -436,11 +436,11 @@ public:
 	void removeBullet2(int arrNum);
 
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet> &getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator &getVIBullet() { return _viBullet; }
 
-	vector<tagBullet> getVBullet2() { return _vBullet2; }
-	vector<tagBullet>::iterator getVIBullet2() { return _viBullet2; }
+	vector<tagBullet> &getVBullet2() { return _vBullet2; }
+	vector<tagBullet>::iterator &getVIBullet2() { return _viBullet2; }
 
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
@@ -453,8 +453,6 @@ private:
 	vector<tagBullet> _vBullet;
 	vector<tagBullet>::iterator _viBullet;
 
-	vector<tagBullet> _vBullet2;
-	vector<tagBullet>::iterator _viBullet2;
 
 private:
 	bool _isDebug;
@@ -472,11 +470,10 @@ public:
 	void move();
 	void removeBullet(int arrNum);
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet> &getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator &getVIBullet() { return _viBullet; }
 
-	vector<tagBullet> getVBullet2() { return _vBullet2; }
-	vector<tagBullet>::iterator getVIBullet2() { return _viBullet2; }
+	
 
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
@@ -502,8 +499,8 @@ public:
 	void move();
 	void removeBullet(int arrNum);
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet> &getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator &getVIBullet() { return _viBullet; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
@@ -529,8 +526,8 @@ public:
 	void move();
 	void removeBullet(int arrNum);
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet> &getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator &getVIBullet() { return _viBullet; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
@@ -555,8 +552,8 @@ public:
 	void move();
 	void removeBullet(int arrNum);
 
-	vector<tagBullet> getVBullet() { return _vBullet; }
-	vector<tagBullet>::iterator getVIBullet() { return _viBullet; }
+	vector<tagBullet> &getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator &getVIBullet() { return _viBullet; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
