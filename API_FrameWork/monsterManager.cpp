@@ -25,6 +25,8 @@ HRESULT monsterManager::init()
     _mushmam_mushroom_G = new Cmushmam_mushroom_G;
     _mushmam_mushroom_P = new Cmushmam_mushroom_P;
     _mushmam_mushroom_B = new Cmushmam_mushroom_B;
+    _yggdrasil = new Cyggdrasil;
+    _yggdrasil_bomb = new Cyggdrasil_bomb;
     
         
     //_snaby->addMonster(WINSIZEX / 2, 100);
@@ -33,12 +35,16 @@ HRESULT monsterManager::init()
     //_mushman->addMonster(WINSIZEX - 50, 300);
     //_fairy->addMonster(50, 300);
     //_flime->addMonster(WINSIZEX / 2, WINSIZEY / 2);
-    _bossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
-    _bossflime->addMonster(WINSIZEX/2, WINSIZEY/2);
-    _bossMushmam->addMonster(WINSIZEX/2, WINSIZEY/2);
+    //_bossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
+    //_bossflime->addMonster(WINSIZEX/2, WINSIZEY/2);
+    //_bossMushmam->addMonster(WINSIZEX/2, WINSIZEY/2);
     //_mushmam_mushroom_G->addMonster(100, 200);
     //_mushmam_mushroom_P->addMonster(100, 300);
     //_mushmam_mushroom_B->addMonster(100, 400);
+    //_yggdrasil_bomb->addMonster(WINSIZEX / 2, 100);
+    _yggdrasil->addMonster(WINSIZEX / 2, 100);
+
+
 
     return S_OK;
 }
@@ -58,6 +64,8 @@ void monsterManager::release()
     _mushmam_mushroom_G->release();
     _mushmam_mushroom_P->release();
     _mushmam_mushroom_B->release();
+    _yggdrasil->release();
+    _yggdrasil_bomb->release();
 
 
     SAFE_DELETE(_snaby);
@@ -73,6 +81,8 @@ void monsterManager::release()
     SAFE_DELETE(_mushmam_mushroom_G);
     SAFE_DELETE(_mushmam_mushroom_P);
     SAFE_DELETE(_mushmam_mushroom_B);
+    SAFE_DELETE(_yggdrasil);
+    SAFE_DELETE(_yggdrasil_bomb);
 
 
 
@@ -94,30 +104,33 @@ void monsterManager::update()
     _mushmam_mushroom_G->update(_py, _bm);
     _mushmam_mushroom_P->update(_py, _bm);
     _mushmam_mushroom_B->update(_py, _bm);
+    _yggdrasil->update(_py, _bm, _yggdrasil_bomb);
+    _yggdrasil_bomb->update(_py, _bm);
 
 
-    //static int count = 0;
-    //count++;
-    //if (INPUT->isOnceKeyDown('N')) {
-    //    vector<tagMonster>& v = _snaby->getVMonster();
-    //    auto iter = v.begin();
-    //    for (iter; iter != v.end(); ++iter)
-    //    {
-    //        _snaby->knockback(iter, m_ptMouse.x, m_ptMouse.y, 5, 10, true);
-    //    }
-    //    //vector<tagMonster>& v2 = _semiBossSlime->getVMonster();
-    //    //auto iter2 = v2.begin();
-    //    //for (iter2; iter2 != v2.end(); ++iter2)
-    //    //{
-    //    //    _semiBossSlime->knockback(iter2, m_ptMouse.x, m_ptMouse.y, 10, 10, true);
-    //    //}
-    //    //vector<tagMonster>& v3 = _slime->getVMonster();
-    //    //auto iter3 = v3.begin();
-    //    //for (iter3; iter3 != v3.end(); ++iter3)
-    //    //{
-    //    //    _slime->knockback(iter3, m_ptMouse.x, m_ptMouse.y, 1, 10, true);
-    //    //}
-    //}
+    static int count = 0;
+    count++;
+    if (INPUT->isOnceKeyDown('N')) {
+        //_yggdrasil_bomb->addMonster(WINSIZEX / 2, 100);
+        vector<tagMonster>& v = _yggdrasil->getVMonster();
+        auto iter = v.begin();
+        for (iter; iter != v.end(); ++iter)
+        {        
+           _yggdrasil->knockback(iter, m_ptMouse.x, m_ptMouse.y, 5, 10, true);
+        }
+        //vector<tagMonster>& v2 = _semiBossSlime->getVMonster();
+        //auto iter2 = v2.begin();
+        //for (iter2; iter2 != v2.end(); ++iter2)
+        //{
+        //    _semiBossSlime->knockback(iter2, m_ptMouse.x, m_ptMouse.y, 10, 10, true);
+        //}
+        //vector<tagMonster>& v3 = _slime->getVMonster();
+        //auto iter3 = v3.begin();
+        //for (iter3; iter3 != v3.end(); ++iter3)
+        //{
+        //    _slime->knockback(iter3, m_ptMouse.x, m_ptMouse.y, 1, 10, true);
+        //}
+    }
 
 
 }
@@ -137,6 +150,8 @@ void monsterManager::render()
     _mushmam_mushroom_P->render();
     _mushmam_mushroom_B->render();
     _mushman_mushroom->render();
+    _yggdrasil->render();
+    _yggdrasil_bomb->render();
 
 
 
