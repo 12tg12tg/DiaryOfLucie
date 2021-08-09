@@ -16,6 +16,8 @@ namespace UTIL
 		float y = y2 - y1;
 
 		float distance = sqrtf(x * x + y * y);
+		if (distance == 0) return 0;
+
 		float angle = acos(x / distance);
 
 		if (y2 > y1)
@@ -25,6 +27,7 @@ namespace UTIL
 		}
 		return angle;
 	}
+
 	float RadianToDegree(float rad)
 	{
 		return rad * (180 / PI);

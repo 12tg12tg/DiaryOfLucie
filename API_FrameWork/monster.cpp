@@ -70,6 +70,7 @@ void monster::giveFrame()
 void monster::deathCheck()
 {
 	if (_viMonster->activestate != MONSTERACTIVE::DEATH && _viMonster->hp <= 0) {
+		_viMonster->hp = 0;
 		_viMonster->activestate = MONSTERACTIVE::DEATH;
 		_viMonster->framecount = 0;
 		_viMonster->patternCount = 0;
