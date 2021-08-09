@@ -92,7 +92,6 @@ void CpMagicBullet::move()
 			_viBullet = _vBullet.erase(_viBullet);
 		}
 		else ++_viBullet;
-
 	}
 }
 void CpMagicBullet::removeBullet(int arrNum)

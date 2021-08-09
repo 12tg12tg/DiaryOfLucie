@@ -21,8 +21,12 @@ HRESULT mainDOL::init()
 	_mm->init();
 
 	_mm->setBulletManagerMemoryLink(_bm);	//몬스터에서 블릿링크
+
 	_cm->setBulletManagerMemoryLink(_bm);	//충돌에서 불릿링크
 	_cm->setMonsterManagerMemoryLink(_mm);	//충돌에서 몬스터링크
+
+	PLAYER->setBulletManagerMemoryLink(_bm);
+
 
 
 
