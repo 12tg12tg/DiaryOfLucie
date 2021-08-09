@@ -1,5 +1,8 @@
 #pragma once
 #include "gameNode.h"
+#define INVINTIME 15
+#define STUNTIME 30
+
 class Cplayer;
 class bulletManager;
 
@@ -51,6 +54,11 @@ struct tagMonster
 	int stunCount;
 	int patternCount;
 	int deathalpha;
+	bool isLeft;		//20210809 - 보스패턴구현
+	bool isNextPhase;	//20210809 - 보스패턴구현
+	bool oldPhase;		//20210809 - 보스패턴구현
+	bool isInvincible = false;			//20210809 - 피격시 짧은 무적상태추가
+	int invinCount = 0;
 	MONSTERACTIVE activestate;
 	MONSTERACTIVE oldactivestate;
 	MONSTERMOVESTATE movestate;
@@ -75,10 +83,11 @@ public:
 	virtual void checkAngle();
 	virtual void giveFrame();
 	virtual void deathCheck();
-	virtual void knockback(float x, float y, bool stun = false);
+	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
 
+	virtual void checkInvincibility();
 
 	vector<tagMonster>& getVMonster() { return _vMonster; }
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }

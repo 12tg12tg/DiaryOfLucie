@@ -500,7 +500,7 @@ void CmReturnBullet::removeBullet(int arrNum)
 }
 void CmReturnBullet::removeBullet2(int arrNum)
 {
-	_vBullet2.erase(_vBullet.begin() + arrNum);
+	_vBullet2.erase(_vBullet2.begin() + arrNum);
 }
 //////////////////////////////////////////////////////////////
 /////	CmWideBullet	    	몬스터총알	//////////////////
@@ -2071,11 +2071,11 @@ void CmTBoss1Bullet::fire(float x, float y, float angle, bool isLeft, int plussi
 	bullet.bulletImage = IMAGE->addImage("나무브레스", "images/bullet_bmp/entskill.bmp", 96, 98, true, RGB(255, 0, 255));
 	if (isLeft)
 	{
-		bullet.omega = 0.005;
+		bullet.omega = 0.003;
 	}
 	else
 	{
-		bullet.omega = -0.005;
+		bullet.omega = -0.003;
 	}
 	bullet.angle = angle;
 	bullet.speed = 4;
@@ -2153,13 +2153,15 @@ void CmTBoss2Bullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->frameRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->bulletImage->getFrameX(), 0);
+		_viBullet->bulletImage->frameRender(getMemDC(), _viBullet->x - _viBullet->bulletImage->getFrameWidth()/2, _viBullet->y - _viBullet->bulletImage->getFrameHeight()/2, _viBullet->bulletImage->getFrameX(), 0);
 		_viBullet->rendercount++;
+
+		if (_isDebug) RectangleMake(getMemDC(), _viBullet->rc);
 
 		if (_viBullet->rendercount % 10 == 0)
 		{
 			_viBullet->bulletImage->setFrameX(_viBullet->bulletImage->getFrameX() + 1);
-
+			
 
 			if (_viBullet->bulletImage->getFrameX() >= _viBullet->bulletImage->getMaxFrameX())
 			{
@@ -2177,20 +2179,20 @@ void CmTBoss2Bullet::fire(float x, float y, float angle, bool isLeft, int plussi
 	{
 		ZeroMemory(&bullet, sizeof(tagBullet));
 		bullet.bulletImage = new  image;
-		bullet.bulletImage = IMAGE->addFrameImage("나무보스총알", "images/bullet_bmp/TBossBullet.bmp", 200, 24, 8, 1, true, RGB(255, 0, 255));
+		bullet.bulletImage = IMAGE->addFrameImage("나무보스총알", "images/bullet_bmp/TBossBullet.bmp", 400, 48, 8, 1, true, RGB(255, 0, 255));
 		if (isLeft)
 		{
 			bullet.omega = 0.0005;
 		}
-		bullet.angle = angle - 0.2 + 0.2 * i;
+		bullet.angle = angle - 0.3 + 0.3 * i;
 		bullet.speed = 4;
 		bullet.x = bullet.fireX = x;
 		bullet.y = bullet.fireY = y;
 		bullet.fire = false;
 		bullet.alpha = 160;
 		bullet.rc = RectMakeCenter(bullet.x, bullet.y,
-			bullet.bulletImage->getFrameWidth(),
-			bullet.bulletImage->getFrameHeight());
+			bullet.bulletImage->getFrameWidth()/2,
+			bullet.bulletImage->getFrameHeight()/2);
 		bullet.rendercount = 0;
 		bullet.count = 0;
 		_vBullet.push_back(bullet);
@@ -2205,8 +2207,8 @@ void CmTBoss2Bullet::move()
 		_viBullet->y -= sinf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
 
 		_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
-			_viBullet->bulletImage->getFrameWidth(),
-			_viBullet->bulletImage->getFrameHeight());
+			_viBullet->bulletImage->getFrameWidth()/2,
+			_viBullet->bulletImage->getFrameHeight()/2);
 
 		if (_viBullet->x < 0 || _viBullet->x > WINSIZEX || _viBullet->y <0 || _viBullet->y > WINSIZEY)
 		{

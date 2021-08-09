@@ -1,6 +1,7 @@
 #pragma once
 #include "gameNode.h"
-#include"OBBCollision.h"
+#include "monster.h"
+#include "OBBCollision.h"
 class bulletManager;
 class monsterManager;
 class collisionManager : public gameNode
@@ -23,6 +24,9 @@ public:
 	void bulletToplayer();
 	void bulletTomon();
 	void playerTomon();
+
+	//보조함수
+	void checkMonsterRectColl(monster* monster);
 
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }

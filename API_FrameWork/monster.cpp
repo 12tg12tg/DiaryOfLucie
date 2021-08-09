@@ -77,7 +77,7 @@ void monster::deathCheck()
 	}
 }
 
-void monster::knockback(float x, float y, bool stun)
+void monster::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
 {
 }
 
@@ -87,4 +87,16 @@ void monster::stuncheck()
 
 void monster::checkPlayerXY(Cplayer* py)
 {
+}
+
+void monster::checkInvincibility()
+{
+	//무적확인함수
+	if (_viMonster->isInvincible) {
+		_viMonster->invinCount++;
+		if (_viMonster->invinCount > INVINTIME) {
+			_viMonster->invinCount = 0;
+			_viMonster->isInvincible = false;
+		}
+	}
 }
