@@ -87,7 +87,7 @@ void CpMagicBullet::move()
 			_viBullet->bulletImage->getWidth(),
 			_viBullet->bulletImage->getHeight());
 
-		if (_range < UTIL::getDistance(_viBullet->x, _viBullet->y, _viBullet->fireX, _viBullet->fireY))
+		if (_range > UTIL::getDistance(_viBullet->x, _viBullet->y, _viBullet->fireX, _viBullet->fireY))
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 		}
@@ -165,7 +165,7 @@ void CpArrowBullet::move()
 			_viBullet->bulletImage->getWidth(),
 			_viBullet->bulletImage->getHeight());
 
-		if (_range < UTIL::getDistance(_viBullet->x, _viBullet->y, _viBullet->fireX, _viBullet->fireY))
+		if (_range > UTIL::getDistance(_viBullet->x, _viBullet->y, _viBullet->fireX, _viBullet->fireY))
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 		}
