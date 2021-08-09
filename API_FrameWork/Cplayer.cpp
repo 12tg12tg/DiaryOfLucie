@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "Cplayer.h"
+#include "bulletmanager.h"
 
 //이곳의 주목적
 //키입력에따른 프레임 랜더와 이동
@@ -19,11 +20,6 @@ HRESULT Cplayer::init()
 	_isAutoRun = false;
 	_frameswitching = true;
 
-	_dashCount = 0;
-	_dashIndex = 0;
-	_attCount = 0;
-	_attIndex = 0;
-
 	return S_OK;
 }
 
@@ -38,7 +34,7 @@ void Cplayer::update()
 		this->stateCheck();
 	}
 	this->movePlayer();
-	_player.playerRect = RectMakeCenter(_player.x, _player.y, 25, 45);
+	_player.playerRect = RectMakeCenter(_player.x, _player.y, 25, 25);
 	this->setPlayerFrame();
 }
 
@@ -50,19 +46,19 @@ void Cplayer::render(HDC hdc)
 	switch (_state)
 	{
 	case STATE::IDLE:
-		IMAGE->frameRender("걷기", hdc, _player.playerRect.left - 38, _player.playerRect.top - 28, 1, _moveDirection);
+		IMAGE->frameRender("걷기", hdc, _player.playerRect.left - 38, _player.playerRect.top -58, 1, _moveDirection);
 		break;
 	case STATE::WALK:
-		IMAGE->frameRender("걷기", hdc, _player.playerRect.left - 38, _player.playerRect.top - 28, _walk_img->getFrameX(), _moveDirection);
+		IMAGE->frameRender("걷기", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _walk_img->getFrameX(), _moveDirection);
 		break;
 	case STATE::RUN:
-		IMAGE->frameRender("달리기", hdc, _player.playerRect.left - 38, _player.playerRect.top - 28, _run_img->getFrameX(), _moveDirection);
+		IMAGE->frameRender("달리기", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _run_img->getFrameX(), _moveDirection);
 		break;
 	case STATE::DASH:
-		IMAGE->frameRender("대쉬", hdc, _player.playerRect.left - 38, _player.playerRect.top - 28, _dash_img->getFrameX(), _moveDirection);
+		IMAGE->frameRender("대쉬", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _dash_img->getFrameX(), _moveDirection);
 		break;
 	case STATE::ATTSTAFF:
-		IMAGE->frameRender("기본공격", hdc, _player.playerRect.left - 38, _player.playerRect.top - 28, _attstaff_img->getFrameX(), _moveDirection);
+		IMAGE->frameRender("기본공격", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _attstaff_img->getFrameX(), _moveDirection);
 		break;
 	}
 }
@@ -144,7 +140,8 @@ void Cplayer::stateCheck()
 			_moveDirection = _direction;
 			if (_player.weapon == WEAPONTYPE::EMPTY || _player.weapon == WEAPONTYPE::STAFF)
 				_state = STATE::ATTSTAFF;
-			_attAngle = UTIL::getAngle(_player.x, _player.y, m_ptMouse.x, m_ptMouse.y);
+			_attAngle = UTIL::getAngle(_player.x, _player.y-30, m_ptMouse.x, m_ptMouse.y);
+			_Cbullet->getMgcBulInstance()->fire(_player.x, _player.y-30, _attAngle, 30);
 			this->angleCheckDirection(_attAngle);
 		}
 	}
@@ -292,7 +289,7 @@ void Cplayer::setPlayerFrame()
 		_dashCount++;
 		if (_dashCount % 5 == 0)
 		{
-			this->pushbackDashEffect(_player.x-50,_player.y-50,_dashIndex,_moveDirection);
+			this->pushbackDashEffect(_player.x-50,_player.y-70,_dashIndex,_moveDirection);
 			_dashCount = 0;
 			_dashIndex++;
 			if (_dashIndex > _dash_img->getMaxFrameX()) {

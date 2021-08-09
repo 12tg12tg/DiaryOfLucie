@@ -1,6 +1,8 @@
 #pragma once
 #include "singleton.h"
 
+class bulletManager;
+
 enum class PLACE {
 	ROOM,
 	DUNGEON
@@ -106,6 +108,8 @@ private:
 	vector<DashEffect> _vectDashEffect;
 	vector<DashEffect>::iterator _iterDashEffect;
 
+	bulletManager* _Cbullet;
+
 public:
 	HRESULT init();
 	void release();
@@ -125,4 +129,5 @@ public:
 
 	Player& getPlayerAddress() { return _player; }
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+	void setBulletManagerMemoryLink(bulletManager* BM) { _Cbullet = BM; }
 };
