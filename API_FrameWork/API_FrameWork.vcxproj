@@ -165,6 +165,7 @@
     <ClInclude Include="mapTool.h" />
     <ClInclude Include="monster.h" />
     <ClInclude Include="monsterManager.h" />
+    <ClInclude Include="OBBCollision.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="sceneManager.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="mapTool.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="monsterManager.cpp" />
+    <ClCompile Include="OBBCollision.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="timeManager.cpp" />

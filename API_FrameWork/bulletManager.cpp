@@ -20,7 +20,14 @@ HRESULT bulletManager::init()
 	_CmHomingBullet = new CmHomingBullet;
 	_CmPoisonBullet = new CmPoisonBullet;
 	_CmNiddleBullet = new CmNiddleBullet;
+	_CmLongPoisonBullet = new CmLongPoisonBullet;
 	_CmSBoss1Bullet = new CmSBoss1Bullet;
+	_CmFBoss1Bullet = new CmFBoss1Bullet;
+	_CmFBoss2Bullet = new CmFBoss2Bullet;
+	_CmFBoss3Bullet = new CmFBoss3Bullet;
+	_CmTBoss1Bullet = new CmTBoss1Bullet;
+	_CmTBoss2Bullet = new CmTBoss2Bullet;
+	_CmTBoss3Bullet = new CmTBoss3Bullet;
 	return S_OK;
 }
 
@@ -35,7 +42,14 @@ void bulletManager::release()
 	SAFE_DELETE(_CmHomingBullet);
 	SAFE_DELETE(_CmPoisonBullet);
 	SAFE_DELETE(_CmNiddleBullet);
+	SAFE_DELETE(_CmLongPoisonBullet);
 	SAFE_DELETE(_CmSBoss1Bullet);
+	SAFE_DELETE(_CmFBoss1Bullet);
+	SAFE_DELETE(_CmFBoss2Bullet);
+	SAFE_DELETE(_CmFBoss3Bullet);
+	SAFE_DELETE(_CmTBoss1Bullet);
+	SAFE_DELETE(_CmTBoss2Bullet);
+	SAFE_DELETE(_CmTBoss3Bullet);
 }
 
 void bulletManager::update()
@@ -49,7 +63,14 @@ void bulletManager::update()
 	_CmHomingBullet->update();
 	_CmPoisonBullet->update();
 	_CmNiddleBullet->update();
+	_CmLongPoisonBullet->update();
 	_CmSBoss1Bullet->update();
+	_CmFBoss1Bullet->update();
+	_CmFBoss2Bullet->update();
+	_CmFBoss3Bullet->update();
+	_CmTBoss1Bullet->update();
+	_CmTBoss2Bullet->update();
+	_CmTBoss3Bullet->update();
 } 
 
 void bulletManager::render()
@@ -63,5 +84,12 @@ void bulletManager::render()
 	_CmHomingBullet->render();
 	_CmPoisonBullet->render();
 	_CmNiddleBullet->render();
+	_CmLongPoisonBullet->render();
 	_CmSBoss1Bullet->render();
+	_CmFBoss1Bullet->render();
+	_CmFBoss2Bullet->render();
+	_CmFBoss3Bullet->render();
+	_CmTBoss1Bullet->render();
+	_CmTBoss2Bullet->render();
+	_CmTBoss3Bullet->render();
 }

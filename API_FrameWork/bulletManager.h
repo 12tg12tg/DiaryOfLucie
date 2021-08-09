@@ -13,7 +13,15 @@ private:
 	CmHomingBullet* _CmHomingBullet;
 	CmPoisonBullet* _CmPoisonBullet;
 	CmNiddleBullet* _CmNiddleBullet;
+	CmLongPoisonBullet* _CmLongPoisonBullet;
 	CmSBoss1Bullet* _CmSBoss1Bullet;
+	CmFBoss1Bullet* _CmFBoss1Bullet;
+	CmFBoss2Bullet* _CmFBoss2Bullet;
+	CmFBoss3Bullet* _CmFBoss3Bullet;
+	CmTBoss1Bullet* _CmTBoss1Bullet;
+	CmTBoss2Bullet* _CmTBoss2Bullet;
+	CmTBoss3Bullet* _CmTBoss3Bullet;
+
 private:
 	bool _isDebug;
 public:
@@ -36,8 +44,14 @@ public:
 	CmHomingBullet* getHomBulInstance() { return _CmHomingBullet; }
 	CmPoisonBullet* getPsnBulInstance() { return _CmPoisonBullet; }
 	CmNiddleBullet* getnidBulInstance() { return _CmNiddleBullet; }
-	CmSBoss1Bullet* getSlmBosBullnstance() { return _CmSBoss1Bullet; }
-
+	CmLongPoisonBullet* getLPsnBulInstance() { return _CmLongPoisonBullet; }
+	CmSBoss1Bullet* getSlmBos1Bullnstance() { return _CmSBoss1Bullet; }
+	CmFBoss1Bullet* getFlwBos1Bullnstance() { return _CmFBoss1Bullet; }
+	CmFBoss2Bullet* getFlwBos2Bullnstance() { return _CmFBoss2Bullet; }
+	CmFBoss3Bullet* getFlwBos3Bullnstance() { return _CmFBoss3Bullet; }
+	CmTBoss1Bullet* getTreBos1Bullnstance() { return _CmTBoss1Bullet; }
+	CmTBoss2Bullet* getTreBos2Bullnstance() { return _CmTBoss2Bullet; }
+	CmTBoss3Bullet* getTreBos3Bullnstance() { return _CmTBoss3Bullet; }
 
 
 
@@ -53,7 +67,14 @@ public:
 		_CmHomingBullet->setIsDebug(_isDebug);
 		_CmPoisonBullet->setIsDebug(_isDebug);
 		_CmNiddleBullet->setIsDebug(_isDebug);
+		_CmLongPoisonBullet->setIsDebug(_isDebug);
 		_CmSBoss1Bullet->setIsDebug(_isDebug);
+		_CmFBoss1Bullet->setIsDebug(_isDebug);
+		_CmFBoss2Bullet->setIsDebug(_isDebug);
+		_CmFBoss3Bullet->setIsDebug(_isDebug);
+		_CmTBoss1Bullet->setIsDebug(_isDebug);
+		_CmTBoss2Bullet->setIsDebug(_isDebug);
+		_CmTBoss3Bullet->setIsDebug(_isDebug);
 	}
 };
 

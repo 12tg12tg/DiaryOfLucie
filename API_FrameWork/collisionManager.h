@@ -1,12 +1,16 @@
 #pragma once
 #include "gameNode.h"
+#include"OBBCollision.h"
+class bulletManager;
+class monsterManager;
 class collisionManager : public gameNode
 {
 private:
-
-
-
-
+	bulletManager* bm;
+	monsterManager* mm;
+	OBBCollision* obb;
+	
+	RECT temprc;
 private:
 	bool _isDebug;
 public:
@@ -16,8 +20,12 @@ public:
 	HRESULT init();
 	void release();
 	void update();
-	void render();
+	void bulletToplayer();
+	void bulletTomon();
+	void playerTomon();
 
+	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }
+	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
 

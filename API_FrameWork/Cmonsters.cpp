@@ -2401,7 +2401,7 @@ void Cboss_slime::move(bulletManager* bm, Csemiboss_slime* ss)
 			}
 			_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 3, _viMonster->width, _viMonster->height);
 			if (_viMonster->patternCount % 100 == 0) {
-				bm->getSlmBosBullnstance()->fire(
+				bm->getSlmBos1Bullnstance()->fire(
 					_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
 					_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
 					_viMonster->angle, 0);

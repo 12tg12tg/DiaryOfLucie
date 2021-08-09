@@ -61,6 +61,9 @@
     <Filter Include="DOL\DOL_Manager">
       <UniqueIdentifier>{38de8317-e6c7-4781-9bb7-8d07bd95154b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DOL\OBB">
+      <UniqueIdentifier>{71c2fa85-d753-4f1d-9feb-7cc5c11a166b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -150,11 +153,14 @@
     <ClInclude Include="Cmonsters.h">
       <Filter>DOL\monsters</Filter>
     </ClInclude>
+    <ClInclude Include="monster.h">
+      <Filter>DOL\monsters</Filter>
+    </ClInclude>
     <ClInclude Include="Cbullets.h">
       <Filter>DOL\bullet</Filter>
     </ClInclude>
-    <ClInclude Include="monster.h">
-      <Filter>DOL\monsters</Filter>
+    <ClInclude Include="OBBCollision.h">
+      <Filter>DOL\OBB</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +238,9 @@
     </ClCompile>
     <ClCompile Include="monster.cpp">
       <Filter>DOL\monsters</Filter>
+    </ClCompile>
+    <ClCompile Include="OBBCollision.cpp">
+      <Filter>DOL\OBB</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

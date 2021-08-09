@@ -13,10 +13,16 @@
 5.	CmReturnBullet  /   페어리총알1 , 페어리총알2
 6.	CmWideBullet	/	몬스터총알
 7.	CmHomingBullet	/   몬스터총알2
-8.	CmPoisonBullet /	독총알
-9.	CmNiddleBullet /	가시 , 경고
-10.	CmSBoss1Bullet /	버블 , 몬스터총알1
-11.	
+8.	CmPoisonBullet  /	독총알
+9.	CmNiddleBullet  /	가시 , 경고
+9.	CmLongPoisonBullet /	독총알
+10.	CmSBoss1Bullet  /	버블 , 몬스터총알
+11.	CmFBoss1Bullet  /    투명,가시,경고
+12. CmFBoss2Bullet	/	가시,경고
+13. CmFBoss3Bullet	/	몬스터총알
+14. CmTBoss1Bullet	/	브레스
+15. CmTBoss2Bullet	/	나무보스총알
+15. CmTBoss3Bullet	/	몬스터총알
 */
 //////////////////////////////////////////////////////////////
 /////	CpMagicBullet!	    	마법총알!	//////////////////
@@ -81,7 +87,7 @@ void CpMagicBullet::move()
 			_viBullet->bulletImage->getWidth(),
 			_viBullet->bulletImage->getHeight());
 
-		if (_range < UTIL::getDistance(_viBullet->x, _viBullet->y, _viBullet->fireX, _viBullet->fireY))
+		if (_range > UTIL::getDistance(_viBullet->x, _viBullet->y, _viBullet->fireX, _viBullet->fireY))
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 		}
@@ -159,7 +165,7 @@ void CpArrowBullet::move()
 			_viBullet->bulletImage->getWidth(),
 			_viBullet->bulletImage->getHeight());
 
-		if (_range < UTIL::getDistance(_viBullet->x, _viBullet->y, _viBullet->fireX, _viBullet->fireY))
+		if (_range > UTIL::getDistance(_viBullet->x, _viBullet->y, _viBullet->fireX, _viBullet->fireY))
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 		}
@@ -444,8 +450,12 @@ void CmReturnBullet::move()
 
 			_viBullet->fireX = _viBullet->x;
 			_viBullet->fireY = _viBullet->y;
+			if (_viBullet->iscollison)
+			{
+				_viBullet->count = 99;
+			}
 		}
-		else if (_viBullet->count == 100 || _viBullet->iscollison)
+		else if (_viBullet->count == 100 )
 		{
 			fire2(_viBullet->fireX, _viBullet->fireY, UTIL::getAngle(WINSIZEX / 2, WINSIZEY / 2, m_ptMouse.x, m_ptMouse.y),  0);
 			_viBullet = _vBullet.erase(_viBullet);
@@ -632,7 +642,6 @@ void CmHomingBullet::render()
 		{
 		
 			if (_isDebug) RectangleMake(getMemDC(), _viBullet->rc);
-			_viBullet->bulletImage->rotateRender(getMemDC(), _viBullet->rc.right - (_viBullet->rc.right - _viBullet->rc.left) / 2, _viBullet->rc.bottom - (_viBullet->rc.bottom - _viBullet->rc.top) / 2, _viBullet->angle + PI / 2);
 		}
 	}
 
@@ -847,6 +856,7 @@ void CmPoisonBullet::move()
 
 
 		}
+
 		else if (_viBullet->count >= 300)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
@@ -857,89 +867,6 @@ void CmPoisonBullet::move()
 }
 
 void CmPoisonBullet::removeBullet(int arrNum)
-{
-	_vBullet.erase(_vBullet.begin() + arrNum);
-}
-//////////////////////////////////////////////////////////////
-/////	CmWarningBullet!			 경고!	//////////////////
-//////////////////////////////////////////////////////////////
-CmWarningBullet::CmWarningBullet()
-{
-}
-
-CmWarningBullet::~CmWarningBullet()
-{
-}
-
-HRESULT CmWarningBullet::init()
-{
-	return S_OK;
-}
-
-void CmWarningBullet::release()
-{
-}
-
-void CmWarningBullet::update()
-{
-	move();
-}
-
-void CmWarningBullet::render()
-{
-	_viBullet = _vBullet.begin();
-	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
-	{
-		_viBullet->bulletImage->alphaRender(getMemDC(), _viBullet->rc.right - (_viBullet->rc.right - _viBullet->rc.left) / 2, _viBullet->rc.bottom - (_viBullet->rc.bottom - _viBullet->rc.top) / 2, 30);
-	}
-}
-
-void CmWarningBullet::fire(float x, float y, float angle, int plussize)
-{
-	tagBullet bullet;
-	ZeroMemory(&bullet, sizeof(tagBullet));
-	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("경고", "images/bullet_bmp/warning.bmp", 81  , 61  , true);
-	bullet.angle = angle;
-	bullet.x = bullet.fireX = x;
-	bullet.y = bullet.fireY = y;
-	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
-		bullet.bulletImage->getWidth(),
-		bullet.bulletImage->getHeight());
-	bullet.count = 0;
-
-	_vBullet.push_back(bullet);
-}
-
-void CmWarningBullet::move()
-{
-	_viBullet = _vBullet.begin();
-	for (_viBullet; _viBullet != _vBullet.end();)
-	{
-		_viBullet->count++;
-		if (_vBullet.size() == 0)
-		{
-			_viBullet->count = 0;
-		}
-		if (_viBullet->count > 0 && _viBullet->count < 50)
-		{
-			_viBullet->x += cosf(_viBullet->angle) * 0;
-			_viBullet->y -= sinf(_viBullet->angle) * 0;
-
-			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
-				_viBullet->bulletImage->getWidth(),
-				_viBullet->bulletImage->getHeight());
-		}
-		else if (_viBullet->count >= 50)
-		{
-			_viBullet = _vBullet.erase(_viBullet);
-			continue;
-		}
-		++_viBullet;
-	}
-}
-
-void CmWarningBullet::removeBullet(int arrNum)
 {
 	_vBullet.erase(_vBullet.begin() + arrNum);
 }
@@ -1097,6 +1024,91 @@ void CmNiddleBullet::removeBullet2(int arrNum)
 }
 
 //////////////////////////////////////////////////////////////
+/////	CmLongPoisonBullet!			독총알 !//////////////////
+//////////////////////////////////////////////////////////////
+
+CmLongPoisonBullet::CmLongPoisonBullet()
+{
+}
+
+CmLongPoisonBullet::~CmLongPoisonBullet()
+{
+}
+
+HRESULT CmLongPoisonBullet::init()
+{
+	return S_OK;
+}
+
+void CmLongPoisonBullet::release()
+{
+}
+
+void CmLongPoisonBullet::update()
+{
+	move();
+}
+
+void CmLongPoisonBullet::render()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		_viBullet->bulletImage->render(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
+
+	}
+}
+
+void CmLongPoisonBullet::fire(float x, float y, float angle, int plussize)
+{
+	tagBullet bullet;
+
+	for (int i = 0; i < 6; i++)
+	{
+		ZeroMemory(&bullet, sizeof(tagBullet));
+		bullet.bulletImage = new image;
+		bullet.bulletImage = IMAGE->addImage("독총알", "images/bullet_bmp/poison.bmp", 40, 40, true);
+		bullet.angle = 1.046 * i;
+		bullet.speed = 2.0f;
+		bullet.x = bullet.fireX = x;
+		bullet.y = bullet.fireY = y;
+		bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+			bullet.bulletImage->getWidth(),
+			bullet.bulletImage->getHeight());
+		bullet.count = 0;
+
+		_vBullet.push_back(bullet);
+	}
+}
+
+void CmLongPoisonBullet::move()
+{
+	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end();)
+	{
+		_viBullet->x += cosf(_viBullet->angle) * _viBullet->speed;
+		_viBullet->y -= sinf(_viBullet->angle) * _viBullet->speed;
+
+
+		_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+			_viBullet->bulletImage->getWidth(),
+			_viBullet->bulletImage->getHeight());
+
+		if (_viBullet->x < 0 || _viBullet->x > WINSIZEX || _viBullet->y <0 || _viBullet->y > WINSIZEY)
+		{
+			_viBullet = _vBullet.erase(_viBullet);
+		}
+		else ++_viBullet;
+
+
+	}
+}
+
+void CmLongPoisonBullet::removeBullet(int arrNum)
+{
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}
+
+//////////////////////////////////////////////////////////////
 /////	CmSBoss1Bullet!	 버블, 몬스터총알1 !//////////////////
 //////////////////////////////////////////////////////////////
 CmSBoss1Bullet::CmSBoss1Bullet()
@@ -1151,6 +1163,7 @@ void CmSBoss1Bullet::fire(float x, float y, float angle, int plussize)
 			bullet.alpha = 70;
 			bullet.x = bullet.fireX = x;
 			bullet.y = bullet.fireY = y;
+			bullet.iscollison = false;
 			bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 				bullet.bulletImage->getWidth(),
 				bullet.bulletImage->getHeight());
@@ -1206,8 +1219,12 @@ void CmSBoss1Bullet::move()
 
 			_viBullet->fireX = _viBullet->x;
 			_viBullet->fireY = _viBullet->y;
+			if (_viBullet->iscollison == true)
+			{
+				_viBullet->count = 99;
+			}
 		}
-		else if ((_viBullet->count == 100) || _viBullet->iscollison)
+		else if ((_viBullet->count == 100))
 		{
 			fire2(_viBullet->fireX, _viBullet->fireY, UTIL::getAngle(WINSIZEX / 2, WINSIZEY / 2, m_ptMouse.x, m_ptMouse.y), 0);
 			_viBullet = _vBullet.erase(_viBullet);
@@ -1260,6 +1277,10 @@ void CmSBoss1Bullet::removeBullet2(int arrNum)
 	_vBullet2.erase(_vBullet2.begin() + arrNum);
 }
 
+//////////////////////////////////////////////////////////////
+/////	CmFBoss1Bullet!	 투명,경고,가시    !//////////////////
+//////////////////////////////////////////////////////////////
+
 CmFBoss1Bullet::CmFBoss1Bullet()
 {
 }
@@ -1281,17 +1302,241 @@ void CmFBoss1Bullet::update()
 {
 	move();
 	move2();
+	move3();
 }
 
 void CmFBoss1Bullet::render()
 {
-	_viBullet = _vBullet.begin();
-	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
+
+
+	_viBullet2 = _vBullet2.begin();
+	for (_viBullet2; _viBullet2 != _vBullet2.end(); ++_viBullet2)
 	{
-		_viBullet->bulletImage->alphaRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->alpha);
+		_viBullet2->bulletImage2->alphaRender(getMemDC(), _viBullet2->rc.left, _viBullet2->rc.top, _viBullet2->alpha);
 
 	}
 
+	_viBullet3 = _vBullet3.begin();
+	for (_viBullet3; _viBullet3 != _vBullet3.end(); ++_viBullet3)
+	{
+		_viBullet3->bulletImage3->render(getMemDC(), _viBullet3->rc.left, _viBullet3->rc.top);
+		
+	}
+
+}
+
+void CmFBoss1Bullet::fire(float x, float y,bool isleft, int plussize)
+{
+	tagBullet bullet;
+	for (int i = 0; i < 6; i++)
+	{
+		ZeroMemory(&bullet, sizeof(tagBullet));
+		bullet.bulletImage = new  image;
+		bullet.bulletImage = IMAGE->addImage("투명", "images/bullet_bmp/bubble.bmp", 50, 60 , true, RGB(255, 0, 255));
+		bullet.angle = 1.046 * i;
+		bullet.speed = 4.0;
+		if (isleft)
+		{
+		bullet.omega = 0.007;
+		}
+		else
+		{
+		bullet.omega = -0.007;
+		}
+		bullet.x = bullet.fireX = x;
+		bullet.y = bullet.fireY = y;
+		bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+			bullet.bulletImage->getWidth(),
+			bullet.bulletImage->getHeight());
+		bullet.count = 00;
+
+		_vBullet.push_back(bullet);
+	}
+}
+
+void CmFBoss1Bullet::fire2(float x, float y, int plussize)
+{
+	tagBullet bullet2;
+
+		ZeroMemory(&bullet2, sizeof(tagBullet));
+		bullet2.bulletImage2 = new  image;
+		bullet2.bulletImage2 = IMAGE->addImage("경고", "images/bullet_bmp/warning.bmp", 50 , 55 , true, RGB(255, 0, 255));
+
+		bullet2.angle = 0;
+		bullet2.x = bullet2.fireX = x;
+		bullet2.y = bullet2.fireY = y;
+		bullet2.alpha = 40;
+		bullet2.rc = RectMakeCenter(bullet2.x, bullet2.y,
+			bullet2.bulletImage2->getWidth(),
+			bullet2.bulletImage2->getHeight());
+		bullet2.count = 0;
+
+		_vBullet2.push_back(bullet2);
+	
+}
+
+void CmFBoss1Bullet::fire3(float x, float y, int plussize)
+{
+	tagBullet bullet3;
+	
+		ZeroMemory(&bullet3, sizeof(tagBullet));
+		bullet3.bulletImage3 = new  image;
+		bullet3.bulletImage3 = IMAGE->addImage("가시", "images/bullet_bmp/niddle.bmp", 50 , 55 , true, RGB(255, 0, 255));
+		bullet3.angle = PI / 2;
+		bullet3.x = bullet3.fireX = x;
+		bullet3.y = bullet3.fireY = y;
+		bullet3.rc = RectMakeCenter(bullet3.x, bullet3.y,
+			bullet3.bulletImage3->getWidth(),
+			bullet3.bulletImage3->getHeight());
+		bullet3.count = 50;
+
+		_vBullet3.push_back(bullet3);
+	
+}
+
+void CmFBoss1Bullet::move()
+{
+	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end();)
+	{
+		_viBullet->count++;
+		if (_vBullet.size() == 0)
+		{
+			_viBullet->count = 0;
+		}
+		if (_viBullet->count >= 0)
+		{
+			
+			_viBullet->x += cosf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
+			_viBullet->y -= sinf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
+			_viBullet->fireX = _viBullet->x;
+			_viBullet->fireY = _viBullet->y;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+			if (_viBullet->count % 15 == 0)
+			{
+				fire2(_viBullet->fireX, _viBullet->fireY,0);
+			}
+			if (_viBullet->x < 0 || _viBullet->x > WINSIZEX || _viBullet->y <0 || _viBullet->y > WINSIZEY)
+			{
+				_viBullet = _vBullet.erase(_viBullet);
+			}
+			else ++_viBullet;
+		}
+	}
+}
+
+void CmFBoss1Bullet::move2()
+{
+	_viBullet2 = _vBullet2.begin();
+	for (_viBullet2; _viBullet2 != _vBullet2.end();)
+	{
+		_viBullet2->count++;
+		if (_vBullet2.size() == 0)
+		{
+			_viBullet2->count = 0;
+		}
+		if (_viBullet2->count > 0 && _viBullet2->count < 50)
+		{
+			_viBullet2->x += cosf(_viBullet2->angle) * 0;
+			_viBullet2->y -= sinf(_viBullet2->angle) * 0;
+
+			_viBullet2->rc = RectMakeCenter(_viBullet2->x, _viBullet2->y,
+				_viBullet2->bulletImage2->getWidth(),
+				_viBullet2->bulletImage2->getHeight());
+			_viBullet2->fireX = _viBullet2->x;
+			_viBullet2->fireY = _viBullet2->y;
+		}
+		else if (_viBullet2->count == 50)
+		{
+			fire3(_viBullet2->fireX, _viBullet2->fireY, 0);
+			_viBullet2 = _vBullet2.erase(_viBullet2);
+			continue;
+		}
+		++_viBullet2;
+	}
+}
+
+void CmFBoss1Bullet::move3()
+{
+	_viBullet3 = _vBullet3.begin();
+	for (_viBullet3; _viBullet3 != _vBullet3.end();)
+	{
+		_viBullet3->count++;
+		if (_vBullet3.size() == 0)
+		{
+			_viBullet3->count = 0;
+		}
+		if (_viBullet3->count > 0 && _viBullet3->count < 200)
+		{
+			_viBullet3->x += cosf(_viBullet3->angle) * 0;
+			_viBullet3->y -= sinf(_viBullet3->angle) * 0;
+
+			_viBullet3->rc = RectMakeCenter(_viBullet3->x, _viBullet3->y,
+				_viBullet3->bulletImage3->getWidth(),
+				_viBullet3->bulletImage3->getHeight());
+		}
+		else if (_viBullet3->count >= 200)
+		{
+			_viBullet3 = _vBullet3.erase(_viBullet3);
+			continue;
+		}
+		++_viBullet3;
+	}
+}
+
+void CmFBoss1Bullet::removeBullet(int arrNum)
+{
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}
+
+void CmFBoss1Bullet::removeBullet2(int arrNum)
+{
+	_vBullet2.erase(_vBullet2.begin() + arrNum);
+}
+
+void CmFBoss1Bullet::removeBullet3(int arrNum)
+{
+	_vBullet3.erase(_vBullet2.begin() + arrNum);
+}
+//////////////////////////////////////////////////////////////
+/////	CmFBoss2Bullet!	 경고,가시    !//////////////////
+//////////////////////////////////////////////////////////////
+CmFBoss2Bullet::CmFBoss2Bullet()
+{
+}
+
+CmFBoss2Bullet::~CmFBoss2Bullet()
+{
+}
+
+HRESULT CmFBoss2Bullet::init()
+{
+	return S_OK;
+}
+
+void CmFBoss2Bullet::release()
+{
+}
+
+void CmFBoss2Bullet::update()
+{
+	move();
+	move2();
+	
+}
+
+void CmFBoss2Bullet::render()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		if (_viBullet->fire)
+		{
+			_viBullet->bulletImage->alphaRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->alpha);
+		}
+	}
 	_viBullet2 = _vBullet2.begin();
 	for (_viBullet2; _viBullet2 != _vBullet2.end(); ++_viBullet2)
 	{
@@ -1300,36 +1545,39 @@ void CmFBoss1Bullet::render()
 	}
 }
 
-void CmFBoss1Bullet::fire(float x, float y, float angle, int plussize)
+void CmFBoss2Bullet::fire(float x, float y, int maxSize)
 {
 	tagBullet bullet;
-	for (int k = 0; k < 6; k++)
+	
+	for (int i = 0; i < maxSize; i++)
 	{
 		ZeroMemory(&bullet, sizeof(tagBullet));
 		bullet.bulletImage = new  image;
-		bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/warning.bmp", 50 + plussize, 55 + plussize, true, RGB(255, 0, 255));
-
-		bullet.angle = angle;
+		bullet.bulletImage = IMAGE->addImage("경고", "images/bullet_bmp/warning.bmp", 50, 55, true, RGB(255, 0, 255));
+		bullet.angle = PI * 2 / maxSize * i;
+		bullet.speed = 0.8 * maxSize;;
 		bullet.x = bullet.fireX = x;
 		bullet.y = bullet.fireY = y;
-		bullet.alpha = 40;
+		bullet.fire = false;
+		bullet.alpha = 160;
 		bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 			bullet.bulletImage->getWidth(),
 			bullet.bulletImage->getHeight());
 		bullet.count = 0;
 
 		_vBullet.push_back(bullet);
+
 	}
 }
 
-void CmFBoss1Bullet::fire2(float x, float y, float angle, int plussize)
+void CmFBoss2Bullet::fire2(float x, float y, int plussize)
 {
 	tagBullet bullet2;
-	for (int i = 0; i < 30; i++)
-	{
-		ZeroMemory(&bullet2, sizeof(tagBullet));
-		bullet2.bulletImage2 = new  image;
-		bullet2.bulletImage2 = IMAGE->addImage("몬스터총알2", "images/flower_skill.bmp", 50 + plussize, 55 + plussize, true, RGB(255, 0, 255));
+
+	ZeroMemory(&bullet2, sizeof(tagBullet));
+	bullet2.bulletImage2 = new  image;
+		bullet2.bulletImage2 = IMAGE->addImage("가시", "images/bullet_bmp/niddle.bmp", 50, 55, true, RGB(255, 0, 255));
+
 		bullet2.angle = PI / 2;
 		bullet2.x = bullet2.fireX = x;
 		bullet2.y = bullet2.fireY = y;
@@ -1339,10 +1587,11 @@ void CmFBoss1Bullet::fire2(float x, float y, float angle, int plussize)
 		bullet2.count = 50;
 
 		_vBullet2.push_back(bullet2);
-	}
+
 }
 
-void CmFBoss1Bullet::move()
+
+void CmFBoss2Bullet::move()
 {
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end();)
@@ -1352,10 +1601,11 @@ void CmFBoss1Bullet::move()
 		{
 			_viBullet->count = 0;
 		}
-		if (_viBullet->count > 0 && _viBullet->count < 50)
+		if (_viBullet->count > 0 && _viBullet->count < 20)
 		{
-			_viBullet->x += cosf(_viBullet->angle) * 0;
-			_viBullet->y -= sinf(_viBullet->angle) * 0;
+
+			_viBullet->x += cosf(_viBullet->angle) * _viBullet->speed;
+			_viBullet->y -= sinf(_viBullet->angle) * _viBullet->speed;
 
 			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
 				_viBullet->bulletImage->getWidth(),
@@ -1363,9 +1613,14 @@ void CmFBoss1Bullet::move()
 			_viBullet->fireX = _viBullet->x;
 			_viBullet->fireY = _viBullet->y;
 		}
-		else if (_viBullet->count == 50)
+		if (_viBullet->count == 20)
 		{
-			fire2(_viBullet->fireX, _viBullet->fireY, UTIL::getAngle(WINSIZEX / 2, WINSIZEY / 2, m_ptMouse.x, m_ptMouse.y), 0);
+			_viBullet->speed = 0;
+			_viBullet->fire = true;
+		}
+		else if (_viBullet->count == 80)
+		{
+			fire2(_viBullet->fireX, _viBullet->fireY, 0);
 			_viBullet = _vBullet.erase(_viBullet);
 			continue;
 		}
@@ -1373,7 +1628,7 @@ void CmFBoss1Bullet::move()
 	}
 }
 
-void CmFBoss1Bullet::move2()
+void CmFBoss2Bullet::move2()
 {
 	_viBullet2 = _vBullet2.begin();
 	for (_viBullet2; _viBullet2 != _vBullet2.end();)
@@ -1392,7 +1647,7 @@ void CmFBoss1Bullet::move2()
 				_viBullet2->bulletImage2->getWidth(),
 				_viBullet2->bulletImage2->getHeight());
 		}
-		else if (_viBullet2->count >= 200)
+		else if (_viBullet2->count > 60)
 		{
 			_viBullet2 = _vBullet2.erase(_viBullet2);
 			continue;
@@ -1401,12 +1656,673 @@ void CmFBoss1Bullet::move2()
 	}
 }
 
-void CmFBoss1Bullet::removeBullet(int arrNum)
+
+
+void CmFBoss2Bullet::removeBullet(int arrNum)
 {
 	_vBullet.erase(_vBullet.begin() + arrNum);
 }
 
-void CmFBoss1Bullet::removeBullet2(int arrNum)
+void CmFBoss2Bullet::removeBullet2(int arrNum)
 {
 	_vBullet2.erase(_vBullet2.begin() + arrNum);
+}
+
+//////////////////////////////////////////////////////////////
+/////	CmFBoss3Bullet!		 몬스터총알    !//////////////////
+//////////////////////////////////////////////////////////////
+CmFBoss3Bullet::CmFBoss3Bullet()
+{
+}
+
+CmFBoss3Bullet::~CmFBoss3Bullet()
+{
+}
+
+HRESULT CmFBoss3Bullet::init()
+{
+	return S_OK;
+}
+
+void CmFBoss3Bullet::release()
+{
+}
+
+void CmFBoss3Bullet::update()
+{
+	move();
+}
+
+void CmFBoss3Bullet::render()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		_viBullet->bulletImage->alphaRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->alpha);
+
+	}
+}
+
+void CmFBoss3Bullet::fire(float x, float y, int plussize)
+{
+	tagBullet bullet;
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = 0.01;
+	bullet.angle = 0;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x + 50;
+	bullet.y = bullet.fireY = y + 50;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = 0.01;
+	bullet.angle = 0 + 1.046;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x + 80;
+	bullet.y = bullet.fireY = y;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = 0.01;
+	bullet.angle = 2.092;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x + 50;
+	bullet.y = bullet.fireY = y - 50;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = 0.01;
+	bullet.angle = 3.138;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x - 50;
+	bullet.y = bullet.fireY = y - 50;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = 0.01;
+	bullet.angle = 4.184;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x - 80;
+	bullet.y = bullet.fireY = y;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = 0.01;
+	bullet.angle = 5.23;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x - 50;
+	bullet.y = bullet.fireY = y + 50;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = 0.01;
+	bullet.angle = 0;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x + 50;
+	bullet.y = bullet.fireY = y + 50;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = 0.01;
+	bullet.angle = 0 + 1.046;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x + 80;
+	bullet.y = bullet.fireY = y;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = 0.01;
+	bullet.angle = 2.092;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x + 50;
+	bullet.y = bullet.fireY = y - 50;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = 0.01;
+	bullet.angle = 3.138;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x - 50;
+	bullet.y = bullet.fireY = y - 50;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = 0.01;
+	bullet.angle = 4.184;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x - 80;
+	bullet.y = bullet.fireY = y;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = 0.01;
+	bullet.angle = 5.23;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x - 50;
+	bullet.y = bullet.fireY = y + 50;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = -0.01;
+	bullet.angle = 0;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x + 50;
+	bullet.y = bullet.fireY = y + 50;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = -0.01;
+	bullet.angle = 0 + 1.046;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x + 80;
+	bullet.y = bullet.fireY = y;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = -0.01;
+	bullet.angle = 2.092;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x + 50;
+	bullet.y = bullet.fireY = y - 50;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = -0.01;
+	bullet.angle = 3.138;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x - 50;
+	bullet.y = bullet.fireY = y - 50;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = -0.01;
+	bullet.angle = 4.184;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x - 80;
+	bullet.y = bullet.fireY = y;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.omega = -0.01;
+	bullet.angle = 5.23;
+	bullet.speed = 2;
+	bullet.x = bullet.fireX = x - 50;
+	bullet.y = bullet.fireY = y + 50;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+	
+}
+
+void CmFBoss3Bullet::move()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end();)
+	{
+		_viBullet->count++;
+		if (_vBullet.size() == 0)
+		{
+			_viBullet->count = 0;
+		}
+		if (_viBullet->count >= 0 && _viBullet->count < 300)
+		{
+			_viBullet->x -= 2 * cosf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
+			_viBullet->y += 2 * sinf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+		}
+		else if (_viBullet->count >= 300)
+		{
+			_viBullet = _vBullet.erase(_viBullet);
+			continue;
+		}
+		++_viBullet;
+
+	}
+}
+
+void CmFBoss3Bullet::removeBullet(int arrNum)
+{
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}
+//////////////////////////////////////////////////////////////
+/////	CmTBoss1Bullet!		 브레스	       !//////////////////
+//////////////////////////////////////////////////////////////
+CmTBoss1Bullet::CmTBoss1Bullet()
+{
+}
+
+CmTBoss1Bullet::~CmTBoss1Bullet()
+{
+}
+
+HRESULT CmTBoss1Bullet::init()
+{
+	return S_OK;
+}
+
+void CmTBoss1Bullet::release()
+{
+}
+
+void CmTBoss1Bullet::update()
+{
+	move();
+}
+
+void CmTBoss1Bullet::render()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		_viBullet->bulletImage->alphaRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->alpha);
+	}
+}
+
+void CmTBoss1Bullet::fire(float x, float y, float angle, bool isLeft, int plussize)
+{
+	tagBullet bullet;
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("나무브레스", "images/bullet_bmp/entskill.bmp", 96, 98, true, RGB(255, 0, 255));
+	if (isLeft)
+	{
+		bullet.omega = 0.005;
+	}
+	else
+	{
+		bullet.omega = -0.005;
+	}
+	bullet.angle = angle;
+	bullet.speed = 4;
+	bullet.x = bullet.fireX = x;
+	bullet.y = bullet.fireY = y;
+	bullet.fire = false;
+	bullet.alpha = 160;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+
+}
+
+void CmTBoss1Bullet::move()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end();)
+	{
+		_viBullet->count++;
+		if (_vBullet.size() == 0)
+		{
+			_viBullet->count = 0;
+		}
+		if (_viBullet->count >= 0 && _viBullet->count < 300 && !(_viBullet->iscollison))
+		{
+			_viBullet->x -= cosf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
+			_viBullet->y += sinf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+		}
+		else if (_viBullet->count >= 300 || _viBullet->iscollison)
+		{
+			_viBullet = _vBullet.erase(_viBullet);
+			continue;
+		}
+		++_viBullet;
+	}
+}
+
+void CmTBoss1Bullet::removeBullet(int arrNum)
+{
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}
+//////////////////////////////////////////////////////////////
+/////	CmTBoss2Bullet!		나무보스총알   !//////////////////
+//////////////////////////////////////////////////////////////
+CmTBoss2Bullet::CmTBoss2Bullet()
+{
+}
+
+CmTBoss2Bullet::~CmTBoss2Bullet()
+{
+}
+
+HRESULT CmTBoss2Bullet::init()
+{
+	return S_OK;
+}
+
+void CmTBoss2Bullet::release()
+{
+}
+
+void CmTBoss2Bullet::update()
+{
+	move();
+}
+
+void CmTBoss2Bullet::render()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		_viBullet->bulletImage->frameRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->bulletImage->getFrameX(), 0);
+		_viBullet->rendercount++;
+
+		if (_viBullet->rendercount % 10 == 0)
+		{
+			_viBullet->bulletImage->setFrameX(_viBullet->bulletImage->getFrameX() + 1);
+
+
+			if (_viBullet->bulletImage->getFrameX() >= _viBullet->bulletImage->getMaxFrameX())
+			{
+				_viBullet->bulletImage->setFrameX(0);
+			}
+			_viBullet->rendercount = 0;
+		}
+	}
+}
+
+void CmTBoss2Bullet::fire(float x, float y, float angle, bool isLeft, int plussize)
+{
+	tagBullet bullet;
+	for (int i = 0; i < 3; i++)
+	{
+		ZeroMemory(&bullet, sizeof(tagBullet));
+		bullet.bulletImage = new  image;
+		bullet.bulletImage = IMAGE->addFrameImage("나무보스총알", "images/bullet_bmp/TBossBullet.bmp", 200, 24, 8, 1, true, RGB(255, 0, 255));
+		if (isLeft)
+		{
+			bullet.omega = 0.0005;
+		}
+		bullet.angle = angle - 0.2 + 0.2 * i;
+		bullet.speed = 4;
+		bullet.x = bullet.fireX = x;
+		bullet.y = bullet.fireY = y;
+		bullet.fire = false;
+		bullet.alpha = 160;
+		bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+			bullet.bulletImage->getFrameWidth(),
+			bullet.bulletImage->getFrameHeight());
+		bullet.rendercount = 0;
+		bullet.count = 0;
+		_vBullet.push_back(bullet);
+	}
+}
+
+void CmTBoss2Bullet::move()
+{
+	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end();)
+	{
+		_viBullet->x += cosf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
+		_viBullet->y -= sinf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
+
+		_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+			_viBullet->bulletImage->getFrameWidth(),
+			_viBullet->bulletImage->getFrameHeight());
+
+		if (_viBullet->x < 0 || _viBullet->x > WINSIZEX || _viBullet->y <0 || _viBullet->y > WINSIZEY)
+		{
+			_viBullet = _vBullet.erase(_viBullet);
+		}
+		else ++_viBullet;
+
+	}
+}
+
+void CmTBoss2Bullet::removeBullet(int arrNum)
+{
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}
+
+CmTBoss3Bullet::CmTBoss3Bullet()
+{
+}
+
+CmTBoss3Bullet::~CmTBoss3Bullet()
+{
+}
+
+HRESULT CmTBoss3Bullet::init()
+{
+	return S_OK;
+}
+
+void CmTBoss3Bullet::release()
+{
+}
+
+void CmTBoss3Bullet::update()
+{
+	move();
+}
+
+void CmTBoss3Bullet::render()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		_viBullet->bulletImage->render(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
+	}
+}
+
+void CmTBoss3Bullet::fire(float x, float y, float angle, bool isLeft, int plussize)
+{
+	tagBullet bullet;
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 20, 20, true, RGB(255, 0, 255));
+	bullet.angle = angle;
+	bullet.angle2 = PI / 2 / 2 * RND->getFromInTo(0, 16);
+	bullet.rotateangle = angle + PI / 2;
+	bullet.speed = 5.0f;
+	bullet.x = bullet.fireX = x;
+	bullet.y = bullet.fireY = y;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	_vBullet.push_back(bullet);
+}
+
+void CmTBoss3Bullet::move()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end();)
+	{
+		_viBullet->count++;
+		if (_vBullet.size() == 0)
+		{
+			_viBullet->count = 0;
+		}
+		if (_viBullet->count < 100)
+		{
+
+			_viBullet->x += cosf(_viBullet->angle2) * 0.5;
+			_viBullet->y -= sinf(_viBullet->angle2) * 0.5;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+			_viBullet->fireX = _viBullet->x;
+			_viBullet->fireY = _viBullet->y;
+
+		}
+		else if (_viBullet->count >= 100 && _viBullet->count < 110)
+		{
+			_viBullet->angle = UTIL::getAngle(_viBullet->fireX, _viBullet->fireY, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+			_viBullet->x += cosf(_viBullet->angle) * 4;
+			_viBullet->y -= sinf(_viBullet->angle) * 4;
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+		}
+		else if (_viBullet->count >= 110)
+		{
+			_viBullet->x += cosf(_viBullet->angle) * 4;
+			_viBullet->y -= sinf(_viBullet->angle) * 4;
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+		}
+
+		if (_viBullet->x < 0 || _viBullet->x > WINSIZEX || _viBullet->y <0 || _viBullet->y > WINSIZEY)
+		{
+			_viBullet = _vBullet.erase(_viBullet);
+		}
+		else ++_viBullet;
+	}
+}
+
+void CmTBoss3Bullet::removeBullet(int arrNum)
+{
+	_vBullet.erase(_vBullet.begin() + arrNum);
 }
