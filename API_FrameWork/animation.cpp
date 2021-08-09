@@ -41,7 +41,7 @@ HRESULT animation::init(int totalW, int totalH, int frameW, int frameH)
     //기본 프레임으로 셋팅.
     setDefPlayFrame();
 
-
+    _elapseSec = 0;
 
 
     return S_OK;

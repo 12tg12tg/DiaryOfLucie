@@ -30,7 +30,7 @@ void mainGame::update()
 	gameNode::update();
 
 	_mDOL->update();
-
+	ANIMATION->update();
 
 
 
@@ -44,7 +44,6 @@ void mainGame::render(/*HDC hdc*/)	//그림그리는곳
 	//========================================================
 						/*렌더링 공간*/
 	_mDOL->render();
-
 
 
 

@@ -6,15 +6,21 @@
 =================================================
 	Find monster class ctrl+F4 ("name!")
 =================================================
-	monstername				imagename
+	monstername					imagename
 1.		Csnaby			/		뱀
 2.		Cslime			/		슬라임
 3.		Cmushman		/		머쉬맨
 4	Cmushman_mushroom!	/		머쉬맨_머쉬룸		
 5.		Cfairy			/		페어리
-6.						/		
-7.						/		
-8.						/		
+6.		Cflime			/		꽃
+7.	Cboss_slime			/		보스슬라임
+8.	Csemiboss_slime		/		준보스슬라임
+9.	Cboss_flime			/		보스플라임
+10. Cboss_mushmam		/		보스머쉬맘
+11. Cmushmam_mushroom_G	/		머쉬맘_녹색머쉬룸
+12. Cmushmam_mushroom2_P/		머쉬맘_보라머쉬룸
+13. Cmushmam_mushroom3_B/		머쉬맘_파랑머쉬룸
+14.
 */
 //////////////////////////////////////////////////////////////
 //////////////////////Csnaby!	뱀!//////////////////////////
@@ -308,32 +314,38 @@ void Csnaby::deathCheck()
 	}
 }
 
+void Csnaby::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
+{
+	if (iter->activestate == MONSTERACTIVE::DEATH) return;
+	//외부호출용함수(공격에맞을떄)
+	//데미지반영
+	iter->hp -= damage;
+	//총알이 나를 바라보던 방향으로 넉백
+	float centerx, centery;
+	centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
+	centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
+	float nbangle = UTIL::getAngle(x, y, centerx, centery);
+	iter->x += cosf(nbangle) * knockbackRange;
+	iter->y -= sinf(nbangle) * knockbackRange;
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y, iter->width, iter->height);
+	if (stun) {
+		iter->isStun = stun;
+		iter->frameX = 0;
+		iter->framecount = 0;
+		iter->patternCount = 0;
+		iter->activestate = MONSTERACTIVE::NONE;
+	}
+}
+
 void Csnaby::stuncheck()
 {
-	if (_viMonster->isStun) {
+	if (_viMonster->isStun && _viMonster->activestate != MONSTERACTIVE::DEATH) {
 		_viMonster->stunCount++;
-		if (_viMonster->stunCount > 10) {
+		if (_viMonster->stunCount > 20) {
 			_viMonster->activestate = MONSTERACTIVE::FINDING;
 			_viMonster->stunCount = 0;
 			_viMonster->isStun = false;
 		}
-	}
-}
-
-void Csnaby::knockback(float x, float y, bool stun)
-{
-	//외부호출용함수(공격에맞을떄)
-	//총알이 나를 바라보던 방향으로 넉백
-	float nbangle = UTIL::getAngle(x, y, _viMonster->x, _viMonster->y);
-	_viMonster->x += cosf(nbangle) * 1;
-	_viMonster->y -= sinf(nbangle) * 1;
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 6, _viMonster->y, _viMonster->width, _viMonster->height);
-	if (stun) {
-		_viMonster->isStun = stun;
-		_viMonster->frameX = 0;
-		_viMonster->framecount = 0;
-		_viMonster->patternCount = 0;
-		_viMonster->activestate = MONSTERACTIVE::NONE;
 	}
 }
 
@@ -426,10 +438,10 @@ void Cslime::render()
 				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
 			break;
 		}
+		//TCHAR str[128];
+		//_stprintf_s(str, "hp : %d", _viMonster->hp);
+		//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
 	}
-	//TCHAR str[128];
-	//_stprintf_s(str, "플레이어좌표 : %.1f, %.1f", PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
-	//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
 }
 
 void Cslime::addMonster(float x, float y)
@@ -721,28 +733,34 @@ void Cslime::deathCheck()
 	}
 }
 
-void Cslime::knockback(float x, float y, bool stun)
+void Cslime::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
 {
+	if (iter->activestate == MONSTERACTIVE::DEATH) return;
 	//외부호출용함수(공격에맞을떄)
+	//데미지반영
+	iter->hp -= damage;
 	//총알이 나를 바라보던 방향으로 넉백
-	float nbangle = UTIL::getAngle(x, y, _viMonster->x, _viMonster->y);
-	_viMonster->x += cosf(nbangle) * 1;
-	_viMonster->y -= sinf(nbangle) * 1;
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 6, _viMonster->y + _viMonster->img->getFrameWidth() / 4, _viMonster->width, _viMonster->height - _viMonster->img->getFrameWidth() / 4);
+	float centerx, centery;
+	centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
+	centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
+	float nbangle = UTIL::getAngle(x, y, centerx, centery);
+	iter->x += cosf(nbangle) * knockbackRange;
+	iter->y -= sinf(nbangle) * knockbackRange;
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y + iter->img->getFrameWidth() / 4, iter->width, iter->height - iter->img->getFrameWidth() / 4);
 	if (stun) {
-		_viMonster->isStun = stun;
-		_viMonster->frameX = 0;
-		_viMonster->framecount = 0;
-		_viMonster->patternCount = 0;
-		_viMonster->activestate = MONSTERACTIVE::NONE;
+		iter->isStun = stun;
+		iter->frameX = 0;
+		iter->framecount = 0;
+		iter->patternCount = 0;
+		iter->activestate = MONSTERACTIVE::NONE;
 	}
 }
 
 void Cslime::stuncheck()
 {
-	if (_viMonster->isStun) {
+	if (_viMonster->isStun && _viMonster->activestate != MONSTERACTIVE::DEATH) {
 		_viMonster->stunCount++;
-		if (_viMonster->stunCount > 10) {
+		if (_viMonster->stunCount > 20) {
 			_viMonster->activestate = MONSTERACTIVE::FINDING;
 			_viMonster->stunCount = 0;
 			_viMonster->isStun = false;
@@ -894,6 +912,7 @@ void Cmushman::move(bulletManager* bm, Cmushman_mushroom* _mushroom)
 			if (_viMonster->patternCount % 100 == 0)
 				_viMonster->activestate = MONSTERACTIVE::FINDING;
 		}
+		else _viMonster->activestate = MONSTERACTIVE::FINDING;
 		break;
 	case MONSTERACTIVE::FINDING:
 		break;
@@ -1095,30 +1114,36 @@ void Cmushman::deathCheck()
 	}
 }
 
-void Cmushman::knockback(float x, float y, bool stun)
+void Cmushman::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
 {
+	if (iter->activestate == MONSTERACTIVE::DEATH) return;
 	//외부호출용함수(공격에맞을떄)
+	//데미지반영
+	iter->hp -= damage;
 	//총알이 나를 바라보던 방향으로 넉백
-	float nbangle = UTIL::getAngle(x, y, _viMonster->x, _viMonster->y);
-	_viMonster->x += cosf(nbangle) * 1;
-	_viMonster->y -= sinf(nbangle) * 1;
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 6, _viMonster->y + 2, _viMonster->width, _viMonster->height);
+	float centerx, centery;
+	centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
+	centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
+	float nbangle = UTIL::getAngle(x, y, centerx, centery);
+	iter->x += cosf(nbangle) * knockbackRange;
+	iter->y -= sinf(nbangle) * knockbackRange;
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y + 2, iter->width, iter->height);
 	if (stun) {
-		_viMonster->isStun = stun;
-		_viMonster->frameX = 0;
-		_viMonster->framecount = 0;
-		_viMonster->patternCount = 0;
-		_viMonster->activestate = MONSTERACTIVE::NONE;
+		iter->isStun = stun;
+		iter->frameX = 0;
+		iter->framecount = 0;
+		iter->activestate = MONSTERACTIVE::NONE;
 	}
 }
 
 void Cmushman::stuncheck()
 {
-	if (_viMonster->isStun) {
+	if (_viMonster->isStun && _viMonster->activestate != MONSTERACTIVE::DEATH) {
 		_viMonster->stunCount++;
-		if (_viMonster->stunCount > 10) {
-			_viMonster->activestate = MONSTERACTIVE::NONE;
+		if (_viMonster->stunCount > 20) {
+			_viMonster->activestate = MONSTERACTIVE::FINDING;
 			_viMonster->stunCount = 0;
+			_viMonster->patternCount = 400;
 			_viMonster->isStun = false;
 		}
 	}
@@ -1186,6 +1211,9 @@ void Cmushman_mushroom::update(Cplayer* py, bulletManager* bm)
 	//업뎃
 	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
 	{
+		_viMonster->x = _viMonster->neverchangeX;
+		_viMonster->y = _viMonster->neverchangeY;
+		_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() * 3 / 8, _viMonster->y + _viMonster->img->getFrameHeight() * 3 / 4, _viMonster->width, _viMonster->height);
 		stuncheck();
 		checkPlayerXY(py);
 		move(bm);
@@ -1238,11 +1266,13 @@ void Cmushman_mushroom::addMonster(float x, float y)
 	newMonster.frameY = 0;
 	newMonster.x = x;
 	newMonster.y = y;
+	newMonster.neverchangeX = x;
+	newMonster.neverchangeY = y;
 	newMonster.width = newMonster.img->getFrameWidth() / 4 + 1;
 	newMonster.height = newMonster.img->getFrameHeight() / 4;
 	newMonster.rc = RectMake(x + newMonster.img->getFrameWidth() * 3 / 8, y + newMonster.img->getFrameHeight() * 3 / 4, newMonster.width, newMonster.height);
 	newMonster.speed = 2;
-	newMonster.hp = 77;
+	newMonster.hp = 36;
 	newMonster.isStun = false;
 	newMonster.isDeath = false;
 	newMonster.findPlayer = false;
@@ -1366,33 +1396,32 @@ void Cmushman_mushroom::deathCheck()
 	}
 }
 
-void Cmushman_mushroom::knockback(float x, float y, bool stun)
+void Cmushman_mushroom::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
 {
+	if (iter->activestate == MONSTERACTIVE::DEATH) return;
 	//외부호출용함수(공격에맞을떄)
+	//데미지반영
+	iter->hp -= damage;
 	//총알이 나를 바라보던 방향으로 넉백
-	float nbangle = UTIL::getAngle(x, y, _viMonster->x, _viMonster->y);
-	_viMonster->x += cosf(nbangle) * 1;
-	_viMonster->y -= sinf(nbangle) * 1;
-	RectMake(_viMonster->x + _viMonster->img->getFrameWidth() * 3 / 8, _viMonster->y + _viMonster->img->getFrameHeight() * 3 / 4, _viMonster->width, _viMonster->height);
-	if (stun) {
-		_viMonster->isStun = stun;
-		_viMonster->frameX = 0;
-		_viMonster->framecount = 0;
-		_viMonster->patternCount = 0;
-		_viMonster->activestate = MONSTERACTIVE::NONE;
+	float centerx, centery;
+	centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
+	centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
+	float nbangle = UTIL::getAngle(x, y, centerx, centery);
+	iter->x += cosf(nbangle) * knockbackRange;
+	iter->y -= sinf(nbangle) * knockbackRange;
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() * 3 / 8, iter->y + iter->img->getFrameHeight() * 3 / 4, iter->width, iter->height);
+	//버섯은 스턴이 없는걸로..
+	if (stun = false) {
+		iter->isStun = stun;
+		iter->frameX = 0;
+		iter->framecount = 0;
+		iter->patternCount = 0;
+		iter->activestate = MONSTERACTIVE::NONE;
 	}
 }
 
 void Cmushman_mushroom::stuncheck()
 {
-	if (_viMonster->isStun) {
-		_viMonster->stunCount++;
-		if (_viMonster->stunCount > 10) {
-			_viMonster->activestate = MONSTERACTIVE::NONE;
-			_viMonster->stunCount = 0;
-			_viMonster->isStun = false;
-		}
-	}
 }
 
 void Cmushman_mushroom::checkPlayerXY(Cplayer* py)
@@ -1480,9 +1509,9 @@ void Cfairy::render()
 				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
 			break;
 		}
-		TCHAR str[128];
-		_stprintf_s(str, "현재프레임X : %d", _viMonster->frameX);
-		TextOut(getMemDC(), 100, 0, str, lstrlen(str));
+		//TCHAR str[128];
+		//_stprintf_s(str, "현재프레임X : %d", _viMonster->frameX);
+		//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
 	}
 }
 
@@ -1492,6 +1521,7 @@ void Cfairy::addMonster(float x, float y)
 	newMonster.img = IMAGE->findImage("페어리");
 	newMonster.frameX = 1;
 	newMonster.frameY = 0;
+	newMonster.framecount = 0;
 	newMonster.x = x;
 	newMonster.y = y;
 	newMonster.width = newMonster.img->getFrameWidth() / 3;
@@ -1505,7 +1535,7 @@ void Cfairy::addMonster(float x, float y)
 	newMonster.afterDeath = false;
 	newMonster.targetX = 0;
 	newMonster.targetY = 0;
-	newMonster.angle = PI * 3 / 2;
+	newMonster.angle = PI *3 / 2;
 	newMonster.range = 450;
 	newMonster.stunCount = 0;
 	newMonster.patternCount = 0;
@@ -1539,8 +1569,8 @@ void Cfairy::move(bulletManager* bm)
 		if (_viMonster->patternCount < 35) {
 			if (_viMonster->patternCount % 30 == 0) {
 				bm->getWidBulInstance()->fire(
-					_viMonster->x + _viMonster->img->getFrameWidth() / 2,
-					_viMonster->y + _viMonster->img->getFrameHeight() / 2,
+					_viMonster->rc.left +(_viMonster->rc.right- _viMonster->rc.left) / 2,
+					_viMonster->rc.top + (_viMonster->rc.bottom- _viMonster->rc.top) / 2,
 					_viMonster->angle, 0);
 			}
 		}
@@ -1556,8 +1586,8 @@ void Cfairy::move(bulletManager* bm)
 		if (_viMonster->patternCount < 35) {
 			if (_viMonster->patternCount % 30 == 0) {
 				bm->getRtnBulInstance()->fire(
-					_viMonster->x + _viMonster->img->getFrameWidth() / 2,
-					_viMonster->y + _viMonster->img->getFrameHeight() / 2,
+					_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2 + 20,
+					_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2 + 20,
 					_viMonster->angle, 0);
 			}
 		}
@@ -1709,7 +1739,6 @@ void Cfairy::giveFrame()
 			_viMonster->frameX = 1; //디폴트
 			break;
 		}
-		_viMonster->frameY = 8;
 		maxFrameX = 0;
 		break;
 	}
@@ -1721,12 +1750,10 @@ void Cfairy::giveFrame()
 	}
 	//죽었을 땐 한번만 증가
 	else if (_viMonster->activestate == MONSTERACTIVE::DEATH){
-		if (_viMonster->framecount % 12 == 0) {
-			_viMonster->framecount = 0;
+		if (_viMonster->framecount > 12) {
 			_viMonster->frameY = 8;
 			_viMonster->frameX = 0;
 		}
-		_viMonster->frameX = 0;
 	}
 	//움직이거나 공격중일 땐 X프레임 굴리기
 	else {
@@ -1744,32 +1771,39 @@ void Cfairy::deathCheck()
 {
 	if (_viMonster->activestate != MONSTERACTIVE::DEATH && _viMonster->hp <= 0) {
 		_viMonster->activestate = MONSTERACTIVE::DEATH;
+		_viMonster->framecount = 0;
 		_viMonster->patternCount = 0;
 	}
 }
 
-void Cfairy::knockback(float x, float y, bool stun)
+void Cfairy::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
 {
+	if (iter->activestate == MONSTERACTIVE::DEATH) return;
 	//외부호출용함수(공격에맞을떄)
+	//데미지반영
+	iter->hp -= damage;
 	//총알이 나를 바라보던 방향으로 넉백
-	float nbangle = UTIL::getAngle(x, y, _viMonster->x, _viMonster->y);
-	_viMonster->x += cosf(nbangle) * 1;
-	_viMonster->y -= sinf(nbangle) * 1;
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 6, _viMonster->y, _viMonster->width, _viMonster->height);
+	float centerx, centery;
+	centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
+	centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
+	float nbangle = UTIL::getAngle(x, y, centerx, centery);
+	iter->x += cosf(nbangle) * knockbackRange;
+	iter->y -= sinf(nbangle) * knockbackRange;
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 3, iter->y + iter->img->getFrameHeight() / 5, iter->width, iter->height);
 	if (stun) {
-		_viMonster->isStun = stun;
-		_viMonster->frameX = 0;
-		_viMonster->framecount = 0;
-		_viMonster->patternCount = 0;
-		_viMonster->activestate = MONSTERACTIVE::NONE;
+		iter->isStun = stun;
+		iter->frameX = 0;
+		iter->framecount = 0;
+		iter->patternCount = 0;
+		iter->activestate = MONSTERACTIVE::NONE;
 	}
 }
 
 void Cfairy::stuncheck()
 {
-	if (_viMonster->isStun) {
+	if (_viMonster->isStun && _viMonster->activestate != MONSTERACTIVE::DEATH) {
 		_viMonster->stunCount++;
-		if (_viMonster->stunCount > 10) {
+		if (_viMonster->stunCount > 20) {
 			_viMonster->activestate = MONSTERACTIVE::FINDING;
 			_viMonster->stunCount = 0;
 			_viMonster->isStun = false;
@@ -1787,7 +1821,7 @@ void Cfairy::checkPlayerXY(Cplayer* py)
 		_viMonster->frameX = 0;
 		_viMonster->framecount = 0;
 		_viMonster->patternCount = 0;
-		if (_viMonster->oldactivestate == MONSTERACTIVE::ATTACK && _viMonster->attackNum == 2) {
+		if (_viMonster->oldactivestate == MONSTERACTIVE::ATTACK && _viMonster->attackNum >= 2) {
 			_viMonster->activestate = MONSTERACTIVE::ATTACK2;
 			_viMonster->attackNum = 0;
 		}
@@ -1809,4 +1843,2338 @@ void Cfairy::checkPlayerXY(Cplayer* py)
 		_viMonster->activestate = MONSTERACTIVE::RNDMOVE;
 		_viMonster->angle = RND->getInt(360) * PI / 180;
 	}
+}
+//////////////////////////////////////////////////////////////
+////////////////Cflime!				꽃!///////////////////////
+//////////////////////////////////////////////////////////////
+Cflime::Cflime()
+{
+	IMAGE->addFrameImage("꽃", "images/monsters/flime-flime.bmp", 240, 549, 3, 9, true);
+}
+
+Cflime::~Cflime()
+{
+}
+
+HRESULT Cflime::init()
+{
+	return S_OK;
+}
+
+void Cflime::release()
+{
+}
+
+void Cflime::update(Cplayer* py, bulletManager* bm)
+{
+	//업뎃
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		_viMonster->x = _viMonster->neverchangeX;
+		_viMonster->y = _viMonster->neverchangeY;
+		_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() / 4, _viMonster->width, _viMonster->height);;
+		stuncheck();
+		checkPlayerXY(py);
+		move(bm);
+		checkAngle();
+		giveFrame();
+		deathCheck();
+	}
+	//소멸
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); )
+	{
+		if (_viMonster->afterDeath) {
+			_viMonster = _vMonster.erase(_viMonster);
+		}
+		else {
+			++_viMonster;
+		}
+	}
+}
+
+void Cflime::render()
+{
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		switch (_viMonster->activestate)
+		{
+		case MONSTERACTIVE::NONE:
+		case MONSTERACTIVE::FINDING:
+		case MONSTERACTIVE::RNDMOVE:
+		case MONSTERACTIVE::ATTACK:
+		case MONSTERACTIVE::ATTACK2:
+			if (_isDebug) RectangleMake(getMemDC(), _viMonster->rc);
+			_viMonster->img->frameRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
+			break;
+		case MONSTERACTIVE::DEATH:
+			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			break;
+		}
+		//TCHAR str[128];
+		//_stprintf_s(str, "스턴카운트 : %d", _viMonster->stunCount);
+		//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
+	}
+}
+
+void Cflime::addMonster(float x, float y)
+{
+	tagMonster newMonster;
+	newMonster.img = IMAGE->findImage("꽃");
+	newMonster.frameX = 0;
+	newMonster.frameY = 0;
+	newMonster.x = x;
+	newMonster.y = y;
+	newMonster.neverchangeX = x;
+	newMonster.neverchangeY = y;
+	newMonster.width = newMonster.img->getFrameWidth() / 2;
+	newMonster.height = newMonster.img->getFrameHeight() * 3 / 4;
+	newMonster.rc = RectMake(x + newMonster.img->getFrameWidth() / 4, y + newMonster.img->getFrameHeight() / 4, newMonster.width, newMonster.height);
+	newMonster.speed = 0;
+	newMonster.hp = 57;
+	newMonster.isStun = false;
+	newMonster.isDeath = false;
+	newMonster.findPlayer = false;
+	newMonster.afterDeath = false;
+	newMonster.targetX = 0;
+	newMonster.targetY = 0;
+	newMonster.angle = PI * 3 / 2;
+	newMonster.range = 450;
+	newMonster.stunCount = 0;
+	newMonster.patternCount = 0;
+	newMonster.deathalpha = 255;
+	newMonster.attackNum = 0;
+	newMonster.activestate = MONSTERACTIVE::NONE;
+	newMonster.oldactivestate = MONSTERACTIVE::NONE;
+	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	_vMonster.push_back(newMonster);
+}
+
+void Cflime::move(bulletManager* bm)
+{
+	_viMonster->patternCount++;
+	switch (_viMonster->activestate)
+	{
+	case MONSTERACTIVE::NONE:
+		if (_viMonster->patternCount > 140) {
+			_viMonster->activestate = MONSTERACTIVE::FINDING;
+		}
+		break;
+	case MONSTERACTIVE::FINDING:
+		break;
+	case MONSTERACTIVE::ATTACK:
+		if (_viMonster->patternCount < 280) {
+			if (_viMonster->patternCount == 55) {
+				bm->getnidBulInstance()->fire(
+					PLAYER->getPlayerAddress().x,
+					PLAYER->getPlayerAddress().y,
+					_viMonster->angle, 0);
+			}
+			else if (_viMonster->patternCount == 85) {
+				bm->getnidBulInstance()->fire(
+					PLAYER->getPlayerAddress().x,
+					PLAYER->getPlayerAddress().y,
+					_viMonster->angle, 0);
+			}
+			else if (_viMonster->patternCount == 115) {
+				bm->getnidBulInstance()->fire(
+					PLAYER->getPlayerAddress().x,
+					PLAYER->getPlayerAddress().y,
+					_viMonster->angle, 0);
+			}
+		}
+		else {
+			_viMonster->frameX = 0;
+			_viMonster->framecount = 0;
+			_viMonster->patternCount = 0;
+			_viMonster->activestate = MONSTERACTIVE::NONE;
+			_viMonster->oldactivestate = MONSTERACTIVE::ATTACK;
+		}
+		break;
+	case MONSTERACTIVE::ATTACK2:
+		if (_viMonster->patternCount < 48) {
+		}
+		else if (_viMonster->patternCount == 48) {
+			bm->getPsnBulInstance()->fire(
+				_viMonster->x + _viMonster->img->getFrameWidth() / 2,
+				_viMonster->y + _viMonster->img->getFrameHeight() / 2,
+				_viMonster->angle, 0);
+		}
+		else if (_viMonster->patternCount < 270) {
+			//잠시 독구름 사라질떄까지 대기
+		}
+		else {
+			//공격상태 해제
+			_viMonster->frameX = 0;
+			_viMonster->framecount = 0;
+			_viMonster->patternCount = 0;
+			_viMonster->activestate = MONSTERACTIVE::NONE;
+			_viMonster->oldactivestate = MONSTERACTIVE::ATTACK2;
+		}
+		break;
+	case MONSTERACTIVE::RNDMOVE:
+		break;
+	case MONSTERACTIVE::DEATH:
+		_viMonster->deathalpha -= 2;
+		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
+		if (_viMonster->deathalpha == 0) {
+			_viMonster->afterDeath = true;
+		}
+		break;
+	}
+}
+
+void Cflime::giveFrame()
+{
+	int maxFrameX;
+	_viMonster->framecount++;
+	//8방향과 상태에 따른 Y프레임 고르기
+	switch (_viMonster->activestate)
+	{
+	case MONSTERACTIVE::NONE:
+	case MONSTERACTIVE::FINDING:
+		switch (_viMonster->movestate)
+		{
+		case MONSTERMOVESTATE::RIGHTUP:
+		case MONSTERMOVESTATE::UP:
+			_viMonster->frameY = 3;
+			break;
+		case MONSTERMOVESTATE::LEFTUP:
+		case MONSTERMOVESTATE::LEFT:
+			_viMonster->frameY = 1;
+			break;
+		case MONSTERMOVESTATE::LEFTDOWN:
+		case MONSTERMOVESTATE::DOWN:
+			_viMonster->frameY = 0;
+			break;
+		case MONSTERMOVESTATE::RIGHTDOWN:
+		case MONSTERMOVESTATE::RIGHT:
+			_viMonster->frameY = 2;
+			break;
+		case MONSTERMOVESTATE::NONE:
+			_viMonster->frameY = 0; //디폴트
+			break;
+		}
+		maxFrameX = 1;
+		break;
+	case MONSTERACTIVE::RNDMOVE:
+		break;
+	case MONSTERACTIVE::ATTACK:
+		switch (_viMonster->movestate)
+		{
+		case MONSTERMOVESTATE::RIGHTUP:
+		case MONSTERMOVESTATE::UP:
+			_viMonster->frameY = 7;
+			break;
+		case MONSTERMOVESTATE::LEFTUP:
+		case MONSTERMOVESTATE::LEFT:
+			_viMonster->frameY = 5;
+			break;
+		case MONSTERMOVESTATE::LEFTDOWN:
+		case MONSTERMOVESTATE::DOWN:
+			_viMonster->frameY = 4;
+			break;
+		case MONSTERMOVESTATE::RIGHTDOWN:
+		case MONSTERMOVESTATE::RIGHT:
+			_viMonster->frameY = 6;
+			break;
+		case MONSTERMOVESTATE::NONE:
+			_viMonster->frameY = 4; //디폴트
+			break;
+		}
+		maxFrameX = 2;
+		break;
+	case MONSTERACTIVE::ATTACK2:
+		switch (_viMonster->movestate)
+		{
+		case MONSTERMOVESTATE::RIGHTUP:
+		case MONSTERMOVESTATE::UP:
+			_viMonster->frameY = 3;
+			break;
+		case MONSTERMOVESTATE::LEFTUP:
+		case MONSTERMOVESTATE::LEFT:
+			_viMonster->frameY = 1;
+			break;
+		case MONSTERMOVESTATE::LEFTDOWN:
+		case MONSTERMOVESTATE::DOWN:
+			_viMonster->frameY = 0;
+			break;
+		case MONSTERMOVESTATE::RIGHTDOWN:
+		case MONSTERMOVESTATE::RIGHT:
+			_viMonster->frameY = 2;
+			break;
+		case MONSTERMOVESTATE::NONE:
+			_viMonster->frameY = 0; //디폴트
+			break;
+		}
+		maxFrameX = 1;
+		break;
+
+	case MONSTERACTIVE::DEATH:
+		_viMonster->frameY = 8;
+		maxFrameX = 0;
+		break;
+	}
+
+	int currentX = _viMonster->frameX;
+	//땅에뿌리꽂기 공격. 마지막 프레임에서 멈춰있기.
+	if (_viMonster->activestate == MONSTERACTIVE::ATTACK)
+	{
+		if (_viMonster->patternCount < 250) {
+			if (_viMonster->framecount % 15 == 0) {
+				if (currentX < maxFrameX) {
+					currentX++;
+					_viMonster->frameX = currentX;
+				}
+				else {
+					_viMonster->framecount = 0;
+				}
+			}
+		}
+		else {
+			//프레임감소
+			if (_viMonster->framecount % 15 == 0) {
+				currentX--;
+				_viMonster->frameX = currentX;
+				if (currentX < 0) {
+					_viMonster->frameX = 0;
+				}
+			}
+		}
+	}
+	else if (_viMonster->activestate == MONSTERACTIVE::ATTACK2)
+	{
+		//공격2 상태가 되자마자 기모으는 모션
+		if (_viMonster->patternCount < 40) {
+			_viMonster->frameX = 2;
+		}
+		else if (_viMonster->patternCount < 60) {
+			_viMonster->frameX = 1;
+		}
+		else{
+			if (_viMonster->framecount % 15 == 0) {
+				currentX++;
+				if (currentX > maxFrameX) {
+					currentX = 0;
+				}
+				_viMonster->frameX = currentX;
+			}
+		}
+	}
+	//NONE이거나 DEATH일땐 정상프레임.
+	else {
+		if (_viMonster->framecount % 15 == 0) {
+			currentX++;
+			if (currentX > maxFrameX) {
+				currentX = 0;
+			}
+			_viMonster->frameX = currentX;
+		}
+	}
+}
+
+void Cflime::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
+{
+	if (iter->activestate == MONSTERACTIVE::DEATH) return;
+	//외부호출용함수(공격에맞을떄)
+	//데미지반영
+	iter->hp -= damage;
+	//총알이 나를 바라보던 방향으로 넉백
+	float centerx, centery;
+	centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
+	centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
+	float nbangle = UTIL::getAngle(x, y, centerx, centery);
+	iter->x += cosf(nbangle) * knockbackRange;
+	iter->y -= sinf(nbangle) * knockbackRange;
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 4, iter->y + iter->img->getFrameHeight() / 4, iter->width, iter->height);
+	if (stun) {
+		iter->isStun = stun;
+		iter->frameX = 0;
+		iter->framecount = 0;
+		iter->patternCount = 0;
+		iter->activestate = MONSTERACTIVE::NONE;
+	}
+}
+
+void Cflime::stuncheck()
+{
+	if (_viMonster->isStun && _viMonster->activestate!= MONSTERACTIVE::DEATH) {
+		_viMonster->stunCount++;
+		if (_viMonster->stunCount > 20) {
+			_viMonster->activestate = MONSTERACTIVE::FINDING;
+			_viMonster->stunCount = 0;
+			_viMonster->isStun = false;
+		}
+	}
+}
+
+void Cflime::checkPlayerXY(Cplayer* py)
+{
+	if (_viMonster->activestate != MONSTERACTIVE::FINDING) return;
+	//플레이어의 좌표를 확인후 사거리내로 들어왔다면 공격상태돌입.
+	float distance = UTIL::getDistance(_viMonster->x, _viMonster->y, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	if (distance < _viMonster->range)
+	{
+		_viMonster->frameX = 0;
+		_viMonster->framecount = 0;
+		_viMonster->patternCount = 0;
+		if (_viMonster->oldactivestate == MONSTERACTIVE::ATTACK && _viMonster->attackNum >= 2) {
+			_viMonster->activestate = MONSTERACTIVE::ATTACK2;
+			_viMonster->attackNum = 0;
+		}
+		else {
+			_viMonster->activestate = MONSTERACTIVE::ATTACK;
+			_viMonster->attackNum++;
+		}
+		_viMonster->oldactivestate = MONSTERACTIVE::NONE;
+		//목표 지점과 각 설정
+		_viMonster->targetX = PLAYER->getPlayerAddress().x;
+		_viMonster->targetY = PLAYER->getPlayerAddress().y;
+		_viMonster->angle = UTIL::getAngle(_viMonster->x, _viMonster->y, _viMonster->targetX, _viMonster->targetY);
+	}
+	//사거리내가 아니라면 NONE 진입.
+	else {
+		_viMonster->frameX = 0;
+		_viMonster->framecount = 0;
+		_viMonster->patternCount = 0;
+		_viMonster->activestate = MONSTERACTIVE::NONE;
+		_viMonster->angle = DEGREE(270);
+	}
+}
+//////////////////////////////////////////////////////////////
+//////////Cboss_slime!		보스슬라임!///////////////////////
+//////////////////////////////////////////////////////////////
+Cboss_slime::Cboss_slime()
+{
+	IMAGE->addFrameImage("보스슬라임", "images/monsters/boss_KingSlime.bmp", 576*2, 2496*2, 3, 13, true);
+}
+
+Cboss_slime::~Cboss_slime()
+{
+}
+
+HRESULT Cboss_slime::init()
+{
+	return S_OK;
+}
+
+void Cboss_slime::release()
+{
+}
+
+void Cboss_slime::update(Cplayer* py, bulletManager* bm, Csemiboss_slime* ss)
+{
+	//업뎃
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		//stuncheck();
+		checkPlayerXY(py);
+		move(bm, ss);
+		checkAngle();
+		giveFrame();
+		deathCheck();
+	}
+	//소멸
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); )
+	{
+		if (_viMonster->afterDeath) {
+			_viMonster = _vMonster.erase(_viMonster);
+		}
+		else {
+			++_viMonster;
+		}
+	}
+}
+
+void Cboss_slime::render()
+{
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		switch (_viMonster->activestate)
+		{
+		case MONSTERACTIVE::NONE:
+		case MONSTERACTIVE::FINDING:
+		case MONSTERACTIVE::RNDMOVE:
+		case MONSTERACTIVE::ATTACK:
+		case MONSTERACTIVE::ATTACK2:
+			if (_isDebug) RectangleMake(getMemDC(), _viMonster->rc);
+			_viMonster->img->aniRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->ani);
+			break;
+		case MONSTERACTIVE::DEATH:
+			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			break;
+		}
+		//TCHAR str[128];
+		//_stprintf_s(str, "현재프레임X : %d", _viMonster->frameX);
+		//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
+	}
+}
+
+void Cboss_slime::addMonster(float centerx, float centery)
+{
+
+	tagMonster newMonster;
+	newMonster.img = IMAGE->findImage("보스슬라임");
+	newMonster.ani = ANIMATION->addNoneKeyAnimation("보스슬라임", 0, 2, 8, true, true);
+	newMonster.frameX = 0;
+	newMonster.frameY = 0;
+	newMonster.width = newMonster.img->getFrameWidth() / 2;
+	newMonster.height = newMonster.img->getFrameHeight() / 3;
+	newMonster.x = centerx - newMonster.img->getFrameWidth() / 2 ;
+	newMonster.y = centery - newMonster.img->getFrameHeight() * 3 / 4;
+	newMonster.rc = RectMake(newMonster.x + newMonster.img->getFrameWidth() / 4, newMonster.y + newMonster.img->getFrameHeight() * 2 / 3, newMonster.width, newMonster.height);
+	newMonster.speed = 2;
+	newMonster.hp = 220;
+	newMonster.isStun = false;
+	newMonster.isDeath = false;
+	newMonster.findPlayer = false;
+	newMonster.afterDeath = false;
+	newMonster.targetX = 0;
+	newMonster.targetY = 0;
+	newMonster.angle = PI * 3 / 2;
+	newMonster.range = 1000;
+	newMonster.framecount = 0;
+	newMonster.stunCount = 0;
+	newMonster.patternCount = 0;
+	newMonster.deathalpha = 255;
+	newMonster.attackNum = 2;
+	newMonster.activestate = MONSTERACTIVE::NONE;
+	newMonster.oldactivestate = MONSTERACTIVE::NONE;
+	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	_vMonster.push_back(newMonster);
+}
+
+void Cboss_slime::move(bulletManager* bm, Csemiboss_slime* ss)
+{
+	_viMonster->patternCount++;
+	switch (_viMonster->activestate)
+	{
+	case MONSTERACTIVE::NONE:
+		if (_viMonster->patternCount > 30 && _viMonster->patternCount < 60) {
+			_viMonster->x += cosf(_viMonster->angle) * _viMonster->speed;
+			_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed;
+			_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 3, _viMonster->width, _viMonster->height);
+		}
+		if (_viMonster->patternCount >= 120) {
+			_viMonster->activestate = MONSTERACTIVE::FINDING;
+		}
+		break;
+	case MONSTERACTIVE::FINDING:
+		break;
+	case MONSTERACTIVE::ATTACK:
+		_viMonster->x += cosf(_viMonster->angle) * _viMonster->speed;
+		_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed;
+		_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 3, _viMonster->width, _viMonster->height);
+		if (_viMonster->patternCount < 35) {
+			if (_viMonster->patternCount % 30 == 0) {
+				bm->getCirBulInstance()->fire(
+					_viMonster->rc.left + (_viMonster->rc.right- _viMonster->rc.left)/2,
+					_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+					_viMonster->angle, 30);
+			}
+		}
+		else {
+			_viMonster->frameX = 0;
+			_viMonster->framecount = 0;
+			_viMonster->patternCount = 0;
+			_viMonster->activestate = MONSTERACTIVE::NONE;
+			_viMonster->oldactivestate = MONSTERACTIVE::ATTACK;
+		}
+		break;
+	case MONSTERACTIVE::ATTACK2:
+		if (_viMonster->patternCount < 110) {
+			if (_viMonster->patternCount == 15) {
+				_viMonster->y -= 100;
+			}
+			if (_viMonster->patternCount == 30) {
+				_viMonster->y += 100;
+			}
+			if (_viMonster->patternCount == 45) {
+				_viMonster->y -= 100;
+			}
+			if (_viMonster->patternCount == 60) {
+				_viMonster->y += 100;
+			}
+			_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 3, _viMonster->width, _viMonster->height);
+			if (_viMonster->patternCount % 100 == 0) {
+				bm->getSlmBosBullnstance()->fire(
+					_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+					_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+					_viMonster->angle, 0);
+			}
+		}
+		else {
+			_viMonster->frameX = 0;
+			_viMonster->framecount = 0;
+			_viMonster->patternCount = 0;
+			_viMonster->activestate = MONSTERACTIVE::NONE;
+			_viMonster->oldactivestate = MONSTERACTIVE::ATTACK2;
+		}
+		break;
+	case MONSTERACTIVE::RNDMOVE:
+		if (_viMonster->patternCount < 35) {
+			_viMonster->x += cosf(_viMonster->angle) * _viMonster->speed;
+			_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed;
+			_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 3, _viMonster->width, _viMonster->height);
+		}
+		else {
+			_viMonster->frameX = 0;
+			_viMonster->framecount = 0;
+			_viMonster->patternCount = 0;
+			_viMonster->activestate = MONSTERACTIVE::NONE;
+		}
+		break;
+	case MONSTERACTIVE::DEATH:
+		_viMonster->deathalpha -= 3;
+		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
+		if (_viMonster->deathalpha == 0) {
+			ss->addMonster(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2 - 30,
+				_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2);
+			ss->addMonster(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2 + 30,
+				_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2);
+			_viMonster->afterDeath = true;
+		}
+		break;
+	}
+}
+
+void Cboss_slime::giveFrame()
+{
+	if (_viMonster->framecount == 0) {
+		//8방향과 상태에 따른 애니메이션 고르기
+		switch (_viMonster->activestate)
+		{
+		case MONSTERACTIVE::NONE:
+		case MONSTERACTIVE::FINDING:
+		case MONSTERACTIVE::RNDMOVE:
+			switch (_viMonster->movestate)
+			{
+			case MONSTERMOVESTATE::RIGHTUP:
+			case MONSTERMOVESTATE::UP:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스슬라임", 9, 11, 8, true, true);
+				break;
+			case MONSTERMOVESTATE::LEFTUP:
+			case MONSTERMOVESTATE::LEFT:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스슬라임", 3, 5, 8, true, true);
+				break;
+			case MONSTERMOVESTATE::NONE:
+			case MONSTERMOVESTATE::LEFTDOWN:
+			case MONSTERMOVESTATE::DOWN:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스슬라임", 0, 2, 8, true, true);
+				break;
+			case MONSTERMOVESTATE::RIGHTDOWN:
+			case MONSTERMOVESTATE::RIGHT:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스슬라임", 6, 8, 8, true, true);
+				break;
+			}
+			//maxFrameX = 2;
+			break;
+
+		case MONSTERACTIVE::ATTACK:
+			switch (_viMonster->movestate)
+			{
+			case MONSTERMOVESTATE::RIGHTUP:
+			case MONSTERMOVESTATE::UP:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스슬라임", 33, 35, 5, false, false);
+				break;											
+			case MONSTERMOVESTATE::LEFTUP:						
+			case MONSTERMOVESTATE::LEFT:						
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스슬라임", 27, 29, 5, false, false);
+				break;												
+			case MONSTERMOVESTATE::NONE:							
+			case MONSTERMOVESTATE::LEFTDOWN:						
+			case MONSTERMOVESTATE::DOWN:							
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스슬라임", 24, 26, 5, false, false);
+				break;											
+			case MONSTERMOVESTATE::RIGHTDOWN:					
+			case MONSTERMOVESTATE::RIGHT:						
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스슬라임", 30, 32, 5, false, false);
+				break;
+			}
+			//maxFrameX = 2;
+			break;
+
+		case MONSTERACTIVE::DEATH:
+			_viMonster->frameY = 12;
+			_viMonster->frameX = 0;
+			break;
+		}
+	}
+
+	if (_viMonster->activestate == MONSTERACTIVE::ATTACK2 && _viMonster->framecount == 75) {
+		switch (_viMonster->movestate)
+		{
+		case MONSTERMOVESTATE::RIGHTUP:
+		case MONSTERMOVESTATE::UP:
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스슬라임", 21, 23, 5, false, false);
+			break;
+		case MONSTERMOVESTATE::LEFTUP:
+		case MONSTERMOVESTATE::LEFT:
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스슬라임", 15, 17, 5, false, false);
+			break;
+		case MONSTERMOVESTATE::NONE:
+		case MONSTERMOVESTATE::LEFTDOWN:
+		case MONSTERMOVESTATE::DOWN:
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스슬라임", 12, 14, 5, false, false);
+			break;
+		case MONSTERMOVESTATE::RIGHTDOWN:
+		case MONSTERMOVESTATE::RIGHT:
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스슬라임", 18, 20, 5, false, false);
+			break;
+		}
+	}
+
+	//프레임카운트증가(상태변화 알림외에 기능 없음)
+	_viMonster->framecount++;
+
+}
+
+void Cboss_slime::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
+{
+	if (iter->activestate == MONSTERACTIVE::DEATH) return;
+	//외부호출용함수(공격에맞을떄)
+	//데미지반영
+	iter->hp -= damage;
+	//총알이 나를 바라보던 방향으로 넉백
+	float centerx, centery;
+	centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
+	centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
+	float nbangle = UTIL::getAngle(x, y, centerx, centery);
+	iter->x += cosf(nbangle) * knockbackRange;
+	iter->y -= sinf(nbangle) * knockbackRange;
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 4, iter->y + iter->img->getFrameHeight() * 2 / 3, iter->width, iter->height);
+	//보스는 절대 스턴먹지 않는다.
+	if (stun = false) {
+		iter->isStun = stun;
+		iter->frameX = 0;
+		iter->framecount = 0;
+		iter->patternCount = 0;
+		iter->activestate = MONSTERACTIVE::NONE;
+	}
+}
+
+void Cboss_slime::stuncheck(){}
+
+void Cboss_slime::checkPlayerXY(Cplayer* py)
+{
+	if (_viMonster->activestate != MONSTERACTIVE::FINDING) return;
+	//플레이어의 좌표를 확인후 사거리내로 들어왔다면 공격상태돌입.
+	float distance = UTIL::getDistance(_viMonster->x, _viMonster->y, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	if (distance < _viMonster->range)
+	{
+		_viMonster->frameX = 0;
+		_viMonster->framecount = 0;
+		_viMonster->patternCount = 0;
+		if (_viMonster->attackNum == 3 && _viMonster->oldactivestate == MONSTERACTIVE::ATTACK) {
+			_viMonster->attackNum = 0;
+			_viMonster->activestate = MONSTERACTIVE::ATTACK2;
+		}
+		else {
+			_viMonster->attackNum++;
+			_viMonster->activestate = MONSTERACTIVE::ATTACK;
+		}
+		_viMonster->oldactivestate = MONSTERACTIVE::NONE;
+		//목표 지점과 각 설정
+		_viMonster->targetX = PLAYER->getPlayerAddress().x;
+		_viMonster->targetY = PLAYER->getPlayerAddress().y;
+		_viMonster->angle = UTIL::getAngle(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+			_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2, _viMonster->targetX, _viMonster->targetY);
+	}
+	//사거리내가 아니라면 랜덤무브 진입.
+	else {
+		_viMonster->frameX = 0;
+		_viMonster->framecount = 0;
+		_viMonster->patternCount = 0;
+		_viMonster->activestate = MONSTERACTIVE::RNDMOVE;
+		_viMonster->angle = RND->getInt(360) * PI / 180;
+	}
+}
+//////////////////////////////////////////////////////////////
+//////////Csemiboss_slime!		준보스슬라임!//////////////////
+//////////////////////////////////////////////////////////////
+Csemiboss_slime::Csemiboss_slime()
+{
+	IMAGE->addFrameImage("준보스슬라임", "images/monsters/boss_KingSlime.bmp", 576, 2496, 3, 13, true);
+}
+
+Csemiboss_slime::~Csemiboss_slime()
+{
+}
+
+HRESULT Csemiboss_slime::init()
+{
+	return S_OK;
+}
+
+void Csemiboss_slime::release()
+{
+}
+
+void Csemiboss_slime::update(Cplayer* py, bulletManager* bm, Cslime* slm)
+{
+	//업뎃
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		//stuncheck();
+		checkPlayerXY(py);
+		move(bm, slm);
+		checkAngle();
+		giveFrame();
+		deathCheck();
+	}
+	//소멸
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); )
+	{
+		if (_viMonster->afterDeath) {
+			_viMonster = _vMonster.erase(_viMonster);
+		}
+		else {
+			++_viMonster;
+		}
+	}
+}
+
+void Csemiboss_slime::render()
+{
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		switch (_viMonster->activestate)
+		{
+		case MONSTERACTIVE::NONE:
+		case MONSTERACTIVE::FINDING:
+		case MONSTERACTIVE::RNDMOVE:
+		case MONSTERACTIVE::ATTACK:
+		case MONSTERACTIVE::ATTACK2:
+			if (_isDebug) RectangleMake(getMemDC(), _viMonster->rc);
+			_viMonster->img->aniRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->ani);
+			break;
+		case MONSTERACTIVE::DEATH:
+			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			break;
+		}
+		//TCHAR str[128];
+		//_stprintf_s(str, "현재프레임X : %d", _viMonster->frameX);
+		//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
+	}
+}
+
+void Csemiboss_slime::addMonster(float centerx, float centery)
+{
+
+	tagMonster newMonster;
+	newMonster.img = IMAGE->findImage("준보스슬라임");
+	newMonster.ani = ANIMATION->addNoneKeyAnimation("준보스슬라임", 0, 2, 8, true, true);
+	newMonster.frameX = 0;
+	newMonster.frameY = 0;
+	newMonster.width = newMonster.img->getFrameWidth() / 2;
+	newMonster.height = newMonster.img->getFrameHeight() / 3;
+	newMonster.x = centerx - newMonster.img->getFrameWidth() / 2;
+	newMonster.y = centery - newMonster.img->getFrameHeight() * 3 / 4;
+	newMonster.rc = RectMake(newMonster.x + newMonster.img->getFrameWidth() / 4, newMonster.y + newMonster.img->getFrameHeight() * 2 / 3, newMonster.width, newMonster.height);
+	newMonster.speed = 2;
+	newMonster.hp = 70;
+	newMonster.isStun = false;
+	newMonster.isDeath = false;
+	newMonster.findPlayer = false;
+	newMonster.afterDeath = false;
+	newMonster.targetX = 0;
+	newMonster.targetY = 0;
+	newMonster.angle = PI * 3 / 2;
+	newMonster.range = 1000;
+	newMonster.framecount = 0;
+	newMonster.stunCount = 0;
+	newMonster.patternCount = 0;
+	newMonster.deathalpha = 255;
+	newMonster.attackNum = 0;
+	newMonster.activestate = MONSTERACTIVE::NONE;
+	newMonster.oldactivestate = MONSTERACTIVE::ATTACK;
+	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	_vMonster.push_back(newMonster);
+}
+
+void Csemiboss_slime::move(bulletManager* bm, Cslime* slm)
+{
+	_viMonster->patternCount++;
+	switch (_viMonster->activestate)
+	{
+	case MONSTERACTIVE::NONE:
+		if (_viMonster->patternCount > 30 && _viMonster->patternCount < 60) {
+			_viMonster->x += cosf(_viMonster->angle) * _viMonster->speed;
+			_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed;
+			_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 3, _viMonster->width, _viMonster->height);
+		}
+		if (_viMonster->patternCount >= 100) {
+			_viMonster->activestate = MONSTERACTIVE::FINDING;
+		}
+		break;
+	case MONSTERACTIVE::FINDING:
+		break;
+	case MONSTERACTIVE::ATTACK:
+		_viMonster->x += cosf(_viMonster->angle) * _viMonster->speed;
+		_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed;
+		_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 3, _viMonster->width, _viMonster->height);
+		if (_viMonster->patternCount < 35) {
+		}
+		else {
+			_viMonster->frameX = 0;
+			_viMonster->framecount = 0;
+			_viMonster->patternCount = 0;
+			_viMonster->activestate = MONSTERACTIVE::NONE;
+			_viMonster->oldactivestate = MONSTERACTIVE::ATTACK;
+		}
+		break;
+	case MONSTERACTIVE::ATTACK2:
+		if (_viMonster->patternCount < 110) {
+			if (_viMonster->patternCount == 15) {
+				_viMonster->y -= 100;
+			}
+			if (_viMonster->patternCount == 30) {
+				_viMonster->y += 100;
+			}
+			if (_viMonster->patternCount == 45) {
+				_viMonster->y -= 100;
+			}
+			if (_viMonster->patternCount == 60) {
+				_viMonster->y += 100;
+			}
+			if (_viMonster->patternCount == 75) {
+				_viMonster->y -= 100;
+			}
+			if (_viMonster->patternCount == 90) {
+				_viMonster->y += 100;
+			}
+			if (_viMonster->patternCount > 75 && _viMonster->patternCount < 100) {
+				_viMonster->x += cosf(_viMonster->angle) * _viMonster->speed*2;
+				_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed*2;
+			}
+			_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 3, _viMonster->width, _viMonster->height);
+			if (_viMonster->patternCount % 100 == 0) {
+				//목표 지점과 각 설정
+				_viMonster->targetX = PLAYER->getPlayerAddress().x;
+				_viMonster->targetY = PLAYER->getPlayerAddress().y;
+				_viMonster->angle = UTIL::getAngle(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+					_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2, _viMonster->targetX, _viMonster->targetY);
+				bm->getCirBulInstance()->fire(
+					_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+					_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+					_viMonster->angle, 0);
+			}
+		}
+		else {
+			_viMonster->frameX = 0;
+			_viMonster->framecount = 0;
+			_viMonster->patternCount = 0;
+			_viMonster->activestate = MONSTERACTIVE::NONE;
+			_viMonster->oldactivestate = MONSTERACTIVE::ATTACK2;
+		}
+		break;
+	case MONSTERACTIVE::RNDMOVE:
+		if (_viMonster->patternCount < 35) {
+			_viMonster->x += cosf(_viMonster->angle) * _viMonster->speed;
+			_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed;
+			_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 3, _viMonster->width, _viMonster->height);
+		}
+		else {
+			_viMonster->frameX = 0;
+			_viMonster->framecount = 0;
+			_viMonster->patternCount = 0;
+			_viMonster->activestate = MONSTERACTIVE::NONE;
+		}
+		break;
+	case MONSTERACTIVE::DEATH:
+		_viMonster->deathalpha -= 3;
+		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
+		if (_viMonster->deathalpha == 0) {
+			slm->addMonster(_viMonster->rc.left+(_viMonster->rc.right- _viMonster->rc.left)/2 - 30, 
+				_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2-10);
+			slm->addMonster(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2 + 30,
+				_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2+10);
+			_viMonster->afterDeath = true;
+		}
+		break;
+	}
+}
+
+void Csemiboss_slime::giveFrame()
+{
+	if (_viMonster->framecount == 0) {
+		//8방향과 상태에 따른 애니메이션 고르기
+		switch (_viMonster->activestate)
+		{
+		case MONSTERACTIVE::NONE:
+		case MONSTERACTIVE::FINDING:
+		case MONSTERACTIVE::RNDMOVE:
+			switch (_viMonster->movestate)
+			{
+			case MONSTERMOVESTATE::RIGHTUP:
+			case MONSTERMOVESTATE::UP:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "준보스슬라임", 9, 11, 8, true, true);
+				break;
+			case MONSTERMOVESTATE::LEFTUP:
+			case MONSTERMOVESTATE::LEFT:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "준보스슬라임", 3, 5, 8, true, true);
+				break;
+			case MONSTERMOVESTATE::NONE:
+			case MONSTERMOVESTATE::LEFTDOWN:
+			case MONSTERMOVESTATE::DOWN:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "준보스슬라임", 0, 2, 8, true, true);
+				break;
+			case MONSTERMOVESTATE::RIGHTDOWN:
+			case MONSTERMOVESTATE::RIGHT:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "준보스슬라임", 6, 8, 8, true, true);
+				break;
+			}
+			//maxFrameX = 2;
+			break;
+
+		case MONSTERACTIVE::ATTACK:
+			switch (_viMonster->movestate)
+			{
+			case MONSTERMOVESTATE::RIGHTUP:
+			case MONSTERMOVESTATE::UP:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "준보스슬라임", 33, 35, 5, false, false);
+				break;
+			case MONSTERMOVESTATE::LEFTUP:
+			case MONSTERMOVESTATE::LEFT:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "준보스슬라임", 27, 29, 5, false, false);
+				break;
+			case MONSTERMOVESTATE::NONE:
+			case MONSTERMOVESTATE::LEFTDOWN:
+			case MONSTERMOVESTATE::DOWN:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "준보스슬라임", 24, 26, 5, false, false);
+				break;
+			case MONSTERMOVESTATE::RIGHTDOWN:
+			case MONSTERMOVESTATE::RIGHT:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "준보스슬라임", 30, 32, 5, false, false);
+				break;
+			}
+			//maxFrameX = 2;
+			break;
+
+		case MONSTERACTIVE::DEATH:
+			_viMonster->frameY = 12;
+			_viMonster->frameX = 0;
+			break;
+		}
+	}
+
+	if (_viMonster->activestate == MONSTERACTIVE::ATTACK2 && _viMonster->framecount == 75) {
+		switch (_viMonster->movestate)
+		{
+		case MONSTERMOVESTATE::RIGHTUP:
+		case MONSTERMOVESTATE::UP:
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "준보스슬라임", 21, 23, 5, false, false);
+			break;
+		case MONSTERMOVESTATE::LEFTUP:
+		case MONSTERMOVESTATE::LEFT:
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "준보스슬라임", 15, 17, 5, false, false);
+			break;
+		case MONSTERMOVESTATE::NONE:
+		case MONSTERMOVESTATE::LEFTDOWN:
+		case MONSTERMOVESTATE::DOWN:
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "준보스슬라임", 12, 14, 5, false, false);
+			break;
+		case MONSTERMOVESTATE::RIGHTDOWN:
+		case MONSTERMOVESTATE::RIGHT:
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "준보스슬라임", 18, 20, 5, false, false);
+			break;
+		}
+	}
+
+	//프레임카운트증가(상태변화 알림외에 기능 없음)
+	_viMonster->framecount++;
+
+}
+
+void Csemiboss_slime::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
+{
+	if (iter->activestate == MONSTERACTIVE::DEATH) return;
+	//외부호출용함수(공격에맞을떄)
+	//데미지반영
+	iter->hp -= damage;
+	//총알이 나를 바라보던 방향으로 넉백
+	float centerx, centery;
+	centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
+	centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
+	float nbangle = UTIL::getAngle(x, y, centerx, centery);
+	iter->x += cosf(nbangle) * knockbackRange;
+	iter->y -= sinf(nbangle) * knockbackRange;
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 4, iter->y + iter->img->getFrameHeight() * 2 / 3, iter->width, iter->height);
+	//보스는 절대 스턴먹지 않는다.
+	if (stun = false) {
+		iter->isStun = stun;
+		iter->frameX = 0;
+		iter->framecount = 0;
+		iter->patternCount = 0;
+		iter->activestate = MONSTERACTIVE::NONE;
+	}
+}
+
+void Csemiboss_slime::stuncheck() {}
+
+void Csemiboss_slime::checkPlayerXY(Cplayer* py)
+{
+	if (_viMonster->activestate != MONSTERACTIVE::FINDING) return;
+	//플레이어의 좌표를 확인후 사거리내로 들어왔다면 공격상태돌입.
+	float distance = UTIL::getDistance(_viMonster->x, _viMonster->y, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	if (distance < _viMonster->range)
+	{
+		_viMonster->frameX = 0;
+		_viMonster->framecount = 0;
+		_viMonster->patternCount = 0;
+		if (_viMonster->oldactivestate == MONSTERACTIVE::ATTACK) {
+			_viMonster->activestate = MONSTERACTIVE::ATTACK2;
+		}
+		else {
+			_viMonster->activestate = MONSTERACTIVE::ATTACK;
+		}
+		_viMonster->oldactivestate = MONSTERACTIVE::NONE;
+		//목표 지점과 각 설정
+		_viMonster->targetX = PLAYER->getPlayerAddress().x;
+		_viMonster->targetY = PLAYER->getPlayerAddress().y;
+		_viMonster->angle = UTIL::getAngle(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+			_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2, _viMonster->targetX, _viMonster->targetY);
+	}
+	//사거리내가 아니라면 랜덤무브 진입.
+	else {
+		_viMonster->frameX = 0;
+		_viMonster->framecount = 0;
+		_viMonster->patternCount = 0;
+		_viMonster->activestate = MONSTERACTIVE::RNDMOVE;
+		_viMonster->angle = RND->getInt(360) * PI / 180;
+	}
+}
+//////////////////////////////////////////////////////////////
+//////////Cboss_flime!			보스플라임!////////////////////
+//////////////////////////////////////////////////////////////
+Cboss_flime::Cboss_flime()
+{
+	IMAGE->addFrameImage("보스플라임", "images/monsters/flime-bossFlime.bmp", 750, 1710, 3, 9, true);
+}
+
+Cboss_flime::~Cboss_flime()
+{
+}
+
+HRESULT Cboss_flime::init()
+{
+	return S_OK;
+}
+
+void Cboss_flime::release()
+{
+}
+
+void Cboss_flime::update(Cplayer* py, bulletManager* bm)
+{
+	//업뎃
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		//stuncheck();
+		_viMonster->x = _viMonster->neverchangeX;
+		_viMonster->y = _viMonster->neverchangeY;
+		_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 6, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 7, _viMonster->width, _viMonster->height);
+		checkPlayerXY(py);
+		move(bm);
+		checkAngle();
+		giveFrame();
+		deathCheck();
+	}
+	//소멸
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); )
+	{
+		if (_viMonster->afterDeath) {
+			_viMonster = _vMonster.erase(_viMonster);
+		}
+		else {
+			++_viMonster;
+		}
+	}
+}
+
+void Cboss_flime::render()
+{
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		switch (_viMonster->activestate)
+		{
+		case MONSTERACTIVE::NONE:
+		case MONSTERACTIVE::FINDING:
+		case MONSTERACTIVE::RNDMOVE:
+		case MONSTERACTIVE::ATTACK:
+		case MONSTERACTIVE::ATTACK2:
+			if (_isDebug) RectangleMake(getMemDC(), _viMonster->rc);
+			_viMonster->img->aniRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->ani);
+			break;
+		case MONSTERACTIVE::DEATH:
+			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			break;
+		}
+		//TCHAR str[128];
+		//_stprintf_s(str, "hp : %d", _viMonster->hp);
+		//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
+	}
+}
+
+void Cboss_flime::addMonster(float centerx, float centery)
+{
+	tagMonster newMonster;
+	newMonster.img = IMAGE->findImage("보스플라임");
+	newMonster.ani = ANIMATION->addNoneKeyAnimation("보스플라임", 1, 2, 3, true, true);
+	newMonster.frameX = 0;
+	newMonster.frameY = 0;
+	newMonster.width = newMonster.img->getFrameWidth() * 2 / 3;
+	newMonster.height = newMonster.img->getFrameHeight() * 2 / 3;
+	newMonster.x = centerx - newMonster.img->getFrameWidth() / 2;
+	newMonster.y = centery - newMonster.img->getFrameHeight() * 2 / 3;
+	newMonster.neverchangeX = newMonster.x;
+	newMonster.neverchangeY = newMonster.y;
+	newMonster.rc = RectMake(newMonster.x + newMonster.img->getFrameWidth() / 6, newMonster.y + newMonster.img->getFrameHeight() * 2 / 7, newMonster.width, newMonster.height);
+	newMonster.speed = 0;
+	newMonster.hp = 450;
+	newMonster.isStun = false;
+	newMonster.isDeath = false;
+	newMonster.findPlayer = false;
+	newMonster.afterDeath = false;
+	newMonster.targetX = 0;
+	newMonster.targetY = 0;
+	newMonster.angle = PI * 3 / 2;
+	newMonster.range = 1000;
+	newMonster.framecount = 0;
+	newMonster.stunCount = 0;
+	newMonster.patternCount = 0;
+	newMonster.deathalpha = 255;
+	newMonster.attackNum = 0;
+	newMonster.activestate = MONSTERACTIVE::NONE;
+	newMonster.oldactivestate = MONSTERACTIVE::NONE;
+	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	_vMonster.push_back(newMonster);
+}
+
+void Cboss_flime::move(bulletManager* bm)
+{
+	_viMonster->patternCount++;
+	switch (_viMonster->activestate)
+	{
+	case MONSTERACTIVE::NONE:
+		if (_viMonster->patternCount > 100) {
+			_viMonster->activestate = MONSTERACTIVE::FINDING;
+		}
+		break;
+	case MONSTERACTIVE::FINDING:
+		break;
+	case MONSTERACTIVE::ATTACK:
+		//독과 원형블릿 동시에 발사 (원형은 3번)
+		if (_viMonster->patternCount < 280) {
+			if (_viMonster->patternCount == 55) {
+				bm->getPsnBulInstance()->fire(
+					_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+					_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+					_viMonster->angle, 0);
+				bm->getCirBulInstance()->fire(
+					_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left)/2,
+					_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+					_viMonster->angle, 0);
+			}
+			else if (_viMonster->patternCount == 85) {
+				bm->getCirBulInstance()->fire(
+					_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+					_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+					_viMonster->angle + 0.3, 0);
+			}
+			else if (_viMonster->patternCount == 115) {
+				bm->getCirBulInstance()->fire(
+					_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+					_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+					_viMonster->angle, 0);
+			}
+		}
+		else if (_viMonster->patternCount >= 280 && _viMonster->patternCount < 350) {
+			//휴식
+		}
+		else {
+			_viMonster->frameX = 0;
+			_viMonster->framecount = 0;
+			_viMonster->patternCount = 0;
+			_viMonster->activestate = MONSTERACTIVE::NONE;
+			_viMonster->oldactivestate = MONSTERACTIVE::ATTACK;
+		}
+		break;
+	case MONSTERACTIVE::ATTACK2:
+		//둘중하나. 가시감옥 또는 가시줄기.
+		if (_viMonster->attackNum == 1) {
+			//가시감옥★
+			if (_viMonster->patternCount == 55) {
+				bm->getnidBulInstance()->fire(
+					PLAYER->getPlayerAddress().x,
+					PLAYER->getPlayerAddress().y,
+					0, 0);
+			}
+			else if (_viMonster->patternCount == 155) {
+				bm->getnidBulInstance()->fire(
+					PLAYER->getPlayerAddress().x,
+					PLAYER->getPlayerAddress().y,
+					0, 0);
+			}
+			else if (_viMonster->patternCount == 255) {
+				bm->getnidBulInstance()->fire(
+					PLAYER->getPlayerAddress().x,
+					PLAYER->getPlayerAddress().y,
+					0, 0);
+			}
+			else if (_viMonster->patternCount < 355) {
+				//휴식
+			}
+			else {
+				//공격상태 해제
+				_viMonster->frameX = 0;
+				_viMonster->framecount = 0;
+				_viMonster->patternCount = 0;
+				_viMonster->activestate = MONSTERACTIVE::NONE;
+				_viMonster->oldactivestate = MONSTERACTIVE::ATTACK2;
+			}
+		}
+		else {
+			//가시 줄기★
+			if (_viMonster->patternCount == 55) {
+				bm->getnidBulInstance()->fire(
+					PLAYER->getPlayerAddress().x,
+					PLAYER->getPlayerAddress().y,
+					0, 0);
+			}
+			else if (_viMonster->patternCount < 355) {
+				//휴식
+			}
+			else {
+				//공격상태 해제
+				_viMonster->frameX = 0;
+				_viMonster->framecount = 0;
+				_viMonster->patternCount = 0;
+				_viMonster->activestate = MONSTERACTIVE::NONE;
+				_viMonster->oldactivestate = MONSTERACTIVE::ATTACK2;
+			}
+		}
+		break;
+	case MONSTERACTIVE::RNDMOVE:
+		break;
+	case MONSTERACTIVE::DEATH:
+		_viMonster->deathalpha -= 3;
+		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
+		if (_viMonster->deathalpha == 0) {
+			_viMonster->afterDeath = true;
+		}
+		break;
+	}
+}
+
+void Cboss_flime::giveFrame()
+{
+	if (_viMonster->framecount == 0) {
+		//8방향과 상태에 따른 애니메이션 고르기
+		switch (_viMonster->activestate)
+		{
+		case MONSTERACTIVE::NONE:
+		case MONSTERACTIVE::FINDING:
+		case MONSTERACTIVE::RNDMOVE:
+			switch (_viMonster->movestate)
+			{
+			case MONSTERMOVESTATE::RIGHTUP:
+			case MONSTERMOVESTATE::UP:
+			case MONSTERMOVESTATE::LEFTUP:
+			case MONSTERMOVESTATE::LEFT:
+			case MONSTERMOVESTATE::NONE:
+			case MONSTERMOVESTATE::LEFTDOWN:
+			case MONSTERMOVESTATE::DOWN:
+			case MONSTERMOVESTATE::RIGHTDOWN:
+			case MONSTERMOVESTATE::RIGHT:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스플라임", 1, 2, 3, true, true);
+				break;
+			}
+			break;
+
+		case MONSTERACTIVE::DEATH:
+			_viMonster->frameY = 8;
+			_viMonster->frameX = 0;
+			break;
+		}
+	}
+
+	//ATTACK1 : 원형블릿공격일때 앞부분만 프레임 돌기
+	if (_viMonster->activestate == MONSTERACTIVE::ATTACK) {
+		if (_viMonster->framecount == 0) {
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스플라임", 2, 0, 4, true, true);
+		}
+		else if(_viMonster->framecount == 200){
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스플라임", 1, 2, 3, true, true);
+		}
+	}
+	//ATTACK2 : 원형블릿공격일때 앞부분만 프레임 돌기
+	if (_viMonster->activestate == MONSTERACTIVE::ATTACK2) {
+		if (_viMonster->framecount == 0) {
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스플라임", 12, 14, 3, false, false);
+		}
+		else if (_viMonster->framecount == 300) {
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스플라임", 14, 12, 3, false, false);
+		}
+	}
+
+	//프레임카운트증가(상태변화 알림외에 기능 없음)
+	_viMonster->framecount++;
+
+}
+
+void Cboss_flime::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
+{
+	if (iter->activestate == MONSTERACTIVE::DEATH) return;
+	//외부호출용함수(공격에맞을떄)
+	//데미지반영
+	iter->hp -= damage;
+	//총알이 나를 바라보던 방향으로 넉백
+	float centerx, centery;
+	centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
+	centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
+	float nbangle = UTIL::getAngle(x, y, centerx, centery);
+	iter->x += cosf(nbangle) * knockbackRange;
+	iter->y -= sinf(nbangle) * knockbackRange;
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y + iter->img->getFrameHeight() * 2 / 7, iter->width, iter->height);
+	//보스는 절대 스턴먹지 않는다.
+	if (stun = false) {
+		iter->isStun = stun;
+		iter->frameX = 0;
+		iter->framecount = 0;
+		iter->patternCount = 0;
+		iter->activestate = MONSTERACTIVE::NONE;
+	}
+}
+
+void Cboss_flime::stuncheck()
+{
+}
+
+void Cboss_flime::checkPlayerXY(Cplayer* py)
+{
+	if (_viMonster->activestate != MONSTERACTIVE::FINDING) return;
+	//플레이어의 좌표를 확인후 사거리내로 들어왔다면 공격상태돌입.
+	float distance = UTIL::getDistance(_viMonster->x, _viMonster->y, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	if (distance < _viMonster->range)
+	{
+		_viMonster->frameX = 0;
+		_viMonster->framecount = 0;
+		_viMonster->patternCount = 0;
+		if (_viMonster->oldactivestate == MONSTERACTIVE::ATTACK) {
+			_viMonster->activestate = MONSTERACTIVE::ATTACK2;
+			_viMonster->attackNum++;
+			if (_viMonster->attackNum == 3) _viMonster->attackNum = 1;
+		}
+		else {
+			_viMonster->activestate = MONSTERACTIVE::ATTACK;
+		}
+		_viMonster->oldactivestate = MONSTERACTIVE::NONE;
+		//목표 지점과 각 설정
+		_viMonster->targetX = PLAYER->getPlayerAddress().x;
+		_viMonster->targetY = PLAYER->getPlayerAddress().y;
+		_viMonster->angle = UTIL::getAngle(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+			_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2, _viMonster->targetX, _viMonster->targetY);
+	}
+	//사거리내가 아니라면 랜덤무브 진입.
+	else {
+		_viMonster->frameX = 0;
+		_viMonster->framecount = 0;
+		_viMonster->patternCount = 0;
+		_viMonster->activestate = MONSTERACTIVE::RNDMOVE;
+		_viMonster->angle = RND->getInt(360) * PI / 180;
+	}
+}
+//////////////////////////////////////////////////////////////
+//////////Cboss_mushmam!			보스머쉬맘!////////////////
+//////////////////////////////////////////////////////////////
+Cboss_mushmam::Cboss_mushmam()
+{
+	IMAGE->addFrameImage("보스머쉬맘", "images/monsters/mushmam-mushmam.bmp", 432, 2475, 3, 15, true);
+}
+
+Cboss_mushmam::~Cboss_mushmam()
+{
+}
+
+HRESULT Cboss_mushmam::init()
+{
+	return S_OK;
+}
+
+void Cboss_mushmam::release()
+{
+}
+
+void Cboss_mushmam::update(Cplayer* py, bulletManager* bm, Cmushmam_mushroom_G* mrG, Cmushmam_mushroom_P* mrP, Cmushmam_mushroom_B* mrB, Cmushman_mushroom* smr)
+{
+	//업뎃
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		//stuncheck();
+		checkPlayerXY(py);
+		move(bm, mrG, mrP, mrB, smr);
+		checkAngle();
+		giveFrame();
+		deathCheck();
+	}
+	//소멸
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); )
+	{
+		if (_viMonster->afterDeath) {
+			_viMonster = _vMonster.erase(_viMonster);
+		}
+		else {
+			++_viMonster;
+		}
+	}
+}
+
+void Cboss_mushmam::render()
+{
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		switch (_viMonster->activestate)
+		{
+		case MONSTERACTIVE::NONE:
+		case MONSTERACTIVE::FINDING:
+		case MONSTERACTIVE::RNDMOVE:
+		case MONSTERACTIVE::ATTACK:
+		case MONSTERACTIVE::ATTACK2:
+			if (_isDebug) RectangleMake(getMemDC(), _viMonster->rc);
+			_viMonster->img->aniRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->ani);
+			//TCHAR str[128];
+			//_stprintf_s(str, "hp : %d", _viMonster->hp);
+			//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
+			break;
+		case MONSTERACTIVE::DEATH:
+			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			break;
+		}
+	}
+}
+
+void Cboss_mushmam::addMonster(float centerx, float centery)
+{
+	tagMonster newMonster;
+	newMonster.img = IMAGE->findImage("보스머쉬맘");
+	newMonster.ani = ANIMATION->addNoneKeyAnimation("보스머쉬맘", 18, 19, 3, true, true);
+	newMonster.frameX = 0;
+	newMonster.frameY = 0;
+	newMonster.width = newMonster.img->getFrameWidth() * 2 / 3;
+	newMonster.height = newMonster.img->getFrameHeight() * 3 / 4;
+	newMonster.x = centerx - newMonster.img->getFrameWidth() / 2;
+	newMonster.y = centery - newMonster.img->getFrameHeight() / 2;
+	newMonster.rc = RectMake(newMonster.x + newMonster.img->getFrameWidth() / 6, newMonster.y + 2, newMonster.width, newMonster.height);
+	newMonster.speed = 2;
+	newMonster.hp = 450;
+	newMonster.isStun = false;
+	newMonster.isDeath = false;
+	newMonster.findPlayer = false;
+	newMonster.afterDeath = false;
+	newMonster.targetX = 0;
+	newMonster.targetY = 0;
+	newMonster.angle = PI * 3 / 2;
+	newMonster.range = 340;
+	newMonster.framecount = 0;
+	newMonster.stunCount = 0;
+	newMonster.patternCount = 300;
+	newMonster.deathalpha = 255;
+	newMonster.attackNum = 1;
+	newMonster.activestate = MONSTERACTIVE::NONE;
+	newMonster.oldactivestate = MONSTERACTIVE::NONE;
+	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	_vMonster.push_back(newMonster);
+}
+
+void Cboss_mushmam::move(bulletManager* bm, Cmushmam_mushroom_G* mrG, Cmushmam_mushroom_P* mrP, Cmushmam_mushroom_B* mrB, Cmushman_mushroom* smr)
+{
+	_viMonster->patternCount++;
+	switch (_viMonster->activestate)
+	{
+	case MONSTERACTIVE::NONE:
+		if (_viMonster->patternCount < 550) {
+			//몇백30이상이면 RNDMOVE로 진입
+			if (_viMonster->patternCount % 100 > 0 && _viMonster->patternCount % 100 < 30) {
+				_viMonster->frameX = 0;
+				_viMonster->framecount = 0;
+				_viMonster->activestate = MONSTERACTIVE::RNDMOVE;
+			}
+			//몇백일 때 방향확인하고 각 바꾸기
+			if (_viMonster->patternCount % 100 == 0)
+				_viMonster->activestate = MONSTERACTIVE::FINDING;
+		}
+		else _viMonster->activestate = MONSTERACTIVE::FINDING;
+		break;
+	case MONSTERACTIVE::FINDING:
+		break;
+	case MONSTERACTIVE::ATTACK:
+		//심기
+		if (_viMonster->patternCount < 150) {
+		}
+		else {
+			if(color == 0) mrG->addMonster(_viMonster->x, _viMonster->y);
+			else if (color == 1) mrP->addMonster(_viMonster->x, _viMonster->y);
+			else mrB->addMonster(_viMonster->x, _viMonster->y);			
+			_viMonster->framecount = 0;
+			_viMonster->patternCount = 0;
+			_viMonster->oldactivestate = MONSTERACTIVE::ATTACK;
+			_viMonster->activestate = MONSTERACTIVE::NONE;
+		}
+		break;
+	case MONSTERACTIVE::ATTACK2:
+		//뿌리기
+		if (_viMonster->patternCount < 120) {
+		}
+		else {
+			smr->addMonster(_viMonster->x-20, _viMonster->y);
+			smr->addMonster(_viMonster->x+120, _viMonster->y);
+			smr->addMonster(_viMonster->x+60, _viMonster->y+70);
+			_viMonster->framecount = 0;
+			_viMonster->patternCount = 0;
+			_viMonster->oldactivestate = MONSTERACTIVE::ATTACK2;
+			_viMonster->activestate = MONSTERACTIVE::NONE;
+		}
+		break;
+	case MONSTERACTIVE::RNDMOVE:
+		//움직이다가
+		if (_viMonster->patternCount % 100 < 30) {
+			_viMonster->x += cosf(_viMonster->angle) * _viMonster->speed;
+			_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed;
+			_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 6, _viMonster->y + 2, _viMonster->width, _viMonster->height);
+		}
+		//몇백30이상이면 NONE으로 돌아가기
+		else {
+			_viMonster->framecount = 0;
+			_viMonster->activestate = MONSTERACTIVE::NONE;
+		}
+		break;
+
+	case MONSTERACTIVE::DEATH:
+		_viMonster->deathalpha -= 3;
+		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
+		if (_viMonster->deathalpha == 0) {
+			_viMonster->afterDeath = true;
+		}
+		break;
+	}
+}
+
+void Cboss_mushmam::giveFrame()
+{
+	if (_viMonster->framecount == 0) {
+		//8방향과 상태에 따른 애니메이션 고르기
+		switch (_viMonster->activestate)
+		{
+		case MONSTERACTIVE::NONE:
+		case MONSTERACTIVE::FINDING:
+			switch (_viMonster->movestate)
+			{
+			case MONSTERMOVESTATE::RIGHTUP:
+			case MONSTERMOVESTATE::UP:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스머쉬맘", 27, 28, 3, false, true);
+				break;
+			case MONSTERMOVESTATE::LEFTUP:
+			case MONSTERMOVESTATE::LEFT:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스머쉬맘", 21, 22, 3, false, true);
+				break;
+			case MONSTERMOVESTATE::NONE:
+			case MONSTERMOVESTATE::LEFTDOWN:
+			case MONSTERMOVESTATE::DOWN:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스머쉬맘", 18, 19, 3, false, true);
+				break;
+			case MONSTERMOVESTATE::RIGHTDOWN:
+			case MONSTERMOVESTATE::RIGHT:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스머쉬맘", 24, 25, 3, false, true);
+				break;
+			}
+			break;
+		case MONSTERACTIVE::RNDMOVE:
+			switch (_viMonster->movestate)
+			{
+			case MONSTERMOVESTATE::RIGHTUP:
+			case MONSTERMOVESTATE::UP:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스머쉬맘", 9, 11, 3, true, true);
+				break;
+			case MONSTERMOVESTATE::LEFTUP:
+			case MONSTERMOVESTATE::LEFT:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스머쉬맘", 3, 5, 3, true, true);
+				break;
+			case MONSTERMOVESTATE::NONE:
+			case MONSTERMOVESTATE::LEFTDOWN:
+			case MONSTERMOVESTATE::DOWN:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스머쉬맘", 0, 2, 3, true, true);
+				break;
+			case MONSTERMOVESTATE::RIGHTDOWN:
+			case MONSTERMOVESTATE::RIGHT:
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스머쉬맘", 6, 8, 3, true, true);
+				break;
+			}
+			break;
+		case MONSTERACTIVE::DEATH:
+			_viMonster->frameY = 10;
+			_viMonster->frameX = 0;
+			break;
+		}
+	}
+
+
+	//ATTACK1 : 심기
+	if (_viMonster->activestate == MONSTERACTIVE::ATTACK) {
+		if (_viMonster->framecount == 0) {
+			if (color == 0) {
+				int arrAtk1[] = { 12, 13, 14, 15, 14, 15, 14, 15, 16, 17 };
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스머쉬맘", arrAtk1, (int)sizeof(arrAtk1) / sizeof(int), 4, false);
+			}
+			else if (color == 1) {
+				int arrAtk1[] = { 33, 34, 35, 36, 35, 36, 35, 36, 37, 38 };
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스머쉬맘", arrAtk1, (int)sizeof(arrAtk1) / sizeof(int), 4, false);
+			}
+			else {
+				int arrAtk1[] = { 39, 40, 41, 42, 41, 42, 41, 42, 43, 44 };
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스머쉬맘", arrAtk1, (int)sizeof(arrAtk1) / sizeof(int), 4, false);
+			}			
+		}
+	}
+	//ATTACK2 : 뿌리기
+	if (_viMonster->activestate == MONSTERACTIVE::ATTACK2) {
+		if (_viMonster->framecount == 0) {
+			int arrAtk2[] = { 13, 13, 12, 23 };
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "보스머쉬맘", arrAtk2, (int)sizeof(arrAtk2) / sizeof(int), 3, false);
+		}
+	}
+
+	//프레임카운트증가(상태변화 알림외에 기능 없음)
+	_viMonster->framecount++;
+
+}
+
+void Cboss_mushmam::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
+{
+	if (iter->activestate == MONSTERACTIVE::DEATH) return;
+	//외부호출용함수(공격에맞을떄)
+	//데미지반영
+	iter->hp -= damage;
+	//총알이 나를 바라보던 방향으로 넉백
+	float centerx, centery;
+	centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
+	centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
+	float nbangle = UTIL::getAngle(x, y, centerx, centery);
+	iter->x += cosf(nbangle) * knockbackRange;
+	iter->y -= sinf(nbangle) * knockbackRange;
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y + 2, iter->width, iter->height);
+	//보스는 절대 스턴먹지 않는다.
+	if (stun = false) {
+		iter->isStun = stun;
+		iter->frameX = 0;
+		iter->framecount = 0;
+		iter->patternCount = 0;
+		iter->activestate = MONSTERACTIVE::NONE;
+	}
+}
+
+void Cboss_mushmam::stuncheck()
+{
+}
+
+void Cboss_mushmam::checkPlayerXY(Cplayer* py)
+{
+	if (_viMonster->activestate != MONSTERACTIVE::FINDING) return;
+	float distance = UTIL::getDistance(_viMonster->x, _viMonster->y, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	float angle = UTIL::getAngle(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+		_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+		PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+
+	//거리가 가깝다면, 멀어지는 방향을 랜덤으로 정해서 도망.
+	if (distance < _viMonster->range){
+		//플레이어를 향하는 각을 계산하고, ±45범위의 랜덤각을 뽑는다. 180을 더해서 방향을 뒤집는다.
+		_viMonster->angle = PI + DEGREE(RND->getFromInTo((int)(angle * 180 / PI) - 45, (int)(angle * 180 / PI) + 45));
+		//보정.
+		while (_viMonster->angle < 0) _viMonster->angle += PI2;
+		while (_viMonster->angle > PI2) _viMonster->angle -= PI2;
+	}
+	//거리가 멀다면, 사거리까지 다가오기.
+	else {
+		//플레이어를 향해 다가간다.
+		_viMonster->angle = angle;
+	}
+
+
+	//얘는 특이하게, NONE일때 FIND를 주기적으로 실행.
+	//고로 패턴카운트가 몇이냐에따라 다시 NONE으로 갈지 ATTACK으로 갈지 결정됨.
+	if (_viMonster->patternCount < 550)
+	{
+		_viMonster->frameX = 0;
+		_viMonster->framecount = 0;
+		_viMonster->activestate = MONSTERACTIVE::NONE;
+	}
+	else {
+		if (_viMonster->attackNum == 2) {
+			_viMonster->attackNum = 0;
+			_viMonster->activestate = MONSTERACTIVE::ATTACK2;
+			_viMonster->framecount = 0;
+			_viMonster->patternCount = 0;
+		}
+		else {
+			color = RND->getInt(3);		//0초록, 1보라, 2파랑
+			_viMonster->attackNum++;
+			_viMonster->activestate = MONSTERACTIVE::ATTACK;
+			_viMonster->framecount = 0;
+			_viMonster->patternCount = 0;
+		}
+	}
+	
+}
+//////////////////////////////////////////////////////////////
+///////Cmushmam_mushroom_G!		머쉬맘_녹색머쉬룸!/////////////
+//////////////////////////////////////////////////////////////
+Cmushmam_mushroom_G::Cmushmam_mushroom_G()
+{
+	IMAGE->addFrameImage("머쉬맘_녹색머쉬룸", "images/monsters/mushmam_mushroom1.bmp", 432, 660, 3, 4, true);
+}
+
+Cmushmam_mushroom_G::~Cmushmam_mushroom_G()
+{
+}
+
+HRESULT Cmushmam_mushroom_G::init()
+{
+	return S_OK;
+}
+
+void Cmushmam_mushroom_G::release()
+{
+}
+
+void Cmushmam_mushroom_G::update(Cplayer* py, bulletManager* bm)
+{
+	//업뎃
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		_viMonster->x = _viMonster->neverchangeX;
+		_viMonster->y = _viMonster->neverchangeY;
+		_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() * 3 / 8, _viMonster->y + _viMonster->img->getFrameHeight() * 3 / 4, _viMonster->width, _viMonster->height);
+		stuncheck();
+		checkPlayerXY(py);
+		move(bm);
+		checkAngle();
+		//giveFrame();
+		deathCheck();
+	}
+	//소멸
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); )
+	{
+		if (_viMonster->afterDeath) {
+			_viMonster = _vMonster.erase(_viMonster);
+		}
+		else {
+			++_viMonster;
+		}
+	}
+}
+
+void Cmushmam_mushroom_G::render()
+{
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		switch (_viMonster->activestate)
+		{
+		case MONSTERACTIVE::NONE:
+		case MONSTERACTIVE::FINDING:
+		case MONSTERACTIVE::RNDMOVE:
+		case MONSTERACTIVE::ATTACK:
+		case MONSTERACTIVE::ATTACK2:
+			if (_isDebug) RectangleMake(getMemDC(), _viMonster->rc);
+			_viMonster->img->frameRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
+			break;
+		case MONSTERACTIVE::DEATH:
+			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			break;
+		}
+	}
+	//TCHAR str[128];
+	//_stprintf_s(str, "플레이어좌표 : %.1f, %.1f", PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
+}
+
+void Cmushmam_mushroom_G::addMonster(float x, float y)
+{
+	tagMonster newMonster;
+	newMonster.img = IMAGE->findImage("머쉬맘_녹색머쉬룸");
+	newMonster.frameX = 0;
+	newMonster.frameY = 0;
+	newMonster.x = x;
+	newMonster.y = y;
+	newMonster.neverchangeX = x;
+	newMonster.neverchangeY = y;
+	newMonster.width = newMonster.img->getFrameWidth() / 4 + 1;
+	newMonster.height = newMonster.img->getFrameHeight() / 4;
+	newMonster.rc = RectMake(x + newMonster.img->getFrameWidth() * 3 / 8, y + newMonster.img->getFrameHeight() * 3 / 4, newMonster.width, newMonster.height);
+	newMonster.speed = 0;
+	newMonster.hp = 50;
+	newMonster.isStun = false;
+	newMonster.isDeath = false;
+	newMonster.findPlayer = false;
+	newMonster.afterDeath = false;
+	newMonster.targetX = 0;
+	newMonster.targetY = 0;
+	newMonster.angle = PI * 3 / 2;
+	newMonster.range = 1500;
+	newMonster.stunCount = 0;
+	newMonster.patternCount = 0;
+	newMonster.deathalpha = 255;
+	newMonster.activestate = MONSTERACTIVE::NONE;
+	newMonster.oldactivestate = MONSTERACTIVE::NONE;
+	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	_vMonster.push_back(newMonster);
+}
+
+void Cmushmam_mushroom_G::move(bulletManager* bm)
+{
+	_viMonster->patternCount++;
+	switch (_viMonster->activestate)
+	{
+	case MONSTERACTIVE::NONE:
+		if (_viMonster->patternCount > 100) {
+			_viMonster->activestate = MONSTERACTIVE::FINDING;
+		}
+		break;
+	case MONSTERACTIVE::FINDING:
+		break;
+	case MONSTERACTIVE::ATTACK:
+		bm->getHomBulInstance()->fire(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+			_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+			DEGREE(45), 0);
+		bm->getHomBulInstance()->fire(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+			_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+			DEGREE(135), 0);
+		bm->getHomBulInstance()->fire(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+			_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+			DEGREE(225), 0);
+		bm->getHomBulInstance()->fire(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+			_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+			DEGREE(315), 0);
+		_viMonster->activestate = MONSTERACTIVE::NONE;
+		break;
+	case MONSTERACTIVE::RNDMOVE:
+		break;
+	case MONSTERACTIVE::DEATH:
+		_viMonster->deathalpha -= 3;
+		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
+		if (_viMonster->deathalpha == 0) {
+			_viMonster->afterDeath = true;
+		}
+		break;
+	}
+}
+
+void Cmushmam_mushroom_G::giveFrame()
+{
+}
+
+void Cmushmam_mushroom_G::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
+{
+	if (iter->activestate == MONSTERACTIVE::DEATH) return;
+	//외부호출용함수(공격에맞을떄)
+	//데미지반영
+	iter->hp -= damage;
+	//총알이 나를 바라보던 방향으로 넉백
+	float centerx, centery;
+	centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
+	centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
+	float nbangle = UTIL::getAngle(x, y, centerx, centery);
+	iter->x += cosf(nbangle) * knockbackRange;
+	iter->y -= sinf(nbangle) * knockbackRange;
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() * 3 / 8, y + iter->img->getFrameHeight() * 3 / 4, iter->width, iter->height);
+	//보스는 절대 스턴먹지 않는다.
+	if (stun = false) {
+		iter->isStun = stun;
+		iter->frameX = 0;
+		iter->framecount = 0;
+		iter->patternCount = 0;
+		iter->activestate = MONSTERACTIVE::NONE;
+	}
+}
+
+void Cmushmam_mushroom_G::stuncheck()
+{
+}
+
+void Cmushmam_mushroom_G::checkPlayerXY(Cplayer* py)
+{
+	if (_viMonster->activestate != MONSTERACTIVE::FINDING) return;
+	//목표 지점과 각 설정
+	_viMonster->targetX = PLAYER->getPlayerAddress().x;
+	_viMonster->targetY = PLAYER->getPlayerAddress().y;
+	_viMonster->angle = UTIL::getAngle(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+		_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+		_viMonster->targetX, _viMonster->targetY);
+
+	_viMonster->patternCount = 0;
+	_viMonster->activestate = MONSTERACTIVE::ATTACK;
+}
+//////////////////////////////////////////////////////////////
+///////Cmushmam_mushroom_P!		머쉬맘_보라머쉬룸!/////////////
+//////////////////////////////////////////////////////////////
+Cmushmam_mushroom_P::Cmushmam_mushroom_P()
+{
+	IMAGE->addFrameImage("머쉬맘_보라머쉬룸", "images/monsters/mushmam_mushroom2.bmp", 432, 660, 3, 4, true);
+}
+
+Cmushmam_mushroom_P::~Cmushmam_mushroom_P()
+{
+}
+
+HRESULT Cmushmam_mushroom_P::init()
+{
+	return S_OK;
+}
+
+void Cmushmam_mushroom_P::release()
+{
+}
+
+void Cmushmam_mushroom_P::update(Cplayer* py, bulletManager* bm)
+{
+	//업뎃
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		_viMonster->x = _viMonster->neverchangeX;
+		_viMonster->y = _viMonster->neverchangeY;
+		_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() * 3 / 8, _viMonster->y + _viMonster->img->getFrameHeight() * 3 / 4, _viMonster->width, _viMonster->height);
+		stuncheck();
+		checkPlayerXY(py);
+		move(bm);
+		checkAngle();
+		//giveFrame();
+		deathCheck();
+	}
+	//소멸
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); )
+	{
+		if (_viMonster->afterDeath) {
+			_viMonster = _vMonster.erase(_viMonster);
+		}
+		else {
+			++_viMonster;
+		}
+	}
+}
+
+void Cmushmam_mushroom_P::render()
+{
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		switch (_viMonster->activestate)
+		{
+		case MONSTERACTIVE::NONE:
+		case MONSTERACTIVE::FINDING:
+		case MONSTERACTIVE::RNDMOVE:
+		case MONSTERACTIVE::ATTACK:
+		case MONSTERACTIVE::ATTACK2:
+			if (_isDebug) RectangleMake(getMemDC(), _viMonster->rc);
+			_viMonster->img->frameRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
+			break;
+		case MONSTERACTIVE::DEATH:
+			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			break;
+		}
+		//TCHAR str[128];
+		//_stprintf_s(str, "hp : %d", _viMonster->hp);
+		//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
+	}
+}
+
+void Cmushmam_mushroom_P::addMonster(float x, float y)
+{
+	tagMonster newMonster;
+	newMonster.img = IMAGE->findImage("머쉬맘_보라머쉬룸");
+	newMonster.frameX = 0;
+	newMonster.frameY = 0;
+	newMonster.x = x;
+	newMonster.y = y;
+	newMonster.neverchangeX = x;
+	newMonster.neverchangeY = y;
+	newMonster.width = newMonster.img->getFrameWidth() / 4 + 1;
+	newMonster.height = newMonster.img->getFrameHeight() / 4;
+	newMonster.rc = RectMake(x + newMonster.img->getFrameWidth() * 3 / 8, y + newMonster.img->getFrameHeight() * 3 / 4, newMonster.width, newMonster.height);
+	newMonster.speed = 0;
+	newMonster.hp = 50;
+	newMonster.isStun = false;
+	newMonster.isDeath = false;
+	newMonster.findPlayer = false;
+	newMonster.afterDeath = false;
+	newMonster.targetX = 0;
+	newMonster.targetY = 0;
+	newMonster.angle = PI * 3 / 2;
+	newMonster.range = 1500;
+	newMonster.stunCount = 0;
+	newMonster.patternCount = 0;
+	newMonster.deathalpha = 255;
+	newMonster.activestate = MONSTERACTIVE::NONE;
+	newMonster.oldactivestate = MONSTERACTIVE::NONE;
+	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	_vMonster.push_back(newMonster);
+}
+
+void Cmushmam_mushroom_P::move(bulletManager* bm)
+{
+	_viMonster->patternCount++;
+	switch (_viMonster->activestate)
+	{
+	case MONSTERACTIVE::NONE:
+		if (_viMonster->patternCount % 350 == 0) {
+			_viMonster->activestate = MONSTERACTIVE::FINDING;
+		}
+		break;
+	case MONSTERACTIVE::FINDING:
+		break;
+	case MONSTERACTIVE::ATTACK:
+		bm->getPsnBulInstance()->fire(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+			_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+			_viMonster->angle, 0);
+		_viMonster->activestate = MONSTERACTIVE::NONE;
+		break;
+	case MONSTERACTIVE::RNDMOVE:
+		break;
+	case MONSTERACTIVE::DEATH:
+		_viMonster->deathalpha -= 3;
+		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
+		if (_viMonster->deathalpha == 0) {
+			_viMonster->afterDeath = true;
+		}
+		break;
+	}
+}
+
+void Cmushmam_mushroom_P::giveFrame()
+{
+}
+
+void Cmushmam_mushroom_P::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
+{
+	if (iter->activestate == MONSTERACTIVE::DEATH) return;
+	//외부호출용함수(공격에맞을떄)
+	//데미지반영
+	iter->hp -= damage;
+	//총알이 나를 바라보던 방향으로 넉백
+	float centerx, centery;
+	centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
+	centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
+	float nbangle = UTIL::getAngle(x, y, centerx, centery);
+	iter->x += cosf(nbangle) * knockbackRange;
+	iter->y -= sinf(nbangle) * knockbackRange;
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() * 3 / 8, y + iter->img->getFrameHeight() * 3 / 4, iter->width, iter->height);
+	//보스는 절대 스턴먹지 않는다.
+	if (stun = false) {
+		iter->isStun = stun;
+		iter->frameX = 0;
+		iter->framecount = 0;
+		iter->patternCount = 0;
+		iter->activestate = MONSTERACTIVE::NONE;
+	}
+}
+
+void Cmushmam_mushroom_P::stuncheck()
+{
+}
+
+void Cmushmam_mushroom_P::checkPlayerXY(Cplayer* py)
+{
+	if (_viMonster->activestate != MONSTERACTIVE::FINDING) return;
+	//목표 지점과 각 설정
+	_viMonster->targetX = PLAYER->getPlayerAddress().x;
+	_viMonster->targetY = PLAYER->getPlayerAddress().y;
+	_viMonster->angle = UTIL::getAngle(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+		_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+		_viMonster->targetX, _viMonster->targetY);
+
+	_viMonster->patternCount = 0;
+	_viMonster->activestate = MONSTERACTIVE::ATTACK;
+}
+//////////////////////////////////////////////////////////////
+///////Cmushmam_mushroom_B!		머쉬맘_파랑머쉬룸!/////////////
+//////////////////////////////////////////////////////////////
+Cmushmam_mushroom_B::Cmushmam_mushroom_B()
+{
+	IMAGE->addFrameImage("머쉬맘_파랑머쉬룸", "images/monsters/mushmam_mushroom3.bmp", 432, 660, 3, 4, true);
+}
+
+Cmushmam_mushroom_B::~Cmushmam_mushroom_B()
+{
+}
+
+HRESULT Cmushmam_mushroom_B::init()
+{
+	return S_OK;
+}
+
+void Cmushmam_mushroom_B::release()
+{
+}
+
+void Cmushmam_mushroom_B::update(Cplayer* py, bulletManager* bm)
+{
+	//업뎃
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		_viMonster->x = _viMonster->neverchangeX;
+		_viMonster->y = _viMonster->neverchangeY;
+		_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() * 3 / 8, _viMonster->y + _viMonster->img->getFrameHeight() * 3 / 4, _viMonster->width, _viMonster->height);
+		stuncheck();
+		checkPlayerXY(py);
+		move(bm);
+		checkAngle();
+		//giveFrame();
+		deathCheck();
+	}
+	//소멸
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); )
+	{
+		if (_viMonster->afterDeath) {
+			_viMonster = _vMonster.erase(_viMonster);
+		}
+		else {
+			++_viMonster;
+		}
+	}
+}
+
+void Cmushmam_mushroom_B::render()
+{
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		switch (_viMonster->activestate)
+		{
+		case MONSTERACTIVE::NONE:
+		case MONSTERACTIVE::FINDING:
+		case MONSTERACTIVE::RNDMOVE:
+		case MONSTERACTIVE::ATTACK:
+		case MONSTERACTIVE::ATTACK2:
+			if (_isDebug) RectangleMake(getMemDC(), _viMonster->rc);
+			_viMonster->img->frameRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
+			break;
+		case MONSTERACTIVE::DEATH:
+			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			break;
+		}
+		//TCHAR str[128];
+		//_stprintf_s(str, "hp : %d", _viMonster->hp);
+		//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
+	}
+}
+
+void Cmushmam_mushroom_B::addMonster(float x, float y)
+{
+	tagMonster newMonster;
+	newMonster.img = IMAGE->findImage("머쉬맘_파랑머쉬룸");
+	newMonster.frameX = 0;
+	newMonster.frameY = 0;
+	newMonster.x = x;
+	newMonster.y = y;
+	newMonster.neverchangeX = x;
+	newMonster.neverchangeY = y;
+	newMonster.width = newMonster.img->getFrameWidth() / 4 + 1;
+	newMonster.height = newMonster.img->getFrameHeight() / 4;
+	newMonster.rc = RectMake(x + newMonster.img->getFrameWidth() * 3 / 8, y + newMonster.img->getFrameHeight() * 3 / 4, newMonster.width, newMonster.height);
+	newMonster.speed = 0;
+	newMonster.hp = 50;
+	newMonster.isStun = false;
+	newMonster.isDeath = false;
+	newMonster.findPlayer = false;
+	newMonster.afterDeath = false;
+	newMonster.targetX = 0;
+	newMonster.targetY = 0;
+	newMonster.angle = PI * 3 / 2;
+	newMonster.range = 1500;
+	newMonster.stunCount = 0;
+	newMonster.patternCount = 0;
+	newMonster.deathalpha = 255;
+	newMonster.activestate = MONSTERACTIVE::NONE;
+	newMonster.oldactivestate = MONSTERACTIVE::NONE;
+	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	_vMonster.push_back(newMonster);
+}
+
+void Cmushmam_mushroom_B::move(bulletManager* bm)
+{
+	_viMonster->patternCount++;
+	switch (_viMonster->activestate)
+	{
+	case MONSTERACTIVE::NONE:
+		if (_viMonster->patternCount % 100 == 0) {
+			_viMonster->activestate = MONSTERACTIVE::FINDING;
+		}
+		break;
+	case MONSTERACTIVE::FINDING:
+		break;
+	case MONSTERACTIVE::ATTACK:
+		bm->getCirBulInstance()->fire(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+			_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+			_viMonster->angle, 0);
+		_viMonster->activestate = MONSTERACTIVE::NONE;
+		break;
+	case MONSTERACTIVE::RNDMOVE:
+		break;
+	case MONSTERACTIVE::DEATH:
+		_viMonster->deathalpha -= 3;
+		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
+		if (_viMonster->deathalpha == 0) {
+			_viMonster->afterDeath = true;
+		}
+		break;
+	}
+}
+
+void Cmushmam_mushroom_B::giveFrame()
+{
+}
+
+void Cmushmam_mushroom_B::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
+{
+	if (iter->activestate == MONSTERACTIVE::DEATH) return;
+	//외부호출용함수(공격에맞을떄)
+	//데미지반영
+	iter->hp -= damage;
+	//총알이 나를 바라보던 방향으로 넉백
+	float centerx, centery;
+	centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
+	centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
+	float nbangle = UTIL::getAngle(x, y, centerx, centery);
+	iter->x += cosf(nbangle) * knockbackRange;
+	iter->y -= sinf(nbangle) * knockbackRange;
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() * 3 / 8, y + iter->img->getFrameHeight() * 3 / 4, iter->width, iter->height);
+	//보스는 절대 스턴먹지 않는다.
+	if (stun = false) {
+		iter->isStun = stun;
+		iter->frameX = 0;
+		iter->framecount = 0;
+		iter->patternCount = 0;
+		iter->activestate = MONSTERACTIVE::NONE;
+	}
+}
+
+void Cmushmam_mushroom_B::stuncheck()
+{
+}
+
+void Cmushmam_mushroom_B::checkPlayerXY(Cplayer* py)
+{
+	if (_viMonster->activestate != MONSTERACTIVE::FINDING) return;
+	//목표 지점과 각 설정
+	_viMonster->targetX = PLAYER->getPlayerAddress().x;
+	_viMonster->targetY = PLAYER->getPlayerAddress().y;
+	_viMonster->angle = UTIL::getAngle(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+		_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+		_viMonster->targetX, _viMonster->targetY);
+
+	_viMonster->patternCount = 0;
+	_viMonster->activestate = MONSTERACTIVE::ATTACK;
 }
