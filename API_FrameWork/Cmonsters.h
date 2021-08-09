@@ -329,4 +329,53 @@ public:
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
 };
+//////////////////////////////////////////////////////////////
+class Cyggdrasil_bomb: public monster
+{
+private:
+
+
+public:
+	Cyggdrasil_bomb();
+	~Cyggdrasil_bomb();
+
+	HRESULT init();
+	void release();
+	void update(Cplayer* py, bulletManager* bm);
+	void render();
+
+	virtual void addMonster(float centerx, float centery);
+	virtual void move(bulletManager* bm);
+	//virtual void checkAngle();
+	virtual void giveFrame();
+	//virtual void deathCheck();
+	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
+	virtual void stuncheck();
+	virtual void checkPlayerXY(Cplayer* py);
+};
+//////////////////////////////////////////////////////////////
+class Cyggdrasil : public monster
+{
+private:
+
+
+public:
+	Cyggdrasil();
+	~Cyggdrasil();
+
+	HRESULT init();
+	void release();
+	void update(Cplayer* py, bulletManager* bm, Cyggdrasil_bomb* bomb);
+	void render();
+
+	virtual void addMonster(float centerx, float centery);
+	virtual void move(bulletManager* bm, Cyggdrasil_bomb* bomb);
+	//virtual void checkAngle();
+	virtual void giveFrame();
+	//virtual void deathCheck();
+	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
+	virtual void stuncheck();
+	virtual void checkPlayerXY(Cplayer* py);
+};
+
 

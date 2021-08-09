@@ -20,7 +20,10 @@
 11. Cmushmam_mushroom_G	/		머쉬맘_녹색머쉬룸
 12. Cmushmam_mushroom2_P/		머쉬맘_보라머쉬룸
 13. Cmushmam_mushroom3_B/		머쉬맘_파랑머쉬룸
-14.
+14.	Cyggdrasil_bomb		/		이그드라실_폭탄
+15.		Cyggdrasil		/		이그드라실
+16.
+17.
 */
 //////////////////////////////////////////////////////////////
 //////////////////////Csnaby!	뱀!//////////////////////////
@@ -4177,4 +4180,481 @@ void Cmushmam_mushroom_B::checkPlayerXY(Cplayer* py)
 
 	_viMonster->patternCount = 0;
 	_viMonster->activestate = MONSTERACTIVE::ATTACK;
+}
+//////////////////////////////////////////////////////////////
+////////////////Cyggdrasil!		이그드라실!////////////////////
+//////////////////////////////////////////////////////////////
+Cyggdrasil::Cyggdrasil()
+{
+	IMAGE->addFrameImage("이그드라실", "images/monsters/ent-ent.bmp", 966, 3850, 3, 11, true);
+}
+
+Cyggdrasil::~Cyggdrasil()
+{
+}
+
+HRESULT Cyggdrasil::init()
+{
+	return S_OK;
+}
+
+void Cyggdrasil::release()
+{
+}
+
+void Cyggdrasil::update(Cplayer* py, bulletManager* bm, Cyggdrasil_bomb* bomb)
+{
+	//업뎃
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		_viMonster->x = _viMonster->neverchangeX;
+		_viMonster->y = _viMonster->neverchangeY;
+		_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 10, _viMonster->y + _viMonster->img->getFrameHeight() * 1 / 4, _viMonster->width, _viMonster->height);
+		stuncheck();
+		checkPlayerXY(py);
+		move(bm, bomb);
+		checkAngle();
+		giveFrame();
+		deathCheck();
+	}
+	//소멸
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); )
+	{
+		if (_viMonster->afterDeath) {
+			_viMonster = _vMonster.erase(_viMonster);
+		}
+		else {
+			++_viMonster;
+		}
+	}
+}
+
+void Cyggdrasil::render()
+{
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		switch (_viMonster->activestate)
+		{
+		case MONSTERACTIVE::NONE:
+		case MONSTERACTIVE::FINDING:
+		case MONSTERACTIVE::RNDMOVE:
+		case MONSTERACTIVE::ATTACK:
+		case MONSTERACTIVE::ATTACK2:
+		case MONSTERACTIVE::ATTACK3:
+			if (_isDebug) RectangleMake(getMemDC(), _viMonster->rc);
+			_viMonster->img->aniRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->ani);
+			//TCHAR str[128];
+			//_stprintf_s(str, "hp : %d", _viMonster->hp);
+			//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
+			break;
+		case MONSTERACTIVE::DEATH:
+			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			break;
+		}
+	}
+}
+
+void Cyggdrasil::addMonster(float centerx, float centery)
+{
+	tagMonster newMonster;
+	newMonster.img = IMAGE->findImage("이그드라실");
+	newMonster.ani = ANIMATION->addNoneKeyAnimation("이그드라실", 0, 2, 2, false, false);
+	newMonster.frameX = 0;
+	newMonster.frameY = 0;
+	newMonster.width = newMonster.img->getFrameWidth() * 4 / 5;
+	newMonster.height = newMonster.img->getFrameHeight() * 3 / 4;
+	newMonster.x = centerx - newMonster.img->getFrameWidth() / 2;
+	newMonster.y = centery - newMonster.img->getFrameHeight() * 2 / 3;
+	newMonster.neverchangeX = newMonster.x;
+	newMonster.neverchangeY = newMonster.y;
+	newMonster.rc = RectMake(newMonster.x + newMonster.img->getFrameWidth() / 10, newMonster.y + newMonster.img->getFrameHeight() * 1 / 4, newMonster.width, newMonster.height);
+	newMonster.speed = 2;
+	newMonster.hp = 900;
+	newMonster.isStun = false;
+	newMonster.isDeath = false;
+	newMonster.findPlayer = false;
+	newMonster.afterDeath = false;
+	newMonster.targetX = 0;
+	newMonster.targetY = 0;
+	newMonster.angle = PI * 3 / 2;
+	newMonster.range = 1500;
+	newMonster.framecount = 0;
+	newMonster.stunCount = 0;
+	newMonster.patternCount = 0;
+	newMonster.deathalpha = 255;
+	newMonster.attackNum = 0;
+	newMonster.activestate = MONSTERACTIVE::NONE;
+	newMonster.oldactivestate = MONSTERACTIVE::NONE;
+	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	_vMonster.push_back(newMonster);
+
+}
+
+void Cyggdrasil::move(bulletManager* bm, Cyggdrasil_bomb* bomb)
+{
+	_viMonster->patternCount++;
+	switch (_viMonster->activestate)
+	{
+	case MONSTERACTIVE::NONE:
+		//NONE으로 올때는 항상 patternCount를 0이 아닌 250으로 해주세요.
+		if (_viMonster->patternCount > 400) {
+			_viMonster->patternCount = 0;
+			_viMonster->activestate = MONSTERACTIVE::FINDING;
+		}
+		break;
+	case MONSTERACTIVE::FINDING:
+		break;
+	case MONSTERACTIVE::ATTACK:
+		if (_viMonster->patternCount < 350) {
+			
+		}
+		else {
+			_viMonster->framecount = 0;
+			_viMonster->patternCount = 250;
+			_viMonster->activestate = MONSTERACTIVE::NONE;
+		}
+		break;
+	case MONSTERACTIVE::ATTACK2:
+		if (_viMonster->patternCount < 350) {
+
+		}
+		else {
+			_viMonster->framecount = 0;
+			_viMonster->patternCount = 250;
+			_viMonster->activestate = MONSTERACTIVE::NONE;
+		}
+		break;
+	case MONSTERACTIVE::ATTACK3:
+		if (_viMonster->patternCount < 210) {
+
+		}
+		else {
+			_viMonster->framecount = 0;
+			_viMonster->patternCount = 250;
+			_viMonster->activestate = MONSTERACTIVE::NONE;
+		}
+		break;
+	case MONSTERACTIVE::RNDMOVE:
+		break;
+	case MONSTERACTIVE::DEATH:
+		_viMonster->deathalpha -= 3;
+		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
+		if (_viMonster->deathalpha == 0) {
+			_viMonster->afterDeath = true;
+		}
+		break;
+	}
+}
+
+void Cyggdrasil::giveFrame()
+{
+	//NONE
+	if (_viMonster->activestate == MONSTERACTIVE::NONE) {
+		//입장프레임때문에 얘는 NONE으로 돌아올때 꼭 250부터 시작하게 하자.
+		if (_viMonster->patternCount == 90) {
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "이그드라실", 6, 8, 3, false, false);
+		}
+		if (_viMonster->patternCount == 251) {
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "이그드라실", 3, 5, 4, true, true);
+		}
+	}
+
+	//ATTACK1 : 독브레스
+	if (_viMonster->activestate == MONSTERACTIVE::ATTACK) {
+		if (_viMonster->framecount == 0) {
+			int aniarr[] = {6, 7, 9, 10, 11, 12, 13};
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "이그드라실", aniarr, sizeof(aniarr)/sizeof(int), 2, false);
+		}
+	}
+	//ATTACK2 : 바람3줄기
+	if (_viMonster->activestate == MONSTERACTIVE::ATTACK2) {
+		if (_viMonster->framecount == 0) {
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "이그드라실", 6, 8, 2, false, false);
+		}
+	}
+
+	//ATTACK3 : 열매투척
+	if (_viMonster->activestate == MONSTERACTIVE::ATTACK3) {
+		if (_viMonster->framecount == 0) {
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "이그드라실", 6, 7, 2, false, false);
+		}
+		if (_viMonster->framecount == 150) {
+			int aniarr[] = { 6, 4 };
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "이그드라실", aniarr, sizeof(aniarr) / sizeof(int), 2, false);
+		}
+	}
+
+	//프레임카운트증가(상태변화 알림외에 기능 없음)
+	_viMonster->framecount++;
+}
+
+void Cyggdrasil::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
+{
+}
+
+void Cyggdrasil::stuncheck()
+{
+}
+
+void Cyggdrasil::checkPlayerXY(Cplayer* py)
+{
+	if (_viMonster->activestate != MONSTERACTIVE::FINDING) return;
+	//플레이어의 좌표를 확인후 사거리내로 들어왔다면 공격상태돌입.
+	float distance = UTIL::getDistance(_viMonster->x, _viMonster->y, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	if (distance < _viMonster->range)
+	{
+		_viMonster->framecount = 0;
+		_viMonster->patternCount = 0;
+		//직전공격이 1번이나 2번이였던 경우, 3번공격개시
+		if (_viMonster->oldactivestate == MONSTERACTIVE::ATTACK ||
+			_viMonster->oldactivestate == MONSTERACTIVE::ATTACK2) {
+			_viMonster->activestate = MONSTERACTIVE::ATTACK3;
+			_viMonster->oldactivestate = MONSTERACTIVE::ATTACK3;
+		}
+		//3번이였던경우, 1번 또는 2번 개시
+		else {
+			if (RND->getInt(2)) {
+				_viMonster->activestate = MONSTERACTIVE::ATTACK;
+				_viMonster->oldactivestate = MONSTERACTIVE::ATTACK;
+			}
+			else {
+				_viMonster->activestate = MONSTERACTIVE::ATTACK2;
+				_viMonster->oldactivestate = MONSTERACTIVE::ATTACK2;
+			}
+		}
+
+		//목표 지점과 각 설정
+		_viMonster->targetX = PLAYER->getPlayerAddress().x;
+		_viMonster->targetY = PLAYER->getPlayerAddress().y;
+		_viMonster->angle = UTIL::getAngle(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+			_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2, _viMonster->targetX, _viMonster->targetY);
+	}
+	//사거리내가 아니라면 랜덤무브 진입.
+	else {
+		_viMonster->framecount = 0;
+		_viMonster->patternCount = 250;
+		_viMonster->activestate = MONSTERACTIVE::NONE;
+	}
+}
+//////////////////////////////////////////////////////////////
+//////////Cyggdrasil_bomb!		이그드라실_폭탄!///////////////
+//////////////////////////////////////////////////////////////
+Cyggdrasil_bomb::Cyggdrasil_bomb()
+{
+	IMAGE->addFrameImage("이그드라실_폭탄", "images/monsters/bomb-bomb.bmp", 81, 108, 3, 4, true);
+}
+
+Cyggdrasil_bomb::~Cyggdrasil_bomb()
+{
+}
+
+HRESULT Cyggdrasil_bomb::init()
+{
+	return S_OK;
+}
+
+void Cyggdrasil_bomb::release()
+{
+}
+
+void Cyggdrasil_bomb::update(Cplayer* py, bulletManager* bm)
+{
+	//업뎃
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		//날라가는중이 아닐때만 보정
+		if (_viMonster->activestate != MONSTERACTIVE::ATTACK) {
+			_viMonster->x = _viMonster->neverchangeX;
+			_viMonster->y = _viMonster->neverchangeY;
+			_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() * 1 / 6, _viMonster->y + _viMonster->img->getFrameHeight() * 1 / 6, _viMonster->width, _viMonster->height);
+
+		}
+		stuncheck();
+		checkPlayerXY(py);
+		move(bm);
+		checkAngle();
+		giveFrame();
+		deathCheck();
+	}
+	//소멸
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); )
+	{
+		if (_viMonster->afterDeath) {
+			_viMonster = _vMonster.erase(_viMonster);
+		}
+		else {
+			++_viMonster;
+		}
+	}
+}
+
+void Cyggdrasil_bomb::render()
+{
+	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
+	{
+		switch (_viMonster->activestate)
+		{
+		case MONSTERACTIVE::NONE:
+		case MONSTERACTIVE::FINDING:
+		case MONSTERACTIVE::RNDMOVE:
+		case MONSTERACTIVE::ATTACK:
+		case MONSTERACTIVE::ATTACK2:
+			_viMonster->img->aniRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->ani);
+			if (_isDebug) RectangleMake(getMemDC(), _viMonster->rc);
+			break;
+		case MONSTERACTIVE::DEATH:
+			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			break;
+		}
+		//TCHAR str[128];
+		//_stprintf_s(str, "hp : %d", _viMonster->hp);
+		//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
+	}
+}
+
+void Cyggdrasil_bomb::addMonster(float x, float y)
+{
+	tagMonster newMonster;
+	newMonster.img = IMAGE->findImage("이그드라실_폭탄");
+	newMonster.ani = ANIMATION->addNoneKeyAnimation("이그드라실_폭탄", 0, 11, 4, false, false);
+	newMonster.frameX = 0;
+	newMonster.frameY = 0;
+	newMonster.x = x;
+	newMonster.y = y;
+	//newMonster.neverchangeX; //= RND->getFromInTo((int)x-200, (int)x+200);
+	//newMonster.neverchangeY; //= RND->getFromInTo((int)y + 20, (int)y + 400);
+	newMonster.width = newMonster.img->getFrameWidth() * 2 / 3;
+	newMonster.height = newMonster.img->getFrameHeight() * 2 / 3;
+	newMonster.rc = RectMake(x + newMonster.img->getFrameWidth() * 1 / 6, y + newMonster.img->getFrameHeight() * 1 / 6, newMonster.width, newMonster.height);
+	newMonster.speed = RND->getFromInTo(7, 14);
+	newMonster.hp = 55;
+	newMonster.isStun = false;
+	newMonster.isDeath = false;
+	newMonster.findPlayer = false;
+	newMonster.afterDeath = false;
+	newMonster.targetX = 0;
+	newMonster.targetY = 0;
+	newMonster.angle = DEGREE(RND->getFromInTo(215, 325));
+	newMonster.range = 1500;
+	newMonster.stunCount = 0;
+	newMonster.patternCount = 0;
+	newMonster.deathalpha = 255;
+	newMonster.activestate = MONSTERACTIVE::ATTACK;
+	newMonster.oldactivestate = MONSTERACTIVE::NONE;
+	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	_vMonster.push_back(newMonster);
+}
+
+void Cyggdrasil_bomb::move(bulletManager* bm)
+{
+	_viMonster->patternCount++;
+	switch (_viMonster->activestate)
+	{
+	case MONSTERACTIVE::NONE:
+		if (_viMonster->patternCount % 100 == 0) {
+			_viMonster->activestate = MONSTERACTIVE::FINDING;
+		}
+		break;
+	case MONSTERACTIVE::FINDING:
+		break;
+	case MONSTERACTIVE::ATTACK:
+		//목표지점까지 날라가기
+		if (_viMonster->patternCount < 100) {
+			if (_viMonster->angle * 180 / PI < 270) _viMonster->angle+=0.0025f;
+			if (_viMonster->angle * 180 / PI > 270) _viMonster->angle-=0.0025f;
+			_viMonster->x += cosf(_viMonster->angle) * _viMonster->speed;
+			_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed;
+			_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() * 1 / 6, _viMonster->y + _viMonster->img->getFrameHeight() * 1 / 6, _viMonster->width, _viMonster->height);
+			_viMonster->speed -= 0.25f;
+			if (_viMonster->speed < 0) {
+				_viMonster->speed = 0;
+				_viMonster->patternCount = 0;
+				_viMonster->activestate = MONSTERACTIVE::NONE;
+				_viMonster->neverchangeX = _viMonster->x;
+				_viMonster->neverchangeY = _viMonster->y;
+			}
+		}
+		else {
+			_viMonster->patternCount = 0;
+			_viMonster->activestate = MONSTERACTIVE::NONE;
+		}
+		break;
+	case MONSTERACTIVE::ATTACK2:
+		//터지며 폭발
+		if (_viMonster->patternCount == 250) {
+				bm->getCirBulInstance()->fire(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+					_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+					_viMonster->angle, 0);
+			_viMonster->afterDeath = true;
+		}
+		break;
+	case MONSTERACTIVE::RNDMOVE:
+		break;
+	case MONSTERACTIVE::DEATH:
+		_viMonster->deathalpha -= 3;
+		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
+		if (_viMonster->deathalpha == 0) {
+			_viMonster->afterDeath = true;
+		}
+		break;
+	}
+}
+
+void Cyggdrasil_bomb::giveFrame()
+{
+	//ATTACK2 : 터지기
+	if (_viMonster->activestate == MONSTERACTIVE::ATTACK2) {
+		if (_viMonster->framecount == 0) {
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "이그드라실_폭탄", 11, 0, 3);
+		}
+	}
+
+	//프레임카운트증가(상태변화 알림외에 기능 없음)
+	_viMonster->framecount++;
+
+}
+
+void Cyggdrasil_bomb::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
+{
+	if (iter->activestate == MONSTERACTIVE::DEATH || iter->activestate == MONSTERACTIVE::ATTACK) return;
+	//외부호출용함수(공격에맞을떄)
+	//데미지반영
+	iter->hp -= damage;
+	//총알이 나를 바라보던 방향으로 넉백
+	float centerx, centery;
+	centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
+	centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
+	float nbangle = UTIL::getAngle(x, y, centerx, centery);
+	iter->x += cosf(nbangle) * knockbackRange;
+	iter->y -= sinf(nbangle) * knockbackRange;
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() * 1 / 6, iter->y + iter->img->getFrameHeight() * 1 / 6, iter->width, iter->height);
+	//보스는 절대 스턴먹지 않는다.
+	if (stun = false) {
+		iter->isStun = stun;
+		iter->frameX = 0;
+		iter->framecount = 0;
+		iter->patternCount = 0;
+		iter->activestate = MONSTERACTIVE::NONE;
+	}
+}
+
+void Cyggdrasil_bomb::stuncheck()
+{
+}
+
+void Cyggdrasil_bomb::checkPlayerXY(Cplayer* py)
+{
+	if (_viMonster->activestate != MONSTERACTIVE::FINDING) return;
+	//목표 지점과 각 설정
+	_viMonster->targetX = PLAYER->getPlayerAddress().x;
+	_viMonster->targetY = PLAYER->getPlayerAddress().y;
+	_viMonster->angle = UTIL::getAngle(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
+		_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2,
+		_viMonster->targetX, _viMonster->targetY);
+
+	_viMonster->framecount = 0;
+	_viMonster->patternCount = 0;
+	_viMonster->activestate = MONSTERACTIVE::ATTACK2;
 }

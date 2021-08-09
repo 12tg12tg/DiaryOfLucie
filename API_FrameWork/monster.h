@@ -22,6 +22,7 @@ enum class MONSTERACTIVE
 	RNDMOVE,
 	ATTACK,
 	ATTACK2,
+	ATTACK3,
 	DEATH,
 };
 struct tagMonster

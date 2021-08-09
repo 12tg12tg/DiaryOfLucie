@@ -22,6 +22,8 @@ private:
 	Cmushmam_mushroom_G* _mushmam_mushroom_G;
 	Cmushmam_mushroom_P* _mushmam_mushroom_P;
 	Cmushmam_mushroom_B* _mushmam_mushroom_B;
+	Cyggdrasil* _yggdrasil;
+	Cyggdrasil_bomb* _yggdrasil_bomb;
 
 private:
 	bool _isDebug;
@@ -33,6 +35,8 @@ public:
 	void release();
 	void update();
 	void render();
+
+
 
 	void setPlayerMemoryLink(Cplayer* py) { _py = py; }
 	void setBulletManagerMemoryLink(bulletManager* bm) { _bm = bm; }
@@ -51,7 +55,8 @@ public:
 		_mushmam_mushroom_G->setIsDebug(_isDebug);
 		_mushmam_mushroom_P->setIsDebug(_isDebug);
 		_mushmam_mushroom_B->setIsDebug(_isDebug);
-
+		_yggdrasil->setIsDebug(_isDebug);
+		_yggdrasil_bomb->setIsDebug(_isDebug);
 	}
 };
 
