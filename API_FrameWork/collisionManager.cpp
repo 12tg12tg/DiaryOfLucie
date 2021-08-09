@@ -166,7 +166,8 @@ void collisionManager::bulletToplayer()
     }
     for (int i = 0; i < bm->getHomBulInstance()->getVBullet().size(); i++)
     {
-
+       
+        
     }
 
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "gameNode.h"
-
+#include"OBBCollision.h"
 class bulletManager;
 class monsterManager;
 class collisionManager : public gameNode
@@ -8,6 +8,8 @@ class collisionManager : public gameNode
 private:
 	bulletManager* bm;
 	monsterManager* mm;
+	OBBCollision* obb;
+	
 	RECT temprc;
 private:
 	bool _isDebug;
