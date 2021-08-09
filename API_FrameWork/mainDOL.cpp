@@ -21,8 +21,12 @@ HRESULT mainDOL::init()
 	_mm->init();
 
 	_mm->setBulletManagerMemoryLink(_bm);	//¸ó½ºÅÍ¿¡¼­ ºí¸´¸µÅ©
+<<<<<<< HEAD
 	_cm->setBulletManagerMemoryLink(_bm);	//Ãæµ¹¿¡¼­ ºÒ¸´¸µÅ©
 	_cm->setMonsterManagerMemoryLink(_mm);	//Ãæµ¹¿¡¼­ ¸ó½ºÅÍ¸µÅ©
+=======
+	PLAYER->setBulletManagerMemoryLink(_bm);
+>>>>>>> ê³ ì„±ë¯¼ì˜ë¸ŒëŸ°ì¹˜(í”Œë ˆì´ì–´êµ¬í˜„)
 
 
 
