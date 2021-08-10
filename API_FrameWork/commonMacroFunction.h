@@ -1,8 +1,9 @@
 #pragma once
-#include "utils.h"
 //===========================================================//
 //	commonMacroFunction(필요한 부분은 직접 만들어서 사용)		//
 //=========================================================//
+//여기서 UTIL namespace를 사용하고 있으니,
+//헤더모음에서 util.h가 항상 이 헤더파일보다 먼저선언되었는지 확인하시오.
 
 inline POINT PointMake(int x, int y)
 {
@@ -43,32 +44,42 @@ inline void RectangleMakeCenter(HDC hdc, int x, int y, int width, int height)
 {
 	Rectangle(hdc, x - (width / 2), y - (height / 2), x + (width / 2), y + (height / 2));
 }
-inline void RectangleMakeRotateCenter(HDC hdc, RECT rect, float degree)
+//사각형 회전그리기(테두리만)
+inline void RectangleMakeRotateCenter(HDC hdc, RECT rect, float radianAngle)
 {
-	int width = rect.right - (rect.right - rect.left) / 2;
-	int height = rect.bottom - (rect.bottom - rect.top) / 2;
-	POINT center = { width , height };
+	int centerx = rect.left + (rect.right - rect.left) / 2;
+	int centery = rect.top + (rect.bottom - rect.top) / 2;
+	POINT center = { centerx , centery };
 
-	int width2 = rect.right - rect.left;
-	int height2 = rect.bottom - rect.top;
-	float angle = static_cast<float> (degree * 3.141592 / 180.0f);
-	//POINT pts[] = {}
-	
-	float leftTopPointAngle = UTIL::getAngle(width, height, rect.left, rect.top);
-	float rightTopPointAngle = UTIL::getAngle(width, height, rect.right, rect.top);
-	float rightBottomPointAngle = UTIL::getAngle(width, height, rect.right, rect.bottom);
-	float leftBottomPointAngle = UTIL::getAngle(width, height, rect.left, rect.bottom);
-	float hypotenuse = sqrt(width2 * width2 + height2 * height2);
+	int width = rect.right - rect.left;
+	int height = rect.bottom - rect.top;
 
+	float leftTopPointAngle = UTIL::getAngle(centerx, centery, rect.left, rect.top);
+	float rightTopPointAngle = UTIL::getAngle(centerx, centery, rect.right, rect.top);
+	float rightBottomPointAngle = UTIL::getAngle(centerx, centery, rect.right, rect.bottom);
+	float leftBottomPointAngle = UTIL::getAngle(centerx, centery, rect.left, rect.bottom);
+	float hypotenuse = sqrt(width * width + height * height);
 
-	LineMake(hdc, width + cosf(leftTopPointAngle + degree) * hypotenuse / 2, height - sinf(leftTopPointAngle + degree) * hypotenuse / 2,
-		width + cosf(rightTopPointAngle + degree) * hypotenuse / 2, height - sinf(rightTopPointAngle + degree) * hypotenuse / 2);
-	LineMake(hdc, width + cosf(rightTopPointAngle + degree) * hypotenuse / 2, height - sinf(rightTopPointAngle + degree) * hypotenuse / 2,
-		width + cosf(rightBottomPointAngle + degree) * hypotenuse / 2, height - sinf(rightBottomPointAngle + degree) * hypotenuse / 2);
-	LineMake(hdc, width + cosf(rightBottomPointAngle + degree) * hypotenuse / 2, height - sinf(rightBottomPointAngle + degree) * hypotenuse / 2,
-		width + cosf(leftBottomPointAngle + degree) * hypotenuse / 2, height - sinf(leftBottomPointAngle + degree) * hypotenuse / 2);
-	LineMake(hdc, width + cosf(leftBottomPointAngle + degree) * hypotenuse / 2, height - sinf(leftBottomPointAngle + degree) * hypotenuse / 2,
-		width + cosf(leftTopPointAngle + degree) * hypotenuse / 2, height - sinf(leftTopPointAngle + degree) * hypotenuse / 2);
+	LineMake(hdc,
+		centerx + cosf(leftTopPointAngle + radianAngle) * hypotenuse / 2,
+		centery - sinf(leftTopPointAngle + radianAngle) * hypotenuse / 2,
+		centerx + cosf(rightTopPointAngle + radianAngle) * hypotenuse / 2,
+		centery - sinf(rightTopPointAngle + radianAngle) * hypotenuse / 2);
+	LineMake(hdc,
+		centerx + cosf(rightTopPointAngle + radianAngle) * hypotenuse / 2,
+		centery - sinf(rightTopPointAngle + radianAngle) * hypotenuse / 2,
+		centerx + cosf(rightBottomPointAngle + radianAngle) * hypotenuse / 2,
+		centery - sinf(rightBottomPointAngle + radianAngle) * hypotenuse / 2);
+	LineMake(hdc,
+		centerx + cosf(rightBottomPointAngle + radianAngle) * hypotenuse / 2,
+		centery - sinf(rightBottomPointAngle + radianAngle) * hypotenuse / 2,
+		centerx + cosf(leftBottomPointAngle + radianAngle) * hypotenuse / 2,
+		centery - sinf(leftBottomPointAngle + radianAngle) * hypotenuse / 2);
+	LineMake(hdc,
+		centerx + cosf(leftBottomPointAngle + radianAngle) * hypotenuse / 2,
+		centery - sinf(leftBottomPointAngle + radianAngle) * hypotenuse / 2,
+		centerx + cosf(leftTopPointAngle + radianAngle) * hypotenuse / 2,
+		centery - sinf(leftTopPointAngle + radianAngle) * hypotenuse / 2);
 }
 
 //원그리기

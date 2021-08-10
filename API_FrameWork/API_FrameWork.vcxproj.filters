@@ -61,11 +61,11 @@
     <Filter Include="DOL\DOL_Manager">
       <UniqueIdentifier>{38de8317-e6c7-4781-9bb7-8d07bd95154b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DOL\OBB">
-      <UniqueIdentifier>{71c2fa85-d753-4f1d-9feb-7cc5c11a166b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DOL\Map">
       <UniqueIdentifier>{84654aab-c12f-4f51-b945-2ca24adf98c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="manager\OBB">
+      <UniqueIdentifier>{1af3ce06-36a7-44a8-aeff-3887b8b69dde}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -162,14 +162,14 @@
     <ClInclude Include="Cbullets.h">
       <Filter>DOL\bullet</Filter>
     </ClInclude>
-    <ClInclude Include="OBBCollision.h">
-      <Filter>DOL\OBB</Filter>
-    </ClInclude>
     <ClInclude Include="mapManager.h">
       <Filter>DOL\DOL_Manager</Filter>
     </ClInclude>
     <ClInclude Include="Cmap.h">
       <Filter>DOL\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="OBBCollision.h">
+      <Filter>manager\OBB</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -248,14 +248,14 @@
     <ClCompile Include="monster.cpp">
       <Filter>DOL\monsters</Filter>
     </ClCompile>
-    <ClCompile Include="OBBCollision.cpp">
-      <Filter>DOL\OBB</Filter>
-    </ClCompile>
     <ClCompile Include="mapManager.cpp">
       <Filter>DOL\DOL_Manager</Filter>
     </ClCompile>
     <ClCompile Include="Cmap.cpp">
       <Filter>DOL\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="OBBCollision.cpp">
+      <Filter>manager\OBB</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

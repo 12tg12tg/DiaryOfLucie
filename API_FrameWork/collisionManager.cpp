@@ -165,20 +165,11 @@ void collisionManager::bulletToplayer()
             //damage
         }
     }
+    //homing 충돌
     for (int i = 0; i < bm->getHomBulInstance()->getVBullet().size(); i++)
     {
-        a.top = bm->getHomBulInstance()->getVBullet()[i].rc.top;
-        a.left = bm->getHomBulInstance()->getVBullet()[i].rc.left;
-        a.width = bm->getHomBulInstance()->getVBullet()[i].rc.right- bm->getHomBulInstance()->getVBullet()[i].rc.left;
-        a.height = bm->getHomBulInstance()->getVBullet()[i].rc.bottom - bm->getHomBulInstance()->getVBullet()[i].rc.top;
-        a.rot = bm->getHomBulInstance()->getVBullet()[i].angle +PI/2;
-
-        b.top = PLAYER->getPlayerAddress().playerRect.top;
-        b.left = PLAYER->getPlayerAddress().playerRect.left;
-        b.width = PLAYER->getPlayerAddress().playerRect.right - PLAYER->getPlayerAddress().playerRect.left;
-        b.height =PLAYER->getPlayerAddress().playerRect.bottom - PLAYER->getPlayerAddress().playerRect.top;
-        b.rot = 0;
-        if (obb->OBB(a, b))
+        if (OBB->isOBBCollision(bm->getHomBulInstance()->getVBullet()[i].rc, bm->getHomBulInstance()->getVBullet()[i].angle,
+            PLAYER->getPlayerAddress().playerRect, 0))
         {
            bm->getHomBulInstance()->removeBullet(i);
         }
@@ -301,18 +292,9 @@ void collisionManager::checkMonsterRectColl(monster* monster)            //★플�
         //2. 플레이어 화살
         for (int i = 0; i < bm->getArwBulInstance()->getVBullet().size(); i++)
         {
-            a.top = bm->getArwBulInstance()->getVBullet()[i].rc.top;
-            a.left = bm->getArwBulInstance()->getVBullet()[i].rc.left;
-            a.width = bm->getArwBulInstance()->getVBullet()[i].rc.right - bm->getArwBulInstance()->getVBullet()[i].rc.left;
-            a.height = bm->getArwBulInstance()->getVBullet()[i].rc.bottom - bm->getArwBulInstance()->getVBullet()[i].rc.top;
-            a.rot = bm->getArwBulInstance()->getVBullet()[i].angle + PI / 2;
-
-            b.top = PLAYER->getPlayerAddress().playerRect.top;
-            b.left = PLAYER->getPlayerAddress().playerRect.left;
-            b.width = PLAYER->getPlayerAddress().playerRect.right - PLAYER->getPlayerAddress().playerRect.left;
-            b.height = PLAYER->getPlayerAddress().playerRect.bottom - PLAYER->getPlayerAddress().playerRect.top;
-            b.rot = 0;
-            if (iter->activestate != MONSTERACTIVE::DEATH && (obb->OBB(a, b)))
+            if (iter->activestate != MONSTERACTIVE::DEATH &&
+               OBB->isOBBCollision(bm->getArwBulInstance()->getVBullet()[i].rc, bm->getArwBulInstance()->getVBullet()[i].angle,
+                iter->rc, 0))
             {
                 if (!iter->isInvincible) {
                     monster->knockback(iter,

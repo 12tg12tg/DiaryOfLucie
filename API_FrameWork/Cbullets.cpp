@@ -637,7 +637,7 @@ void CmHomingBullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->rotateRender(getMemDC(), _viBullet->rc.right - (_viBullet->rc.right - _viBullet->rc.left) / 2, _viBullet->rc.bottom - (_viBullet->rc.bottom - _viBullet->rc.top) / 2, _viBullet->angle + PI/2);
+		_viBullet->bulletImage->rotateRender(getMemDC(), _viBullet->rc.right - (_viBullet->rc.right - _viBullet->rc.left) / 2, _viBullet->rc.bottom - (_viBullet->rc.bottom - _viBullet->rc.top) / 2, _viBullet->angle - PI/2);
 		if (_isDebug)
 		{
 		
