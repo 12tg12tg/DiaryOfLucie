@@ -1,4 +1,5 @@
 #pragma once
+#include "utils.h"
 //===========================================================//
 //	commonMacroFunction(필요한 부분은 직접 만들어서 사용)		//
 //=========================================================//
@@ -42,27 +43,33 @@ inline void RectangleMakeCenter(HDC hdc, int x, int y, int width, int height)
 {
 	Rectangle(hdc, x - (width / 2), y - (height / 2), x + (width / 2), y + (height / 2));
 }
-inline void RectangleMakeRotate(HDC hdc,RECT rect, float degree)
+inline void RectangleMakeRotateCenter(HDC hdc, RECT rect, float degree)
 {
-	int topx = rect.left;
-	int topy = rect.top;
-	int leftx = rect.left;
-	int lefty = rect.bottom;
-	int bottomx = rect.right;
-	int bottomy = rect.bottom;
-	int rightx = rect.right;
-	int righty = rect.top;
-	float angle = static_cast<float> (degree * 3.14 / 180.0f);
-	POINT pts[] = {
-		{topx * cosf(angle) + topy * sinf(angle),-topx * sinf(angle) + topy * cosf(angle)},
-		{leftx * cosf(angle) + lefty * sinf(angle),-leftx * sinf(angle) + lefty * cosf(angle)},
-		{bottomx * cosf(angle) + bottomy * sinf(angle),-bottomx * sinf(angle) + bottomy * cosf(angle)},
-		{rightx * cosf(angle) + righty * sinf(angle),-rightx * sinf(angle) + righty * cosf(angle)}
-	};
-	Polygon(hdc, pts, 4);
+	int width = rect.right - (rect.right - rect.left) / 2;
+	int height = rect.bottom - (rect.bottom - rect.top) / 2;
+	POINT center = { width , height };
+
+	int width2 = rect.right - rect.left;
+	int height2 = rect.bottom - rect.top;
+	float angle = static_cast<float> (degree * 3.141592 / 180.0f);
+	//POINT pts[] = {}
+	
+	float leftTopPointAngle = UTIL::getAngle(width, height, rect.left, rect.top);
+	float rightTopPointAngle = UTIL::getAngle(width, height, rect.right, rect.top);
+	float rightBottomPointAngle = UTIL::getAngle(width, height, rect.right, rect.bottom);
+	float leftBottomPointAngle = UTIL::getAngle(width, height, rect.left, rect.bottom);
+	float hypotenuse = sqrt(width2 * width2 + height2 * height2);
+
+
+	LineMake(hdc, width + cosf(leftTopPointAngle + degree) * hypotenuse / 2, height - sinf(leftTopPointAngle + degree) * hypotenuse / 2,
+		width + cosf(rightTopPointAngle + degree) * hypotenuse / 2, height - sinf(rightTopPointAngle + degree) * hypotenuse / 2);
+	LineMake(hdc, width + cosf(rightTopPointAngle + degree) * hypotenuse / 2, height - sinf(rightTopPointAngle + degree) * hypotenuse / 2,
+		width + cosf(rightBottomPointAngle + degree) * hypotenuse / 2, height - sinf(rightBottomPointAngle + degree) * hypotenuse / 2);
+	LineMake(hdc, width + cosf(rightBottomPointAngle + degree) * hypotenuse / 2, height - sinf(rightBottomPointAngle + degree) * hypotenuse / 2,
+		width + cosf(leftBottomPointAngle + degree) * hypotenuse / 2, height - sinf(leftBottomPointAngle + degree) * hypotenuse / 2);
+	LineMake(hdc, width + cosf(leftBottomPointAngle + degree) * hypotenuse / 2, height - sinf(leftBottomPointAngle + degree) * hypotenuse / 2,
+		width + cosf(leftTopPointAngle + degree) * hypotenuse / 2, height - sinf(leftTopPointAngle + degree) * hypotenuse / 2);
 }
-
-
 
 //원그리기
 inline void EllipseMake(HDC hdc, int x, int y, int width, int height)

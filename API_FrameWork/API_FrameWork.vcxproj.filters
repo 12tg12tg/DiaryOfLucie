@@ -64,6 +64,9 @@
     <Filter Include="DOL\OBB">
       <UniqueIdentifier>{71c2fa85-d753-4f1d-9feb-7cc5c11a166b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DOL\Map">
+      <UniqueIdentifier>{84654aab-c12f-4f51-b945-2ca24adf98c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
