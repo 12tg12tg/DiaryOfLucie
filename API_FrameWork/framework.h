@@ -27,6 +27,7 @@ using namespace std;
 //=======================//
 //	내가만든 헤더파일		//
 //=====================//
+#include"utils.h"
 #include"commonMacroFunction.h"
 #include"Input.h"
 #include"imageManager.h"
@@ -36,8 +37,8 @@ using namespace std;
 #include"animationManager.h"
 #include"effectManager.h"
 #include"randomFunction.h"
-#include"utils.h"
 #include"txtData.h"
+#include"OBBCollision.h"
 
 #include"Cplayer.h"
 
@@ -54,6 +55,7 @@ using namespace std;
 #define SOUND			soundManager::getSingleton()
 #define ANIMATION		animationManager::getSingleton()
 #define EFFECT			effectManager::getSingleton()
+#define OBB				OBBCollision::getSingleton()
 
 #define PLAYER			Cplayer::getSingleton()
 

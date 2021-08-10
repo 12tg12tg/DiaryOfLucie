@@ -10,7 +10,7 @@ private:
 	bulletManager* bm;
 	monsterManager* mm;
 	OBBCollision* obb;
-	SHAPE a, b;
+
 	RECT temprc;
 private:
 	bool _isDebug;
