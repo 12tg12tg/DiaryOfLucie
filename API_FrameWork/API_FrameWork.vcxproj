@@ -149,6 +149,7 @@
     <ClInclude Include="API_FrameWork.h" />
     <ClInclude Include="bulletManager.h" />
     <ClInclude Include="Cbullets.h" />
+    <ClInclude Include="Cmap.h" />
     <ClInclude Include="collisionManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="Cplayer.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="mainDOL.h" />
     <ClInclude Include="mainGame.h" />
+    <ClInclude Include="mapManager.h" />
     <ClInclude Include="mapTool.h" />
     <ClInclude Include="monster.h" />
     <ClInclude Include="monsterManager.h" />
@@ -183,6 +185,7 @@
     <ClCompile Include="API_FrameWork.cpp" />
     <ClCompile Include="bulletManager.cpp" />
     <ClCompile Include="Cbullets.cpp" />
+    <ClCompile Include="Cmap.cpp" />
     <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="Cplayer.cpp" />
     <ClCompile Include="Cmonsters.cpp" />
@@ -194,6 +197,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="mainDOL.cpp" />
     <ClCompile Include="mainGame.cpp" />
+    <ClCompile Include="mapManager.cpp" />
     <ClCompile Include="mapTool.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="monsterManager.cpp" />

@@ -8,10 +8,10 @@
 	bulletname			imagename
 1.	CpMagicBullet	/	¸¶¹ýÃÑ¾Ë
 2.	CpArrowBullet	/	È­»ì
-3.	CmTripleBullet	/	¸ó½ºÅÍÃÑ¾Ë
-4.	CmCircleBulelt	/	¸ó½ºÅÍÃÑ¾Ë
+3.	CmTripleBullet	/	ÀÛÀº¸ó½ºÅÍÃÑ¾Ë
+4.	CmCircleBulelt	/	ÀÛÀº¸ó½ºÅÍÃÑ¾Ë
 5.	CmReturnBullet  /   Æä¾î¸®ÃÑ¾Ë1 , Æä¾î¸®ÃÑ¾Ë2
-6.	CmWideBullet	/	¸ó½ºÅÍÃÑ¾Ë
+6.	CmWideBullet	/	ÀÛÀº¸ó½ºÅÍÃÑ¾Ë
 7.	CmHomingBullet	/   ¸ó½ºÅÍÃÑ¾Ë2
 8.	CmPoisonBullet  /	µ¶ÃÑ¾Ë
 9.	CmNiddleBullet  /	°¡½Ã , °æ°í
@@ -130,6 +130,7 @@ void CpArrowBullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
+
 		_viBullet->bulletImage->rotateRender(getMemDC(), _viBullet->rc.right - (_viBullet->rc.right - _viBullet->rc.left) / 2, _viBullet->rc.bottom - (_viBullet->rc.bottom - _viBullet->rc.top) / 2, _viBullet->rotateangle);
 	}
 }
@@ -222,7 +223,7 @@ void CmTripleBullet::fire(float x, float y, float angle, int plussize)
 		ZeroMemory(&bullet, sizeof(tagBullet));
 		bullet.plussize = plussize;
 		bullet.bulletImage = new  image;
-		bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 12 , 12, true);
+		bullet.bulletImage = IMAGE->addImage("ÀÛÀº¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 12 , 12, true);
 		bullet.angle = angle - 0.2 + 0.2 * i;
 		bullet.speed = 5.0f;
 		bullet.x = bullet.fireX = x;
@@ -303,7 +304,7 @@ void CmCircleBullet::fire(float x, float y, float angle, int plussize)
 	{
 		ZeroMemory(&bullet, sizeof(tagBullet));
 		bullet.bulletImage = new  image;
-		bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 12  , 12  , true);
+		bullet.bulletImage = IMAGE->addImage("ÀÛÀº¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 12  , 12  , true);
 		bullet.angle = angle + 0.628 * i;
 		bullet.speed = 5.0f;
 		bullet.x = bullet.fireX = x;
@@ -547,7 +548,7 @@ void CmWideBullet::fire(float x, float y, float angle, int plussize)
 		{
 			ZeroMemory(&bullet, sizeof(tagBullet));
 			bullet.bulletImage = new  image;
-			bullet.bulletImage = IMAGE->addImage("¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 12, 12, true);
+			bullet.bulletImage = IMAGE->addImage("ÀÛÀº¸ó½ºÅÍÃÑ¾Ë", "images/bullet_bmp/MBullet_normal.bmp", 12, 12, true);
 			bullet.angle = angle + 0.10 * (Maxi/2+1) - 0.10 * i;                                  
 			bullet.speed = 3.0 -0.2*k;
 			bullet.speed2 = 3.0;
@@ -640,7 +641,7 @@ void CmHomingBullet::render()
 		if (_isDebug)
 		{
 		
-			if (_isDebug) RectangleMake(getMemDC(), _viBullet->rc);
+			if (_isDebug)RectangleMakeRotateCenter(getMemDC(), _viBullet->rc, _viBullet->angle + PI/2);
 		}
 	}
 

@@ -27,6 +27,7 @@ public:
 
 	//보조함수
 	void checkMonsterRectColl(monster* monster);
+	void checkMonsterRectPlayer(monster* monster);
 
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }

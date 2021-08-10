@@ -64,6 +64,9 @@
     <Filter Include="DOL\OBB">
       <UniqueIdentifier>{71c2fa85-d753-4f1d-9feb-7cc5c11a166b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DOL\Map">
+      <UniqueIdentifier>{84654aab-c12f-4f51-b945-2ca24adf98c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -162,6 +165,12 @@
     <ClInclude Include="OBBCollision.h">
       <Filter>DOL\OBB</Filter>
     </ClInclude>
+    <ClInclude Include="mapManager.h">
+      <Filter>DOL\DOL_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Cmap.h">
+      <Filter>DOL\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -241,6 +250,12 @@
     </ClCompile>
     <ClCompile Include="OBBCollision.cpp">
       <Filter>DOL\OBB</Filter>
+    </ClCompile>
+    <ClCompile Include="mapManager.cpp">
+      <Filter>DOL\DOL_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Cmap.cpp">
+      <Filter>DOL\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
