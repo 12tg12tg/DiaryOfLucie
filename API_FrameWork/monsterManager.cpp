@@ -108,12 +108,12 @@ void monsterManager::update()
     _yggdrasil_bomb->update(_py, _bm);
 
 
-    if (INPUT->isOnceKeyDown(VK_LBUTTON)) {
+   /* if (INPUT->isOnceKeyDown(VK_LBUTTON)) {
         _bm->getMgcBulInstance()->fire(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
             UTIL::getAngle(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y, m_ptMouse.x, m_ptMouse.y), 0);
 
 
-    }
+    }*/
 
     //static int count = 0;
     //count++;
