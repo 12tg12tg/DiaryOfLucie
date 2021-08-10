@@ -19,6 +19,8 @@ HRESULT Cplayer::init()
 
 	_isAutoRun = false;
 	_frameswitching = true;
+	_hitCount = 300;
+	_player.isHit = false;
 
 	return S_OK;
 }
@@ -36,30 +38,75 @@ void Cplayer::update()
 	this->movePlayer();
 	_player.playerRect = RectMakeCenter(_player.x, _player.y, 25, 25);
 	this->setPlayerFrame();
+	this->hitCheck();
 }
 
 void Cplayer::render(HDC hdc)
 {
 	if (_isDebug) RectangleMake(hdc, _player.playerRect);
 	this->renderDashEffecct(hdc);
-
-	switch (_state)
-	{
-	case STATE::IDLE:
-		IMAGE->frameRender("걷기", hdc, _player.playerRect.left - 38, _player.playerRect.top -58, 1, _moveDirection);
-		break;
-	case STATE::WALK:
-		IMAGE->frameRender("걷기", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _walk_img->getFrameX(), _moveDirection);
-		break;
-	case STATE::RUN:
-		IMAGE->frameRender("달리기", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _run_img->getFrameX(), _moveDirection);
-		break;
-	case STATE::DASH:
-		IMAGE->frameRender("대쉬", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _dash_img->getFrameX(), _moveDirection);
-		break;
-	case STATE::ATTSTAFF:
-		IMAGE->frameRender("기본공격", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _attstaff_img->getFrameX(), _moveDirection);
-		break;
+	if (!_player.isHit) {
+		switch (_state)
+		{
+		case STATE::IDLE:
+			IMAGE->frameRender("걷기", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, 1, _moveDirection);
+			break;
+		case STATE::WALK:
+			IMAGE->frameRender("걷기", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _walk_img->getFrameX(), _moveDirection);
+			break;
+		case STATE::RUN:
+			IMAGE->frameRender("달리기", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _run_img->getFrameX(), _moveDirection);
+			break;
+		case STATE::DASH:
+			IMAGE->frameRender("대쉬", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _dash_img->getFrameX(), _moveDirection);
+			break;
+		case STATE::ATTSTAFF:
+			IMAGE->frameRender("기본공격", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _attstaff_img->getFrameX(), _moveDirection);
+			break;
+		}
+	}
+	if (_player.isHit) {
+		if (_hitCount % 10 <= 5) {
+			switch (_state)
+			{
+			case STATE::IDLE:
+				IMAGE->frameRender("걷기", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, 1, _moveDirection);
+				break;
+			case STATE::WALK:
+				IMAGE->frameRender("걷기", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _walk_img->getFrameX(), _moveDirection);
+				break;
+			case STATE::RUN:
+				IMAGE->frameRender("달리기", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _run_img->getFrameX(), _moveDirection);
+				break;
+			case STATE::DASH:
+				IMAGE->frameRender("대쉬", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _dash_img->getFrameX(), _moveDirection);
+				break;
+			case STATE::ATTSTAFF:
+				IMAGE->frameRender("기본공격", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _attstaff_img->getFrameX(), _moveDirection);
+				break;
+			}
+		}
+		else
+		{
+			switch (_state)
+			{
+			case STATE::IDLE:
+				IMAGE->findImage("걷기")->alphaFrameRender(hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, 1, _moveDirection, 100);
+				break;
+			case STATE::WALK:
+				IMAGE->findImage("걷기")->alphaFrameRender(hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _walk_img->getFrameX(), _moveDirection, 100);
+				break;
+			case STATE::RUN:
+				IMAGE->findImage("달리기")->alphaFrameRender(hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _run_img->getFrameX(), _moveDirection, 100);
+				break;
+			case STATE::DASH:
+				IMAGE->findImage("대쉬")->alphaFrameRender(hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _dash_img->getFrameX(), _moveDirection, 100);
+				break;
+			case STATE::ATTSTAFF:
+				IMAGE->findImage("기본공격")->alphaFrameRender(hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _attstaff_img->getFrameX(), _moveDirection, 100);
+				break;
+			}
+		}
 	}
 }
 
@@ -350,5 +397,19 @@ void Cplayer::renderDashEffecct(HDC hdc)
 
 		if (_iterDashEffect->dashAlpha<0) _iterDashEffect=_vectDashEffect.erase(_iterDashEffect); 
 		else ++_iterDashEffect;
+	}
+}
+
+void Cplayer::hitCheck()
+{
+	if (_player.isHit)
+	{
+		_hitCount--;
+	}
+	if (!_player.isHit) {
+		_hitCount = 300;
+	}
+	if (_hitCount < 0) {
+		_player.isHit = false;
 	}
 }

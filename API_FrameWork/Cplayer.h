@@ -58,6 +58,7 @@ struct Player
 	bool isATT;
 	int HealthPoint;
 	int ManaPoint;
+	int isHit;
 };
 
 struct DashEffect {
@@ -86,6 +87,7 @@ private:
 	DIRECTION _moveDirection;
 	STATE _state;
 
+	int _hitCount;
 	int _count;
 	int _index;
 
@@ -127,7 +129,10 @@ public:
 	void pushbackDashEffect(int x,int y, int FrameX,DIRECTION direction);
 	void renderDashEffecct(HDC hdc);
 
+	void hitCheck();
+
 	Player& getPlayerAddress() { return _player; }
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	void setBulletManagerMemoryLink(bulletManager* BM) { _Cbullet = BM; }
+	STATE& getSTATEAddress() { return _state; }
 };
