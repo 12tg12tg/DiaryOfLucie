@@ -3,6 +3,8 @@
 
 class bulletManager;
 
+//////////////////////////////////////////////////
+
 enum class PLACE {
 	ROOM,
 	DUNGEON
@@ -15,6 +17,7 @@ enum class STATE {
 	ATTSTAFF,
 	STAFFCHARGE,
 	TALK,
+	KNOCKBACK,
 	DIE
 };
 enum class WEAPONTYPE{
@@ -55,10 +58,10 @@ struct Player
 	WEAPONTYPE weapon;
 	tagAttackBox AttackBox;
 	float x, y;
-	bool isATT;
 	int HealthPoint;
 	int ManaPoint;
 	int isHit;
+	int isDashHit;
 };
 
 struct DashEffect {
@@ -82,21 +85,24 @@ private:
 private:
 	float _walkspeed;
 	Player _player;
+	STATE _state;
 	tagInputDirection _inputDirection;
 	DIRECTION _direction;
 	DIRECTION _moveDirection;
-	STATE _state;
 
 	int _hitCount;
+	float _knockBackAngle;
+	int _knockBackTime;
+	int _gracePeriod;
+	int _knockBackIndex;
+
 	int _count;
 	int _index;
-
-	int _frameX;
-	int _frameY;
 
 	int _dashCount;
 	int _dashIndex;
 	float _dashAngle;
+
 	int _attCount;
 	int _attIndex;
 	float _attAngle;
@@ -106,9 +112,12 @@ private:
 	image* _walk_img;
 	image* _run_img;
 	image* _dash_img;
-	image* _attstaff_img;
+	image* _attStaff_img;
+	image* _knockBack_img;
 	vector<DashEffect> _vectDashEffect;
 	vector<DashEffect>::iterator _iterDashEffect;
+
+private:
 
 	bulletManager* _Cbullet;
 
@@ -119,6 +128,7 @@ public:
 	void render(HDC hdc);
 
 	void imageInit();
+
 	void inputCheck();
 	void inputDirectionCheck();
 	void stateCheck();
@@ -129,7 +139,8 @@ public:
 	void pushbackDashEffect(int x,int y, int FrameX,DIRECTION direction);
 	void renderDashEffecct(HDC hdc);
 
-	void hitCheck();
+	void hitStateCheck();
+	void hitPlayer(int bulletX, int bulletY);
 
 	Player& getPlayerAddress() { return _player; }
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
