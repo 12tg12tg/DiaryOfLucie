@@ -1555,7 +1555,7 @@ void CmFBoss2Bullet::fire(float x, float y, int maxSize)
 		bullet.bulletImage = new  image;
 		bullet.bulletImage = IMAGE->addImage("°æ°í", "images/bullet_bmp/warning.bmp", 50, 55, true, RGB(255, 0, 255));
 		bullet.angle = PI * 2 / maxSize * i;
-		bullet.speed = 0.8 * maxSize;;
+		bullet.speed = 0.4 * maxSize;;
 		bullet.x = bullet.fireX = x;
 		bullet.y = bullet.fireY = y;
 		bullet.fire = false;
@@ -1638,7 +1638,7 @@ void CmFBoss2Bullet::move2()
 		{
 			_viBullet2->count = 0;
 		}
-		if (_viBullet2->count > 0 && _viBullet2->count < 200)
+		if (_viBullet2->count > 0 && _viBullet2->count < 130)
 		{
 			_viBullet2->x += cosf(_viBullet2->angle) * 0;
 			_viBullet2->y -= sinf(_viBullet2->angle) * 0;
@@ -1647,7 +1647,7 @@ void CmFBoss2Bullet::move2()
 				_viBullet2->bulletImage2->getWidth(),
 				_viBullet2->bulletImage2->getHeight());
 		}
-		else if (_viBullet2->count > 60)
+		else if (_viBullet2->count > 130)
 		{
 			_viBullet2 = _vBullet2.erase(_viBullet2);
 			continue;

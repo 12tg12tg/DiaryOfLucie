@@ -1,10 +1,18 @@
 #pragma once
-class Cmap
-{
-	struct {
-
+#include"monster.h"
+	enum DOORSTATE
+	{
+		OPEN,
+		CLOSE
 	};
-	enum MONSTERENUM
+	enum DOOR
+	{
+		LEFT_DOOR,
+		RIGHT_DOOR,
+		UP_DOOR,
+		DOWN_DOOR,
+	};
+	enum MONSTERKIND
 	{
 		Csnaby,
 		Cslime,
@@ -18,5 +26,30 @@ class Cmap
 		Cyggdrasil,
 		NONE
 	};
+	enum MAPKIND
+	{
+		NORMAL,
+		TRESUREROOM,
+		BOSSROOM,
+		NEXSTAGE,
+		EVENTMAP,
+		SHOP
+	};
+class Cmap
+{
+private:
+	RECT RightDoor;
+	RECT LeftDoor;
+	RECT UpDoor;
+	RECT DownDoor;
+
+
+public:
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+	
 };
 

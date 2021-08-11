@@ -3145,7 +3145,7 @@ void Cboss_flime::move(bulletManager* bm)
 					PLAYER->getPlayerAddress().y,
 					13);
 			}
-			else if (_viMonster->patternCount == 155) {
+			else if (_viMonster->patternCount == 205) {
 				bm->getFlwBos2Bullnstance()->fire(
 					PLAYER->getPlayerAddress().x,
 					PLAYER->getPlayerAddress().y,
@@ -3155,7 +3155,7 @@ void Cboss_flime::move(bulletManager* bm)
 					PLAYER->getPlayerAddress().y,
 					24);
 			}
-			else if (_viMonster->patternCount == 255) {
+			else if (_viMonster->patternCount == 355) {
 				bm->getFlwBos2Bullnstance()->fire(
 					PLAYER->getPlayerAddress().x,
 					PLAYER->getPlayerAddress().y,
@@ -3169,7 +3169,7 @@ void Cboss_flime::move(bulletManager* bm)
 					PLAYER->getPlayerAddress().y,
 					32);
 			}
-			else if (_viMonster->patternCount < 355) {
+			else if (_viMonster->patternCount < 505) {
 				//ÈŞ½Ä
 			}
 			else {
