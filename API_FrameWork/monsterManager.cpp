@@ -36,6 +36,7 @@ HRESULT monsterManager::init()
     //_fairy->addMonster(50, 300);
     //_flime->addMonster(WINSIZEX / 2, WINSIZEY / 2);
     //_bossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
+    //_semiBossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
     //_bossflime->addMonster(WINSIZEX/2, WINSIZEY/2);
     //_bossMushmam->addMonster(WINSIZEX/2, WINSIZEY/2);
     //_mushmam_mushroom_G->addMonster(100, 200);
@@ -110,8 +111,8 @@ void monsterManager::update()
 
     //static int count = 0;
     //count++;
-    //if (INPUT->isOnceKeyDown('N')) {
-    //    //_yggdrasil_bomb->addMonster(WINSIZEX / 2, 100);
+    if (INPUT->isOnceKeyDown('N')) {
+        _mushmam_mushroom_B->addMonster(WINSIZEX / 2, 100);
     //    vector<tagMonster>& v = _yggdrasil->getVMonster();
     //    auto iter = v.begin();
     //    for (iter; iter != v.end(); ++iter)
@@ -130,7 +131,7 @@ void monsterManager::update()
     //    //{
     //    //    _slime->knockback(iter3, m_ptMouse.x, m_ptMouse.y, 1, 10, true);
     //    //}
-    //}
+    }
 
 
 }
