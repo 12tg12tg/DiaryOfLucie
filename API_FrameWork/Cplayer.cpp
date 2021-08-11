@@ -41,6 +41,7 @@ void Cplayer::update()
 	this->movePlayer();
 	_player.playerRect = RectMakeCenter(_player.x, _player.y, 25, 25);
 	this->setPlayerFrame();
+	
 }
 
 void Cplayer::render(HDC hdc)

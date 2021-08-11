@@ -39,7 +39,7 @@ void collisionManager::bulletToplayer()
 				if (IntersectRect(&temprc, &bm->getCirBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 				{
 					bm->getCirBulInstance()->removeBullet(i);
-					PLAYER->getPlayerAddress().isHit = true;
+					PLAYER->hitPlayer(bm->getCirBulInstance()->getVBullet()[i].x, bm->getCirBulInstance()->getVBullet()[i].y);
 				}
 			}
 		}
