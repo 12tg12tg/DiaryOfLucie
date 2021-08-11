@@ -29,7 +29,7 @@ HRESULT monsterManager::init()
     _yggdrasil_bomb = new Cyggdrasil_bomb;
     
         
-    _snaby->addMonster(WINSIZEX / 2, 100);
+    //_snaby->addMonster(WINSIZEX / 2, 100);
     //_slime->addMonster(WINSIZEX / 2, 300);
     //_mushman_mushroom->addMonster(200, 300);
     //_mushman->addMonster(WINSIZEX - 50, 300);
@@ -42,7 +42,7 @@ HRESULT monsterManager::init()
     //_mushmam_mushroom_P->addMonster(100, 300);
     //_mushmam_mushroom_B->addMonster(100, 400);
     //_yggdrasil_bomb->addMonster(WINSIZEX / 2, 100);
-    //_yggdrasil->addMonster(WINSIZEX / 2, 100);
+    _yggdrasil->addMonster(WINSIZEX / 2, 100);
 
 
 
@@ -106,7 +106,6 @@ void monsterManager::update()
     _mushmam_mushroom_B->update(_py, _bm);
     _yggdrasil->update(_py, _bm, _yggdrasil_bomb);
     _yggdrasil_bomb->update(_py, _bm);
-
 
 
     //static int count = 0;

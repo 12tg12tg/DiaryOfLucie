@@ -28,8 +28,8 @@ private:
 	//사각형의 높이벡터를 계산
 	VECTOR getHeightVector(SHAPE s) {
 		VECTOR ret;
-		ret.x = s.height * cosf(s.rot - PI_2) / 2;
-		ret.y = s.height * sinf(s.rot - PI_2) / 2;
+		ret.x = s.height * cosf(s.rot + PI_2) / 2;
+		ret.y = - s.height * sinf(s.rot + PI_2) / 2;
 		return ret;
 	}
 
@@ -37,7 +37,7 @@ private:
 	VECTOR getWidthVector(SHAPE s) {
 		VECTOR ret;
 		ret.x = s.width * cosf(s.rot) / 2;
-		ret.y = s.width * sinf(s.rot) / 2;
+		ret.y = - s.width * sinf(s.rot) / 2;
 		return ret;
 	}
 
