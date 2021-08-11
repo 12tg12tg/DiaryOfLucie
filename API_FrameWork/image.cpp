@@ -840,6 +840,11 @@ void image::aniRender(HDC hdc, const int destX, const int destY, animation* ani)
 	render(hdc, destX, destY, ani->getFramePos().x, ani->getFramePos().y, ani->getFrameWidth(), ani->getFrameHeight());
 }
 
+void image::aniAlphaRender(HDC hdc, const int destX, const int destY, animation* ani, BYTE alpha)
+{
+	alphaRender(hdc, destX, destY, ani->getFramePos().x, ani->getFramePos().y, ani->getFrameWidth(), ani->getFrameHeight(), alpha);
+}
+
 void image::rotateRender(HDC hdc, float centerX, float centerY, float angle)
 {
 	if (!_rotateImage) this->initForRotate();

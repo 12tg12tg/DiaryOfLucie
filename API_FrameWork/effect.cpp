@@ -6,7 +6,8 @@ effect::effect() :
 	_effectAni(nullptr), 
 	_isRunning(NULL),
 	_x(0),
-	_y(0)
+	_y(0),
+	_alpha(255)
 {
 }
 
@@ -14,7 +15,7 @@ effect::~effect()
 {
 }
 
-HRESULT effect::init(image* effectImage, int frameW, int frameH, int FPS, float elapsedTime)
+HRESULT effect::init(image* effectImage, int frameW, int frameH, int FPS, float elapsedTime, BYTE alpha)
 {
 	//이펙트 이미지가 없을 때 리턴
 	if (!effectImage) return E_FAIL;
@@ -27,7 +28,7 @@ HRESULT effect::init(image* effectImage, int frameW, int frameH, int FPS, float 
 	_effectAni->init(_effectImage->getWidth(), _effectImage->getHeight(), frameW, frameH);
 	_effectAni->setDefPlayFrame();
 	_effectAni->setFPS(FPS);
-
+	_alpha = alpha;
 
 	return S_OK;
 }
@@ -51,7 +52,14 @@ void effect::render()
 {
 	if (_isRunning)
 	{
-		_effectImage->aniRender(getMemDC(), _x, _y, _effectAni);
+		//투명값이 없으면 그냥 랜더
+		if (_alpha == 255) {
+			_effectImage->aniRender(getMemDC(), _x, _y, _effectAni);
+		}
+		//투명값이 초기화되있으면 알파랜더
+		else {
+			_effectImage->aniAlphaRender(getMemDC(), _x, _y, _effectAni, _alpha);
+		}
 	}
 }
 

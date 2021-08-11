@@ -20,10 +20,10 @@ public:
 	virtual void move(bulletManager* bm);
 	virtual void checkAngle();
 	virtual void giveFrame();
-	virtual void deathCheck();
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	virtual void makeCollisionRect();
 };
 //////////////////////////////////////////////////////////////
 class Cslime : public monster
@@ -50,6 +50,7 @@ public:
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	virtual void makeCollisionRect();
 };
 //////////////////////////////////////////////////////////////
 class Cmushman_mushroom : public monster
@@ -76,6 +77,7 @@ public:
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	virtual void makeCollisionRect();
 };
 //////////////////////////////////////////////////////////////
 class Cmushman : public monster
@@ -102,6 +104,7 @@ public:
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	virtual void makeCollisionRect();
 };
 //////////////////////////////////////////////////////////////
 class Cfairy : public monster
@@ -128,6 +131,7 @@ public:
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	virtual void makeCollisionRect();
 };
 //////////////////////////////////////////////////////////////
 class Cflime : public monster
@@ -154,6 +158,7 @@ public:
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	virtual void makeCollisionRect();
 };
 //////////////////////////////////////////////////////////////
 class Csemiboss_slime : public monster
@@ -180,6 +185,7 @@ public:
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	virtual void makeCollisionRect();
 };
 //////////////////////////////////////////////////////////////
 class Cboss_slime : public monster
@@ -206,6 +212,7 @@ public:
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	virtual void makeCollisionRect();
 };
 //////////////////////////////////////////////////////////////
 class Cboss_flime : public monster
@@ -231,6 +238,7 @@ public:
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	virtual void makeCollisionRect();
 };
 //////////////////////////////////////////////////////////////
 class Cmushmam_mushroom_G : public monster
@@ -255,6 +263,7 @@ public:
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	virtual void makeCollisionRect();
 };
 //////////////////////////////////////////////////////////////
 class Cmushmam_mushroom_P : public monster
@@ -279,6 +288,7 @@ public:
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	virtual void makeCollisionRect();
 };
 //////////////////////////////////////////////////////////////
 class Cmushmam_mushroom_B : public monster
@@ -303,6 +313,7 @@ public:
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	virtual void makeCollisionRect();
 };
 //////////////////////////////////////////////////////////////
 class Cboss_mushmam : public monster
@@ -328,6 +339,7 @@ public:
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	virtual void makeCollisionRect();
 };
 //////////////////////////////////////////////////////////////
 class Cyggdrasil_bomb: public monster
@@ -352,6 +364,7 @@ public:
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	virtual void makeCollisionRect();
 };
 //////////////////////////////////////////////////////////////
 class Cyggdrasil : public monster
@@ -376,6 +389,7 @@ public:
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	virtual void makeCollisionRect();
 	void checkPhase();
 };
 

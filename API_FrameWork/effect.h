@@ -10,11 +10,12 @@ private:
 	float _elapsedTime;			//이펙트 경과시간(속도)
 	bool _isRunning;			//재생중?
 
+	BYTE _alpha;
 public:
 	effect();
 	~effect();
 
-	HRESULT init(image* effectImage, int frameW, int frameH, int FPS, float elapsedTime);
+	HRESULT init(image* effectImage, int frameW, int frameH, int FPS, float elapsedTime, BYTE alpha = 255);
 	void release();
 	void update();
 	void render();

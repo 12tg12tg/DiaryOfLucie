@@ -29,20 +29,20 @@ HRESULT monsterManager::init()
     _yggdrasil_bomb = new Cyggdrasil_bomb;
     
         
-    //_snaby->addMonster(WINSIZEX / 2, 100);
+    _snaby->addMonster(WINSIZEX / 2, 100);
     //_slime->addMonster(WINSIZEX / 2, 300);
-    _mushman_mushroom->addMonster(200, 300);
-    _mushman->addMonster(WINSIZEX - 50, 300);
+    //_mushman_mushroom->addMonster(200, 300);
+    //_mushman->addMonster(WINSIZEX - 50, 300);
     //_fairy->addMonster(50, 300);
     //_flime->addMonster(WINSIZEX / 2, WINSIZEY / 2);
-  /*  _bossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
-    _bossflime->addMonster(WINSIZEX/2, WINSIZEY/2);
-    _bossMushmam->addMonster(WINSIZEX/2, WINSIZEY/2);
-    _mushmam_mushroom_G->addMonster(100, 200);
-    _mushmam_mushroom_P->addMonster(100, 300);
-    _mushmam_mushroom_B->addMonster(100, 400);
-    _yggdrasil_bomb->addMonster(WINSIZEX / 2, 100);
-    _yggdrasil->addMonster(WINSIZEX / 2, 100);*/
+    //_bossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
+    //_bossflime->addMonster(WINSIZEX/2, WINSIZEY/2);
+    //_bossMushmam->addMonster(WINSIZEX/2, WINSIZEY/2);
+    //_mushmam_mushroom_G->addMonster(100, 200);
+    //_mushmam_mushroom_P->addMonster(100, 300);
+    //_mushmam_mushroom_B->addMonster(100, 400);
+    //_yggdrasil_bomb->addMonster(WINSIZEX / 2, 100);
+    //_yggdrasil->addMonster(WINSIZEX / 2, 100);
 
 
 
@@ -108,12 +108,6 @@ void monsterManager::update()
     _yggdrasil_bomb->update(_py, _bm);
 
 
-    if (INPUT->isOnceKeyDown(VK_LBUTTON)) {
-        _bm->getMgcBulInstance()->fire(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
-            UTIL::getAngle(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y, m_ptMouse.x, m_ptMouse.y), 0);
-
-
-    }
 
     //static int count = 0;
     //count++;

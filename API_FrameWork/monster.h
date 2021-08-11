@@ -1,6 +1,6 @@
 #pragma once
 #include "gameNode.h"
-#define INVINTIME 15
+#define INVINTIME 8
 #define STUNTIME 30
 
 class Cplayer;
@@ -35,6 +35,8 @@ struct tagMonster
 	int frameX, frameY;
 	int framecount;
 	RECT rc;
+	RECT footRc;
+	RECT bossRc[2];
 	float x, y;
 	int width;
 	int height;
@@ -86,6 +88,8 @@ public:
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
+	virtual void goOrStay(float speed);
+	virtual void makeCollisionRect();
 
 	virtual void checkInvincibility();
 

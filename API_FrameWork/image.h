@@ -107,6 +107,7 @@ public:
 
 	//애니메이션인스턴스 렌더
 	void aniRender(HDC hdc, const int destX, const int destY, animation* ani);
+	void aniAlphaRender(HDC hdc, const int destX, const int destY, animation* ani, BYTE alpha);
 
 	//회전 랜더
 	void rotateRender(HDC hdc, float centerX, float centerY, float angle);

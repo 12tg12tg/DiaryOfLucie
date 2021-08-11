@@ -81,7 +81,14 @@ void Csnaby::render()
 		case MONSTERACTIVE::FINDING:
 		case MONSTERACTIVE::RNDMOVE:
 		case MONSTERACTIVE::ATTACK:
-			if (_isDebug) RectangleMake(getMemDC(), _viMonster->rc);
+			if (_isDebug) {
+				RectangleMake(getMemDC(), _viMonster->rc);
+				HBRUSH brush = CreateSolidBrush(RGB(88, 245, 206));
+				HBRUSH oldBrush = (HBRUSH)SelectObject(getMemDC(), brush);
+				RectangleMake(getMemDC(), _viMonster->footRc);
+				SelectObject(getMemDC(), oldBrush);
+				DeleteObject(brush);
+			}
 			_viMonster->img->frameRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
 			break;
 		case MONSTERACTIVE::DEATH:
@@ -107,6 +114,7 @@ void Csnaby::addMonster(float x, float y)
 	newMonster.width = newMonster.img->getFrameWidth()/3 * 2;
 	newMonster.height = newMonster.img->getFrameHeight();
 	newMonster.rc = RectMake(x+ newMonster.img->getFrameWidth()/6, y, newMonster.width, newMonster.height);
+	newMonster.footRc = RectMake(newMonster.rc.left, newMonster.rc.top+ newMonster.height*2/3, newMonster.width, newMonster.height/3);
 	newMonster.speed = 2;
 	newMonster.hp = 40;
 	newMonster.isStun = false;
@@ -116,7 +124,7 @@ void Csnaby::addMonster(float x, float y)
 	newMonster.targetX = 0;
 	newMonster.targetY = 0;
 	newMonster.angle = PI*3/2;
-	newMonster.range = 280;
+	newMonster.range = 350;
 	newMonster.stunCount = 0;
 	newMonster.patternCount = 0;
 	newMonster.deathalpha = 255;
@@ -139,9 +147,9 @@ void Csnaby::move(bulletManager* bm)
 		break;
 	case MONSTERACTIVE::ATTACK:
 		if (_viMonster->patternCount < 110) {
-			_viMonster->x += cosf(_viMonster->angle) * 1;
-			_viMonster->y -= sinf(_viMonster->angle) * 1;
-			_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 6, _viMonster->y, _viMonster->width, _viMonster->height);
+			//1씩 움직여보고 충돌됬다면 실행취소
+			goOrStay(1);
+			//3방향블릿발사
 			if (_viMonster->patternCount % 30 == 0) {
 				bm->getTriBulInstance()->fire(
 					_viMonster->x + _viMonster->img->getFrameWidth()/2,
@@ -158,9 +166,7 @@ void Csnaby::move(bulletManager* bm)
 		break;
 	case MONSTERACTIVE::RNDMOVE:
 		if (_viMonster->patternCount < 40) {
-			_viMonster->x += cosf(_viMonster->angle)*_viMonster->speed;
-			_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed;
-			_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 6, _viMonster->y, _viMonster->width, _viMonster->height);
+			goOrStay(_viMonster->speed);
 		}
 		else {
 			_viMonster->frameX = 0;
@@ -310,14 +316,6 @@ void Csnaby::giveFrame()
 	}
 }
 
-void Csnaby::deathCheck()
-{
-	if (_viMonster->activestate != MONSTERACTIVE::DEATH && _viMonster->hp <= 0) {
-		_viMonster->activestate = MONSTERACTIVE::DEATH;
-		_viMonster->patternCount = 0;
-	}
-}
-
 void Csnaby::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
 {
 	if (iter->activestate == MONSTERACTIVE::DEATH) return;
@@ -334,6 +332,7 @@ void Csnaby::knockback(vector<tagMonster>::iterator iter, float x, float y, int 
 	iter->x += cosf(nbangle) * knockbackRange;
 	iter->y -= sinf(nbangle) * knockbackRange;
 	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y, iter->width, iter->height);
+	iter->footRc = RectMake(iter->rc.left, iter->rc.top + iter->height * 2 / 3, iter->width, iter->height / 3);
 	if (stun) {
 		iter->isStun = stun;
 		iter->frameX = 0;
@@ -369,7 +368,7 @@ void Csnaby::checkPlayerXY(Cplayer* py)
 		//목표 지점과 각 설정
 		_viMonster->targetX = PLAYER->getPlayerAddress().x;
 		_viMonster->targetY = PLAYER->getPlayerAddress().y;
-		_viMonster->angle = UTIL::getAngle(_viMonster->x, _viMonster->y, _viMonster->targetX, _viMonster->targetY);
+		_viMonster->angle = UTIL::getAngle(RecCenX(_viMonster->rc), RecCenY(_viMonster->rc), _viMonster->targetX, _viMonster->targetY);
 	}
 	//사거리내가 아니라면 랜덤무브 진입.
 	else {
@@ -379,6 +378,12 @@ void Csnaby::checkPlayerXY(Cplayer* py)
 		_viMonster->activestate = MONSTERACTIVE::RNDMOVE;
 		_viMonster->angle = RND->getInt(360) * PI / 180;
 	}
+}
+
+void Csnaby::makeCollisionRect()
+{
+	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 6, _viMonster->y, _viMonster->width, _viMonster->height);
+	_viMonster->footRc = RectMake(_viMonster->rc.left, _viMonster->rc.top + _viMonster->height * 2 / 3, _viMonster->width, _viMonster->height / 3);
 }
 //////////////////////////////////////////////////////////////
 //////////////////////Cslime!	슬라임!////////////////////////
@@ -804,6 +809,9 @@ void Cslime::checkPlayerXY(Cplayer* py)
 		_viMonster->angle = RND->getInt(360) * PI / 180;
 	}
 }
+void Cslime::makeCollisionRect()
+{
+}
 //////////////////////////////////////////////////////////////
 //////////////////////Cmushman!	머쉬맨!///////////////////////
 //////////////////////////////////////////////////////////////
@@ -1197,6 +1205,9 @@ void Cmushman::checkPlayerXY(Cplayer* py)
 		_viMonster->patternCount = 0;
 	}
 }
+void Cmushman::makeCollisionRect()
+{
+}
 //////////////////////////////////////////////////////////////
 //////////Cmushman_mushroom!	머쉬맨_머쉬룸!/////////////////
 //////////////////////////////////////////////////////////////
@@ -1459,6 +1470,9 @@ void Cmushman_mushroom::checkPlayerXY(Cplayer* py)
 		_viMonster->framecount = 0;
 		_viMonster->activestate = MONSTERACTIVE::ATTACK;
 	}
+}
+void Cmushman_mushroom::makeCollisionRect()
+{
 }
 //////////////////////////////////////////////////////////////
 ////////////////Cfairy!				페어리!///////////////////
@@ -1862,6 +1876,9 @@ void Cfairy::checkPlayerXY(Cplayer* py)
 		_viMonster->angle = RND->getInt(360) * PI / 180;
 	}
 }
+void Cfairy::makeCollisionRect()
+{
+}
 //////////////////////////////////////////////////////////////
 ////////////////Cflime!				꽃!///////////////////////
 //////////////////////////////////////////////////////////////
@@ -2262,12 +2279,16 @@ void Cflime::checkPlayerXY(Cplayer* py)
 		_viMonster->angle = DEGREE(270);
 	}
 }
+void Cflime::makeCollisionRect()
+{
+}
 //////////////////////////////////////////////////////////////
 //////////Cboss_slime!		보스슬라임!///////////////////////
 //////////////////////////////////////////////////////////////
 Cboss_slime::Cboss_slime()
 {
 	IMAGE->addFrameImage("보스슬라임", "images/monsters/boss_KingSlime.bmp", 576*2, 2496*2, 3, 13, true);
+	EFFECT->addEffect("킹슬라임점프", "images/monsters/skill_slime_jump_effect.bmp", 960, 384, 192, 192, 1, 0.3f, 5, 100);
 }
 
 Cboss_slime::~Cboss_slime()
@@ -2321,6 +2342,8 @@ void Cboss_slime::render()
 		case MONSTERACTIVE::ATTACK2:
 			if (_isDebug) RectangleMake(getMemDC(), _viMonster->rc);
 			_viMonster->img->aniRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->ani);
+			if (_viMonster->activestate==MONSTERACTIVE::ATTACK2 && _viMonster->patternCount % 100 == 0)
+				EFFECT->play("킹슬라임점프", _viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2, _viMonster->rc.bottom);
 			break;
 		case MONSTERACTIVE::DEATH:
 			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
@@ -2418,7 +2441,7 @@ void Cboss_slime::move(bulletManager* bm, Csemiboss_slime* ss)
 			if (_viMonster->patternCount == 60) {
 				_viMonster->y += 100;
 			}
-			_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 3, _viMonster->width, _viMonster->height);
+			//_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 3, _viMonster->width, _viMonster->height);
 			if (_viMonster->patternCount % 100 == 0) {
 				bm->getSlmBos1Bullnstance()->fire(
 					_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
@@ -2614,6 +2637,9 @@ void Cboss_slime::checkPlayerXY(Cplayer* py)
 		_viMonster->angle = RND->getInt(360) * PI / 180;
 	}
 }
+void Cboss_slime::makeCollisionRect()
+{
+}
 //////////////////////////////////////////////////////////////
 //////////Csemiboss_slime!		준보스슬라임!//////////////////
 //////////////////////////////////////////////////////////////
@@ -2673,6 +2699,8 @@ void Csemiboss_slime::render()
 		case MONSTERACTIVE::ATTACK2:
 			if (_isDebug) RectangleMake(getMemDC(), _viMonster->rc);
 			_viMonster->img->aniRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->ani);
+			if (_viMonster->activestate == MONSTERACTIVE::ATTACK2 && _viMonster->patternCount % 100 == 0)
+				EFFECT->play("킹슬라임점프", _viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2, _viMonster->rc.bottom);
 			break;
 		case MONSTERACTIVE::DEATH:
 			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
@@ -2773,8 +2801,8 @@ void Csemiboss_slime::move(bulletManager* bm, Cslime* slm)
 			if (_viMonster->patternCount > 75 && _viMonster->patternCount < 100) {
 				_viMonster->x += cosf(_viMonster->angle) * _viMonster->speed*2;
 				_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed*2;
+				_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 3, _viMonster->width, _viMonster->height);
 			}
-			_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 3, _viMonster->width, _viMonster->height);
 			if (_viMonster->patternCount % 100 == 0) {
 				//목표 지점과 각 설정
 				_viMonster->targetX = PLAYER->getPlayerAddress().x;
@@ -2972,6 +3000,9 @@ void Csemiboss_slime::checkPlayerXY(Cplayer* py)
 		_viMonster->activestate = MONSTERACTIVE::RNDMOVE;
 		_viMonster->angle = RND->getInt(360) * PI / 180;
 	}
+}
+void Csemiboss_slime::makeCollisionRect()
+{
 }
 //////////////////////////////////////////////////////////////
 //////////Cboss_flime!			보스플라임!////////////////////
@@ -3337,6 +3368,9 @@ void Cboss_flime::checkPlayerXY(Cplayer* py)
 		_viMonster->angle = RND->getInt(360) * PI / 180;
 	}
 }
+void Cboss_flime::makeCollisionRect()
+{
+}
 //////////////////////////////////////////////////////////////
 //////////Cboss_mushmam!			보스머쉬맘!////////////////
 //////////////////////////////////////////////////////////////
@@ -3681,6 +3715,9 @@ void Cboss_mushmam::checkPlayerXY(Cplayer* py)
 	}
 	
 }
+void Cboss_mushmam::makeCollisionRect()
+{
+}
 //////////////////////////////////////////////////////////////
 ///////Cmushmam_mushroom_G!		머쉬맘_녹색머쉬룸!/////////////
 //////////////////////////////////////////////////////////////
@@ -3873,6 +3910,9 @@ void Cmushmam_mushroom_G::checkPlayerXY(Cplayer* py)
 	_viMonster->patternCount = 0;
 	_viMonster->activestate = MONSTERACTIVE::ATTACK;
 }
+void Cmushmam_mushroom_G::makeCollisionRect()
+{
+}
 //////////////////////////////////////////////////////////////
 ///////Cmushmam_mushroom_P!		머쉬맘_보라머쉬룸!/////////////
 //////////////////////////////////////////////////////////////
@@ -4055,6 +4095,9 @@ void Cmushmam_mushroom_P::checkPlayerXY(Cplayer* py)
 
 	_viMonster->patternCount = 0;
 	_viMonster->activestate = MONSTERACTIVE::ATTACK;
+}
+void Cmushmam_mushroom_P::makeCollisionRect()
+{
 }
 //////////////////////////////////////////////////////////////
 ///////Cmushmam_mushroom_B!		머쉬맘_파랑머쉬룸!/////////////
@@ -4239,12 +4282,16 @@ void Cmushmam_mushroom_B::checkPlayerXY(Cplayer* py)
 	_viMonster->patternCount = 0;
 	_viMonster->activestate = MONSTERACTIVE::ATTACK;
 }
+void Cmushmam_mushroom_B::makeCollisionRect()
+{
+}
 //////////////////////////////////////////////////////////////
 ////////////////Cyggdrasil!		이그드라실!////////////////////
 //////////////////////////////////////////////////////////////
 Cyggdrasil::Cyggdrasil()
 {
 	IMAGE->addFrameImage("이그드라실", "images/monsters/ent-ent.bmp", 966, 3850, 3, 11, true);
+	EFFECT->addEffect("이그드라실점프", "images/monsters/skill_slime_jump_effect.bmp", 1920, 768, 384, 384, 1, 0.1f, 1, 100);
 }
 
 Cyggdrasil::~Cyggdrasil()
@@ -4267,7 +4314,8 @@ void Cyggdrasil::update(Cplayer* py, bulletManager* bm, Cyggdrasil_bomb* bomb)
 	{
 		_viMonster->x = _viMonster->neverchangeX;
 		_viMonster->y = _viMonster->neverchangeY;
-		_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 10, _viMonster->y + _viMonster->img->getFrameHeight() * 1 / 4, _viMonster->width, _viMonster->height);
+		_viMonster->bossRc[0] = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 10, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 10, _viMonster->width, _viMonster->height);
+		_viMonster->bossRc[1] = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() * 4 / 10, _viMonster->y + _viMonster->img->getFrameHeight() * 7 / 10, _viMonster->width * 1 / 4, _viMonster->height * 3 / 5);
 		checkPhase();
 		//stuncheck();
 		checkPlayerXY(py);
@@ -4301,15 +4349,21 @@ void Cyggdrasil::render()
 		case MONSTERACTIVE::ATTACK:
 		case MONSTERACTIVE::ATTACK2:
 		case MONSTERACTIVE::ATTACK3:
-			if (_isDebug) RectangleMake(getMemDC(), _viMonster->rc);
+			if (_isDebug) {
+				RectangleMake(getMemDC(), _viMonster->rc);
+				RectangleMake(getMemDC(), _viMonster->bossRc[0]);
+				RectangleMake(getMemDC(), _viMonster->bossRc[1]);
+			}
 			_viMonster->img->aniRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->ani);
+			if (_viMonster->isNextPhase && _viMonster->activestate == MONSTERACTIVE::ATTACK3 && _viMonster->patternCount == 1)
+				EFFECT->play("이그드라실점프", _viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2, _viMonster->rc.bottom - 50);
 			//TCHAR str[128];
 			//_stprintf_s(str, "hp : %d", _viMonster->hp);
 			//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
 			break;
 		case MONSTERACTIVE::DEATH:
-			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
-				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			_viMonster->img->aniAlphaRender(getMemDC(), _viMonster->x, _viMonster->y,
+				_viMonster->ani, _viMonster->deathalpha);
 			break;
 		}
 	}
@@ -4323,12 +4377,14 @@ void Cyggdrasil::addMonster(float centerx, float centery)
 	newMonster.frameX = 0;
 	newMonster.frameY = 0;
 	newMonster.width = newMonster.img->getFrameWidth() * 4 / 5;
-	newMonster.height = newMonster.img->getFrameHeight() * 3 / 4;
+	newMonster.height = newMonster.img->getFrameHeight() * 5 / 10;
 	newMonster.x = centerx - newMonster.img->getFrameWidth() / 2;
 	newMonster.y = centery - newMonster.img->getFrameHeight() * 2 / 3;
 	newMonster.neverchangeX = newMonster.x;
 	newMonster.neverchangeY = newMonster.y;
-	newMonster.rc = RectMake(newMonster.x + newMonster.img->getFrameWidth() / 10, newMonster.y + newMonster.img->getFrameHeight() * 1 / 4, newMonster.width, newMonster.height);
+	newMonster.rc = RectMake(newMonster.x + newMonster.img->getFrameWidth() / 10, newMonster.y + newMonster.img->getFrameHeight() * 1 / 4, newMonster.width, newMonster.img->getFrameHeight() * 4 / 5);
+	newMonster.bossRc[0] = RectMake(newMonster.x + newMonster.img->getFrameWidth() / 10, newMonster.y + newMonster.img->getFrameHeight() * 2 / 10, newMonster.width, newMonster.height);
+	newMonster.bossRc[1] = RectMake(newMonster.x + newMonster.img->getFrameWidth()* 4 / 10, newMonster.y + newMonster.img->getFrameHeight() * 7 / 10, newMonster.width * 1 / 4, newMonster.height * 3 / 5);
 	newMonster.speed = 2;
 	newMonster.hp = 900;
 	newMonster.isStun = false;
@@ -4547,7 +4603,7 @@ void Cyggdrasil::move(bulletManager* bm, Cyggdrasil_bomb* bomb)
 	case MONSTERACTIVE::RNDMOVE:
 		break;
 	case MONSTERACTIVE::DEATH:
-		_viMonster->deathalpha -= 3;
+		_viMonster->deathalpha -= 1;
 		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
 		if (_viMonster->deathalpha == 0) {
 			_viMonster->afterDeath = true;
@@ -4587,7 +4643,7 @@ void Cyggdrasil::giveFrame()
 				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "이그드라실", aniarr, sizeof(aniarr) / sizeof(int), 2, false);
 			}
 			else {
-				if (_viMonster->isLeft) {
+				if (!_viMonster->isLeft) {
 					int aniarr[] = { 6, 7, 9, 10, 11, 12, 13 };
 					ANIMATION->changeNonKeyAnimation(_viMonster->ani, "이그드라실", aniarr, sizeof(aniarr) / sizeof(int), 2, false);
 				}
@@ -4632,6 +4688,13 @@ void Cyggdrasil::giveFrame()
 			}
 		}
 	}
+	//DEATH : 죽었을 때
+	if (_viMonster->activestate == MONSTERACTIVE::DEATH) {
+		if (_viMonster->framecount == 0) {
+			int aniarr[] = { 30, 28, 30, 28, 26, 24, 25 };
+			ANIMATION->changeNonKeyAnimation(_viMonster->ani, "이그드라실", aniarr, sizeof(aniarr) / sizeof(int), 4, false);
+		}
+	}
 
 	//프레임카운트증가(상태변화 알림외에 기능 없음)
 	_viMonster->framecount++;
@@ -4652,7 +4715,8 @@ void Cyggdrasil::knockback(vector<tagMonster>::iterator iter, float x, float y, 
 	float nbangle = UTIL::getAngle(x, y, centerx, centery);
 	iter->x += cosf(nbangle) * knockbackRange;
 	iter->y -= sinf(nbangle) * knockbackRange;
-	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() * 3 / 8, y + iter->img->getFrameHeight() * 3 / 4, iter->width, iter->height);
+	iter->bossRc[0] = RectMake(iter->x + iter->img->getFrameWidth() / 10, iter->y + iter->img->getFrameHeight() * 2 / 10, iter->width, iter->height);
+	iter->bossRc[1] = RectMake(iter->x + iter->img->getFrameWidth() * 4 / 10, iter->y + iter->img->getFrameHeight() * 7 / 10, iter->width * 1 / 4, iter->height * 3 / 5);
 	//보스는 절대 스턴먹지 않는다.
 	if (stun = false) {
 		iter->isStun = stun;
@@ -4707,6 +4771,9 @@ void Cyggdrasil::checkPlayerXY(Cplayer* py)
 		_viMonster->patternCount = 250;
 		_viMonster->activestate = MONSTERACTIVE::NONE;
 	}
+}
+void Cyggdrasil::makeCollisionRect()
+{
 }
 void Cyggdrasil::checkPhase()
 {
@@ -4946,4 +5013,8 @@ void Cyggdrasil_bomb::checkPlayerXY(Cplayer* py)
 	_viMonster->framecount = 0;
 	_viMonster->patternCount = 0;
 	_viMonster->activestate = MONSTERACTIVE::ATTACK2;
+}
+
+void Cyggdrasil_bomb::makeCollisionRect()
+{
 }

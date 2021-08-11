@@ -86,7 +86,7 @@ void effectManager::render()
     }
 }
 
-void effectManager::addEffect(string effectKey, char* imageName, int imageW, int imageH, int frameW, int frameH, int fps, float elapsedTime, int buffer)
+void effectManager::addEffect(string effectKey, char* imageName, int imageW, int imageH, int frameW, int frameH, int fps, float elapsedTime, int buffer, BYTE alpha)
 {
     image* img;
     vEffect vEffectBuffer;
@@ -105,7 +105,7 @@ void effectManager::addEffect(string effectKey, char* imageName, int imageW, int
     for (size_t i = 0; i < buffer; i++)
     {
         vEffectBuffer.push_back(new effect);
-        vEffectBuffer[i]->init(img, frameW, frameH, fps, elapsedTime);
+        vEffectBuffer[i]->init(img, frameW, frameH, fps, elapsedTime, alpha);
     }
 
     //버퍼를 맵에 넣어주고

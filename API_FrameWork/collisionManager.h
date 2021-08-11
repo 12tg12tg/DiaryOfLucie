@@ -26,7 +26,7 @@ public:
 	void playerTomon();
 
 	//보조함수
-	void checkMonsterRectColl(monster* monster);
+	void checkMonsterRectColl(monster* monster, bool isBoss);
 	void checkMonsterRectPlayer(monster* monster);
 
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }

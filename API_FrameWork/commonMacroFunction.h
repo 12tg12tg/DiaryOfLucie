@@ -31,6 +31,16 @@ inline RECT RectMakeCenter(int x, int y, int width, int height)
 	return rc;
 }
 
+//RECT 중점
+inline int RecCenX(RECT& rc)
+{
+	return (rc.left + rc.right) / 2;
+}
+inline int RecCenY(RECT& rc)
+{
+	return (rc.top + rc.bottom) / 2;
+}
+
 //사각형 그리기(좌상단기준)
 inline void RectangleMake(HDC hdc, int x, int y, int width, int height)
 {

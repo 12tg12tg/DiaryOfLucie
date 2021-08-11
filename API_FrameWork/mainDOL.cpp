@@ -61,7 +61,7 @@ void mainDOL::update()
 	_cm->update();
 
 	PLAYER->update();
-
+	EFFECT->update();
 
 
 
@@ -75,7 +75,7 @@ void mainDOL::render()
 	_cm->render();
 
 	PLAYER->render(getMemDC());
-
+	EFFECT->render();
 
 
 
