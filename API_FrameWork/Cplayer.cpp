@@ -23,8 +23,8 @@ HRESULT Cplayer::init()
 
 	_player.isHit = false;
 	_player.isDashHit = false;
-	_knockBackTime = 10;
-	_gracePeriod = 150;
+	_knockBackTime = 40;
+	_gracePeriod = 130;
 	_knockBackIndex = 0;
 
 	return S_OK;
@@ -48,7 +48,31 @@ void Cplayer::render(HDC hdc)
 {
 	if (_isDebug) RectangleMake(hdc, _player.playerRect);
 	this->renderDashEffecct(hdc);
-	if (!_player.isHit) {
+
+	if (_player.isHit && _hitCount % 10 >= 5)
+		switch (_state)
+		{
+		case STATE::IDLE:
+			IMAGE->findImage("걷기")->alphaFrameRender(hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, 1, _moveDirection, 100);
+			break;
+		case STATE::WALK:
+			IMAGE->findImage("걷기")->alphaFrameRender(hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _walk_img->getFrameX(), _moveDirection, 100);
+			break;
+		case STATE::RUN:
+			IMAGE->findImage("달리기")->alphaFrameRender(hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _run_img->getFrameX(), _moveDirection, 100);
+			break;
+		case STATE::DASH:
+			IMAGE->findImage("대쉬")->alphaFrameRender(hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _dash_img->getFrameX(), _moveDirection, 100);
+			break;
+		case STATE::ATTSTAFF:
+			IMAGE->findImage("기본공격")->alphaFrameRender(hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _attStaff_img->getFrameX(), _moveDirection, 100);
+			break;
+		case STATE::KNOCKBACK:
+			IMAGE->findImage("넉백")->alphaFrameRender(hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _knockBack_img->getFrameX(), _moveDirection, 100);
+			break;
+		}
+	else 
+	{
 		switch (_state)
 		{
 		case STATE::IDLE:
@@ -66,52 +90,13 @@ void Cplayer::render(HDC hdc)
 		case STATE::ATTSTAFF:
 			IMAGE->frameRender("기본공격", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _attStaff_img->getFrameX(), _moveDirection);
 			break;
-		}
-	}
-	if (_player.isHit) {
-		if (_hitCount % 10 <= 5) {
-			switch (_state)
-			{
-			case STATE::IDLE:
-				IMAGE->frameRender("걷기", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, 1, _moveDirection);
-				break;
-			case STATE::WALK:
-				IMAGE->frameRender("걷기", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _walk_img->getFrameX(), _moveDirection);
-				break;
-			case STATE::RUN:
-				IMAGE->frameRender("달리기", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _run_img->getFrameX(), _moveDirection);
-				break;
-			case STATE::DASH:
-				IMAGE->frameRender("대쉬", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _dash_img->getFrameX(), _moveDirection);
-				break;
-			case STATE::ATTSTAFF:
-				IMAGE->frameRender("기본공격", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _attStaff_img->getFrameX(), _moveDirection);
-				break;
-			}
-		}
-		else
-		{
-			switch (_state)
-			{
-			case STATE::IDLE:
-				IMAGE->findImage("걷기")->alphaFrameRender(hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, 1, _moveDirection, 100);
-				break;
-			case STATE::WALK:
-				IMAGE->findImage("걷기")->alphaFrameRender(hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _walk_img->getFrameX(), _moveDirection, 100);
-				break;
-			case STATE::RUN:
-				IMAGE->findImage("달리기")->alphaFrameRender(hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _run_img->getFrameX(), _moveDirection, 100);
-				break;
-			case STATE::DASH:
-				IMAGE->findImage("대쉬")->alphaFrameRender(hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _dash_img->getFrameX(), _moveDirection, 100);
-				break;
-			case STATE::ATTSTAFF:
-				IMAGE->findImage("기본공격")->alphaFrameRender(hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _attStaff_img->getFrameX(), _moveDirection, 100);
-				break;
-			}
+		case STATE::KNOCKBACK:
+			IMAGE->frameRender("넉백", hdc, _player.playerRect.left - 38, _player.playerRect.top - 58, _knockBack_img->getFrameX(), _moveDirection);
+			break;
 		}
 	}
 }
+
 
 void Cplayer::imageInit()
 {
@@ -119,7 +104,7 @@ void Cplayer::imageInit()
 	_run_img = IMAGE->addFrameImage("달리기", "images/Player/달리기수정.bmp", 400, 800, 4, 8, true, RGB(255, 0, 255));
 	_dash_img = IMAGE->addFrameImage("대쉬", "images/Player/대쉬수정.bmp", 600, 800, 6, 8, true, RGB(255, 0, 255));
 	_attStaff_img = IMAGE->addFrameImage("기본공격", "images/Player/기본공격.bmp", 600, 800, 6, 8, true, RGB(255, 0, 255));
-	_knockBack_img = IMAGE->addFrameImage("넉백", "images/Player/피격수정.bmp", 600, 800, 6, 8, true, RGB(255, 0, 255));
+	_knockBack_img = IMAGE->addFrameImage("넉백", "images/Player/피격수정.bmp", 300, 800, 3, 8, true, RGB(255, 0, 255));
 }
 
 void Cplayer::inputCheck()
@@ -434,16 +419,16 @@ void Cplayer::hitStateCheck()
 	{
 		_hitCount++;
 	}
-	if (_hitCount < _gracePeriod)
+	if (_hitCount > _gracePeriod)
 	{
 		_player.isHit = false;
-		_hitCount = 0;
 	}
 }
 
 void Cplayer::hitPlayer(int bulletX, int bulletY)
 {
 	_player.isHit = true;
-	_knockBackAngle = UTIL::getAngle( bulletX, bulletY, _player.x, _player.y);
+	_knockBackAngle = UTIL::getAngle(  bulletX, bulletY, _player.x, _player.y);
+	_hitCount = 0;
 	_knockBackIndex = 0;
 }
