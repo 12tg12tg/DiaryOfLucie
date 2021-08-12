@@ -9,6 +9,7 @@ enum class PLACE {
 	ROOM,
 	DUNGEON
 };
+
 enum class STATE {
 	IDLE,
 	WALK,
@@ -16,8 +17,8 @@ enum class STATE {
 	DASH,
 	ATTSTAFF,
 	STAFFCHARGE,
-	TALK,
 	KNOCKBACK,
+	TALK,
 	DIE
 };
 enum class WEAPONTYPE{
@@ -25,10 +26,6 @@ enum class WEAPONTYPE{
 	SWORD,
 	BOW,
 	STAFF
-};
-struct tagAttackBox {
-	RECT rc;
-	bool isHit;
 };
 struct tagDamegeFont {
 	int damage;
@@ -56,7 +53,6 @@ struct Player
 	RECT playerRect;
 	PLACE _place;
 	WEAPONTYPE weapon;
-	tagAttackBox AttackBox;
 	float x, y;
 	int HealthPoint;
 	int ManaPoint;
@@ -90,10 +86,10 @@ private:
 	DIRECTION _direction;
 	DIRECTION _moveDirection;
 
-	int _hitCount;
-	float _knockBackAngle;
 	int _knockBackTime;
 	int _gracePeriod;
+	int _hitCount;
+	float _knockBackAngle;
 	int _knockBackIndex;
 
 	int _count;
@@ -107,8 +103,12 @@ private:
 	int _attIndex;
 	float _attAngle;
 
+	int shootingCorrection;
+
 private:
 
+	int imageLeftCorrection;
+	int imageTopCorrection;
 	image* _walk_img;
 	image* _run_img;
 	image* _dash_img;
@@ -142,8 +142,8 @@ public:
 	void hitStateCheck();
 	void hitPlayer(int bulletX, int bulletY);
 
-	Player& getPlayerAddress() { return _player; }
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	void setBulletManagerMemoryLink(bulletManager* BM) { _Cbullet = BM; }
+	Player& getPlayerAddress() { return _player; }
 	STATE& getSTATEAddress() { return _state; }
 };
