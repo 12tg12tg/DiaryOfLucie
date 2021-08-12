@@ -483,7 +483,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
                 if (iter->activestate != MONSTERACTIVE::DEATH &&
                     IntersectRect(&temprc, &bm->getMgcBulInstance()->getVBullet()[i].rc, &iter->rc))
                 {
-                    if (!iter->isInvincible) {
+                    if (!iter->isGraceperiod) {
                         monster->knockback(iter,
                             bm->getMgcBulInstance()->getVBullet()[i].x,
                             bm->getMgcBulInstance()->getVBullet()[i].y,
@@ -500,7 +500,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
                     (IntersectRect(&temprc, &bm->getMgcBulInstance()->getVBullet()[i].rc, &iter->bossRc[0])||
                         IntersectRect(&temprc, &bm->getMgcBulInstance()->getVBullet()[i].rc, &iter->bossRc[1])))
                 {
-                    if (!iter->isInvincible) {
+                    if (!iter->isGraceperiod) {
                         monster->knockback(iter,
                             bm->getMgcBulInstance()->getVBullet()[i].x,
                             bm->getMgcBulInstance()->getVBullet()[i].y,
@@ -520,7 +520,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
                     OBB->isOBBCollision(bm->getArwBulInstance()->getVBullet()[i].rc, bm->getArwBulInstance()->getVBullet()[i].angle,
                         iter->rc, 0))
                 {
-                    if (!iter->isInvincible) {
+                    if (!iter->isGraceperiod) {
                         monster->knockback(iter,
                             bm->getArwBulInstance()->getVBullet()[i].x,
                             bm->getArwBulInstance()->getVBullet()[i].y,
@@ -537,7 +537,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
                     (IntersectRect(&temprc, &bm->getMgcBulInstance()->getVBullet()[i].rc, &iter->bossRc[0]) ||
                         IntersectRect(&temprc, &bm->getMgcBulInstance()->getVBullet()[i].rc, &iter->bossRc[1])))
                 {
-                    if (!iter->isInvincible) {
+                    if (!iter->isGraceperiod) {
                         monster->knockback(iter,
                             bm->getMgcBulInstance()->getVBullet()[i].x,
                             bm->getMgcBulInstance()->getVBullet()[i].y,

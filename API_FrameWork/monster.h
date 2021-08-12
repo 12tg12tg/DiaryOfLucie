@@ -59,8 +59,8 @@ struct tagMonster
 	bool isLeft;		//20210809 - 보스패턴구현
 	bool isNextPhase;	//20210809 - 보스패턴구현
 	bool oldPhase;		//20210809 - 보스패턴구현
-	bool isInvincible = false;			//20210809 - 피격시 짧은 무적상태추가
-	int invinCount = 0;
+	bool isGraceperiod = false;			//20210809 - 피격시 짧은 무적상태추가
+	int gracePeriodCount = 0;
 	MONSTERACTIVE activestate;
 	MONSTERACTIVE oldactivestate;
 	MONSTERMOVESTATE movestate;

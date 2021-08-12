@@ -95,7 +95,7 @@ void monster::goOrStay(float speed)
 	_viMonster->x += cosf(_viMonster->angle) * speed;
 	_viMonster->y -= sinf(_viMonster->angle) * speed;
 	makeCollisionRect();
-	//충돌됫다면 실행취소
+	//충돌됬다면 실행취소
 	RECT temp;
 	if (IntersectRect(&temp, &_viMonster->footRc, &PLAYER->getPlayerAddress().playerRect)) {
 		_viMonster->x -= cosf(_viMonster->angle) * speed;
@@ -111,11 +111,11 @@ void monster::makeCollisionRect()
 void monster::checkInvincibility()
 {
 	//무적확인함수
-	if (_viMonster->isInvincible) {
-		_viMonster->invinCount++;
-		if (_viMonster->invinCount > INVINTIME) {
-			_viMonster->invinCount = 0;
-			_viMonster->isInvincible = false;
+	if (_viMonster->isGraceperiod) {
+		_viMonster->gracePeriodCount++;
+		if (_viMonster->gracePeriodCount > INVINTIME) {
+			_viMonster->gracePeriodCount = 0;
+			_viMonster->isGraceperiod = false;
 		}
 	}
 }
