@@ -210,8 +210,7 @@ void CmTripleBullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->render(getMemDC(), _viBullet->rc.left, _viBullet->rc.top,_viBullet->plussize);
-
+		_viBullet->bulletImage->stretchRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->plussize);
 	}
 }
 
@@ -221,9 +220,9 @@ void CmTripleBullet::fire(float x, float y, float angle, int plussize)
 	for (int i = 0; i < 3; i++)
 	{
 		ZeroMemory(&bullet, sizeof(tagBullet));
-		bullet.plussize = plussize;
 		bullet.bulletImage = new  image;
 		bullet.bulletImage = IMAGE->addImage("작은몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 12 , 12, true);
+		bullet.plussize = 1 + (double)plussize/bullet.bulletImage->getWidth();
 		bullet.angle = angle - 0.2 + 0.2 * i;
 		bullet.speed = 5.0f;
 		bullet.x = bullet.fireX = x;

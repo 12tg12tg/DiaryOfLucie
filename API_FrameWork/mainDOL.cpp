@@ -31,7 +31,6 @@ HRESULT mainDOL::init()
 
 
 
-
 	return S_OK;
 }
 
