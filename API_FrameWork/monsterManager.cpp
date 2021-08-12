@@ -30,19 +30,19 @@ HRESULT monsterManager::init()
     
     _snaby->addMonster(WINSIZEX / 2, 100);
     _slime->addMonster(WINSIZEX / 2, 300);
-    _mushman_mushroom->addMonster(200, 300);
-    _mushman->addMonster(WINSIZEX - 50, 300);
-    _fairy->addMonster(50, 300);
-    _flime->addMonster(WINSIZEX / 2, WINSIZEY / 2);
-    _bossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
-    _semiBossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
-    _bossflime->addMonster(WINSIZEX/2, WINSIZEY/2);
-    _bossMushmam->addMonster(WINSIZEX/2, WINSIZEY/2);
-    _mushmam_mushroom_G->addMonster(100, 200);
-    _mushmam_mushroom_P->addMonster(100, 300);
-    _mushmam_mushroom_B->addMonster(100, 400);
-    _yggdrasil_bomb->addMonster(WINSIZEX / 2, 100);
-    _yggdrasil->addMonster(WINSIZEX / 2, 100);
+    //_mushman_mushroom->addMonster(200, 300);
+    //_mushman->addMonster(WINSIZEX - 50, 300);
+    //_fairy->addMonster(50, 300);
+    //_flime->addMonster(WINSIZEX / 2, WINSIZEY / 2);
+    //_bossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
+    //_semiBossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
+    //_bossflime->addMonster(WINSIZEX/2, WINSIZEY/2);
+    //_bossMushmam->addMonster(WINSIZEX/2, WINSIZEY/2);
+    //_mushmam_mushroom_G->addMonster(100, 200);
+    //_mushmam_mushroom_P->addMonster(100, 300);
+    //_mushmam_mushroom_B->addMonster(100, 400);
+    //_yggdrasil_bomb->addMonster(WINSIZEX / 2, 100);
+    //_yggdrasil->addMonster(WINSIZEX / 2, 100);
 
 
     return S_OK;
@@ -110,7 +110,7 @@ void monsterManager::update()
     //static int count = 0;
     //count++;
     if (INPUT->isOnceKeyDown('N')) {
-        _mushmam_mushroom_B->addMonster(WINSIZEX / 2, 100);
+        _mushmam_mushroom_G->addMonster(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
     //    vector<tagMonster>& v = _yggdrasil->getVMonster();
     //    auto iter = v.begin();
     //    for (iter; iter != v.end(); ++iter)

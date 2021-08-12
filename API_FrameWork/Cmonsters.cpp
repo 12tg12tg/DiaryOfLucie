@@ -2139,7 +2139,7 @@ void Cflime::makeCollisionRect()
 Cboss_slime::Cboss_slime()
 {
 	IMAGE->addFrameImage("보스슬라임", "images/monsters/boss_KingSlime.bmp", 576*2, 2496*2, 3, 13, true);
-	EFFECT->addEffect("킹슬라임점프", "images/monsters/skill_slime_jump_effect.bmp", ZEFFECT, 960, 384, 192, 192, 1, 0.3f, 5, 100);
+	EFFECT->addEffect("킹슬라임점프", "images/monsters/skill_slime_jump_effect.bmp", ZEFFECT1, 960, 384, 192, 192, 1, 0.3f, 5, 100);
 }
 
 Cboss_slime::~Cboss_slime()
@@ -4202,7 +4202,7 @@ void Cmushmam_mushroom_B::makeCollisionRect()
 Cyggdrasil::Cyggdrasil()
 {
 	IMAGE->addFrameImage("이그드라실", "images/monsters/ent-ent.bmp", 966, 3850, 3, 11, true);
-	EFFECT->addEffect("이그드라실점프", "images/monsters/ent_explosion.bmp", ZEFFECT, 1920, 1536, 384, 384, 1, 0.4f, 1, 150);
+	EFFECT->addEffect("이그드라실점프", "images/monsters/ent_explosion.bmp", ZEFFECT2, 1920, 1536, 384, 384, 1, 0.4f, 1, 150);
 }
 
 Cyggdrasil::~Cyggdrasil()
@@ -4260,7 +4260,7 @@ void Cyggdrasil::render()
 		case MONSTERACTIVE::ATTACK2:
 		case MONSTERACTIVE::ATTACK3:
 			if (_isDebug) {
-				ZORDER->ZorderRectangle(_viMonster->rc, ZCOL1);
+				//ZORDER->ZorderRectangle(_viMonster->rc, ZCOL1);
 				ZORDER->ZorderRectangleColor(_viMonster->footRc, ZCOL1, MINT);
 				ZORDER->ZorderRectangle(_viMonster->bossRc[0], ZCOL2);
 				ZORDER->ZorderRectangle(_viMonster->bossRc[1], ZCOL2);

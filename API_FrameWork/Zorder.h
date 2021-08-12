@@ -6,7 +6,8 @@ enum ZORDERKIND
 	IMG_NOMAL, IMG_NOMAL_SOUR, IMG_FRAME, IMG_ALPHA, IMG_ALPHA_SOUR, IMG_ALPHA_FRAME,
 	IMG_ROTATE, IMG_ROTATE_FRAME, IMG_ROTATE_ALPHA, IMG_ROTATE_ALPHAFRAME,
 	IMG_STRETCH, IMG_STRETCH_FRAME, IMG_ROTATESTRETCH, IMG_ROTATESTRETCHFRAME,
-	IMG_ANI, IMG_ANIALPHA, OBJ_RECT, OBJ_COLORRECT, TXT_TEXTOUT, TXT_DRAWTEXT
+	IMG_ANI, IMG_ANIALPHA, OBJ_RECT, OBJ_COLORRECT, OBJ_RECTROTATE,
+	TXT_TEXTOUT, TXT_DRAWTEXT
 };
 
 enum STRETCHRENDERKIND
@@ -85,6 +86,7 @@ public:
 	//µµÇü,±Û¾¾
 	void ZorderRectangle(RECT rc, float z);
 	void ZorderRectangleColor(RECT rc, float z, COLORREF color);
+	void ZorderRectangleRotate(RECT rc, float z, float angle);
 	void ZorderTextOut(string txt, float z, int destX, int destY, COLORREF color);
 	void ZorderDrawText(string txt, float z, RECT txtRC, HFONT font, COLORREF color, UINT format);
 

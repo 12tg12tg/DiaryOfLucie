@@ -1,16 +1,20 @@
 #pragma once
 #include "image.h"
-
+//Z레이어설정
 #define ZFLOORMAP	1
-#define ZCOL1		2
-#define ZCOL2		3
-#define ZUNIT		4
-#define ZCOL3		5
-#define ZCOL4		6
-#define ZEFFECT		7
-#define ZABOVEMAP	8
-#define ZMAXLAYER	8
+#define ZEFFECT1	2
+#define ZCOL1		3
+#define ZCOL2		4
+#define ZUNIT		5
+#define ZCOL3		6
+#define ZCOL4		7
+#define ZEFFECT2	8
+#define ZABOVEMAP	9
 
+//최대레이어
+#define ZMAXLAYER	9
+
+//색상정의
 #define MINT		RGB(88, 245, 206)
 
 static image* _backBuffer = IMAGE->addImage("backBuffer", WINSIZEX, WINSIZEY);

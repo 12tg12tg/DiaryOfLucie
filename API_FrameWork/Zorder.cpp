@@ -197,6 +197,18 @@ void Zorder::ZorderRectangleColor(RECT rc, float z, COLORREF color)
 	_vZorder.push_back(_zo);
 }
 
+void Zorder::ZorderRectangleRotate(RECT rc, float z, float angle)
+{
+	tagZorder _zo(OBJ_RECTROTATE, nullptr, z, 0, 0);
+
+	int min = RotateRectBottom(rc, angle);
+	
+	_zo.bottom = min;
+	_zo.rc = rc;
+	_zo.angle = angle;
+	_vZorder.push_back(_zo);
+}
+
 void Zorder::ZorderTextOut(string txt, float z, int destX, int destY, COLORREF color)
 {
 	tagZorder _zo(TXT_TEXTOUT, nullptr, z, destX, destY);
@@ -337,6 +349,9 @@ void Zorder::ZorderTotalRender(HDC hdc)
 			break;
 		case OBJ_RECT:
 			RectangleMake(hdc, _vZorder[i].rc);
+			break;
+		case OBJ_RECTROTATE:
+			RectangleMakeRotateCenter(hdc, _vZorder[i].rc, _vZorder[i].angle);
 			break;
 		case OBJ_COLORRECT:
 		{
