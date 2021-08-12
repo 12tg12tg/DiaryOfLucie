@@ -171,6 +171,9 @@
     <ClInclude Include="OBBCollision.h">
       <Filter>manager\OBB</Filter>
     </ClInclude>
+    <ClInclude Include="miniMap.h">
+      <Filter>DOL\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -256,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="OBBCollision.cpp">
       <Filter>manager\OBB</Filter>
+    </ClCompile>
+    <ClCompile Include="miniMap.cpp">
+      <Filter>DOL\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

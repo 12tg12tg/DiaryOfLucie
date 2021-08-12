@@ -165,6 +165,7 @@
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="mapManager.h" />
     <ClInclude Include="mapTool.h" />
+    <ClInclude Include="miniMap.h" />
     <ClInclude Include="monster.h" />
     <ClInclude Include="monsterManager.h" />
     <ClInclude Include="OBBCollision.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="mainGame.cpp" />
     <ClCompile Include="mapManager.cpp" />
     <ClCompile Include="mapTool.cpp" />
+    <ClCompile Include="miniMap.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="monsterManager.cpp" />
     <ClCompile Include="OBBCollision.cpp" />
