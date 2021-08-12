@@ -82,18 +82,13 @@ void Csnaby::render()
 		case MONSTERACTIVE::RNDMOVE:
 		case MONSTERACTIVE::ATTACK:
 			if (_isDebug) {
-				RectangleMake(getMemDC(), _viMonster->rc);
-				HBRUSH brush = CreateSolidBrush(RGB(88, 245, 206));
-				HBRUSH oldBrush = (HBRUSH)SelectObject(getMemDC(), brush);
-				RectangleMake(getMemDC(), _viMonster->footRc);
-				SelectObject(getMemDC(), oldBrush);
-				DeleteObject(brush);
+				ZORDER->ZorderRectangle(_viMonster->rc, ZCOL1);
+				ZORDER->ZorderRectangleColor(_viMonster->footRc, ZCOL2, MINT);
 			}
-			_viMonster->img->frameRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
+			ZORDER->ZorderFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
 			break;
 		case MONSTERACTIVE::DEATH:
-			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
-				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			ZORDER->ZorderAlphaFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
 			break;
 		}		
 	}
@@ -415,18 +410,13 @@ void Cslime::render()
 		case MONSTERACTIVE::ATTACK:
 		case MONSTERACTIVE::ATTACK2:
 			if (_isDebug) {
-				RectangleMake(getMemDC(), _viMonster->rc);
-				HBRUSH brush = CreateSolidBrush(RGB(88, 245, 206));
-				HBRUSH oldBrush = (HBRUSH)SelectObject(getMemDC(), brush);
-				RectangleMake(getMemDC(), _viMonster->footRc);
-				SelectObject(getMemDC(), oldBrush);
-				DeleteObject(brush);
+				ZORDER->ZorderRectangle(_viMonster->rc, ZCOL1);
+				ZORDER->ZorderRectangleColor(_viMonster->footRc, ZCOL2, MINT);
 			}
-			_viMonster->img->frameRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
+			ZORDER->ZorderFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
 			break;
 		case MONSTERACTIVE::DEATH:
-			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
-				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			ZORDER->ZorderAlphaFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
 			break;
 		}
 		//TCHAR str[128];
@@ -789,18 +779,13 @@ void Cmushman::render()
 		case MONSTERACTIVE::ATTACK:
 		case MONSTERACTIVE::ATTACK2:
 			if (_isDebug) {
-				RectangleMake(getMemDC(), _viMonster->rc);
-				HBRUSH brush = CreateSolidBrush(RGB(88, 245, 206));
-				HBRUSH oldBrush = (HBRUSH)SelectObject(getMemDC(), brush);
-				RectangleMake(getMemDC(), _viMonster->footRc);
-				SelectObject(getMemDC(), oldBrush);
-				DeleteObject(brush);
+				ZORDER->ZorderRectangle(_viMonster->rc, ZCOL1);
+				ZORDER->ZorderRectangleColor(_viMonster->footRc, ZCOL2, MINT);
 			}
-			_viMonster->img->frameRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
+			ZORDER->ZorderFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
 			break;
 		case MONSTERACTIVE::DEATH:
-			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
-				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			ZORDER->ZorderAlphaFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
 			break;
 		}
 	}
@@ -1164,19 +1149,14 @@ void Cmushman_mushroom::render()
 		case MONSTERACTIVE::RNDMOVE:
 		case MONSTERACTIVE::ATTACK:
 		case MONSTERACTIVE::ATTACK2:
-			_viMonster->img->frameRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
 			if (_isDebug) {
-				RectangleMake(getMemDC(), _viMonster->rc);
-				HBRUSH brush = CreateSolidBrush(RGB(88, 245, 206));
-				HBRUSH oldBrush = (HBRUSH)SelectObject(getMemDC(), brush);
-				RectangleMake(getMemDC(), _viMonster->footRc);
-				SelectObject(getMemDC(), oldBrush);
-				DeleteObject(brush);
+				ZORDER->ZorderRectangle(_viMonster->rc, ZCOL1);
+				ZORDER->ZorderRectangleColor(_viMonster->footRc, ZCOL2, MINT);
 			}
+			ZORDER->ZorderFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
 			break;
 		case MONSTERACTIVE::DEATH:
-			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
-				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			ZORDER->ZorderAlphaFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
 			break;
 		}
 	}
@@ -1426,19 +1406,14 @@ void Cfairy::render()
 		case MONSTERACTIVE::RNDMOVE:
 		case MONSTERACTIVE::ATTACK:
 		case MONSTERACTIVE::ATTACK2:
-			_viMonster->img->frameRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
 			if (_isDebug) {
-				RectangleMake(getMemDC(), _viMonster->rc);
-				HBRUSH brush = CreateSolidBrush(RGB(88, 245, 206));
-				HBRUSH oldBrush = (HBRUSH)SelectObject(getMemDC(), brush);
-				RectangleMake(getMemDC(), _viMonster->footRc);
-				SelectObject(getMemDC(), oldBrush);
-				DeleteObject(brush);
+				ZORDER->ZorderRectangle(_viMonster->rc, ZCOL3);
+				ZORDER->ZorderRectangleColor(_viMonster->footRc, ZCOL4, MINT);
 			}
+			ZORDER->ZorderFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
 			break;
 		case MONSTERACTIVE::DEATH:
-			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
-				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			ZORDER->ZorderAlphaFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
 			break;
 		}
 		//TCHAR str[128];
@@ -1809,18 +1784,13 @@ void Cflime::render()
 		case MONSTERACTIVE::ATTACK:
 		case MONSTERACTIVE::ATTACK2:
 			if (_isDebug) {
-				RectangleMake(getMemDC(), _viMonster->rc);
-				HBRUSH brush = CreateSolidBrush(RGB(88, 245, 206));
-				HBRUSH oldBrush = (HBRUSH)SelectObject(getMemDC(), brush);
-				RectangleMake(getMemDC(), _viMonster->footRc);
-				SelectObject(getMemDC(), oldBrush);
-				DeleteObject(brush);
+				ZORDER->ZorderRectangle(_viMonster->rc, ZCOL1);
+				ZORDER->ZorderRectangleColor(_viMonster->footRc, ZCOL2, MINT);
 			}
-			_viMonster->img->frameRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
+			ZORDER->ZorderFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
 			break;
 		case MONSTERACTIVE::DEATH:
-			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
-				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			ZORDER->ZorderAlphaFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
 			break;
 		}
 		//TCHAR str[128];
@@ -2169,7 +2139,7 @@ void Cflime::makeCollisionRect()
 Cboss_slime::Cboss_slime()
 {
 	IMAGE->addFrameImage("보스슬라임", "images/monsters/boss_KingSlime.bmp", 576*2, 2496*2, 3, 13, true);
-	EFFECT->addEffect("킹슬라임점프", "images/monsters/skill_slime_jump_effect.bmp", 960, 384, 192, 192, 1, 0.3f, 5, 100);
+	EFFECT->addEffect("킹슬라임점프", "images/monsters/skill_slime_jump_effect.bmp", ZEFFECT, 960, 384, 192, 192, 1, 0.3f, 5, 100);
 }
 
 Cboss_slime::~Cboss_slime()
@@ -2222,19 +2192,16 @@ void Cboss_slime::render()
 		case MONSTERACTIVE::ATTACK:
 		case MONSTERACTIVE::ATTACK2:
 			if (_isDebug) {
-				RectangleMake(getMemDC(), _viMonster->rc);
-				HBRUSH brush = CreateSolidBrush(RGB(88, 245, 206));
-				HBRUSH oldBrush = (HBRUSH)SelectObject(getMemDC(), brush);
-				RectangleMake(getMemDC(), _viMonster->footRc);
-				SelectObject(getMemDC(), oldBrush);
-				DeleteObject(brush);
+				ZORDER->ZorderRectangle(_viMonster->rc, ZCOL1);
+				ZORDER->ZorderRectangleColor(_viMonster->footRc, ZCOL2, MINT);
 			}
-			_viMonster->img->aniRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->ani);
+			ZORDER->ZorderAniRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->ani);
 			if (_viMonster->activestate==MONSTERACTIVE::ATTACK2 && _viMonster->patternCount % 100 == 0)
 				EFFECT->play("킹슬라임점프", _viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2, _viMonster->rc.bottom);
 			break;
 		case MONSTERACTIVE::DEATH:
-			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+			ZORDER->ZorderAlphaFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom,
+				_viMonster->x, _viMonster->y,
 				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
 			break;
 		}
@@ -2597,19 +2564,16 @@ void Csemiboss_slime::render()
 		case MONSTERACTIVE::ATTACK:
 		case MONSTERACTIVE::ATTACK2:
 			if (_isDebug) {
-				RectangleMake(getMemDC(), _viMonster->rc);
-				HBRUSH brush = CreateSolidBrush(RGB(88, 245, 206));
-				HBRUSH oldBrush = (HBRUSH)SelectObject(getMemDC(), brush);
-				RectangleMake(getMemDC(), _viMonster->footRc);
-				SelectObject(getMemDC(), oldBrush);
-				DeleteObject(brush);
+				ZORDER->ZorderRectangle(_viMonster->rc, ZCOL1);
+				ZORDER->ZorderRectangleColor(_viMonster->footRc, ZCOL2, MINT);
 			}
-			_viMonster->img->aniRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->ani);
+			ZORDER->ZorderAniRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->ani);
 			if (_viMonster->activestate == MONSTERACTIVE::ATTACK2 && _viMonster->patternCount % 100 == 0)
 				EFFECT->play("킹슬라임점프", _viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2, _viMonster->rc.bottom);
 			break;
 		case MONSTERACTIVE::DEATH:
-			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+			ZORDER->ZorderAlphaFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom,
+				_viMonster->x, _viMonster->y,
 				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
 			break;
 		}
@@ -2977,17 +2941,14 @@ void Cboss_flime::render()
 		case MONSTERACTIVE::ATTACK:
 		case MONSTERACTIVE::ATTACK2:
 			if (_isDebug) {
-				RectangleMake(getMemDC(), _viMonster->rc);
-				HBRUSH brush = CreateSolidBrush(RGB(88, 245, 206));
-				HBRUSH oldBrush = (HBRUSH)SelectObject(getMemDC(), brush);
-				RectangleMake(getMemDC(), _viMonster->footRc);
-				SelectObject(getMemDC(), oldBrush);
-				DeleteObject(brush);
+				ZORDER->ZorderRectangle(_viMonster->rc, ZCOL1);
+				ZORDER->ZorderRectangleColor(_viMonster->footRc, ZCOL2, MINT);
 			}
-			_viMonster->img->aniRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->ani);
+			ZORDER->ZorderAniRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->ani);
 			break;
 		case MONSTERACTIVE::DEATH:
-			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+			ZORDER->ZorderAlphaFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom,
+				_viMonster->x, _viMonster->y,
 				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
 			break;
 		}
@@ -3349,23 +3310,20 @@ void Cboss_mushmam::render()
 		case MONSTERACTIVE::ATTACK:
 		case MONSTERACTIVE::ATTACK2:
 			if (_isDebug) {
-				RectangleMake(getMemDC(), _viMonster->rc);
-				HBRUSH brush = CreateSolidBrush(RGB(88, 245, 206));
-				HBRUSH oldBrush = (HBRUSH)SelectObject(getMemDC(), brush);
-				RectangleMake(getMemDC(), _viMonster->footRc);
-				SelectObject(getMemDC(), oldBrush);
-				DeleteObject(brush);
+				ZORDER->ZorderRectangle(_viMonster->rc, ZCOL1);
+				ZORDER->ZorderRectangleColor(_viMonster->footRc, ZCOL2, MINT);
 			}
-			_viMonster->img->aniRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->ani);
-			//TCHAR str[128];
-			//_stprintf_s(str, "hp : %d", _viMonster->hp);
-			//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
+			ZORDER->ZorderAniRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->ani);
 			break;
 		case MONSTERACTIVE::DEATH:
-			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+			ZORDER->ZorderAlphaFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom,
+				_viMonster->x, _viMonster->y,
 				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
 			break;
 		}
+		//TCHAR str[128];
+		//_stprintf_s(str, "hp : %d", _viMonster->hp);
+		//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
 	}
 }
 
@@ -3709,17 +3667,14 @@ void Cmushmam_mushroom_G::render()
 		case MONSTERACTIVE::ATTACK:
 		case MONSTERACTIVE::ATTACK2:
 			if (_isDebug) {
-				RectangleMake(getMemDC(), _viMonster->rc);
-				HBRUSH brush = CreateSolidBrush(RGB(88, 245, 206));
-				HBRUSH oldBrush = (HBRUSH)SelectObject(getMemDC(), brush);
-				RectangleMake(getMemDC(), _viMonster->footRc);
-				SelectObject(getMemDC(), oldBrush);
-				DeleteObject(brush);
+				ZORDER->ZorderRectangle(_viMonster->rc, ZCOL1);
+				ZORDER->ZorderRectangleColor(_viMonster->footRc, ZCOL2, MINT);
 			}
-			_viMonster->img->frameRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
+			ZORDER->ZorderFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
 			break;
 		case MONSTERACTIVE::DEATH:
-			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+			ZORDER->ZorderAlphaFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom,
+				_viMonster->x, _viMonster->y,
 				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
 			break;
 		}
@@ -3914,17 +3869,14 @@ void Cmushmam_mushroom_P::render()
 		case MONSTERACTIVE::ATTACK:
 		case MONSTERACTIVE::ATTACK2:
 			if (_isDebug) {
-				RectangleMake(getMemDC(), _viMonster->rc);
-				HBRUSH brush = CreateSolidBrush(RGB(88, 245, 206));
-				HBRUSH oldBrush = (HBRUSH)SelectObject(getMemDC(), brush);
-				RectangleMake(getMemDC(), _viMonster->footRc);
-				SelectObject(getMemDC(), oldBrush);
-				DeleteObject(brush);
+				ZORDER->ZorderRectangle(_viMonster->rc, ZCOL1);
+				ZORDER->ZorderRectangleColor(_viMonster->footRc, ZCOL2, MINT);
 			}
-			_viMonster->img->frameRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
+			ZORDER->ZorderFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
 			break;
 		case MONSTERACTIVE::DEATH:
-			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+			ZORDER->ZorderAlphaFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom,
+				_viMonster->x, _viMonster->y,
 				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
 			break;
 		}
@@ -4110,17 +4062,14 @@ void Cmushmam_mushroom_B::render()
 		case MONSTERACTIVE::ATTACK:
 		case MONSTERACTIVE::ATTACK2:
 			if (_isDebug) {
-				RectangleMake(getMemDC(), _viMonster->rc);
-				HBRUSH brush = CreateSolidBrush(RGB(88, 245, 206));
-				HBRUSH oldBrush = (HBRUSH)SelectObject(getMemDC(), brush);
-				RectangleMake(getMemDC(), _viMonster->footRc);
-				SelectObject(getMemDC(), oldBrush);
-				DeleteObject(brush);
+				ZORDER->ZorderRectangle(_viMonster->rc, ZCOL1);
+				ZORDER->ZorderRectangleColor(_viMonster->footRc, ZCOL2, MINT);
 			}
-			_viMonster->img->frameRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
+			ZORDER->ZorderFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom, _viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY);
 			break;
 		case MONSTERACTIVE::DEATH:
-			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
+			ZORDER->ZorderAlphaFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom,
+				_viMonster->x, _viMonster->y,
 				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
 			break;
 		}
@@ -4253,8 +4202,7 @@ void Cmushmam_mushroom_B::makeCollisionRect()
 Cyggdrasil::Cyggdrasil()
 {
 	IMAGE->addFrameImage("이그드라실", "images/monsters/ent-ent.bmp", 966, 3850, 3, 11, true);
-	//EFFECT->addEffect("이그드라실점프", "images/monsters/skill_slime_jump_effect.bmp", 1920, 768, 384, 384, 1, 0.1f, 1, 100);
-	EFFECT->addEffect("이그드라실점프", "images/monsters/ent_explosion.bmp", 1920, 1536, 384, 384, 1, 0.4f, 1, 150);
+	EFFECT->addEffect("이그드라실점프", "images/monsters/ent_explosion.bmp", ZEFFECT, 1920, 1536, 384, 384, 1, 0.4f, 1, 150);
 }
 
 Cyggdrasil::~Cyggdrasil()
@@ -4280,7 +4228,6 @@ void Cyggdrasil::update(Cplayer* py, bulletManager* bm, Cyggdrasil_bomb* bomb)
 		_viMonster->bossRc[0] = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 10, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 10, _viMonster->width, _viMonster->height);
 		_viMonster->bossRc[1] = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() * 4 / 10, _viMonster->y + _viMonster->img->getFrameHeight() * 7 / 10, _viMonster->width * 1 / 4, _viMonster->height * 3 / 5);
 		checkPhase();
-		//stuncheck();
 		checkPlayerXY(py);
 		move(bm, bomb);
 		checkAngle();
@@ -4313,16 +4260,13 @@ void Cyggdrasil::render()
 		case MONSTERACTIVE::ATTACK2:
 		case MONSTERACTIVE::ATTACK3:
 			if (_isDebug) {
-				RectangleMake(getMemDC(), _viMonster->rc);
-				HBRUSH brush = CreateSolidBrush(RGB(88, 245, 206));
-				HBRUSH oldBrush = (HBRUSH)SelectObject(getMemDC(), brush);
-				RectangleMake(getMemDC(), _viMonster->footRc);
-				SelectObject(getMemDC(), oldBrush);
-				DeleteObject(brush);
-				RectangleMake(getMemDC(), _viMonster->bossRc[0]);
-				RectangleMake(getMemDC(), _viMonster->bossRc[1]);
+				ZORDER->ZorderRectangle(_viMonster->rc, ZCOL1);
+				ZORDER->ZorderRectangleColor(_viMonster->footRc, ZCOL1, MINT);
+				ZORDER->ZorderRectangle(_viMonster->bossRc[0], ZCOL2);
+				ZORDER->ZorderRectangle(_viMonster->bossRc[1], ZCOL2);
 			}
-			_viMonster->img->aniRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->ani);
+			ZORDER->ZorderAniRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom,
+				_viMonster->x, _viMonster->y, _viMonster->ani);
 			if (_viMonster->isNextPhase && _viMonster->activestate == MONSTERACTIVE::ATTACK3 && _viMonster->patternCount == 1)
 				EFFECT->play("이그드라실점프", RecCenX(_viMonster->rc)-10, RecCenY(_viMonster->rc)+100);
 			//TCHAR str[128];
@@ -4330,8 +4274,8 @@ void Cyggdrasil::render()
 			//TextOut(getMemDC(), 100, 0, str, lstrlen(str));
 			break;
 		case MONSTERACTIVE::DEATH:
-			_viMonster->img->aniAlphaRender(getMemDC(), _viMonster->x, _viMonster->y,
-				_viMonster->ani, _viMonster->deathalpha);
+			ZORDER->ZorderAniAlphaRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom,
+				_viMonster->x, _viMonster->y, _viMonster->ani, _viMonster->deathalpha);
 			break;
 		}
 	}
@@ -4817,19 +4761,16 @@ void Cyggdrasil_bomb::render()
 		case MONSTERACTIVE::RNDMOVE:
 		case MONSTERACTIVE::ATTACK:
 		case MONSTERACTIVE::ATTACK2:
-			_viMonster->img->aniRender(getMemDC(), _viMonster->x, _viMonster->y, _viMonster->ani);
+			ZORDER->ZorderAniRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom,
+				_viMonster->x, _viMonster->y, _viMonster->ani);
 			if (_isDebug) {
-				RectangleMake(getMemDC(), _viMonster->rc);
-				HBRUSH brush = CreateSolidBrush(RGB(88, 245, 206));
-				HBRUSH oldBrush = (HBRUSH)SelectObject(getMemDC(), brush);
-				RectangleMake(getMemDC(), _viMonster->footRc);
-				SelectObject(getMemDC(), oldBrush);
-				DeleteObject(brush);
+				ZORDER->ZorderRectangle(_viMonster->rc, ZCOL3);
+				ZORDER->ZorderRectangleColor(_viMonster->footRc, ZCOL4, MINT);
 			}
 			break;
 		case MONSTERACTIVE::DEATH:
-			_viMonster->img->alphaFrameRender(getMemDC(), _viMonster->x, _viMonster->y,
-				_viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
+			ZORDER->ZorderAlphaFrameRender(_viMonster->img, ZUNIT, _viMonster->footRc.bottom,
+				_viMonster->x, _viMonster->y, _viMonster->frameX, _viMonster->frameY, _viMonster->deathalpha);
 			break;
 		}
 		//TCHAR str[128];

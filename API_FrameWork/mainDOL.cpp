@@ -75,7 +75,7 @@ void mainDOL::render()
 
 	PLAYER->render(getMemDC());
 	EFFECT->render();
-
+	ZORDER->ZorderTotalRender(getMemDC());
 
 
 

@@ -67,6 +67,9 @@
     <Filter Include="manager\OBB">
       <UniqueIdentifier>{1af3ce06-36a7-44a8-aeff-3887b8b69dde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="manager\Zorder">
+      <UniqueIdentifier>{909bef48-481a-4ccb-b6d6-1ece3c1f2e36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -171,6 +174,9 @@
     <ClInclude Include="OBBCollision.h">
       <Filter>manager\OBB</Filter>
     </ClInclude>
+    <ClInclude Include="Zorder.h">
+      <Filter>manager\Zorder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -256,6 +262,9 @@
     </ClCompile>
     <ClCompile Include="OBBCollision.cpp">
       <Filter>manager\OBB</Filter>
+    </ClCompile>
+    <ClCompile Include="Zorder.cpp">
+      <Filter>manager\Zorder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
