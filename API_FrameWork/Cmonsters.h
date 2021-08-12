@@ -18,7 +18,6 @@ public:
 
 	virtual void addMonster(float x, float y);
 	virtual void move(bulletManager* bm);
-	virtual void checkAngle();
 	virtual void giveFrame();
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
@@ -44,9 +43,7 @@ public:
 
 	virtual void addMonster(float x, float y);
 	virtual void move(bulletManager* bm);
-	virtual void checkAngle();
 	virtual void giveFrame();
-	virtual void deathCheck();
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
@@ -71,9 +68,7 @@ public:
 
 	virtual void addMonster(float x, float y);
 	virtual void move(bulletManager* bm);
-	virtual void checkAngle();
 	virtual void giveFrame();
-	virtual void deathCheck();
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
@@ -98,9 +93,7 @@ public:
 
 	virtual void addMonster(float x, float y);
 	virtual void move(bulletManager* bm, Cmushman_mushroom* _mushroom);
-	virtual void checkAngle();
 	virtual void giveFrame();
-	virtual void deathCheck();
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
@@ -125,9 +118,7 @@ public:
 
 	virtual void addMonster(float x, float y);
 	virtual void move(bulletManager* bm);
-	virtual void checkAngle();
 	virtual void giveFrame();
-	virtual void deathCheck();
 	virtual void knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun = false);
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
