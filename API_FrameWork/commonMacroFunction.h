@@ -55,15 +55,15 @@ inline int RotateRectBottom(RECT& rc, float radian)
 	float rightBottomPointAngle = UTIL::getAngle(centerx, centery, rc.right, rc.bottom);
 	float leftBottomPointAngle = UTIL::getAngle(centerx, centery, rc.left, rc.bottom);
 
-	float min = centery - sinf(leftTopPointAngle + radian) * diagonal / 2;
-	min = (min < centery - sinf(leftBottomPointAngle + radian) * diagonal / 2) ?
-		min : centery - sinf(leftBottomPointAngle + radian) * diagonal / 2;
-	min = (min < centery - sinf(rightBottomPointAngle + radian) * diagonal / 2) ?
-		min : centery - sinf(rightBottomPointAngle + radian) * diagonal / 2;
-	min = (min < centery - sinf(rightTopPointAngle + radian) * diagonal / 2) ?
-		min : centery - sinf(rightTopPointAngle + radian) * diagonal / 2;
+	float max = centery - sinf(leftTopPointAngle + radian) * diagonal / 2;
+	max = (max > centery - sinf(leftBottomPointAngle + radian) * diagonal / 2) ?
+		max : centery - sinf(leftBottomPointAngle + radian) * diagonal / 2;
+	max = (max > centery - sinf(rightBottomPointAngle + radian) * diagonal / 2) ?
+		max : centery - sinf(rightBottomPointAngle + radian) * diagonal / 2;
+	max = (max > centery - sinf(rightTopPointAngle + radian) * diagonal / 2) ?
+		max : centery - sinf(rightTopPointAngle + radian) * diagonal / 2;
 
-	return min;
+	return max;
 }
 
 //사각형 그리기(좌상단기준)

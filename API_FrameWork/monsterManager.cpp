@@ -28,13 +28,13 @@ HRESULT monsterManager::init()
     _yggdrasil = new Cyggdrasil;
     _yggdrasil_bomb = new Cyggdrasil_bomb;
     
-    _snaby->addMonster(WINSIZEX / 2, 100);
+    /*_snaby->addMonster(WINSIZEX / 2, 100);
     _slime->addMonster(WINSIZEX / 2, 300);
-    //_mushman_mushroom->addMonster(200, 300);
-    //_mushman->addMonster(WINSIZEX - 50, 300);
-    //_fairy->addMonster(50, 300);
-    //_flime->addMonster(WINSIZEX / 2, WINSIZEY / 2);
-    //_bossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
+    _mushman_mushroom->addMonster(200, 300);*/
+   /* _mushman->addMonster(WINSIZEX - 50, 300);
+    _fairy->addMonster(50, 300);*/
+    _flime->addMonster(WINSIZEX / 2, WINSIZEY / 2);
+    _bossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
     //_semiBossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
     //_bossflime->addMonster(WINSIZEX/2, WINSIZEY/2);
     //_bossMushmam->addMonster(WINSIZEX/2, WINSIZEY/2);

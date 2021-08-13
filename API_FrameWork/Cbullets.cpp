@@ -1517,7 +1517,7 @@ void CmFBoss1Bullet::removeBullet2(int arrNum)
 
 void CmFBoss1Bullet::removeBullet3(int arrNum)
 {
-	_vBullet3.erase(_vBullet2.begin() + arrNum);
+	_vBullet3.erase(_vBullet3.begin() + arrNum);
 }
 //////////////////////////////////////////////////////////////
 /////	CmFBoss2Bullet!	 경고,가시    !//////////////////
