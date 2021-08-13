@@ -452,13 +452,8 @@ void collisionManager::checkUp()
 		int g = GetGValue(color);
 		int b = GetBValue(color);
 
-		if ((r == 255 && g == 0 && b == 255))
+		if (!(r == 255 && g == 0 && b == 255))
 		{
-			PLAYER->getW() = true;
-		}
-		else
-		{
-			PLAYER->getW() = false;
 			PLAYER->getPlayerAddress().y++;
 		}
 
@@ -475,13 +470,8 @@ void collisionManager::checkRight()
 		int g = GetGValue(color);
 		int b = GetBValue(color);
 
-		if ((r == 255 && g == 0 && b == 255))
+		if (!(r == 255 && g == 0 && b == 255))
 		{
-			PLAYER->getD() = true;
-		}
-		else
-		{
-			PLAYER->getD() = false;
 			PLAYER->getPlayerAddress().x--;
 		}
 	}
@@ -497,13 +487,8 @@ void collisionManager::checkLeft()
 		int g = GetGValue(color);
 		int b = GetBValue(color);
 
-		if ((r == 255 && g == 0 && b == 255))
+		if (!(r == 255 && g == 0 && b == 255))
 		{
-			PLAYER->getA() = true;
-		}
-		else
-		{
-			PLAYER->getA() = false;
 			PLAYER->getPlayerAddress().x++;
 		}
 	}
@@ -519,13 +504,8 @@ void collisionManager::checkDown()
 		int g = GetGValue(color);
 		int b = GetBValue(color);
 
-		if ((r == 255 && g == 0 && b == 255))
+		if (!(r == 255 && g == 0 && b == 255))
 		{
-			PLAYER->getS() = true;
-		}
-		else
-		{
-			PLAYER->getS() = false;
 			PLAYER->getPlayerAddress().y--;
 		}
 

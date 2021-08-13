@@ -152,16 +152,16 @@ void Cplayer::inputCheck()
 		PLAYERDATA->setpresenthp(4, 1);
 		_state = STATE::IDLE;
 	}
-	if (INPUT->isStayKeyDown('W')&& getW() == true)
+	if (INPUT->isStayKeyDown('W'))
 		_inputDirection.isUp = true;
 	else _inputDirection.isUp = false;
-	if (INPUT->isStayKeyDown('D') && getD() == true)
+	if (INPUT->isStayKeyDown('D'))
 		_inputDirection.isRight = true;
 	else _inputDirection.isRight = false;
-	if (INPUT->isStayKeyDown('S') && getS() == true)
+	if (INPUT->isStayKeyDown('S'))
 		_inputDirection.isDown = true;
 	else _inputDirection.isDown = false;
-	if (INPUT->isStayKeyDown('A') && getA() == true)
+	if (INPUT->isStayKeyDown('A'))
 		_inputDirection.isLeft = true;
 	else _inputDirection.isLeft = false;
 	if (INPUT->isOnceKeyDown('Q'))
