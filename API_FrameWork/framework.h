@@ -61,7 +61,7 @@ using namespace std;
 #define ZORDER			Zorder::getSingleton()
 
 #define PLAYER			Cplayer::getSingleton()
-#define PLAYERDATA		CplayerDate::getSingleton()
+#define PLAYERDATA		CplayerData::getSingleton()
 //===================//
 //	매크로 설정부분	//
 //=================//

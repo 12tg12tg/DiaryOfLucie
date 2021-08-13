@@ -20,10 +20,12 @@ private:
 	int _defaultAtk;
 	int _defaultSpd;
 
+	bool _isDebug;
 public:
 	HRESULT init();
 	void release();
 	void update();
 	void render(HDC hdc);
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
 
