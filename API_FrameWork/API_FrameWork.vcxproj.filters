@@ -67,6 +67,9 @@
     <Filter Include="manager\OBB">
       <UniqueIdentifier>{1af3ce06-36a7-44a8-aeff-3887b8b69dde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="manager\Zorder">
+      <UniqueIdentifier>{8d7c25ed-e013-4602-99ae-a281af32861d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -174,6 +177,9 @@
     <ClInclude Include="CplayerData.h">
       <Filter>DOL\player</Filter>
     </ClInclude>
+    <ClInclude Include="Zorder.h">
+      <Filter>manager\Zorder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -262,6 +268,9 @@
     </ClCompile>
     <ClCompile Include="CplayerData.cpp">
       <Filter>DOL\player</Filter>
+    </ClCompile>
+    <ClCompile Include="Zorder.cpp">
+      <Filter>manager\Zorder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
