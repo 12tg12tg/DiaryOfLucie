@@ -60,7 +60,10 @@ void Cplayer::render(HDC hdc)
 	SetTextColor(hdc, RGB(0, 0, 255));
 	if (_isDebug)
 	{
-		RectangleMake(hdc, _player.playerRect); 
+		//카메라 영향을 받는 zorder 디버그
+		ZORDER->ZorderRectangle(_player.playerRect, ZCOL1);
+
+		//카메라영향을 받지 않는 상태확인.
 		sprintf_s(str, "플레이어 x,y? %d , %d",(int)_player.x, (int)_player.y);
 		TextOut(hdc, 0, WINSIZEY - 80, str, strlen(str));
 		sprintf_s(str, "마우스 위치? %d , %d",m_ptMouse.x,m_ptMouse.y );
@@ -78,22 +81,28 @@ void Cplayer::render(HDC hdc)
 		switch (_state)
 		{
 		case STATE::IDLE:
-			IMAGE->findImage("걷기")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection, 100);
+			//IMAGE->findImage("걷기")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection, 100);
+			ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("걷기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection, 100);
 			break;
 		case STATE::WALK:
-			IMAGE->findImage("걷기")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _walk_img->getFrameX(), _moveDirection, 100);
+			//IMAGE->findImage("걷기")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _walk_img->getFrameX(), _moveDirection, 100);
+			ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("걷기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _walk_img->getFrameX(), _moveDirection, 100);
 			break;
 		case STATE::RUN:
-			IMAGE->findImage("달리기")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _run_img->getFrameX(), _moveDirection, 100);
+			//IMAGE->findImage("달리기")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _run_img->getFrameX(), _moveDirection, 100);
+			ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("달리기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _run_img->getFrameX(), _moveDirection, 100);
 			break;
 		case STATE::DASH:
-			IMAGE->findImage("대쉬")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _dash_img->getFrameX(), _moveDirection, 100);
+			//IMAGE->findImage("대쉬")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _dash_img->getFrameX(), _moveDirection, 100);
+			ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("대쉬"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _dash_img->getFrameX(), _moveDirection, 100);
 			break;
 		case STATE::ATTSTAFF:
-			IMAGE->findImage("기본공격")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _attStaff_img->getFrameX(), _moveDirection, 100);
+			//IMAGE->findImage("기본공격")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _attStaff_img->getFrameX(), _moveDirection, 100);
+			ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("기본공격"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _attStaff_img->getFrameX(), _moveDirection, 100);
 			break;
 		case STATE::KNOCKBACK:
-			IMAGE->findImage("넉백")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _knockBack_img->getFrameX(), _moveDirection, 100);
+			//IMAGE->findImage("넉백")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _knockBack_img->getFrameX(), _moveDirection, 100);
+			ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("넉백"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _knockBack_img->getFrameX(), _moveDirection, 100);
 			break;
 		}
 	else 
@@ -101,22 +110,28 @@ void Cplayer::render(HDC hdc)
 		switch (_state)
 		{
 		case STATE::IDLE:
-			IMAGE->frameRender("걷기", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection);
+			//IMAGE->frameRender("걷기", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection);
+			ZORDER->ZorderFrameRender(IMAGE->findImage("걷기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection);
 			break;
 		case STATE::WALK:
-			IMAGE->frameRender("걷기", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _walk_img->getFrameX(), _moveDirection);
+			//IMAGE->frameRender("걷기", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _walk_img->getFrameX(), _moveDirection);
+			ZORDER->ZorderFrameRender(IMAGE->findImage("걷기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _walk_img->getFrameX(), _moveDirection);
 			break;
 		case STATE::RUN:
-			IMAGE->frameRender("달리기", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _run_img->getFrameX(), _moveDirection);
+			//IMAGE->frameRender("달리기", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _run_img->getFrameX(), _moveDirection);
+			ZORDER->ZorderFrameRender(IMAGE->findImage("달리기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _run_img->getFrameX(), _moveDirection);
 			break;
 		case STATE::DASH:
-			IMAGE->frameRender("대쉬", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _dash_img->getFrameX(), _moveDirection);
+			//IMAGE->frameRender("대쉬", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _dash_img->getFrameX(), _moveDirection);
+			ZORDER->ZorderFrameRender(IMAGE->findImage("대쉬"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _dash_img->getFrameX(), _moveDirection);
 			break;
 		case STATE::ATTSTAFF:
-			IMAGE->frameRender("기본공격", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _attStaff_img->getFrameX(), _moveDirection);
+			//IMAGE->frameRender("기본공격", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _attStaff_img->getFrameX(), _moveDirection);
+			ZORDER->ZorderFrameRender(IMAGE->findImage("기본공격"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _attStaff_img->getFrameX(), _moveDirection);
 			break;
 		case STATE::KNOCKBACK:
-			IMAGE->frameRender("넉백", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _knockBack_img->getFrameX(), _moveDirection);
+			//IMAGE->frameRender("넉백", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _knockBack_img->getFrameX(), _moveDirection);
+			ZORDER->ZorderFrameRender(IMAGE->findImage("넉백"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _knockBack_img->getFrameX(), _moveDirection);
 			break;
 		}
 	}
