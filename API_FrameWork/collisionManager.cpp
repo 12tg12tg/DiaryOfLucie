@@ -2,7 +2,8 @@
 #include "collisionManager.h"
 #include"bulletManager.h"
 #include"monsterManager.h"
-
+#include"mapManager.h"
+#include"Cplayer.h"
 collisionManager::collisionManager()
 {
 }
@@ -28,6 +29,7 @@ void collisionManager::update()
 	bulletTomon();
 	playerTomon();
 	mapToplayer();
+	playerToDoor();
 }
 
 void collisionManager::bulletToplayer()
@@ -429,7 +431,37 @@ void collisionManager::playerTomon()
 
 void collisionManager::mapToplayer()
 {
+	
+}
 
+void collisionManager::checkUp()
+{
+	for (int i = PLAYER->getPlayerAddress().y - 10; i < PLAYER->getPlayerAddress().y + 10; i++)
+	{
+		COLORREF  color = GetPixel(IMAGE->findImage("95ÇÈ¼¿")->getMemDC(), PLAYER->getPlayerAddress().x, i - 10);
+
+		int r = GetRValue(color);
+		int g = GetGValue(color);
+		int b = GetBValue(color);
+
+		if (!(r == 255 && g == 0 && b == 255))
+		{
+	
+		}
+
+	}
+}
+
+void collisionManager::checkRight()
+{
+}
+
+void collisionManager::checkLeft()
+{
+}
+
+void collisionManager::checkDown()
+{
 }
 
 void collisionManager::mapTobullet()
@@ -438,6 +470,15 @@ void collisionManager::mapTobullet()
 
 void collisionManager::mapTomon()
 {
+}
+
+void collisionManager::playerToDoor()
+{
+	if (IntersectRect(&temprc, &PLAYER->getPlayerAddress().playerRect, &mapm->getRightDoor()))
+	{
+		mapm->setPosNum(mapm->getPosNum() + 1);
+		PLAYER->getPlayerAddress().x = 0 + 300;
+	}
 }
 
 void collisionManager::checkMonsterRectPlayer(monster* monster)

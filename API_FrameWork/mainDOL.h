@@ -4,7 +4,6 @@
 #include "collisionManager.h"
 #include "monsterManager.h"
 #include "mapManager.h"
-#include "Cmap.h"
 class mainDOL : public gameNode
 {
 //DOL 관련 매니저 인스턴스
@@ -12,7 +11,7 @@ private:
 	bulletManager*		_bm;
 	collisionManager*	_cm;
 	monsterManager*		_mm;
-	Cmap*			_mapm;
+	mapManager*			_mapm;
 //-----------------------------
 //각자의 브렌치 인스턴스
 private:
@@ -45,6 +44,7 @@ public:
 		_bm->setIsDebug(_isDebug);
 		_cm->setIsDebug(_isDebug);
 		_mm->setIsDebug(_isDebug);
+		_mapm->setIsDebug(_isDebug);
 	}
 };
 
