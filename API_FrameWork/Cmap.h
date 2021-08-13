@@ -84,7 +84,7 @@ public:
 	void release();
 	void update();
 	void render();
-	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+	
 };
 
 

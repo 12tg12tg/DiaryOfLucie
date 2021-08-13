@@ -14,8 +14,7 @@ collisionManager::~collisionManager()
 
 HRESULT collisionManager::init()
 {
-	_probeX = _x + PLAYER->getPlayerAddress().x / 2;
-	_probeY = _y + PLAYER->getPlayerAddress().y / 2;
+	
 	return S_OK;
 }
 
@@ -432,21 +431,35 @@ void collisionManager::playerTomon()
 void collisionManager::mapToplayer()
 {
 	
+		checkUp();
+	
+	
+		checkDown();
+	
+		checkLeft();
+	
+		checkRight();
+
 }
 
 void collisionManager::checkUp()
 {
-	for (int i = PLAYER->getPlayerAddress().y - 10; i < PLAYER->getPlayerAddress().y + 10; i++)
+	for (int i = PLAYER->getPlayerAddress().y -1; i > PLAYER->getPlayerAddress().y -10; i--)
 	{
-		COLORREF  color = GetPixel(IMAGE->findImage("95ÇÈ¼¿")->getMemDC(), PLAYER->getPlayerAddress().x, i - 10);
+		COLORREF  color = GetPixel(IMAGE->findImage("95ÇÈ¼¿")->getMemDC(), PLAYER->getPlayerAddress().x, i);
 
 		int r = GetRValue(color);
 		int g = GetGValue(color);
 		int b = GetBValue(color);
 
-		if (!(r == 255 && g == 0 && b == 255))
+		if ((r == 255 && g == 0 && b == 255))
 		{
-	
+			PLAYER->getW() = true;
+		}
+		else
+		{
+			PLAYER->getW() = false;
+			PLAYER->getPlayerAddress().y++;
 		}
 
 	}
@@ -454,14 +467,69 @@ void collisionManager::checkUp()
 
 void collisionManager::checkRight()
 {
+	for (int i = PLAYER->getPlayerAddress().x + 1; i < PLAYER->getPlayerAddress().x +10; i++)
+	{
+		COLORREF  color = GetPixel(IMAGE->findImage("95ÇÈ¼¿")->getMemDC(), i, PLAYER->getPlayerAddress().y);
+
+		int r = GetRValue(color);
+		int g = GetGValue(color);
+		int b = GetBValue(color);
+
+		if ((r == 255 && g == 0 && b == 255))
+		{
+			PLAYER->getD() = true;
+		}
+		else
+		{
+			PLAYER->getD() = false;
+			PLAYER->getPlayerAddress().x--;
+		}
+	}
 }
 
 void collisionManager::checkLeft()
 {
+	for (int i = PLAYER->getPlayerAddress().x - 1; i > PLAYER->getPlayerAddress().x -10; i--)
+	{
+		COLORREF  color = GetPixel(IMAGE->findImage("95ÇÈ¼¿")->getMemDC(), i, PLAYER->getPlayerAddress().y);
+
+		int r = GetRValue(color);
+		int g = GetGValue(color);
+		int b = GetBValue(color);
+
+		if ((r == 255 && g == 0 && b == 255))
+		{
+			PLAYER->getA() = true;
+		}
+		else
+		{
+			PLAYER->getA() = false;
+			PLAYER->getPlayerAddress().x++;
+		}
+	}
 }
 
 void collisionManager::checkDown()
 {
+	for (int i = PLAYER->getPlayerAddress().y +1; i < PLAYER->getPlayerAddress().y +10; i++)
+	{
+		COLORREF  color = GetPixel(IMAGE->findImage("95ÇÈ¼¿")->getMemDC(), PLAYER->getPlayerAddress().x, i);
+
+		int r = GetRValue(color);
+		int g = GetGValue(color);
+		int b = GetBValue(color);
+
+		if ((r == 255 && g == 0 && b == 255))
+		{
+			PLAYER->getS() = true;
+		}
+		else
+		{
+			PLAYER->getS() = false;
+			PLAYER->getPlayerAddress().y--;
+		}
+
+	}
 }
 
 void collisionManager::mapTobullet()

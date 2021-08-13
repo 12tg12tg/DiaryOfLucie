@@ -61,14 +61,7 @@ public:
 	Cmap4* getCmap4Instance() { return _Cmap4; }
 	Cmap5* getCmap5Instance() { return _Cmap5; }
 	MAP _map;
-	void setIsDebug(bool isDebug) {
-		_isDebug = isDebug;
-		_Cmap1->setIsDebug(_isDebug);
-		_Cmap2->setIsDebug(_isDebug);
-		_Cmap3->setIsDebug(_isDebug);
-		_Cmap4->setIsDebug(_isDebug);
-		_Cmap5->setIsDebug(_isDebug);
-	}
+	
 	int getPosNum() { return _map.positionNum; }
 	void setPosNum(int positionNum) { _map.positionNum = positionNum; }
 

@@ -148,11 +148,15 @@ void Cplayer::imageInit()
 
 void Cplayer::inputCheck()
 {
+<<<<<<< HEAD
 	if (INPUT->isStayKeyDown('R')) {
 		PLAYERDATA->setpresenthp(4, 1);
 		_state = STATE::IDLE;
 	}
+		if (INPUT->isStayKeyDown('W'))
+=======
 	if (INPUT->isStayKeyDown('W')&& getW() == true)
+>>>>>>> 960f2274106cdfdecab3a82f3032df5d4b093211
 		_inputDirection.isUp = true;
 	else _inputDirection.isUp = false;
 	if (INPUT->isStayKeyDown('D') && getD() == true)
