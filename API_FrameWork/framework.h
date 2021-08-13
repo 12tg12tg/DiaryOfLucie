@@ -23,6 +23,7 @@ using namespace std;
 #include<map>
 #include<vector>
 #include <string>
+#include <algorithm>
 
 //=======================//
 //	내가만든 헤더파일		//
@@ -39,7 +40,7 @@ using namespace std;
 #include"randomFunction.h"
 #include"txtData.h"
 #include"OBBCollision.h"
-
+#include"Zorder.h"
 #include"Cplayer.h"
 
 //=======================//
@@ -56,6 +57,7 @@ using namespace std;
 #define ANIMATION		animationManager::getSingleton()
 #define EFFECT			effectManager::getSingleton()
 #define OBB				OBBCollision::getSingleton()
+#define ZORDER			Zorder::getSingleton()
 
 #define PLAYER			Cplayer::getSingleton()
 
@@ -64,8 +66,8 @@ using namespace std;
 //=================//
 
 #define WINNAME			(LPTSTR)(TEXT("루시의 일기"))
-#define WINSTARTX		100//시작점
-#define WINSTARTY		100
+#define WINSTARTX		50//시작점
+#define WINSTARTY		50
 //#define WINSIZEX		1500
 //#define WINSIZEX		640
 #define WINSIZEX		1024

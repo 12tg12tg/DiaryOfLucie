@@ -22,7 +22,7 @@ struct tagBullet
 	bool fire;
 	int count;
 	int rendercount;
-	int plussize;
+	float plussize;
 	bool isPlayerBullet;
 	bool iscollison;
 	int alpha;

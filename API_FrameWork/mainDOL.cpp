@@ -33,7 +33,6 @@ HRESULT mainDOL::init()
 
 
 
-
 	return S_OK;
 }
 
@@ -81,7 +80,7 @@ void mainDOL::render()
 
 	PLAYER->render(getMemDC());
 	EFFECT->render();
-
+	ZORDER->ZorderTotalRender(getMemDC());
 
 
 

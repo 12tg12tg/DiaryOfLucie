@@ -15,14 +15,14 @@
 7.	CmHomingBullet	/   몬스터총알2
 8.	CmPoisonBullet  /	독총알
 9.	CmNiddleBullet  /	가시 , 경고
-9.	CmLongPoisonBullet /	독총알
-10.	CmSBoss1Bullet  /	버블 , 몬스터총알
-11.	CmFBoss1Bullet  /    투명,가시,경고
-12. CmFBoss2Bullet	/	가시,경고
-13. CmFBoss3Bullet	/	몬스터총알
-14. CmTBoss1Bullet	/	브레스
-15. CmTBoss2Bullet	/	나무보스총알
-15. CmTBoss3Bullet	/	몬스터총알
+10.	CmLongPoisonBullet /	독총알
+11.	CmSBoss1Bullet  /	버블 , 몬스터총알
+12.	CmFBoss1Bullet  /    투명,가시,경고
+13. CmFBoss2Bullet	/	가시,경고
+14. CmFBoss3Bullet	/	몬스터총알
+15. CmTBoss1Bullet	/	브레스
+16. CmTBoss2Bullet	/	나무보스총알
+17. CmTBoss3Bullet	/	몬스터총알
 */
 //////////////////////////////////////////////////////////////
 /////	CpMagicBullet!	    	마법총알!	//////////////////
@@ -56,7 +56,10 @@ void CpMagicBullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->render(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
+		if (_isDebug)
+			ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+			_viBullet->rc.left, _viBullet->rc.top);
 	}
 }
 void CpMagicBullet::fire(float x, float y, float angle,int plussize)
@@ -130,8 +133,9 @@ void CpArrowBullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-
-		_viBullet->bulletImage->rotateRender(getMemDC(), _viBullet->rc.right - (_viBullet->rc.right - _viBullet->rc.left) / 2, _viBullet->rc.bottom - (_viBullet->rc.bottom - _viBullet->rc.top) / 2, _viBullet->rotateangle);
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderRotateRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+			RecCenX(_viBullet->rc), RecCenY(_viBullet->rc), _viBullet->rotateangle);
 	}
 }
 
@@ -210,8 +214,10 @@ void CmTripleBullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->render(getMemDC(), _viBullet->rc.left, _viBullet->rc.top,_viBullet->plussize);
-
+		if (_isDebug)
+			ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderStretchRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+			RecCenX(_viBullet->rc), RecCenY(_viBullet->rc), _viBullet->plussize);
 	}
 }
 
@@ -221,9 +227,9 @@ void CmTripleBullet::fire(float x, float y, float angle, int plussize)
 	for (int i = 0; i < 3; i++)
 	{
 		ZeroMemory(&bullet, sizeof(tagBullet));
-		bullet.plussize = plussize;
 		bullet.bulletImage = new  image;
 		bullet.bulletImage = IMAGE->addImage("작은몬스터총알", "images/bullet_bmp/MBullet_normal.bmp", 12 , 12, true);
+		bullet.plussize = 1 + (double)plussize/bullet.bulletImage->getWidth();
 		bullet.angle = angle - 0.2 + 0.2 * i;
 		bullet.speed = 5.0f;
 		bullet.x = bullet.fireX = x;
@@ -293,7 +299,9 @@ void CmCircleBullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->render(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+			_viBullet->rc.left, _viBullet->rc.top);
 	}
 }
 
@@ -374,12 +382,16 @@ void CmReturnBullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->rotateRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->angle += 0.05 );
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderRotateRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+			RecCenX(_viBullet->rc), RecCenY(_viBullet->rc), _viBullet->angle += 0.05);
 	}
 	_viBullet2 = _vBullet2.begin();
 	for (_viBullet2; _viBullet2 != _vBullet2.end(); ++_viBullet2)
 	{
-		_viBullet2->bulletImage2->render(getMemDC(), _viBullet2->rc.left, _viBullet2->rc.top);
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet2->rc, ZCOL1);
+		ZORDER->ZorderRender(_viBullet2->bulletImage2, ZUNIT, _viBullet2->rc.bottom,
+			_viBullet2->rc.left, _viBullet2->rc.top);
 	}
 }
 
@@ -534,7 +546,9 @@ void CmWideBullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->render(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+			_viBullet->rc.left, _viBullet->rc.top);
 	}
 }
 
@@ -637,12 +651,9 @@ void CmHomingBullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->rotateRender(getMemDC(), _viBullet->rc.right - (_viBullet->rc.right - _viBullet->rc.left) / 2, _viBullet->rc.bottom - (_viBullet->rc.bottom - _viBullet->rc.top) / 2, _viBullet->angle - PI/2);
-		if (_isDebug)
-		{
-		
-			if (_isDebug)RectangleMakeRotateCenter(getMemDC(), _viBullet->rc, _viBullet->angle + PI/2);
-		}
+		if (_isDebug) ZORDER->ZorderRectangleRotate(_viBullet->rc, ZUNIT, _viBullet->angle + PI_2);
+		ZORDER->ZorderRotateRender(_viBullet->bulletImage, ZUNIT, RotateRectBottom(_viBullet->rc, _viBullet->angle + PI_2),
+			RecCenX(_viBullet->rc), RecCenY(_viBullet->rc), _viBullet->angle + PI_2);
 	}
 
 }
@@ -750,7 +761,9 @@ void CmPoisonBullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->render(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+			_viBullet->rc.left, _viBullet->rc.top);
 	}
 }
 
@@ -905,14 +918,16 @@ void CmNiddleBullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->alphaRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->alpha);
-
+		ZORDER->ZorderAlphaRender(_viBullet->bulletImage, ZCOL2, _viBullet->rc.bottom,
+			_viBullet->rc.left, _viBullet->rc.top, _viBullet->alpha);
 	}
 
 	_viBullet2 = _vBullet2.begin();
 	for (_viBullet2; _viBullet2 != _vBullet2.end(); ++_viBullet2)
 	{
-		_viBullet2->bulletImage2->render(getMemDC(), _viBullet2->rc.left, _viBullet2->rc.top);
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet2->rc, ZCOL1);
+		ZORDER->ZorderRender(_viBullet2->bulletImage2, ZUNIT, _viBullet2->rc.bottom,
+			_viBullet2->rc.left, _viBullet2->rc.top);
 		;
 	}
 }
@@ -1054,8 +1069,9 @@ void CmLongPoisonBullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->render(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
-
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+			_viBullet->rc.left, _viBullet->rc.top);
 	}
 }
 
@@ -1139,12 +1155,16 @@ void CmSBoss1Bullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->alphaRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->alpha);
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderAlphaRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+			_viBullet->rc.left, _viBullet->rc.top, _viBullet->alpha);
 	}
 	_viBullet2 = _vBullet2.begin();
 	for (_viBullet2; _viBullet2 != _vBullet2.end(); ++_viBullet2)
 	{
-		_viBullet2->bulletImage2->render(getMemDC(), _viBullet2->rc.left, _viBullet2->rc.top);
+		if(_isDebug) ZORDER->ZorderRectangle(_viBullet2->rc, ZCOL1);
+		ZORDER->ZorderRender(_viBullet2->bulletImage2, ZUNIT, _viBullet2->rc.bottom,
+			_viBullet2->rc.left, _viBullet2->rc.top);
 	}
 }
 
@@ -1307,20 +1327,19 @@ void CmFBoss1Bullet::update()
 
 void CmFBoss1Bullet::render()
 {
-
-
 	_viBullet2 = _vBullet2.begin();
 	for (_viBullet2; _viBullet2 != _vBullet2.end(); ++_viBullet2)
 	{
-		_viBullet2->bulletImage2->alphaRender(getMemDC(), _viBullet2->rc.left, _viBullet2->rc.top, _viBullet2->alpha);
-
+		ZORDER->ZorderAlphaRender(_viBullet2->bulletImage2, ZCOL2, _viBullet2->rc.bottom,
+			_viBullet2->rc.left, _viBullet2->rc.top, _viBullet2->alpha);
 	}
 
 	_viBullet3 = _vBullet3.begin();
 	for (_viBullet3; _viBullet3 != _vBullet3.end(); ++_viBullet3)
 	{
-		_viBullet3->bulletImage3->render(getMemDC(), _viBullet3->rc.left, _viBullet3->rc.top);
-		
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet3->rc, ZCOL1);
+		ZORDER->ZorderRender(_viBullet3->bulletImage3, ZUNIT, _viBullet3->rc.bottom,
+			_viBullet3->rc.left, _viBullet3->rc.top);
 	}
 
 }
@@ -1534,13 +1553,16 @@ void CmFBoss2Bullet::render()
 	{
 		if (_viBullet->fire)
 		{
-			_viBullet->bulletImage->alphaRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->alpha);
+			ZORDER->ZorderAlphaRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+				_viBullet->rc.left, _viBullet->rc.top, _viBullet->alpha);
 		}
 	}
 	_viBullet2 = _vBullet2.begin();
 	for (_viBullet2; _viBullet2 != _vBullet2.end(); ++_viBullet2)
 	{
-		_viBullet2->bulletImage2->render(getMemDC(), _viBullet2->rc.left, _viBullet2->rc.top);
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet2->rc, ZCOL1);
+		ZORDER->ZorderRender(_viBullet2->bulletImage2, ZUNIT, _viBullet2->rc.bottom,
+			_viBullet2->rc.left, _viBullet2->rc.top);
 		;
 	}
 }
@@ -1698,8 +1720,9 @@ void CmFBoss3Bullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->alphaRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->alpha);
-
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderAlphaRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+			_viBullet->rc.left, _viBullet->rc.top, _viBullet->alpha);
 	}
 }
 
@@ -2060,7 +2083,9 @@ void CmTBoss1Bullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->alphaRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->alpha);
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderAlphaRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+			_viBullet->rc.left, _viBullet->rc.top, _viBullet->alpha);
 	}
 }
 
@@ -2154,10 +2179,14 @@ void CmTBoss2Bullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->frameRender(getMemDC(), _viBullet->x - _viBullet->bulletImage->getFrameWidth()/2, _viBullet->y - _viBullet->bulletImage->getFrameHeight()/2, _viBullet->bulletImage->getFrameX(), 0);
+		//_viBullet->bulletImage->frameRender(getMemDC(), _viBullet->x - _viBullet->bulletImage->getFrameWidth()/2, _viBullet->y - _viBullet->bulletImage->getFrameHeight()/2, _viBullet->bulletImage->getFrameX(), 0);
+		ZORDER->ZorderFrameRender(_viBullet->bulletImage, ZUNIT, _viBullet->y + _viBullet->bulletImage->getFrameHeight() / 2,
+			_viBullet->x - _viBullet->bulletImage->getFrameWidth() / 2,
+			_viBullet->y - _viBullet->bulletImage->getFrameHeight() / 2,
+			_viBullet->bulletImage->getFrameX(), 0);
 		_viBullet->rendercount++;
 
-		if (_isDebug) RectangleMake(getMemDC(), _viBullet->rc);
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet->rc, ZCOL3);
 
 		if (_viBullet->rendercount % 10 == 0)
 		{
@@ -2252,7 +2281,9 @@ void CmTBoss3Bullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		_viBullet->bulletImage->render(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+			_viBullet->rc.left, _viBullet->rc.top);
 	}
 }
 

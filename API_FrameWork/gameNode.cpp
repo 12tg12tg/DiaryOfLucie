@@ -39,7 +39,6 @@ HRESULT gameNode::init(bool managerInit)
 		SOUND->init();
 	}
 
-
 	return S_OK;
 }
 
@@ -68,6 +67,7 @@ void gameNode::release()
 		ANIMATION->releaseSingleton();
 		EFFECT->releaseSingleton();
 		OBB->releaseSingleton();
+		ZORDER->releaseSingleton();
 		
 		SCENE->release();
 		IMAGE->release();
@@ -75,6 +75,7 @@ void gameNode::release()
 		SOUND->release();
 		ANIMATION->release();
 		EFFECT->release();
+		ZORDER->release();
 
 		//플레이어 해제
 		PLAYER->release();

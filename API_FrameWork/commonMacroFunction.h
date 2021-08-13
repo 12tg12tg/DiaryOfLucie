@@ -40,6 +40,31 @@ inline int RecCenY(RECT& rc)
 {
 	return (rc.top + rc.bottom) / 2;
 }
+//회전 RECT 바닥(ZORDER bottom 값 구할때 용이)
+inline int RotateRectBottom(RECT& rc, float radian)
+{
+	int centerx = RecCenX(rc);
+	int centery = RecCenY(rc);
+
+	int width = rc.right - rc.left;
+	int height = rc.bottom - rc.top;
+	float diagonal = sqrt(width * width + height * height);
+
+	float leftTopPointAngle = UTIL::getAngle(centerx, centery, rc.left, rc.top);
+	float rightTopPointAngle = UTIL::getAngle(centerx, centery, rc.right, rc.top);
+	float rightBottomPointAngle = UTIL::getAngle(centerx, centery, rc.right, rc.bottom);
+	float leftBottomPointAngle = UTIL::getAngle(centerx, centery, rc.left, rc.bottom);
+
+	float min = centery - sinf(leftTopPointAngle + radian) * diagonal / 2;
+	min = (min < centery - sinf(leftBottomPointAngle + radian) * diagonal / 2) ?
+		min : centery - sinf(leftBottomPointAngle + radian) * diagonal / 2;
+	min = (min < centery - sinf(rightBottomPointAngle + radian) * diagonal / 2) ?
+		min : centery - sinf(rightBottomPointAngle + radian) * diagonal / 2;
+	min = (min < centery - sinf(rightTopPointAngle + radian) * diagonal / 2) ?
+		min : centery - sinf(rightTopPointAngle + radian) * diagonal / 2;
+
+	return min;
+}
 
 //사각형 그리기(좌상단기준)
 inline void RectangleMake(HDC hdc, int x, int y, int width, int height)
@@ -59,7 +84,6 @@ inline void RectangleMakeRotateCenter(HDC hdc, RECT rect, float radianAngle)
 {
 	int centerx = rect.left + (rect.right - rect.left) / 2;
 	int centery = rect.top + (rect.bottom - rect.top) / 2;
-	POINT center = { centerx , centery };
 
 	int width = rect.right - rect.left;
 	int height = rect.bottom - rect.top;

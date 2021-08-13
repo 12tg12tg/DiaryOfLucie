@@ -179,6 +179,7 @@
     <ClInclude Include="timer.h" />
     <ClInclude Include="txtData.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="Zorder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
@@ -210,6 +211,7 @@
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="txtData.cpp" />
     <ClCompile Include="utils.cpp" />
+    <ClCompile Include="Zorder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="API_FrameWork.rc" />

@@ -65,8 +65,12 @@ private:
 	//알파용
 	BLENDFUNCTION	_blendFunc;			//알파블렌드를 사용하기위한 정보
 	LPIMAGE_INFO	_blendImage;		//알파블렌드를 사용하기위한 이미지 정보
+	
+	//회전용
 	LPIMAGE_INFO	_rotateImage;		//회전이미지
 
+	//스트레치용
+	LPIMAGE_INFO	_stretchImage;		//스트레치 이미지
 
 public:
 	//비트맵 초기화
@@ -77,8 +81,13 @@ public:
 	//프레임이지초기화
 	HRESULT init(const char* fileName, const int width, const int height, const int frameX, const int frameY, bool isTrans = false, COLORREF transColor = RGB(255, 0, 255));
 	HRESULT init(const char* fileName, const float x, const float y, const int width, const int height, const int frameX, const int frameY, bool isTrans = false, COLORREF transColor = RGB(255, 0, 255));
-	//회전을 위한 초기화
+	
+	//특수초기화(hdc 추가 생성)
 	HRESULT initForRotate();
+	HRESULT initForAlphaBlend();
+	HRESULT initForStretch();
+	HRESULT initForStretch(int x, int y);
+	
 	//투명값 셋팅
 	void setTransColor(bool isTrans, COLORREF transColor);
 	
@@ -87,13 +96,11 @@ public:
 	//렌더
 	void render(HDC hdc);
 	void render(HDC hdc, const int destX, const int destY);
-	void render(HDC hdc, const int destX, const int destY,int plussize);
 	void render(HDC hdc, const int destX, const int destY, const int sourX, const int sourY, const int sourWidth, const int sourheight);
 
 	//프레임 렌더
 	void frameRender(HDC hdc);
 	void frameRender(HDC hdc, const int destX, const int destY);
-	void frameRender(HDC hdc, const int destX, const int destY, int plusSize);
 	void frameRender(HDC hdc, const int destX, const int destY, const int currentFrameX, const int currentFrameY);
 
 	//루프 렌더
@@ -112,6 +119,19 @@ public:
 	//회전 랜더
 	void rotateRender(HDC hdc, float centerX, float centerY, float angle);
 	void rotateFrameRender(HDC hdc, float centerX, float centerY, const int frameX, const int frameY, float angle);
+	void rotateAlphaRender(HDC hdc, float centerX, float centerY, float angle, BYTE alpha);
+	void rotateAlphaFrameRender(HDC hdc, float centerX, float centerY, int frameX, int frameY, float angle, BYTE alpha);
+	void rotateStretchRender(HDC hdc, float centerX, float centerY, float angle, float ratio);
+	void rotateStretchFrameRender(HDC hdc, float centerX, float centerY, int frameX, int frameY, float angle, float ratio);
+
+
+	//스트레치 랜더
+	void stretchRender(HDC hdc, int centerX, int centerY, float ratio);
+	void stretchRender(HDC hdc, int centerX, int centerY, int newWidth, int newHeight);
+	void stretchFrameRender(HDC hdc, int centerX, int centerY, int currentFrameX, int currentFrameY, float ratio);
+	void stretchFrameRender(HDC hdc, int centerX, int centerY, int currentFrameX, int currentFrameY, int newWidth, int newHeight);
+
+
 
 	//DC를 가져와라
 	inline HDC getMemDC()const { return _imageInfo->hMemDC; }
@@ -137,10 +157,6 @@ public:
 	inline void setWidth(int width)const { _imageInfo->width = width; }
 	inline void setHeight(int height)const { _imageInfo->height = height; }
 	
-
-	////가로세로 재설정
-	//inline void setWidth(const int width) { _imageInfo->width = width; }
-	//inline void setHeight(const int height) { _imageInfo->height = height; }
 
 	//바운딩 박스(충돌용)
 	inline RECT getBoundingBox()
