@@ -13,9 +13,9 @@ HRESULT CplayerData::init()
 	_defaultHp = 1;
 	_defaultMaxHp = _defaultHp;
 	_equipHP = 0;
-	_MaxequipHP = 0;
+	_MaxEquipHP = 0;
 	_presentHP = _lastHP+_defaultHp+_equipHP;
-	_MaxHP = _lastHP + _defaultMaxHp + _MaxequipHP;
+	_MaxHP = _lastHP + _defaultMaxHp + _MaxEquipHP;
 
 	_defaultMP=3;
 	_equipMP = 0;
@@ -33,7 +33,7 @@ void CplayerData::release(){}
 void CplayerData::update()
 {
 	_presentHP = _defaultHp + _equipHP + _lastHP;
-	_MaxHP = _defaultMaxHp + _MaxequipHP + _lastHP;
+	_MaxHP = _defaultMaxHp + _MaxEquipHP + _lastHP;
 }
 
 void CplayerData::render(HDC hdc)

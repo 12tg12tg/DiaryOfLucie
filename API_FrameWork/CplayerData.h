@@ -33,7 +33,7 @@ private:
 	int _defaultMaxHp;
 	int _equipHP;
 	int _presentHP;
-	int	_MaxequipHP;
+	int	_MaxEquipHP;
 	int _MaxHP;
 
 
