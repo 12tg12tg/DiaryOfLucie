@@ -41,6 +41,7 @@ using namespace std;
 #include"OBBCollision.h"
 
 #include"Cplayer.h"
+#include"CplayerData.h"
 
 //=======================//
 //		Manager			//
@@ -58,7 +59,7 @@ using namespace std;
 #define OBB				OBBCollision::getSingleton()
 
 #define PLAYER			Cplayer::getSingleton()
-
+#define PLAYERDATA		CplayerDate::getSingleton()
 //===================//
 //	매크로 설정부분	//
 //=================//

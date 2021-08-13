@@ -79,6 +79,8 @@ void gameNode::release()
 		//플레이어 해제
 		PLAYER->release();
 		PLAYER->releaseSingleton();
+		PLAYERDATA->release();
+		PLAYERDATA->releaseSingleton();
 	}
 	ReleaseDC(m_hWnd, _hdc);
 

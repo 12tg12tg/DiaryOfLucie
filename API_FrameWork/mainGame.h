@@ -30,6 +30,7 @@ public:
 			_isDebug = !_isDebug;
 			_mDOL->setIsdebug(_isDebug);
 			PLAYER->setIsDebug(_isDebug);
+			PLAYERDATA->setIsDebug(_isDebug);
 		}
 	}
 };  

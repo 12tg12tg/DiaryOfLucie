@@ -171,6 +171,9 @@
     <ClInclude Include="OBBCollision.h">
       <Filter>manager\OBB</Filter>
     </ClInclude>
+    <ClInclude Include="CplayerData.h">
+      <Filter>DOL\player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -256,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="OBBCollision.cpp">
       <Filter>manager\OBB</Filter>
+    </ClCompile>
+    <ClCompile Include="CplayerData.cpp">
+      <Filter>DOL\player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
