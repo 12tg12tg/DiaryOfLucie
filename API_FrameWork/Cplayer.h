@@ -146,4 +146,8 @@ public:
 	void setBulletManagerMemoryLink(bulletManager* BM) { _Cbullet = BM; }
 	Player& getPlayerAddress() { return _player; }
 	STATE& getSTATEAddress() { return _state; }
+	bool& getW() { return _inputDirection.isUp; }
+	bool& getA(){ return _inputDirection.isLeft; }
+	bool& getS(){ return _inputDirection.isDown; }
+	bool& getD(){ return _inputDirection.isRight; }
 };

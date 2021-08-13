@@ -62,8 +62,6 @@ void Cplayer::render(HDC hdc)
 		TextOut(hdc, 0, WINSIZEY - 80, str, strlen(str));
 		sprintf_s(str, "마우스 위치? %d , %d",m_ptMouse.x,m_ptMouse.y );
 		TextOut(hdc, 0, WINSIZEY - 60, str, strlen(str));
-		/*sprintf_s(str, "점프파워? %f", m_player.jumpPower);
-		TextOut(hdc, 0, 60, str, strlen(str));*/
 	}
 	this->renderDashEffecct(hdc);
 
