@@ -9,7 +9,7 @@ HRESULT mainDOL::init()
 	_bm = new bulletManager;
 	_cm = new collisionManager;
 	_mm = new monsterManager;
-	_mapm = new Cmap;
+	_mapm = new mapManager;
 
 	PLAYER->init();
 	PLAYERDATA->init();
@@ -23,9 +23,9 @@ HRESULT mainDOL::init()
 
 	_cm->setBulletManagerMemoryLink(_bm);	//충돌에서 불릿링크
 	_cm->setMonsterManagerMemoryLink(_mm);	//충돌에서 몬스터링크
-
+	_cm->setmapManagerMemoryLink(_mapm);
 	PLAYER->setBulletManagerMemoryLink(_bm);
-
+	
 
 
 

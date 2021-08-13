@@ -44,10 +44,13 @@ public:
 		_bm->setIsDebug(_isDebug);
 		_cm->setIsDebug(_isDebug);
 		_mm->setIsDebug(_isDebug);
-		_mapm->setIsDebug(_isDebug);
+<<<<<<< HEAD
 
 		PLAYER->setIsDebug(_isDebug);
 		PLAYERDATA->setIsDebug(_isDebug);
+=======
+		_mapm->setIsDebug(_isDebug);
+>>>>>>> 370b858d67108523dd88b6033a8562da6a2674e5
 	}
 };
 
