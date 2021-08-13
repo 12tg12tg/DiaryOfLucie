@@ -33,8 +33,8 @@ HRESULT monsterManager::init()
     _mushman_mushroom->addMonster(200, 300);*/
    /* _mushman->addMonster(WINSIZEX - 50, 300);
     _fairy->addMonster(50, 300);*/
-    _flime->addMonster(WINSIZEX / 2, WINSIZEY / 2);
-    _bossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
+    //_flime->addMonster(WINSIZEX / 2, WINSIZEY / 2);
+    //_bossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
     //_semiBossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
     //_bossflime->addMonster(WINSIZEX/2, WINSIZEY/2);
     //_bossMushmam->addMonster(WINSIZEX/2, WINSIZEY/2);

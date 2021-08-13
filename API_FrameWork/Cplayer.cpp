@@ -125,16 +125,16 @@ void Cplayer::imageInit()
 
 void Cplayer::inputCheck()
 {
-	if (INPUT->isStayKeyDown('W'))
+	if (INPUT->isStayKeyDown('W')&& getW() == true)
 		_inputDirection.isUp = true;
 	else _inputDirection.isUp = false;
-	if (INPUT->isStayKeyDown('D'))
+	if (INPUT->isStayKeyDown('D') && getD() == true)
 		_inputDirection.isRight = true;
 	else _inputDirection.isRight = false;
-	if (INPUT->isStayKeyDown('S'))
+	if (INPUT->isStayKeyDown('S') && getS() == true)
 		_inputDirection.isDown = true;
 	else _inputDirection.isDown = false;
-	if (INPUT->isStayKeyDown('A'))
+	if (INPUT->isStayKeyDown('A') && getA() == true)
 		_inputDirection.isLeft = true;
 	else _inputDirection.isLeft = false;
 	if (INPUT->isOnceKeyDown('Q'))

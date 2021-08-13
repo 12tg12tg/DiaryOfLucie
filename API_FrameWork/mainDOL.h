@@ -44,7 +44,7 @@ public:
 		_bm->setIsDebug(_isDebug);
 		_cm->setIsDebug(_isDebug);
 		_mm->setIsDebug(_isDebug);
-		_mapm->setIsDebug(_isDebug);
+		
 	}
 };
 
