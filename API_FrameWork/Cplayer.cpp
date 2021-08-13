@@ -33,6 +33,8 @@ HRESULT Cplayer::init()
 	imageTopCorrection = 70 - (_player.playerRect.bottom - _player.playerRect.top) / 2 ;
 	shootingCorrection = 20;
 
+	_dieAlpha = 255;
+
 	return S_OK;
 }
 
@@ -40,21 +42,22 @@ void Cplayer::release() {}
 
 void Cplayer::update()
 {
-	this->inputCheck();
-	this->inputDirectionCheck();
-	this->hitStateCheck();
-	this->stateCheck();
-	this->movePlayer();
-	_player.playerRect = RectMakeCenter(_player.x, _player.y, 10, 10);
-	this->setPlayerFrame();
-	
+		this->inputCheck();
+		this->inputDirectionCheck();
+	if (_state != STATE::DIE) 
+	{
+		this->hitStateCheck();
+		this->stateCheck();
+		this->movePlayer();
+		_player.playerRect = RectMakeCenter(_player.x, _player.y, 10, 10);
+		this->setPlayerFrame();
+	}
 }
 
 void Cplayer::render(HDC hdc)
 {
 	char str[256];
 	SetTextColor(hdc, RGB(0, 0, 255));
-
 	if (_isDebug)
 	{
 		RectangleMake(hdc, _player.playerRect); 
@@ -65,7 +68,13 @@ void Cplayer::render(HDC hdc)
 	}
 	this->renderDashEffecct(hdc);
 
-	if (_player.isHit && _hitCount % 10 >= 5)
+	if (_state == STATE::DIE)
+	{
+		IMAGE->findImage("죽기")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 0, 0, _dieAlpha);
+		if (_dieAlpha > 50) 
+			_dieAlpha--;
+	}
+	else if (_player.isHit && _hitCount % 10 >= 5)
 		switch (_state)
 		{
 		case STATE::IDLE:
@@ -112,8 +121,6 @@ void Cplayer::render(HDC hdc)
 		}
 	}
 }
-
-
 void Cplayer::imageInit()
 {
 	_walk_img = IMAGE->addFrameImage("걷기", "images/Player/걷기순서수정.bmp", 300, 800, 3, 8, true, RGB(255, 0, 255));
@@ -121,11 +128,16 @@ void Cplayer::imageInit()
 	_dash_img = IMAGE->addFrameImage("대쉬", "images/Player/대쉬수정.bmp", 600, 800, 6, 8, true, RGB(255, 0, 255));
 	_attStaff_img = IMAGE->addFrameImage("기본공격", "images/Player/기본공격.bmp", 600, 800, 6, 8, true, RGB(255, 0, 255));
 	_knockBack_img = IMAGE->addFrameImage("넉백", "images/Player/피격수정.bmp", 300, 800, 3, 8, true, RGB(255, 0, 255));
+	_die_img = IMAGE->addFrameImage("죽기", "images/Player/사망.bmp", 100, 100, 1, 1, true, RGB(255, 0, 255));
 }
 
 void Cplayer::inputCheck()
 {
-	if (INPUT->isStayKeyDown('W'))
+	if (INPUT->isStayKeyDown('R')) {
+		PLAYERDATA->setpresenthp(4, 1);
+		_state = STATE::IDLE;
+	}
+		if (INPUT->isStayKeyDown('W'))
 		_inputDirection.isUp = true;
 	else _inputDirection.isUp = false;
 	if (INPUT->isStayKeyDown('D'))
@@ -185,7 +197,11 @@ void Cplayer::hitStateCheck()
 
 void Cplayer::stateCheck()
 {
-	if (1 < _hitCount && _hitCount < _knockBackTime)
+	if (PLAYERDATA->getPresentHP() <= 0) 
+	{
+		_state=STATE::DIE;
+	}
+	else if (1 < _hitCount && _hitCount < _knockBackTime)
 	{
 		_state = STATE::KNOCKBACK;
 	}
@@ -446,6 +462,7 @@ void Cplayer::renderDashEffecct(HDC hdc)
 
 void Cplayer::hitPlayer(int bulletX, int bulletY)
 {
+	PLAYERDATA->hitPlayer();
 	_player.isHit = true;
 	_knockBackAngle = UTIL::getAngle(  bulletX, bulletY, _player.x, _player.y);
 }

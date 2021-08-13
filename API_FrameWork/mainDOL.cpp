@@ -1,13 +1,8 @@
 #include "framework.h"
 #include "mainDOL.h"
 
-mainDOL::mainDOL()
-{
-}
-
-mainDOL::~mainDOL()
-{
-}
+mainDOL::mainDOL(){}
+mainDOL::~mainDOL(){}
 
 HRESULT mainDOL::init()
 {
@@ -17,6 +12,8 @@ HRESULT mainDOL::init()
 	_mapm = new Cmap;
 
 	PLAYER->init();
+	PLAYERDATA->init();
+
 	_bm->init();
 	_cm->init();
 	_mm->init();
@@ -64,6 +61,7 @@ void mainDOL::update()
 	_mapm->update();
 
 	PLAYER->update();
+	PLAYERDATA->update();
 	EFFECT->update();
 
 
@@ -79,9 +77,9 @@ void mainDOL::render()
 	_cm->render();
 
 	PLAYER->render(getMemDC());
+	PLAYERDATA->render(getMemDC());
+
 	EFFECT->render();
 	ZORDER->ZorderTotalRender(getMemDC());
-
-
 
 }

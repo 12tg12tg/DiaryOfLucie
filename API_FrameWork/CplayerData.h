@@ -20,6 +20,7 @@ class CplayerData: public Singleton<CplayerData>
 	//소비는 오른쪽에서 왼쪽
 
 private:
+
 	bool _isDebug;
 
 private:
@@ -55,5 +56,6 @@ public:
 
 	void hitPlayer();
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+	int getPresentHP() { return _presentHP; }
+	void setpresenthp(int defalut, int last) { _defaultHp = defalut; _lastHP = last; }
 };
-

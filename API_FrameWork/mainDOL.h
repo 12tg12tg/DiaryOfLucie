@@ -45,6 +45,9 @@ public:
 		_bm->setIsDebug(_isDebug);
 		_cm->setIsDebug(_isDebug);
 		_mm->setIsDebug(_isDebug);
+
+		PLAYER->setIsDebug(_isDebug);
+		PLAYERDATA->setIsDebug(_isDebug);
 	}
 };
 

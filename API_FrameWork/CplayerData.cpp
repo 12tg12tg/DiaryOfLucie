@@ -4,11 +4,13 @@
 
 HRESULT CplayerData::init()
 {
+	_isDebug = false;
+
 	_level = 1;
 	_Critical = 5;
 
 	_lastHP = 1;
-	_defaultHp = 5;
+	_defaultHp = 1;
 	_defaultMaxHp = _defaultHp;
 	_equipHP = 0;
 	_MaxequipHP = 0;
@@ -30,18 +32,23 @@ void CplayerData::release(){}
 
 void CplayerData::update()
 {
+	_presentHP = _defaultHp + _equipHP + _lastHP;
+	_MaxHP = _defaultMaxHp + _MaxequipHP + _lastHP;
 }
 
 void CplayerData::render(HDC hdc)
 {
 	char str[256];
 	SetTextColor(hdc, RGB(0, 0, 255));
-	if(_isDebug){
+
+	if(_isDebug)
+	{
 	//RectangleMake(hdc, _player.playerRect); 
-		sprintf_s(str, "현재 피통? % d",_presentHP);
+		sprintf_s(str, "현재피통? %d",_presentHP);
 		TextOut(hdc, 0, WINSIZEY - 100, str, strlen(str));
 		sprintf_s(str, "최대피통? %d",_MaxHP );
-		TextOut(hdc, 0, WINSIZEY - 120, str, strlen(str));}
+		TextOut(hdc, 0, WINSIZEY - 120, str, strlen(str));
+	}
 }
 
 void CplayerData::hitPlayer()
