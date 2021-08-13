@@ -28,7 +28,7 @@ public:
 	void update();
 	void render();
 
-	void addEffect(string effectKey, char* imageName, int imageW, int imageH, int frameW, int frameH, int fps, float elapsedTime, int buffer, BYTE alpha = 255);
+	void addEffect(string effectKey, char* imageName, float z, int imageW, int imageH, int frameW, int frameH, int fps, float elapsedTime, int buffer, BYTE alpha = 255);
 	void play(string effectKey, int x, int y);
 };
 

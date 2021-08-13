@@ -23,6 +23,7 @@ using namespace std;
 #include<map>
 #include<vector>
 #include <string>
+#include <algorithm>
 
 //=======================//
 //	내가만든 헤더파일		//
@@ -39,7 +40,7 @@ using namespace std;
 #include"randomFunction.h"
 #include"txtData.h"
 #include"OBBCollision.h"
-
+#include"Zorder.h"
 #include"Cplayer.h"
 #include"CplayerData.h"
 
@@ -57,6 +58,7 @@ using namespace std;
 #define ANIMATION		animationManager::getSingleton()
 #define EFFECT			effectManager::getSingleton()
 #define OBB				OBBCollision::getSingleton()
+#define ZORDER			Zorder::getSingleton()
 
 #define PLAYER			Cplayer::getSingleton()
 #define PLAYERDATA		CplayerDate::getSingleton()
