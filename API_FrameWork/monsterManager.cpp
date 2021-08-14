@@ -134,7 +134,7 @@ void monsterManager::update()
     //    //}
     }
 
-
+    _moru->update(_bm);
 }
 
 void monsterManager::render()

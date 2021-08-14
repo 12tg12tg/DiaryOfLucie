@@ -41,6 +41,9 @@ public:
 	bool isClick(string buttonkey);
 	bool isDrag(string buttonkey);
 
+	int getClickSpotX() { return _tempX; }
+	int getClickSpotY() { return _tempY; }
+
 	void setIsDebug(bool isDebug);
 };
 
