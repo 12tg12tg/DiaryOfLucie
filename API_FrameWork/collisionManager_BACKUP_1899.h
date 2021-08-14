@@ -2,6 +2,11 @@
 #include "gameNode.h"
 #include "monster.h"
 #include "OBBCollision.h"
+<<<<<<< HEAD
+#include "Cmap.h"
+
+=======
+>>>>>>> bulletbranch
 class bulletManager;
 class monsterManager;
 class mapManager;
@@ -40,7 +45,13 @@ public:
 	void checkMonRight(monster* monster);
 	void mapTobullet();
 	void mapTomon();
+<<<<<<< HEAD
+
+
+
+=======
 	void playerToDoor();
+>>>>>>> bulletbranch
 	//보조함수
 	void checkMonsterRectColl(monster* monster, bool isBoss);
 	void checkMonsterRectPlayer(monster* monster);

@@ -1,36 +1,35 @@
 #include "framework.h"
 #include "mainDOL.h"
 
-mainDOL::mainDOL()
-{
-}
-
-mainDOL::~mainDOL()
-{
-}
+mainDOL::mainDOL(){}
+mainDOL::~mainDOL(){}
 
 HRESULT mainDOL::init()
 {
 	_bm = new bulletManager;
 	_cm = new collisionManager;
 	_mm = new monsterManager;
-	_mapm = new Cmap;
+	_mapm = new mapManager;
 
 	PLAYER->init();
+	PLAYERDATA->init();
+
 	_bm->init();
 	_cm->init();
 	_mm->init();
-	_mapm->init();
 
 	_mm->setBulletManagerMemoryLink(_bm);	//몬스터에서 블릿링크
 
 	_cm->setBulletManagerMemoryLink(_bm);	//충돌에서 불릿링크
 	_cm->setMonsterManagerMemoryLink(_mm);	//충돌에서 몬스터링크
-
+	_cm->setmapManagerMemoryLink(_mapm);	//충돌에서 맵링크
+	_mapm->setMonsterManagerMemoryLink(_mm);//맵에서 몬스터링크
+	_mapm->setBulletManagerMemoryLink(_bm);//맵에서 불릿링크
 	PLAYER->setBulletManagerMemoryLink(_bm);
+	
 
 
-
+	_mapm->init();
 
 
 	return S_OK;
@@ -65,6 +64,7 @@ void mainDOL::update()
 
 	BUTTON->update();
 	PLAYER->update();
+	PLAYERDATA->update();
 	EFFECT->update();
 
 
@@ -81,9 +81,9 @@ void mainDOL::render()
 
 	BUTTON->render();
 	PLAYER->render(getMemDC());
+	PLAYERDATA->render(getMemDC());
+
 	EFFECT->render();
 	ZORDER->ZorderTotalRender(getMemDC());
-
-
 
 }

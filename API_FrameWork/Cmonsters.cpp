@@ -347,10 +347,10 @@ void Csnaby::checkPlayerXY(Cplayer* py)
 	}
 }
 
-void Csnaby::makeCollisionRect()
+void Csnaby::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 6, _viMonster->y, _viMonster->width, _viMonster->height);
-	_viMonster->footRc = RectMake(_viMonster->rc.left, _viMonster->rc.top + _viMonster->height * 2 / 3, _viMonster->width, _viMonster->height / 3);
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y, iter->width, iter->height);
+	iter->footRc = RectMake(iter->rc.left, iter->rc.top + iter->height * 2 / 3, iter->width, iter->height / 3);
 }
 //////////////////////////////////////////////////////////////
 //////////////////////Cslime!	슬라임!////////////////////////
@@ -716,10 +716,10 @@ void Cslime::checkPlayerXY(Cplayer* py)
 	}
 }
 
-void Cslime::makeCollisionRect()
+void Cslime::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 6, _viMonster->y + _viMonster->img->getFrameWidth() / 4, _viMonster->width, _viMonster->height);
-	_viMonster->footRc = RectMake(_viMonster->rc.left, _viMonster->rc.top + _viMonster->height * 2 / 3, _viMonster->width, _viMonster->height / 3);
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y + iter->img->getFrameWidth() / 4, iter->width, iter->height);
+	iter->footRc = RectMake(iter->rc.left, iter->rc.top + iter->height * 2 / 3, iter->width, iter->height / 3);
 }
 //////////////////////////////////////////////////////////////
 //////////////////////Cmushman!	머쉬맨!///////////////////////
@@ -1082,10 +1082,10 @@ void Cmushman::checkPlayerXY(Cplayer* py)
 	}
 }
 
-void Cmushman::makeCollisionRect()
+void Cmushman::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 6, _viMonster->y, _viMonster->width, _viMonster->height);
-	_viMonster->footRc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 6, _viMonster->y + _viMonster->height * 2 / 3, _viMonster->width, _viMonster->height / 3);
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y, iter->width, iter->height);
+	iter->footRc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y + iter->height * 2 / 3, iter->width, iter->height / 3);
 }
 //////////////////////////////////////////////////////////////
 //////////Cmushman_mushroom!	머쉬맨_머쉬룸!/////////////////
@@ -1344,10 +1344,10 @@ void Cmushman_mushroom::checkPlayerXY(Cplayer* py)
 	}
 }
 
-void Cmushman_mushroom::makeCollisionRect()
+void Cmushman_mushroom::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() * 3 / 8, _viMonster->y + _viMonster->img->getFrameHeight() * 3 / 4, _viMonster->width, _viMonster->height);
-	_viMonster->footRc = RectMake(_viMonster->rc.left, _viMonster->rc.top + _viMonster->height / 2, _viMonster->width, _viMonster->height / 2);
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() * 3 / 8, iter->y + iter->img->getFrameHeight() * 3 / 4, iter->width, iter->height);
+	iter->footRc = RectMake(iter->rc.left, iter->rc.top + iter->height / 2, iter->width, iter->height / 2);
 }
 //////////////////////////////////////////////////////////////
 ////////////////Cfairy!				페어리!///////////////////
@@ -1717,10 +1717,10 @@ void Cfairy::checkPlayerXY(Cplayer* py)
 	}
 }
 
-void Cfairy::makeCollisionRect()
+void Cfairy::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 3, _viMonster->y + _viMonster->img->getFrameHeight() / 5, _viMonster->width, _viMonster->height);
-	_viMonster->footRc = RectMake(_viMonster->rc.left, _viMonster->rc.top + _viMonster->height * 3 / 4, _viMonster->width, _viMonster->height / 4);
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 3, iter->y + iter->img->getFrameHeight() / 5, iter->width, iter->height);
+	iter->footRc = RectMake(iter->rc.left, iter->rc.top + iter->height * 3 / 4, iter->width, iter->height / 4);
 }
 //////////////////////////////////////////////////////////////
 ////////////////Cflime!				꽃!///////////////////////
@@ -2128,10 +2128,10 @@ void Cflime::checkPlayerXY(Cplayer* py)
 	}
 }
 
-void Cflime::makeCollisionRect()
+void Cflime::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() / 4, _viMonster->width, _viMonster->height);
-	_viMonster->footRc = RectMake(_viMonster->rc.left, _viMonster->rc.top + _viMonster->height * 2 / 3, _viMonster->width, _viMonster->height / 3);
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 4, iter->y + iter->img->getFrameHeight() / 4, iter->width, iter->height);
+	iter->footRc = RectMake(iter->rc.left, iter->rc.top + iter->height * 2 / 3, iter->width, iter->height / 3);
 }
 //////////////////////////////////////////////////////////////
 //////////Cboss_slime!		보스슬라임!///////////////////////
@@ -2501,10 +2501,10 @@ void Cboss_slime::checkPlayerXY(Cplayer* py)
 	}
 }
 
-void Cboss_slime::makeCollisionRect()
+void Cboss_slime::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 3, _viMonster->width, _viMonster->height);
-	_viMonster->footRc = RectMake(_viMonster->rc.left, _viMonster->rc.top + _viMonster->height * 2 / 3, _viMonster->width, _viMonster->height / 3);
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 4, iter->y + iter->img->getFrameHeight() * 2 / 3, iter->width, iter->height);
+	iter->footRc = RectMake(iter->rc.left, iter->rc.top + iter->height * 2 / 3, iter->width, iter->height / 3);
 }
 //////////////////////////////////////////////////////////////
 //////////Csemiboss_slime!		준보스슬라임!//////////////////
@@ -2626,7 +2626,7 @@ void Csemiboss_slime::move(bulletManager* bm, Cslime* slm)
 		if (_viMonster->patternCount > 30 && _viMonster->patternCount < 60) {
 			_viMonster->x += cosf(_viMonster->angle) * _viMonster->speed;
 			_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed;
-			makeCollisionRect();
+			makeCollisionRect(_viMonster);
 		}
 		if (_viMonster->patternCount >= 100) {
 			_viMonster->activestate = MONSTERACTIVE::FINDING;
@@ -2637,7 +2637,7 @@ void Csemiboss_slime::move(bulletManager* bm, Cslime* slm)
 	case MONSTERACTIVE::ATTACK:
 		_viMonster->x += cosf(_viMonster->angle) * _viMonster->speed;
 		_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed;
-		makeCollisionRect();
+		makeCollisionRect(_viMonster);
 		if (_viMonster->patternCount < 35) {
 		}
 		else {
@@ -2672,7 +2672,7 @@ void Csemiboss_slime::move(bulletManager* bm, Cslime* slm)
 			if (_viMonster->patternCount > 75 && _viMonster->patternCount < 100) {
 				_viMonster->x += cosf(_viMonster->angle) * _viMonster->speed*2;
 				_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed*2;
-				makeCollisionRect();
+				makeCollisionRect(_viMonster);
 			}
 			if (_viMonster->patternCount % 100 == 0) {
 				//목표 지점과 각 설정
@@ -2698,7 +2698,7 @@ void Csemiboss_slime::move(bulletManager* bm, Cslime* slm)
 		if (_viMonster->patternCount < 35) {
 			_viMonster->x += cosf(_viMonster->angle) * _viMonster->speed;
 			_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed;
-			makeCollisionRect();
+			makeCollisionRect(_viMonster);
 		}
 		else {
 			_viMonster->frameX = 0;
@@ -2876,10 +2876,10 @@ void Csemiboss_slime::checkPlayerXY(Cplayer* py)
 	}
 }
 
-void Csemiboss_slime::makeCollisionRect()
+void Csemiboss_slime::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 3, _viMonster->width, _viMonster->height);
-	_viMonster->footRc = RectMake(_viMonster->rc.left, _viMonster->rc.top + _viMonster->height / 2, _viMonster->width, _viMonster->height / 2);
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 4, iter->y + iter->img->getFrameHeight() * 2 / 3, iter->width, iter->height);
+	iter->footRc = RectMake(iter->rc.left, iter->rc.top + iter->height / 2, iter->width, iter->height / 2);
 }
 //////////////////////////////////////////////////////////////
 //////////Cboss_flime!			보스플라임!////////////////////
@@ -2909,7 +2909,7 @@ void Cboss_flime::update(Cplayer* py, bulletManager* bm)
 	{
 		_viMonster->x = _viMonster->neverchangeX;
 		_viMonster->y = _viMonster->neverchangeY;
-		makeCollisionRect();
+		makeCollisionRect(_viMonster);
 		checkPlayerXY(py);
 		move(bm);
 		checkAngle();
@@ -3248,10 +3248,10 @@ void Cboss_flime::checkPlayerXY(Cplayer* py)
 	}
 }
 
-void Cboss_flime::makeCollisionRect()
+void Cboss_flime::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 6, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 7, _viMonster->width, _viMonster->height);
-	_viMonster->footRc = RectMake(_viMonster->rc.left, _viMonster->rc.top + _viMonster->height * 2 / 3, _viMonster->width, _viMonster->height / 3);
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y + iter->img->getFrameHeight() * 2 / 7, iter->width, iter->height);
+	iter->footRc = RectMake(iter->rc.left, iter->rc.top + iter->height * 2 / 3, iter->width, iter->height / 3);
 }
 //////////////////////////////////////////////////////////////
 //////////Cboss_mushmam!			보스머쉬맘!////////////////
@@ -3415,7 +3415,7 @@ void Cboss_mushmam::move(bulletManager* bm, Cmushmam_mushroom_G* mrG, Cmushmam_m
 		if (_viMonster->patternCount % 100 < 30) {
 			_viMonster->x += cosf(_viMonster->angle) * _viMonster->speed;
 			_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed;
-			makeCollisionRect();
+			makeCollisionRect(_viMonster);
 		}
 		//몇백30이상이면 NONE으로 돌아가기
 		else {
@@ -3603,10 +3603,10 @@ void Cboss_mushmam::checkPlayerXY(Cplayer* py)
 	}
 	
 }
-void Cboss_mushmam::makeCollisionRect()
+void Cboss_mushmam::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 6, _viMonster->y + 2, _viMonster->width, _viMonster->height);
-	_viMonster->footRc = RectMake(_viMonster->rc.left, _viMonster->rc.top + _viMonster->height * 2 / 3, _viMonster->width, _viMonster->height / 3);
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y + 2, iter->width, iter->height);
+	iter->footRc = RectMake(iter->rc.left, iter->rc.top + iter->height * 2 / 3, iter->width, iter->height / 3);
 }
 //////////////////////////////////////////////////////////////
 ///////Cmushmam_mushroom_G!		머쉬맘_녹색머쉬룸!/////////////
@@ -3636,7 +3636,7 @@ void Cmushmam_mushroom_G::update(Cplayer* py, bulletManager* bm)
 	{
 		_viMonster->x = _viMonster->neverchangeX;
 		_viMonster->y = _viMonster->neverchangeY;
-		makeCollisionRect();
+		makeCollisionRect(_viMonster);
 		checkPlayerXY(py);
 		move(bm);
 		checkAngle();
@@ -3805,10 +3805,10 @@ void Cmushmam_mushroom_G::checkPlayerXY(Cplayer* py)
 	_viMonster->patternCount = 0;
 	_viMonster->activestate = MONSTERACTIVE::ATTACK;
 }
-void Cmushmam_mushroom_G::makeCollisionRect()
+void Cmushmam_mushroom_G::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() * 3 / 8, _viMonster->y + _viMonster->img->getFrameHeight() * 3 / 4, _viMonster->width, _viMonster->height);
-	_viMonster->footRc = RectMake(_viMonster->rc.left, _viMonster->rc.top + _viMonster->height / 2, _viMonster->width, _viMonster->height / 2);
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() * 3 / 8, iter->y + iter->img->getFrameHeight() * 3 / 4, iter->width, iter->height);
+	iter->footRc = RectMake(iter->rc.left, iter->rc.top + iter->height / 2, iter->width, iter->height / 2);
 }
 //////////////////////////////////////////////////////////////
 ///////Cmushmam_mushroom_P!		머쉬맘_보라머쉬룸!/////////////
@@ -3838,7 +3838,7 @@ void Cmushmam_mushroom_P::update(Cplayer* py, bulletManager* bm)
 	{
 		_viMonster->x = _viMonster->neverchangeX;
 		_viMonster->y = _viMonster->neverchangeY;
-		makeCollisionRect();
+		makeCollisionRect(_viMonster);
 		checkPlayerXY(py);
 		move(bm);
 		checkAngle();
@@ -3998,10 +3998,10 @@ void Cmushmam_mushroom_P::checkPlayerXY(Cplayer* py)
 	_viMonster->activestate = MONSTERACTIVE::ATTACK;
 }
 
-void Cmushmam_mushroom_P::makeCollisionRect()
+void Cmushmam_mushroom_P::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() * 3 / 8, _viMonster->y + _viMonster->img->getFrameHeight() * 3 / 4, _viMonster->width, _viMonster->height);
-	_viMonster->footRc = RectMake(_viMonster->rc.left, _viMonster->rc.top + _viMonster->height / 2, _viMonster->width, _viMonster->height / 2);
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() * 3 / 8, iter->y + iter->img->getFrameHeight() * 3 / 4, iter->width, iter->height);
+	iter->footRc = RectMake(iter->rc.left, iter->rc.top + iter->height / 2, iter->width, iter->height / 2);
 }
 //////////////////////////////////////////////////////////////
 ///////Cmushmam_mushroom_B!		머쉬맘_파랑머쉬룸!/////////////
@@ -4031,7 +4031,7 @@ void Cmushmam_mushroom_B::update(Cplayer* py, bulletManager* bm)
 	{
 		_viMonster->x = _viMonster->neverchangeX;
 		_viMonster->y = _viMonster->neverchangeY;
-		makeCollisionRect();
+		makeCollisionRect(_viMonster);
 		checkPlayerXY(py);
 		move(bm);
 		checkAngle();
@@ -4191,10 +4191,10 @@ void Cmushmam_mushroom_B::checkPlayerXY(Cplayer* py)
 	_viMonster->activestate = MONSTERACTIVE::ATTACK;
 }
 
-void Cmushmam_mushroom_B::makeCollisionRect()
+void Cmushmam_mushroom_B::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() * 3 / 8, _viMonster->y + _viMonster->img->getFrameHeight() * 3 / 4, _viMonster->width, _viMonster->height);
-	_viMonster->footRc = RectMake(_viMonster->rc.left, _viMonster->rc.top + _viMonster->height / 2, _viMonster->width, _viMonster->height / 2);
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() * 3 / 8, iter->y + iter->img->getFrameHeight() * 3 / 4, iter->width, iter->height);
+	iter->footRc = RectMake(iter->rc.left, iter->rc.top + iter->height / 2, iter->width, iter->height / 2);
 }
 //////////////////////////////////////////////////////////////
 ////////////////Cyggdrasil!		이그드라실!////////////////////
@@ -4686,7 +4686,7 @@ void Cyggdrasil::checkPlayerXY(Cplayer* py)
 	}
 }
 
-void Cyggdrasil::makeCollisionRect()
+void Cyggdrasil::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
 }
 
@@ -4728,7 +4728,7 @@ void Cyggdrasil_bomb::update(Cplayer* py, bulletManager* bm)
 		if (_viMonster->activestate != MONSTERACTIVE::ATTACK) {
 			_viMonster->x = _viMonster->neverchangeX;
 			_viMonster->y = _viMonster->neverchangeY;
-			makeCollisionRect();
+			makeCollisionRect(_viMonster);
 		}
 		stuncheck();
 		checkPlayerXY(py);
@@ -4832,7 +4832,7 @@ void Cyggdrasil_bomb::move(bulletManager* bm)
 			if (_viMonster->angle * 180 / PI > 270) _viMonster->angle-=0.0025f;
 			_viMonster->x += cosf(_viMonster->angle) * _viMonster->speed;
 			_viMonster->y -= sinf(_viMonster->angle) * _viMonster->speed;
-			makeCollisionRect();
+			makeCollisionRect(_viMonster);
 			_viMonster->speed -= 0.25f;
 			if (_viMonster->speed < 0) {
 				_viMonster->speed = 0;
@@ -4936,8 +4936,8 @@ void Cyggdrasil_bomb::checkPlayerXY(Cplayer* py)
 	_viMonster->activestate = MONSTERACTIVE::ATTACK2;
 }
 
-void Cyggdrasil_bomb::makeCollisionRect()
+void Cyggdrasil_bomb::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
-	_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() * 1 / 6, _viMonster->y + _viMonster->img->getFrameHeight() * 1 / 6, _viMonster->width, _viMonster->height);
-	_viMonster->footRc = RectMake(_viMonster->rc.left, _viMonster->rc.top + _viMonster->height / 2, _viMonster->width, _viMonster->height / 2);
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() * 1 / 6, iter->y + iter->img->getFrameHeight() * 1 / 6, iter->width, iter->height);
+	iter->footRc = RectMake(iter->rc.left, iter->rc.top + iter->height / 2, iter->width, iter->height / 2);
 }
