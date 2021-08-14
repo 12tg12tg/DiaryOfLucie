@@ -73,6 +73,12 @@
     <Filter Include="DOL\minimap">
       <UniqueIdentifier>{e40542d0-b522-49a7-98bc-d95f57242400}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DOL\object">
+      <UniqueIdentifier>{42c8022b-306d-41b5-a496-214e49b15675}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="manager\버튼">
+      <UniqueIdentifier>{1aa13093-b110-4d98-a436-6b7fd3d4eff1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -186,8 +192,19 @@
     <ClInclude Include="miniMap.h">
       <Filter>DOL\minimap</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="motherMap.h">
       <Filter>DOL\Map</Filter>
+=======
+    <ClInclude Include="object.h">
+      <Filter>DOL\object</Filter>
+    </ClInclude>
+    <ClInclude Include="moru.h">
+      <Filter>DOL\object</Filter>
+    </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>manager\버튼</Filter>
+>>>>>>> origin/예균작업
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -284,8 +301,19 @@
     <ClCompile Include="miniMap.cpp">
       <Filter>DOL\minimap</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="motherMap.cpp">
       <Filter>DOL\Map</Filter>
+=======
+    <ClCompile Include="object.cpp">
+      <Filter>DOL\object</Filter>
+    </ClCompile>
+    <ClCompile Include="moru.cpp">
+      <Filter>DOL\object</Filter>
+    </ClCompile>
+    <ClCompile Include="button.cpp">
+      <Filter>manager\버튼</Filter>
+>>>>>>> origin/예균작업
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

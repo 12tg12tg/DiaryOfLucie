@@ -15,12 +15,18 @@ Cmap::~Cmap()
 
 HRESULT Cmap::init()
 {
+<<<<<<< HEAD
 	_door._bottomDoor = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200);
 	_door._topDoor = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);
 	_door._rightDoor = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);
 	_door._leftDoor = RectMakeCenter(0, WINSIZEY / 2, 200, 200);
 
 	summonMon(4);
+=======
+	IMAGE->addImage("95¹è°æ", "images/map/ground95.bmp", 1104, 960, true, RGB(255, 0, 255));
+	IMAGE->addImage("95ÇÈ¼¿", "images/map/!m95.bmp", 1104, 960, true, RGB(255, 0, 255));
+	IMAGE->addImage("95°¡¸²", "images/map/par95.bmp", 1104, 960, true, RGB(255, 0, 255));
+>>>>>>> origin/ì˜ˆê· ìž‘ì—…
 	return S_OK;
 }
 

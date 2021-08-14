@@ -2,6 +2,11 @@
 #include "gameNode.h"
 #include "monster.h"
 #include "OBBCollision.h"
+<<<<<<< HEAD
+=======
+#include "Cmap.h"
+
+>>>>>>> origin/ì˜ˆê· ìž‘ì—…
 class bulletManager;
 class monsterManager;
 class mapManager;
@@ -40,7 +45,13 @@ public:
 	void checkMonRight(monster* monster);
 	void mapTobullet();
 	void mapTomon();
+<<<<<<< HEAD
 	void playerToDoor();
+=======
+
+
+
+>>>>>>> origin/ì˜ˆê· ìž‘ì—…
 	//º¸Á¶ÇÔ¼ö
 	void checkMonsterRectColl(monster* monster, bool isBoss);
 	void checkMonsterRectPlayer(monster* monster);

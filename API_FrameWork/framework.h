@@ -41,6 +41,8 @@ using namespace std;
 #include"txtData.h"
 #include"OBBCollision.h"
 #include"Zorder.h"
+#include"button.h"
+
 #include"Cplayer.h"
 #include"CplayerData.h"
 
@@ -59,6 +61,7 @@ using namespace std;
 #define EFFECT			effectManager::getSingleton()
 #define OBB				OBBCollision::getSingleton()
 #define ZORDER			Zorder::getSingleton()
+#define BUTTON			Cbutton::getSingleton()
 
 #define PLAYER			Cplayer::getSingleton()
 #define PLAYERDATA		CplayerData::getSingleton()
