@@ -49,7 +49,7 @@ void Cplayer::update()
 {
 		this->inputCheck();
 		this->inputDirectionCheck();
-	if (_state != STATE::DIE) 
+	if (!(_state == STATE::DIE||_state == STATE::STOP)) 
 	{
 		this->hitStateCheck();
 		this->stateCheck();
@@ -77,8 +77,9 @@ void Cplayer::render(HDC hdc)
 	}
 
 	this->renderDashEffecct(hdc);
-
-	if (_state == STATE::DIE)
+	if(_state==STATE::STOP)
+		ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("°È±â"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection, 100);
+	else if (_state == STATE::DIE)
 	{
 		//IMAGE->findImage("Á×±â")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 0, 0, _dieAlpha);
 		ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("Á×±â"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 0, 0, _dieAlpha);
@@ -162,6 +163,8 @@ void Cplayer::inputCheck()
 		_state = STATE::IDLE;
 		_dieAlpha = 255;
 	}
+	if (INPUT->isOnceKeyDown('P'))
+		playerStop();
 	if (INPUT->isStayKeyDown('W'))
 		_inputDirection.isUp = true;
 	else _inputDirection.isUp = false;
@@ -481,7 +484,16 @@ void Cplayer::renderDashEffecct(HDC hdc)
 
 void Cplayer::hitPlayer(int bulletX, int bulletY)
 {
-	PLAYERDATA->hitPlayer(1);
+	if (_state != STATE::STOP) {
 	_player.isHit = true;
-	_knockBackAngle = UTIL::getAngle(  bulletX, bulletY, _player.x, _player.y);
+		PLAYERDATA->hitPlayer(1);
+		_knockBackAngle = UTIL::getAngle(bulletX, bulletY, _player.x, _player.y);
+	}
+}
+
+void Cplayer::playerStop()
+{
+	if (_state != STATE::STOP)
+		_state = STATE::STOP;
+	else _state = STATE::IDLE;
 }

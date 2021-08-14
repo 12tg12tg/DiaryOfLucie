@@ -171,8 +171,10 @@
     <ClInclude Include="monster.h" />
     <ClInclude Include="monsterManager.h" />
     <ClInclude Include="moru.h" />
+    <ClInclude Include="motherMap.h" />
     <ClInclude Include="OBBCollision.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="sceneManager.h" />
@@ -211,8 +213,10 @@
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="monsterManager.cpp" />
     <ClCompile Include="moru.cpp" />
+    <ClCompile Include="motherMap.cpp" />
     <ClCompile Include="OBBCollision.cpp" />
     <ClCompile Include="object.cpp" />
+    <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="timeManager.cpp" />

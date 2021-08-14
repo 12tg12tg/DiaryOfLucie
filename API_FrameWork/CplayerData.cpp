@@ -1,11 +1,12 @@
 #include "framework.h"
 #include "CplayerData.h"
+#include "progressBar.h"
 
 HRESULT CplayerData::init()
 {
+	testrect = RectMakeCenter(30, 30, 30, 30);
 	this->imageInit();
 
-	testrect = RectMakeCenter(30, 30, 30, 30);
 	_isDebug = false;
 
 	_level = 1;
@@ -13,14 +14,14 @@ HRESULT CplayerData::init()
 
 	_lastHP = 1;
 	_lastMaxHP = _lastHP;
-	_defaultHp = 5;
-	_defaultMaxHp = _defaultHp;
+	_defaultHP = 5;
+	_defaultMaxHP = _defaultHP;
 	_equipHP = 0;
 	_equipMaxHP = _equipHP;
-	_presentHP = _lastHP+_defaultHp+_equipHP;
-	_MaxHP = _lastHP + _defaultMaxHp + _equipMaxHP;
+	_presentHP = _lastHP+_defaultHP+_equipHP;
+	_MaxHP = _lastHP + _defaultMaxHP + _equipMaxHP;
 
-	_defaultMP=2;
+	_defaultMP=3;
 	_defaultMaxMP = 3;
 	_equipMP = 0;
 	_equipMaxMP = _equipMP;
@@ -34,20 +35,25 @@ HRESULT CplayerData::init()
 	return S_OK;
 }
 
-void CplayerData::release(){}
+void CplayerData::release()
+{
+	SAFE_DELETE(_EXP);
+}
 
 void CplayerData::update()
 {
-	_presentHP = _defaultHp + _equipHP + _lastHP;
-	_MaxHP = _defaultMaxHp + _equipMaxHP + _lastMaxHP;
+	_presentHP = _defaultHP + _equipHP + _lastHP;
+	_MaxHP = _defaultMaxHP + _equipMaxHP + _lastMaxHP;
 	_presentMP = _defaultMP + _equipMP;
 	_MaxMP = _defaultMaxMP + _equipMaxMP;
 
 	dragUI();
+	_EXP->setGauge(40, 100);
 }
 
 void CplayerData::render(HDC hdc)
 {
+	_EXP->render();
 	//testrect.left,testrect.top
 	
 	_layout_image->render(hdc,WINSIZEX/2-_layout_image->getWidth()/2,583);
@@ -72,6 +78,7 @@ void CplayerData::render(HDC hdc)
 		}
 		IMAGE->findImage("피통")->alphaFrameRender(hdc, _heartstartX + i * IMAGE->findImage("피통")->getFrameWidth(), 606, 1, 0, UIalpha);
 	}
+
 	for (int i = 0; i < _MaxMP; i++)
 	{
 		IMAGE->findImage("마나통")->alphaFrameRender(hdc, 551 + i * IMAGE->findImage("마나통")->getFrameWidth(), 606, 0, 0, UIalpha);
@@ -103,14 +110,16 @@ void CplayerData::imageInit()
 	IMAGE->addFrameImage("작은피통", "images/UI/피통.bmp", 48*1.3/2, 22*1.3/2, 2, 1, true);
 	IMAGE->addFrameImage("마나통", "images/UI/마나통.bmp", 48 * 1.3, 24 * 1.3, 2, 1, true);
 
+	_EXP = new progressBar;
+	_EXP->init("images/UI/스테미너프론트.bmp", "images/UI/스테미너프론트.bmp",398,664,166*1.3,14 * 1.3);
 }
 
 void CplayerData::hitPlayer(int damage)
 {
 	for (int i = 0; i < damage; i++) 
 	{
-		if (_defaultHp > 0) {
-			_defaultHp--;
+		if (_defaultHP > 0) {
+			_defaultHP--;
 		}
 		else if (_equipHP > 0) {
 			_equipHP--;
@@ -123,8 +132,6 @@ void CplayerData::hitPlayer(int damage)
 		}
 	}
 }
-
-
 void CplayerData::healPlayer(int recovery)
 {
 
@@ -136,10 +143,44 @@ void CplayerData::healPlayer(int recovery)
 		else if (_equipHP < _equipMaxHP) {
 			_equipHP++;
 		}
-		else if (_defaultHp < _defaultMaxHp) {
-			_defaultHp++;
+		else if (_defaultHP < _defaultMaxHP) {
+			_defaultHP++;
 		}
 		if (_presentHP == _MaxHP) {
+			break;
+		}
+	}
+}
+bool CplayerData::useMana(int manaCost,bool Check)
+{
+	if (manaCost < _presentMP) { return false; }
+	if (!Check) {
+		for (int i = 0; i < manaCost; i++)
+		{
+			if (_defaultMP > 0) {
+				_defaultMP--;
+			}
+			else if (_equipMP > 0) {
+				_equipMP--;
+			}
+			if (_presentMP == 0) {
+				break;
+			}
+		}
+	}
+	return true;
+}
+void CplayerData::recoveryMana(int recovery)
+{
+	for (int i = 0; i < recovery; i++)
+	{
+		if (_equipMP < _equipMaxMP) {
+			_equipMP++;
+		}
+		else if (_defaultMP < _defaultMaxMP) {
+			_defaultMP++;
+		}
+		if (_presentMP == _MaxMP) {
 			break;
 		}
 	}

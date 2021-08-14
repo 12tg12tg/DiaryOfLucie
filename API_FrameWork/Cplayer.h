@@ -14,6 +14,7 @@ enum class PLACE {
 	ROOM,
 	DUNGEON
 };
+
 enum class STATE {
 	IDLE,
 	WALK,
@@ -23,7 +24,8 @@ enum class STATE {
 	STAFFCHARGE,
 	KNOCKBACK,
 	TALK,
-	DIE
+	DIE,
+	STOP
 };
 enum class WEAPONTYPE{
 	EMPTY,
@@ -145,6 +147,8 @@ public:
 
 	void hitStateCheck();
 	void hitPlayer(int bulletX, int bulletY);
+
+	void playerStop();
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	void setBulletManagerMemoryLink(bulletManager* BM) { _Cbullet = BM; }
