@@ -40,6 +40,17 @@ inline int RecCenY(RECT& rc)
 {
 	return (rc.top + rc.bottom) / 2;
 }
+
+//RECT 높이/너비
+inline int RecWidth(RECT& rc)
+{
+	return rc.right - rc.left;
+}
+inline int RecHeight(RECT& rc)
+{
+	return rc.bottom - rc.top;
+}
+
 //회전 RECT 바닥(ZORDER bottom 값 구할때 용이)
 inline int RotateRectBottom(RECT& rc, float radian)
 {

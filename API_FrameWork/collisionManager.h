@@ -2,7 +2,8 @@
 #include "gameNode.h"
 #include "monster.h"
 #include "OBBCollision.h"
-#include"Cmap.h"
+#include "Cmap.h"
+
 class bulletManager;
 class monsterManager;
 class collisionManager : public gameNode
@@ -32,6 +33,8 @@ public:
 	void mapToplayer();
 	void mapTobullet();
 	void mapTomon();
+
+
 
 	//보조함수
 	void checkMonsterRectColl(monster* monster, bool isBoss);

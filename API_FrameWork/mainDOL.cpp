@@ -63,6 +63,7 @@ void mainDOL::update()
 	_cm->update();
 	_mapm->update();
 
+	BUTTON->update();
 	PLAYER->update();
 	EFFECT->update();
 
@@ -78,6 +79,7 @@ void mainDOL::render()
 	_mm->render();
 	_cm->render();
 
+	BUTTON->render();
 	PLAYER->render(getMemDC());
 	EFFECT->render();
 	ZORDER->ZorderTotalRender(getMemDC());

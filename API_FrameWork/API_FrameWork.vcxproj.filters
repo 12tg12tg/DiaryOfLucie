@@ -76,6 +76,9 @@
     <Filter Include="DOL\object">
       <UniqueIdentifier>{42c8022b-306d-41b5-a496-214e49b15675}</UniqueIdentifier>
     </Filter>
+    <Filter Include="manager\버튼">
+      <UniqueIdentifier>{1aa13093-b110-4d98-a436-6b7fd3d4eff1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -192,6 +195,12 @@
     <ClInclude Include="object.h">
       <Filter>DOL\object</Filter>
     </ClInclude>
+    <ClInclude Include="moru.h">
+      <Filter>DOL\object</Filter>
+    </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>manager\버튼</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -289,6 +298,12 @@
     </ClCompile>
     <ClCompile Include="object.cpp">
       <Filter>DOL\object</Filter>
+    </ClCompile>
+    <ClCompile Include="moru.cpp">
+      <Filter>DOL\object</Filter>
+    </ClCompile>
+    <ClCompile Include="button.cpp">
+      <Filter>manager\버튼</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

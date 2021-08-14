@@ -171,7 +171,7 @@ bool imageManager::deleteAll()
 			SAFE_DELETE(iter->second);
 			iter = _mImageList.erase(iter);
 		}
-		else iter;
+		else ++iter;
 	}
 	_mImageList.clear();
 	return true;

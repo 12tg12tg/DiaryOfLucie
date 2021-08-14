@@ -45,6 +45,7 @@ public:
 		_bm->setIsDebug(_isDebug);
 		_cm->setIsDebug(_isDebug);
 		_mm->setIsDebug(_isDebug);
+		BUTTON->setIsDebug(_isDebug);
 	}
 };
 

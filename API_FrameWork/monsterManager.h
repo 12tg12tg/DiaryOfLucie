@@ -1,6 +1,8 @@
 #pragma once
 #include "gameNode.h"
 #include "Cmonsters.h"
+//테에에에에에스으으으으응으으으트
+#include "moru.h"
 class Cplayer;
 class bulletManager;
 class monsterManager : public gameNode
@@ -24,6 +26,8 @@ private:
 	Cmushmam_mushroom_B*	_mushmam_mushroom_B;
 	Cyggdrasil*				_yggdrasil;
 	Cyggdrasil_bomb*		_yggdrasil_bomb;
+
+	moru* _moru;
 
 private:
 	bool _isDebug;
