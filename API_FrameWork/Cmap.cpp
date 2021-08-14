@@ -4,13 +4,10 @@
 Cmap::Cmap()
 {
 	IMAGE->addImage("95¹è°æ", "images/map/ground95.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
-	IMAGE->addImage("95ÇÈ¼¿", "images/map/!m95.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
+	_collisionMap =IMAGE->addImage("95ÇÈ¼¿", "images/map/!m95.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
 	IMAGE->addImage("95°¡¸²", "images/map/par95.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
 
-	_bottomDoor = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200);
-	_topDoor = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);
-	_rightDoor = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);
-	_leftDoor = RectMakeCenter(0, WINSIZEY / 2, 200, 200);
+
 }
 
 Cmap::~Cmap()
@@ -19,9 +16,10 @@ Cmap::~Cmap()
 
 HRESULT Cmap::init()
 {
-	
-
-	
+	_door._bottomDoor = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200);
+	_door._topDoor = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);
+	_door._rightDoor = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);
+	_door._leftDoor = RectMakeCenter(0, WINSIZEY / 2, 200, 200);
 	return S_OK;
 }
 
@@ -49,12 +47,12 @@ void Cmap::render()
 Cmap2::Cmap2()
 {
 	IMAGE->addImage("57¹è°æ", "images/map/ground57.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
-	IMAGE->addImage("57ÇÈ¼¿", "images/map/!m57.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("57ÇÈ¼¿", "images/map/!m57.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
 	IMAGE->addImage("57°¡¸²", "images/map/par57.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
-	_bottomDoor = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200);
-	_topDoor = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);
-	_rightDoor = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);
-	_leftDoor = RectMakeCenter(0, WINSIZEY / 2, 200, 200);
+	_door._bottomDoor = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200);
+	_door._topDoor = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);
+	_door._rightDoor = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);
+	_door._leftDoor = RectMakeCenter(0, WINSIZEY / 2, 200, 200);
 }
 
 Cmap2::~Cmap2()
@@ -92,12 +90,12 @@ void Cmap2::render()
 Cmap3::Cmap3()
 {
 	IMAGE->addImage("104¹è°æ", "images/map/ground104.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
-	IMAGE->addImage("104ÇÈ¼¿", "images/map/!m104.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("104ÇÈ¼¿", "images/map/!m104.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
 	IMAGE->addImage("104°¡¸²", "images/map/par104.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
-	_bottomDoor = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200);
-	_topDoor = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);
-	_rightDoor = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);
-	_leftDoor = RectMakeCenter(0, WINSIZEY / 2, 200, 200);
+	_door._bottomDoor = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200);
+	_door._topDoor = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);
+	_door._rightDoor = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);
+	_door._leftDoor = RectMakeCenter(0, WINSIZEY / 2, 200, 200);
 }
 
 Cmap3::~Cmap3()
@@ -136,12 +134,12 @@ void Cmap3::render()
 Cmap4::Cmap4()
 {
 	IMAGE->addImage("105¹è°æ", "images/map/ground105.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
-	IMAGE->addImage("105ÇÈ¼¿", "images/map/!m105.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("105ÇÈ¼¿", "images/map/!m105.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
 	IMAGE->addImage("105°¡¸²", "images/map/par105.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
-	_bottomDoor = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200);
-	_topDoor = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);
-	_rightDoor = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);
-	_leftDoor = RectMakeCenter(0, WINSIZEY / 2, 200, 200);
+	_door._bottomDoor = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200);
+	_door._topDoor = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);
+	_door._rightDoor = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);
+	_door._leftDoor = RectMakeCenter(0, WINSIZEY / 2, 200, 200);
 }
 
 Cmap4::~Cmap4()
@@ -178,12 +176,12 @@ void Cmap4::render()
 Cmap5::Cmap5()
 {
 	IMAGE->addImage("115¹è°æ", "images/map/ground115.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
-	IMAGE->addImage("115ÇÈ¼¿", "images/map/!m115.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("115ÇÈ¼¿", "images/map/!m115.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
 	IMAGE->addImage("115°¡¸²", "images/map/par115.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
-	_bottomDoor = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200);
-	_topDoor = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);
-	_rightDoor = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);
-	_leftDoor = RectMakeCenter(0, WINSIZEY / 2, 200, 200);
+	_door._bottomDoor = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200);
+	_door._topDoor = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);
+	_door._rightDoor = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);
+	_door._leftDoor = RectMakeCenter(0, WINSIZEY / 2, 200, 200);
 }
 
 Cmap5::~Cmap5()

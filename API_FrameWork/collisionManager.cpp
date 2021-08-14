@@ -430,14 +430,9 @@ void collisionManager::playerTomon()
 
 void collisionManager::mapToplayer()
 {
-	
 		checkUp();
-	
-	
 		checkDown();
-	
 		checkLeft();
-	
 		checkRight();
 
 }
@@ -446,7 +441,7 @@ void collisionManager::checkUp()
 {
 	for (int i = PLAYER->getPlayerAddress().y -1; i > PLAYER->getPlayerAddress().y -10; i--)
 	{
-		COLORREF  color = GetPixel(IMAGE->findImage("95ÇÈ¼¿")->getMemDC(), PLAYER->getPlayerAddress().x, i);
+		COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), PLAYER->getPlayerAddress().x, i);
 
 		int r = GetRValue(color);
 		int g = GetGValue(color);
@@ -464,7 +459,7 @@ void collisionManager::checkRight()
 {
 	for (int i = PLAYER->getPlayerAddress().x + 1; i < PLAYER->getPlayerAddress().x +10; i++)
 	{
-		COLORREF  color = GetPixel(IMAGE->findImage("95ÇÈ¼¿")->getMemDC(), i, PLAYER->getPlayerAddress().y);
+		COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), i, PLAYER->getPlayerAddress().y);
 
 		int r = GetRValue(color);
 		int g = GetGValue(color);
@@ -481,7 +476,7 @@ void collisionManager::checkLeft()
 {
 	for (int i = PLAYER->getPlayerAddress().x - 1; i > PLAYER->getPlayerAddress().x -10; i--)
 	{
-		COLORREF  color = GetPixel(IMAGE->findImage("95ÇÈ¼¿")->getMemDC(), i, PLAYER->getPlayerAddress().y);
+		COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), i, PLAYER->getPlayerAddress().y);
 
 		int r = GetRValue(color);
 		int g = GetGValue(color);
@@ -498,7 +493,7 @@ void collisionManager::checkDown()
 {
 	for (int i = PLAYER->getPlayerAddress().y +1; i < PLAYER->getPlayerAddress().y +10; i++)
 	{
-		COLORREF  color = GetPixel(IMAGE->findImage("95ÇÈ¼¿")->getMemDC(), PLAYER->getPlayerAddress().x, i);
+		COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), PLAYER->getPlayerAddress().x, i);
 
 		int r = GetRValue(color);
 		int g = GetGValue(color);
@@ -522,11 +517,7 @@ void collisionManager::mapTomon()
 
 void collisionManager::playerToDoor()
 {
-	if (IntersectRect(&temprc, &PLAYER->getPlayerAddress().playerRect, &mapm->getRightDoor()))
-	{
-		mapm->setPosNum(mapm->getPosNum() + 1);
-		PLAYER->getPlayerAddress().x = 0 + 300;
-	}
+
 }
 
 void collisionManager::checkMonsterRectPlayer(monster* monster)

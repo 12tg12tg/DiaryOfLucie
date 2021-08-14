@@ -2,6 +2,7 @@
 #include"gameNode.h"
 #include"Cmap.h"
 #include"monsterManager.h"
+#include<map>
 #define MAXSIZE 8
 enum DUNGEONDOOR
 {
@@ -21,8 +22,8 @@ enum MAPKIND
 	NEXTSTAGE
 };
 struct MAP {
-	int positionNum =0;
-
+	motherMap* _motherMap;
+	string sceneKey;
 	bool isMake = false;
 	bool canMake = true;
 	MAPKIND mapkind = NONE;
@@ -36,13 +37,15 @@ private:
 	Cmap3* _Cmap3;
 	Cmap4* _Cmap4;
 	Cmap5* _Cmap5;
-	RECT _bottomDoor;
-	RECT _topDoor;
-	RECT _leftDoor;
-	RECT _rightDoor;
+	string currentMap;
+	DungeonDoor _dgDoor;
 
+	monsterManager mm;
 
-	MAP stage1[8][8] = { {0,false,true,NONE},{1,false,true,NONE}, };
+	map<string,motherMap*> _mStage1;
+	map<string, motherMap*>::iterator _imStage1;
+	
+
 	bool _isDebug;
 public:
 	virtual HRESULT init();
@@ -50,19 +53,22 @@ public:
 	virtual void update();
 	virtual void render(/*HDC hdc*/);
 
-	RECT getBottomDoor() { return _bottomDoor; }
-	RECT getTopDoor() { return _topDoor; }
-	RECT getLeftDoor() { return _leftDoor; }
-	RECT getRightDoor() { return _rightDoor; }
-
 	Cmap* getCmapInstance() { return _Cmap1; }
 	Cmap2* getCmap2Instance() { return _Cmap2; }
 	Cmap3* getCmap3Instance() { return _Cmap3; }
 	Cmap4* getCmap4Instance() { return _Cmap4; }
 	Cmap5* getCmap5Instance() { return _Cmap5; }
-	MAP _map;
-	
-	int getPosNum() { return _map.positionNum; }
-	void setPosNum(int positionNum) { _map.positionNum = positionNum; }
+
+	image* getCurrentColMap() {
+
+		if (_mStage1.find(currentMap) != _mStage1.end())
+		{
+			return	_mStage1.find(currentMap)->second->getcolMap();
+		}
+		else
+		{
+			return nullptr;
+		}
+	}
 
 };

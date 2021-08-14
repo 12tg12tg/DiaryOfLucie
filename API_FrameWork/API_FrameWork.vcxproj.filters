@@ -186,6 +186,9 @@
     <ClInclude Include="miniMap.h">
       <Filter>DOL\minimap</Filter>
     </ClInclude>
+    <ClInclude Include="motherMap.h">
+      <Filter>DOL\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -280,6 +283,9 @@
     </ClCompile>
     <ClCompile Include="miniMap.cpp">
       <Filter>DOL\minimap</Filter>
+    </ClCompile>
+    <ClCompile Include="motherMap.cpp">
+      <Filter>DOL\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

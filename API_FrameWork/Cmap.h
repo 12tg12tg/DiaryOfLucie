@@ -1,26 +1,14 @@
 #pragma once
 #include"gameNode.h"
+#include"motherMap.h"
 
-struct MAP {
-	int startX;
-	int startY;
-	
-	int monsterNum;
-	int monsterX;
-	int monsterY;
-
-	
-};
-class Cmap : public gameNode
+class Cmap : public motherMap
 {
 private:
 	
 	bool _isDebug;
-	RECT _bottomDoor;
-	RECT _topDoor;
-	RECT _rightDoor;
-	RECT _leftDoor;
-
+	DungeonDoor _door;
+	image* _collisionMap;
 public:
 	Cmap();
 	~Cmap();
@@ -30,16 +18,15 @@ public:
 	void render();
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	
+	image* getcolMap() { return _collisionMap; }
 };
 
-class Cmap2 : public gameNode
+class Cmap2 : public motherMap
 {
 private:
-	RECT _bottomDoor;
-	RECT _topDoor;
-	RECT _rightDoor;
-	RECT _leftDoor;
+	DungeonDoor _door;
 	bool _isDebug;
+	image* _collisionMap;
 public:
 	Cmap2();
 	~Cmap2();
@@ -48,17 +35,16 @@ public:
 	void update();
 	void render();
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+	image* getcolMap() { return _collisionMap; }
 };
 
 
-class Cmap3 : public gameNode
+class Cmap3 : public motherMap
 {
 private:
-	RECT _bottomDoor;
-	RECT _topDoor;
-	RECT _rightDoor;
-	RECT _leftDoor;
+	DungeonDoor _door;
 	bool _isDebug;
+	image* _collisionMap;
 public:
 	Cmap3();
 	~Cmap3();
@@ -67,17 +53,16 @@ public:
 	void update();
 	void render();
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+	image* getcolMap() { return _collisionMap; }
 };
 
 
-class Cmap4 : public gameNode
+class Cmap4 : public motherMap
 {
 private:
 	bool _isDebug;
-	RECT _bottomDoor;
-	RECT _topDoor;
-	RECT _rightDoor;
-	RECT _leftDoor;
+	DungeonDoor _door;
+	image* _collisionMap;
 public:
 	Cmap4();
 	~Cmap4();
@@ -86,17 +71,16 @@ public:
 	void update();
 	void render();
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+	image* getcolMap() { return _collisionMap; }
 };
 
 
-class Cmap5 : public gameNode
+class Cmap5 : public motherMap
 {
 private:
 	bool _isDebug ;
-	RECT _bottomDoor;
-	RECT _topDoor;
-	RECT _rightDoor;
-	RECT _leftDoor;
+	DungeonDoor _door;
+	image* _collisionMap;
 public:
 	Cmap5();
 	~Cmap5();
@@ -104,6 +88,7 @@ public:
 	void release();
 	void update();
 	void render();
+	image* getcolMap() { return _collisionMap; }
 	
 };
 
