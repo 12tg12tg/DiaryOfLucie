@@ -5,10 +5,7 @@
 class Cmap : public motherMap
 {
 private:
-	
-	bool _isDebug;
-	DungeonDoor _door;
-	image* _collisionMap;
+
 public:
 	Cmap();
 	~Cmap();
@@ -24,9 +21,7 @@ public:
 class Cmap2 : public motherMap
 {
 private:
-	DungeonDoor _door;
-	bool _isDebug;
-	image* _collisionMap;
+
 public:
 	Cmap2();
 	~Cmap2();
@@ -42,9 +37,7 @@ public:
 class Cmap3 : public motherMap
 {
 private:
-	DungeonDoor _door;
-	bool _isDebug;
-	image* _collisionMap;
+
 public:
 	Cmap3();
 	~Cmap3();
@@ -60,9 +53,7 @@ public:
 class Cmap4 : public motherMap
 {
 private:
-	bool _isDebug;
-	DungeonDoor _door;
-	image* _collisionMap;
+
 public:
 	Cmap4();
 	~Cmap4();
@@ -78,9 +69,7 @@ public:
 class Cmap5 : public motherMap
 {
 private:
-	bool _isDebug ;
-	DungeonDoor _door;
-	image* _collisionMap;
+
 public:
 	Cmap5();
 	~Cmap5();

@@ -17,18 +17,19 @@ HRESULT mainDOL::init()
 	_bm->init();
 	_cm->init();
 	_mm->init();
-	_mapm->init();
 
 	_mm->setBulletManagerMemoryLink(_bm);	//몬스터에서 블릿링크
 
 	_cm->setBulletManagerMemoryLink(_bm);	//충돌에서 불릿링크
 	_cm->setMonsterManagerMemoryLink(_mm);	//충돌에서 몬스터링크
 	_cm->setmapManagerMemoryLink(_mapm);	//충돌에서 맵링크
-
+	_mapm->setMonsterManagerMemoryLink(_mm);//맵에서 몬스터링크
+	_mapm->setBulletManagerMemoryLink(_bm);//맵에서 불릿링크
 	PLAYER->setBulletManagerMemoryLink(_bm);
 	
 
 
+	_mapm->init();
 
 
 	return S_OK;

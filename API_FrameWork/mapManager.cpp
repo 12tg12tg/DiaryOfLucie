@@ -1,6 +1,6 @@
 #include "framework.h"
 #include "mapManager.h"
-
+#include"monsterManager.h"
 HRESULT mapManager::init()
 {
 	_Cmap1 = dynamic_cast<Cmap*>(SCENE->addScene("_Cmap1", new Cmap));
@@ -8,6 +8,12 @@ HRESULT mapManager::init()
 	_Cmap3 = dynamic_cast<Cmap3*>(SCENE->addScene("_Cmap3", new Cmap3));
 	_Cmap4 = dynamic_cast<Cmap4*>(SCENE->addScene("_Cmap4", new Cmap4));
 	_Cmap5 = dynamic_cast<Cmap5*>(SCENE->addScene("_Cmap5", new Cmap5));
+
+	_Cmap1->setMonstermemoryLink(mm);
+	_Cmap2->setMonstermemoryLink(mm);
+	_Cmap3->setMonstermemoryLink(mm);
+	_Cmap4->setMonstermemoryLink(mm);
+	_Cmap5->setMonstermemoryLink(mm);
 
 	MAP stage1[2][2] = { {{nullptr,"",false,true,NONE},{_Cmap5,"_Cmap5",false,true,NONE}},{{_Cmap2,"_Cmap2",false,true,START},{_Cmap3,"_Cmap3",false,true,NONE}} };
 

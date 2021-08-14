@@ -1,7 +1,6 @@
 #pragma once
 #include"gameNode.h"
 #include"Cmap.h"
-#include"monsterManager.h"
 #include<map>
 #define MAXSIZE 8
 enum DUNGEONDOOR
@@ -29,6 +28,8 @@ struct MAP {
 	MAPKIND mapkind = NONE;
 
 };
+class bulletManager;
+class monsterManager;
 class mapManager :public gameNode
 {
 private:
@@ -40,7 +41,8 @@ private:
 	string currentMap;
 	DungeonDoor _dgDoor;
 
-	monsterManager mm;
+	monsterManager* mm;
+	bulletManager* bm;
 
 	map<string,motherMap*> _mStage1;
 	map<string, motherMap*>::iterator _imStage1;
@@ -71,4 +73,6 @@ public:
 		}
 	}
 
+	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
+	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }
 };
