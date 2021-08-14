@@ -10,10 +10,7 @@ HRESULT mapManager::init()
 	SCENE->addScene("_Cmap5", new Cmap5);
 
 
-	_bottomDoor = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200);
-	_topDoor = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);
-	_rightDoor = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);
-	_leftDoor = RectMakeCenter(0, WINSIZEY / 2, 200, 200);
+	
 	
 	return S_OK;
 }

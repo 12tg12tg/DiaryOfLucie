@@ -1,17 +1,25 @@
 #pragma once
 #include"gameNode.h"
 
-struct tagDOOR
-{
-	RECT LEFTDOOR;
-	RECT RIGHTDOOR;
-	RECT TOPDOOR;
-	RECT BOTTOMDOOR;
+struct MAP {
+	int startX;
+	int startY;
+	
+	int monsterNum;
+	int monsterX;
+	int monsterY;
+
+	
 };
 class Cmap : public gameNode
 {
 private:
+	
 	bool _isDebug;
+	RECT _bottomDoor;
+	RECT _topDoor;
+	RECT _rightDoor;
+	RECT _leftDoor;
 
 public:
 	Cmap();
@@ -27,7 +35,10 @@ public:
 class Cmap2 : public gameNode
 {
 private:
-
+	RECT _bottomDoor;
+	RECT _topDoor;
+	RECT _rightDoor;
+	RECT _leftDoor;
 	bool _isDebug;
 public:
 	Cmap2();
@@ -43,7 +54,10 @@ public:
 class Cmap3 : public gameNode
 {
 private:
-
+	RECT _bottomDoor;
+	RECT _topDoor;
+	RECT _rightDoor;
+	RECT _leftDoor;
 	bool _isDebug;
 public:
 	Cmap3();
@@ -60,7 +74,10 @@ class Cmap4 : public gameNode
 {
 private:
 	bool _isDebug;
-
+	RECT _bottomDoor;
+	RECT _topDoor;
+	RECT _rightDoor;
+	RECT _leftDoor;
 public:
 	Cmap4();
 	~Cmap4();
@@ -76,7 +93,10 @@ class Cmap5 : public gameNode
 {
 private:
 	bool _isDebug ;
-
+	RECT _bottomDoor;
+	RECT _topDoor;
+	RECT _rightDoor;
+	RECT _leftDoor;
 public:
 	Cmap5();
 	~Cmap5();
