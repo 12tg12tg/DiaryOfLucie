@@ -54,6 +54,5 @@ void motherMap::summonMon(int x)
 		{
 			mm->getFlime()->addMonster(monpos[i].x, monpos[i].y);
 		}
-		
 	}
 }

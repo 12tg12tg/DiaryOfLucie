@@ -3,10 +3,7 @@
 #include"Cmap.h"
 #include<map>
 #define MAXSIZE 8
-enum DUNGEONDOOR
-{
-	DOOR_OPEN,DOOR_CLOSE
-};
+
 
 enum MAPKIND
 {
@@ -26,8 +23,8 @@ struct MAP {
 	bool isMake = false;
 	bool canMake = true;
 	MAPKIND mapkind = NONE;
-
 };
+
 class bulletManager;
 class monsterManager;
 class mapManager :public gameNode
@@ -40,9 +37,22 @@ private:
 	Cmap5* _Cmap5;
 	string currentMap;
 	DungeonDoor _dgDoor;
-
+	POINT currentIndex;
 	monsterManager* mm;
 	bulletManager* bm;
+
+	bool topdoor_open;
+	bool bottomdoor_open;
+	bool rightdoor_open;
+	bool leftdoor_open;
+
+	bool checkrightdoorcollison;
+	bool checkleftdoorcollison;
+	bool checktopdoorcollison;
+	bool checkdowndoorcollison;
+
+
+
 
 	map<string,motherMap*> _mStage1;
 	map<string, motherMap*>::iterator _imStage1;
@@ -61,7 +71,8 @@ public:
 	Cmap4* getCmap4Instance() { return _Cmap4; }
 	Cmap5* getCmap5Instance() { return _Cmap5; }
 
-	image* getCurrentColMap() {
+	image* getCurrentColMap()
+	{
 
 		if (_mStage1.find(currentMap) != _mStage1.end())
 		{
@@ -73,6 +84,27 @@ public:
 		}
 	}
 
+	void setrightdoor_state(bool rightdoor_open) { this->rightdoor_open = rightdoor_open; }
+	void setleftdoor_state(bool leftdoor_open) { this->leftdoor_open = leftdoor_open; }
+	void settopdoor_state(bool topdoor_open) { this->topdoor_open = topdoor_open; }
+	void setbottomdoor_state(bool bottomdoor_open) { this->bottomdoor_open = bottomdoor_open; }
+
+	void checkrightdoorcollison(bool checkrightdoorcollison) { this->checkrightdoorcollison = checkrightdoorcollison; }
+	void checkleftdoorcollison(bool checkleftdoorcollison) { this->checkleftdoorcollison = checkleftdoorcollison; }
+	void checktopdoorcollison(bool checktopdoorcollison) { this->checktopdoorcollison = checktopdoorcollison; }
+	void checkdowndoorcollison(bool checkdowndoorcollison) { this->checkdowndoorcollison = checkdowndoorcollison; }
+
+	void doorstate(monster* monster);
+
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }
+	void setIsDebug(bool isDebug) {
+		_isDebug = isDebug;
+		_Cmap1->setIsDebug(_isDebug);
+		_Cmap2->setIsDebug(_isDebug);
+		_Cmap3->setIsDebug(_isDebug);
+		_Cmap4->setIsDebug(_isDebug);
+		_Cmap5->setIsDebug(_isDebug);
+	
+	}
 };

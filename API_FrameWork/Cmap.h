@@ -13,9 +13,9 @@ public:
 	void release();
 	void update();
 	void render();
-	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	
-	image* getcolMap() { return _collisionMap; }
+	
+
 };
 
 class Cmap2 : public motherMap
@@ -29,8 +29,8 @@ public:
 	void release();
 	void update();
 	void render();
-	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
-	image* getcolMap() { return _collisionMap; }
+
+	
 };
 
 
@@ -45,8 +45,8 @@ public:
 	void release();
 	void update();
 	void render();
-	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
-	image* getcolMap() { return _collisionMap; }
+
+	
 };
 
 
@@ -61,8 +61,8 @@ public:
 	void release();
 	void update();
 	void render();
-	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
-	image* getcolMap() { return _collisionMap; }
+	
+
 };
 
 
@@ -77,7 +77,7 @@ public:
 	void release();
 	void update();
 	void render();
-	image* getcolMap() { return _collisionMap; }
+	
 	
 };
 

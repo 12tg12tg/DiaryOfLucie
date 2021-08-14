@@ -19,8 +19,8 @@ HRESULT Cmap::init()
 	_door._topDoor = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);
 	_door._rightDoor = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);
 	_door._leftDoor = RectMakeCenter(0, WINSIZEY / 2, 200, 200);
-
 	summonMon(4);
+
 	return S_OK;
 }
 
@@ -38,8 +38,7 @@ void Cmap::render()
 	IMAGE->findImage("95픽셀")->render(getMemDC());
 	IMAGE->findImage("95배경")->render(getMemDC());
 	IMAGE->findImage("95가림")->render(getMemDC());
-
-
+	
 		 
 	
 	
@@ -84,11 +83,11 @@ void Cmap2::render()
 	IMAGE->findImage("57픽셀")->render(getMemDC());
 	IMAGE->findImage("57배경")->render(getMemDC());
 	IMAGE->findImage("57가림")->render(getMemDC());
-
-	if (_isDebug) RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200);
-	if (_isDebug) RectMakeCenter(WINSIZEX / 2, 0, 200, 200);
-	if (_isDebug) RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);
-	if (_isDebug) RectMakeCenter(0, WINSIZEY / 2, 200, 200);
+	
+	if (_isDebug) 	RectangleMake(getMemDC(), _door._bottomDoor);
+	if (_isDebug) 	RectangleMake(getMemDC(), _door._leftDoor);
+	if (_isDebug) 	RectangleMake(getMemDC(), _door._rightDoor);
+	if (_isDebug) 	RectangleMake(getMemDC(), _door._topDoor);
 }
 
 Cmap3::Cmap3()
@@ -152,6 +151,7 @@ Cmap4::~Cmap4()
 
 HRESULT Cmap4::init()
 {
+	
 	summonMon(4);
 
 	return S_OK;

@@ -15,7 +15,7 @@ HRESULT mapManager::init()
 	_Cmap4->setMonstermemoryLink(mm);
 	_Cmap5->setMonstermemoryLink(mm);
 
-	MAP stage1[2][2] = { {{nullptr,"",false,true,NONE},{_Cmap5,"_Cmap5",false,true,NONE}},{{_Cmap2,"_Cmap2",false,true,START},{_Cmap3,"_Cmap3",false,true,NONE}} };
+	MAP stage1[2][2] = { {{nullptr,"",false,true,NONE,},{_Cmap5,"_Cmap5",false,true,NONE}},{{_Cmap2,"_Cmap2",false,true,START},{_Cmap3,"_Cmap3",false,true,NONE}} };
 
 	for (int i = 0; i < 2; i++)
 	{
@@ -24,16 +24,26 @@ HRESULT mapManager::init()
 			if (stage1[i][k].mapkind != MAPKIND::NONE)
 			{
 				_mStage1.insert(pair<string, motherMap*>(stage1[i][k].sceneKey, stage1[i][k]._motherMap));
+				//stage1[i][k]._motherMap->setPoint({ i,k });
 				if (stage1[i][k].mapkind == MAPKIND::START)
 				{
 					//맵을 다시돌면서 값을 넣어줌
 					currentMap = stage1[i][k].sceneKey;
+					currentIndex.x = i;
+					currentIndex.y = k;
 					SCENE->changeScene(currentMap);
 				}
 			}
 		}
 	}
-
+	for (int i = 0; i < 2; i++)
+	{
+		for (int k = 0; k < 2; k++)
+		{
+			
+		}
+	}
+	
 	return S_OK;
 }
 
@@ -51,4 +61,23 @@ void mapManager::render()
 {
 	SCENE->render();
 	
+}
+
+
+
+
+void mapManager::doorstate(monster* monster)
+{
+	vector<tagMonster>& vMonster = monster->getVMonster();
+	vector<tagMonster>::iterator iter = vMonster.begin();
+	for (iter; iter != vMonster.end(); ++iter)
+	{
+		if (vMonster.size() != 0)
+		{
+			rightdoor_open = false;
+			leftdoor_open = false;
+			topdoor_open = false;
+			bottomdoor_open = false;
+		}
+	}
 }

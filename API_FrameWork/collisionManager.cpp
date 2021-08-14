@@ -589,7 +589,7 @@ void collisionManager::checkMonRight(monster* monster)
 		for (int i = RecCenX(iter->footRc) + 1; i < RecCenX(iter->footRc) + 10; i++)
 		{
 			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), i, RecCenY(iter->footRc));
-
+			
 			int r = GetRValue(color);
 			int g = GetGValue(color);
 			int b = GetBValue(color);
@@ -679,7 +679,92 @@ void collisionManager::mapTomon()
 
 void collisionManager::playerToDoor()
 {
+	//Cmap
+	if (IntersectRect(&temprc, &mapm->getCmapInstance()->getDungeonDoor()._bottomDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+	
+		
+	}
+	if (IntersectRect(&temprc, &mapm->getCmapInstance()->getDungeonDoor()._leftDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
 
+	}
+	if (IntersectRect(&temprc, &mapm->getCmapInstance()->getDungeonDoor()._topDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
+	if (IntersectRect(&temprc, &mapm->getCmapInstance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
+	//Cmap2
+	if (IntersectRect(&temprc, &mapm->getCmap2Instance()->getDungeonDoor()._bottomDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+		
+	}
+	if (IntersectRect(&temprc, &mapm->getCmap2Instance()->getDungeonDoor()._leftDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
+	if (IntersectRect(&temprc, &mapm->getCmap2Instance()->getDungeonDoor()._topDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
+	if (IntersectRect(&temprc, &mapm->getCmap2Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
+	//Cmap3
+	if (IntersectRect(&temprc, &mapm->getCmap3Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
+	if (IntersectRect(&temprc, &mapm->getCmap3Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
+	if (IntersectRect(&temprc, &mapm->getCmap3Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
+	if (IntersectRect(&temprc, &mapm->getCmap3Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
+	//Cmap4
+	if (IntersectRect(&temprc, &mapm->getCmap4Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
+	if (IntersectRect(&temprc, &mapm->getCmap4Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
+	if (IntersectRect(&temprc, &mapm->getCmap4Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
+	if (IntersectRect(&temprc, &mapm->getCmap4Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
+	//Cmap5
+	if (IntersectRect(&temprc, &mapm->getCmap5Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
+	if (IntersectRect(&temprc, &mapm->getCmap5Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
+	if (IntersectRect(&temprc, &mapm->getCmap5Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
+	if (IntersectRect(&temprc, &mapm->getCmap5Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
+	{
+
+	}
 }
 
 void collisionManager::checkMonsterRectPlayer(monster* monster)
