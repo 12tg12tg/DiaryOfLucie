@@ -36,23 +36,23 @@ void motherMap::summonMon(int x)
 
 		if (chooseMon == MONKIND::SNABY)
 		{
-			mm->getSnaby()->addMonster(0,0);
+			mm->getSnaby()->addMonster(monpos[i].x, monpos[i].y);
 		}
 		if (chooseMon == MONKIND::SLIME)
 		{
-			mm->getSlime()->addMonster(0, 0);
+			mm->getSlime()->addMonster(monpos[i].x, monpos[i].y);
 		}
 		if (chooseMon == MONKIND::MUSHMAN)
 		{
-			mm->getMushman()->addMonster(0, 0);
+			mm->getMushman()->addMonster(monpos[i].x, monpos[i].y);
 		}
 		if (chooseMon == MONKIND::FAIRY)
 		{
-			mm->getFairy()->addMonster(0, 0);
+			mm->getFairy()->addMonster(monpos[i].x, monpos[i].y);
 		}
 		if (chooseMon == MONKIND::FLIME)
 		{
-			mm->getFlime()->addMonster(0, 0);
+			mm->getFlime()->addMonster(monpos[i].x, monpos[i].y);
 		}
 		
 	}

@@ -19,11 +19,8 @@ HRESULT Cmap::init()
 	_door._topDoor = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);
 	_door._rightDoor = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);
 	_door._leftDoor = RectMakeCenter(0, WINSIZEY / 2, 200, 200);
-	monpos[0] = { 493,600 };
-	monpos[1] = { 624,263 };
-	monpos[2] = { 464,282 };
-	monpos[3] = { 525,342 };
-	summonMon(5);
+
+	summonMon(4);
 	return S_OK;
 }
 
@@ -65,8 +62,11 @@ Cmap2::~Cmap2()
 
 HRESULT Cmap2::init()
 {
-	
-	summonMon(5);
+	monpos[0] = { 445,570 };
+	monpos[1] = { 624,263 };
+	monpos[2] = { 464,282 };
+	monpos[3] = { 525,342 };
+	summonMon(4);
 
 	return S_OK;
 }
@@ -110,7 +110,7 @@ HRESULT Cmap3::init()
 {
 	
 
-	summonMon(5);
+	summonMon(4);
 	return S_OK;
 }
 
@@ -152,7 +152,7 @@ Cmap4::~Cmap4()
 
 HRESULT Cmap4::init()
 {
-	summonMon(5);
+	summonMon(4);
 
 	return S_OK;
 }
@@ -194,7 +194,7 @@ Cmap5::~Cmap5()
 
 HRESULT Cmap5::init()
 {
-	summonMon(5);
+	summonMon(4);
 	return S_OK;
 }
 

@@ -34,6 +34,10 @@ public:
 	void checkRight();
 	void checkLeft();
 	void checkDown();
+	void checkMonUp(monster* monster);
+	void checkMonDown(monster* monster);
+	void checkMonLeft(monster* monster);
+	void checkMonRight(monster* monster);
 	void mapTobullet();
 	void mapTomon();
 	void playerToDoor();
