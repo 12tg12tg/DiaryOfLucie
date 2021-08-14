@@ -94,17 +94,17 @@ void monster::goOrStay(float speed)
 	//움직여보고
 	_viMonster->x += cosf(_viMonster->angle) * speed;
 	_viMonster->y -= sinf(_viMonster->angle) * speed;
-	makeCollisionRect();
+	makeCollisionRect(_viMonster);
 	//충돌됬다면 실행취소
 	RECT temp;
 	if (IntersectRect(&temp, &_viMonster->footRc, &PLAYER->getPlayerAddress().playerRect)) {
 		_viMonster->x -= cosf(_viMonster->angle) * speed;
 		_viMonster->y += sinf(_viMonster->angle) * speed;
-		makeCollisionRect();
+		makeCollisionRect(_viMonster);
 	}
 }
 
-void monster::makeCollisionRect()
+void monster::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
 }
 

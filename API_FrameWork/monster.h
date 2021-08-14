@@ -89,7 +89,7 @@ public:
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
 	virtual void goOrStay(float speed);
-	virtual void makeCollisionRect();
+	virtual void makeCollisionRect(vector<tagMonster>::iterator iter);
 
 	virtual void checkInvincibility();
 

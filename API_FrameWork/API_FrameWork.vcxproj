@@ -148,6 +148,7 @@
     <ClInclude Include="animationManager.h" />
     <ClInclude Include="API_FrameWork.h" />
     <ClInclude Include="bulletManager.h" />
+    <ClInclude Include="button.h" />
     <ClInclude Include="Cbullets.h" />
     <ClInclude Include="Cmap.h" />
     <ClInclude Include="collisionManager.h" />
@@ -169,7 +170,9 @@
     <ClInclude Include="miniMap.h" />
     <ClInclude Include="monster.h" />
     <ClInclude Include="monsterManager.h" />
+    <ClInclude Include="moru.h" />
     <ClInclude Include="OBBCollision.h" />
+    <ClInclude Include="object.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="sceneManager.h" />
@@ -187,6 +190,7 @@
     <ClCompile Include="animationManager.cpp" />
     <ClCompile Include="API_FrameWork.cpp" />
     <ClCompile Include="bulletManager.cpp" />
+    <ClCompile Include="button.cpp" />
     <ClCompile Include="Cbullets.cpp" />
     <ClCompile Include="Cmap.cpp" />
     <ClCompile Include="collisionManager.cpp" />
@@ -206,7 +210,9 @@
     <ClCompile Include="miniMap.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="monsterManager.cpp" />
+    <ClCompile Include="moru.cpp" />
     <ClCompile Include="OBBCollision.cpp" />
+    <ClCompile Include="object.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="timeManager.cpp" />

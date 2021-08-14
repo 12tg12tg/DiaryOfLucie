@@ -1,20 +1,39 @@
 #include "framework.h"
 #include "mapManager.h"
-
+#include"monsterManager.h"
 HRESULT mapManager::init()
 {
-	SCENE->addScene("_Cmap1", new Cmap);
-	SCENE->addScene("_Cmap2", new Cmap2);
-	SCENE->addScene("_Cmap3", new Cmap3);
-	SCENE->addScene("_Cmap4", new Cmap4);
-	SCENE->addScene("_Cmap5", new Cmap5);
+	_Cmap1 = dynamic_cast<Cmap*>(SCENE->addScene("_Cmap1", new Cmap));
+	_Cmap2 = dynamic_cast<Cmap2*>(SCENE->addScene("_Cmap2", new Cmap2));
+	_Cmap3 = dynamic_cast<Cmap3*>(SCENE->addScene("_Cmap3", new Cmap3));
+	_Cmap4 = dynamic_cast<Cmap4*>(SCENE->addScene("_Cmap4", new Cmap4));
+	_Cmap5 = dynamic_cast<Cmap5*>(SCENE->addScene("_Cmap5", new Cmap5));
 
+	_Cmap1->setMonstermemoryLink(mm);
+	_Cmap2->setMonstermemoryLink(mm);
+	_Cmap3->setMonstermemoryLink(mm);
+	_Cmap4->setMonstermemoryLink(mm);
+	_Cmap5->setMonstermemoryLink(mm);
 
-	_bottomDoor = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200);
-	_topDoor = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);
-	_rightDoor = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);
-	_leftDoor = RectMakeCenter(0, WINSIZEY / 2, 200, 200);
-	
+	MAP stage1[2][2] = { {{nullptr,"",false,true,NONE},{_Cmap5,"_Cmap5",false,true,NONE}},{{_Cmap2,"_Cmap2",false,true,START},{_Cmap3,"_Cmap3",false,true,NONE}} };
+
+	for (int i = 0; i < 2; i++)
+	{
+		for (int k = 0; k < 2; k++)
+		{
+			if (stage1[i][k].mapkind != MAPKIND::NONE)
+			{
+				_mStage1.insert(pair<string, motherMap*>(stage1[i][k].sceneKey, stage1[i][k]._motherMap));
+				if (stage1[i][k].mapkind == MAPKIND::START)
+				{
+					//맵을 다시돌면서 값을 넣어줌
+					currentMap = stage1[i][k].sceneKey;
+					SCENE->changeScene(currentMap);
+				}
+			}
+		}
+	}
+
 	return S_OK;
 }
 
@@ -25,37 +44,11 @@ void mapManager::release()
 
 void mapManager::update()
 {	
-	for (int i = 0; i < MAXSIZE; i++)
-	{
-		for (int k = 0; k < MAXSIZE; k++)
-		{
-			if (stage1[i][k].positionNum == 0)
-			{
-				SCENE->changeScene("_Cmap1");
-			}
-			else if (stage1[i][k].positionNum == 1)
-			{
-				SCENE->changeScene("_Cmap2");
-			}
-			else if (stage1[i][k].positionNum == 2)
-			{
-				SCENE->changeScene("_Cmap3");
-			}
-			else if (stage1[i][k].positionNum == 3)
-			{
-				SCENE->changeScene("_Cmap4");
-			}
-			else if (stage1[i][k].positionNum == 4)
-			{
-				SCENE->changeScene("_Cmap5");
-			}
-		}
-	}
 	SCENE->update();
 }
 
 void mapManager::render()
 {
 	SCENE->render();
-	RectangleMake(getMemDC(), _rightDoor);
+	
 }

@@ -44,9 +44,6 @@ HRESULT monsterManager::init()
     _yggdrasil_bomb->addMonster(WINSIZEX / 2, 100);
     _yggdrasil->addMonster(WINSIZEX / 2, 100);*/
 
-    _moru = new moru;
-    _moru->add(WINSIZEX /2, WINSIZEY/2);
-
 
     return S_OK;
 }
@@ -87,7 +84,7 @@ void monsterManager::release()
     SAFE_DELETE(_yggdrasil_bomb);
 
 
-    SAFE_DELETE(_moru);
+
 
 }
 
@@ -158,5 +155,5 @@ void monsterManager::render()
 
 
 
-    _moru->render();
+
 }

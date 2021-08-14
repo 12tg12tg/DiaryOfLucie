@@ -57,6 +57,15 @@ void gameNode::release()
 		KillTimer(m_hWnd, 1); //킬타이머안하면 종료해도 메모리가 샌다.
 
 		//매니저 해제
+		SCENE->release();
+		IMAGE->release();
+		TIME->release();
+		SOUND->release();
+		ANIMATION->release();
+		EFFECT->release();
+		ZORDER->release();
+		BUTTON->release();
+
 		InputManager->releaseSingleton();
 		RND->releaseSingleton();
 		IMAGE->releaseSingleton();
@@ -68,14 +77,9 @@ void gameNode::release()
 		EFFECT->releaseSingleton();
 		OBB->releaseSingleton();
 		ZORDER->releaseSingleton();
+		BUTTON->releaseSingleton();
 		
-		SCENE->release();
-		IMAGE->release();
-		TIME->release();
-		SOUND->release();
-		ANIMATION->release();
-		EFFECT->release();
-		ZORDER->release();
+
 
 		//플레이어 해제
 		PLAYER->release();
