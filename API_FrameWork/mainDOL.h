@@ -4,6 +4,9 @@
 #include "collisionManager.h"
 #include "monsterManager.h"
 #include "mapManager.h"
+#define RATIO 1.5
+#define CAMERASIZEX WINSIZEX/RATIO
+#define CAMERASIZEY WINSIZEY/RATIO
 class mainDOL : public gameNode
 {
 //DOL 관련 매니저 인스턴스

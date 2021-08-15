@@ -19,6 +19,7 @@
 #define MINT		RGB(88, 245, 206)
 
 static image* _backBuffer = IMAGE->addImage("backBuffer", WINSIZEX, WINSIZEY);
+static image* _DOLBuffer = IMAGE->addImage("DOLBuffer", WINSIZEX*2, WINSIZEY*2);	//ÆÀÇÁ¿ë DC
 class gameNode
 {
 private:
@@ -42,6 +43,8 @@ public:
 	image* getBackBuffer()const { return _backBuffer; }
 	HDC getHDC()const { return _hdc; }
 	HDC getMemDC()const { return _backBuffer->getMemDC(); }
+
+	HDC getDolDC()const { return _DOLBuffer->getMemDC(); }		//ÆÀÇÁ¿ë DC
 
 	LRESULT MainProc(HWND hWnd, UINT imessage, WPARAM wParam, LPARAM lParam);
 

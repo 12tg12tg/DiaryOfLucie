@@ -127,6 +127,7 @@ public:
 
 
 	//스트레치 랜더
+	void stretchRenderXY(HDC hdc, int destX, int destY, float ratio);
 	void stretchRender(HDC hdc, int centerX, int centerY, float ratio);
 	void stretchRender(HDC hdc, int centerX, int centerY, int newWidth, int newHeight);
 	void stretchFrameRender(HDC hdc, int centerX, int centerY, int currentFrameX, int currentFrameY, float ratio);

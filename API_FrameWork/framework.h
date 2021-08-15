@@ -42,6 +42,7 @@ using namespace std;
 #include"OBBCollision.h"
 #include"Zorder.h"
 #include"button.h"
+#include"camera.h"
 
 #include"Cplayer.h"
 #include"CplayerData.h"
@@ -62,6 +63,7 @@ using namespace std;
 #define OBB				OBBCollision::getSingleton()
 #define ZORDER			Zorder::getSingleton()
 #define BUTTON			Cbutton::getSingleton()
+#define CAMERA			camera::getSingleton()
 
 #define PLAYER			Cplayer::getSingleton()
 #define PLAYERDATA		CplayerData::getSingleton()
