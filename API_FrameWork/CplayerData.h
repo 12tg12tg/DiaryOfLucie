@@ -3,10 +3,6 @@
 
 class progressBar;
 
-struct PlayerData 
-{
-};
-
 class CplayerData: public Singleton<CplayerData>
 {
 	//공격력 마법력 공속 경험치
@@ -22,13 +18,14 @@ class CplayerData: public Singleton<CplayerData>
 	//소비는 오른쪽에서 왼쪽
 
 private:
-
 	bool _isDebug;
 
 private:
-
-	int _level;
 	int _Critical;
+	int _defaultAtk;
+
+	//UI
+	int _level;
 
 	int _lastHP;
 	int _lastMaxHP;
@@ -38,7 +35,6 @@ private:
 	int	_equipMaxHP;
 	int _presentHP;
 	int _MaxHP;
-	int _heartstartX;
 
 
 	int _defaultMP;
@@ -48,25 +44,19 @@ private:
 	int _presentMP;
 	int _MaxMP;
 
-	int _defaultAtk;
 	int _defaultStamina;
-
+	int _recoveryStaminaCoolTimeCount;
 	int _money;
 
-	RECT testrect;
-	int width;
-	int height;
-	int tempX;
-	int tempY;
-
-	int UIalpha;
-
 private:
-	progressBar* _EXP;
-	progressBar* _Stamina;
+	int UIalpha;
+	progressBar* _EXPBar;
+	progressBar* _StaminaBar;
+
 private:
 	image* _layout_image;
-	image* _level_image;
+	int _heartstartX;
+
 public:
 	HRESULT init();
 	void release();
@@ -77,12 +67,14 @@ public:
 
 	void hitPlayer(int damage);
 	void healPlayer(int recovery);
-	bool useMana(int manaCost, bool Check);
+	bool useMana(int manaCost, bool Check=false);
 	void recoveryMana(int recovery);
-	void dragUI();
+	bool useStamina(int costStamina, bool check=false);
+	void recoveryStamina();
+	void recoveryStamina(int recovery);
+	
+	void expUP(int exp);
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	int getPresentHP() { return _presentHP; }
-
-	void setpresenthp(int defalut, int last) { _defaultHP = defalut; _lastHP = last; }
 };

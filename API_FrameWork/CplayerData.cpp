@@ -4,13 +4,13 @@
 
 HRESULT CplayerData::init()
 {
-	testrect = RectMakeCenter(30, 30, 30, 30);
 	this->imageInit();
 
 	_isDebug = false;
 
 	_level = 1;
 	_Critical = 5;
+	_defaultAtk = 10;
 
 	_lastHP = 1;
 	_lastMaxHP = _lastHP;
@@ -27,17 +27,21 @@ HRESULT CplayerData::init()
 	_equipMaxMP = _equipMP;
 	_presentMP = _defaultMP + _equipMP;
 	_MaxMP = _defaultMaxMP + _equipMaxMP;
-	_defaultAtk = 10;
+
 	_defaultStamina = 100;
+	_recoveryStaminaCoolTimeCount = 100;
 
 	UIalpha = 255;
+
+	_money = 0;
 
 	return S_OK;
 }
 
 void CplayerData::release()
 {
-	SAFE_DELETE(_EXP);
+	SAFE_DELETE(_EXPBar);
+	SAFE_DELETE(_StaminaBar);
 }
 
 void CplayerData::update()
@@ -47,15 +51,17 @@ void CplayerData::update()
 	_presentMP = _defaultMP + _equipMP;
 	_MaxMP = _defaultMaxMP + _equipMaxMP;
 
-	dragUI();
-	_EXP->setGauge(40, 100);
+	this->recoveryStamina();
+	_StaminaBar->setGauge(_defaultStamina, 100);
+
+	_EXPBar->setGauge(40, 100);
 }
 
 void CplayerData::render(HDC hdc)
 {
-	_EXP->render();
+	_StaminaBar->render();
+	_EXPBar->render();
 	//testrect.left,testrect.top
-	
 	_layout_image->render(hdc,WINSIZEX/2-_layout_image->getWidth()/2,583);
 	
 	IMAGE->findImage("레벨")->alphaFrameRender(hdc, 394,639, _level,0, UIalpha);
@@ -92,26 +98,25 @@ void CplayerData::render(HDC hdc)
 	SetTextColor(hdc, RGB(0, 0, 255));
 	if(_isDebug)
 	{
-		RectangleMake(hdc, testrect); 
 		sprintf_s(str, "현재마나통? %d",_presentMP);
 		TextOut(hdc, 0, WINSIZEY - 100, str, strlen(str));
 		sprintf_s(str, "최대마나통? %d",_MaxMP );
 		TextOut(hdc, 0, WINSIZEY - 120, str, strlen(str));
-		sprintf_s(str, "현재 UI 좌상단? %d, %d", testrect.left, testrect.top);
-		TextOut(hdc, testrect.left,testrect.top+30, str, strlen(str));
 	}
 }
 
 void CplayerData::imageInit()
 {
 	_layout_image = IMAGE->addImage("하단피통레이아웃", "images/UI/피통배경.bmp", 230 * 1.3, 90 * 1.3, true);
-	_level_image = IMAGE->addFrameImage("레벨", "images/UI/레벨숫자.bmp", 320 * 1.3, 19 * 1.3, 10, 1, true);
+	IMAGE->addFrameImage("레벨", "images/UI/레벨숫자.bmp", 320 * 1.3, 19 * 1.3, 10, 1, true);
 	IMAGE->addFrameImage("피통", "images/UI/피통.bmp", 48*1.3, 22*1.3, 2, 1, true);
 	IMAGE->addFrameImage("작은피통", "images/UI/피통.bmp", 48*1.3/2, 22*1.3/2, 2, 1, true);
 	IMAGE->addFrameImage("마나통", "images/UI/마나통.bmp", 48 * 1.3, 24 * 1.3, 2, 1, true);
 
-	_EXP = new progressBar;
-	_EXP->init("images/UI/스테미너프론트.bmp", "images/UI/스테미너프론트.bmp",398,664,166*1.3,14 * 1.3);
+	_EXPBar = new progressBar;
+	_EXPBar->init("images/UI/겸치통.bmp", "images/UI/겸치통백.bmp",444,650,126*1.3,7 * 1.3);
+	_StaminaBar = new progressBar;
+	_StaminaBar->init("images/UI/스테미너프론트.bmp", "images/UI/스테미너백.bmp", 398, 664, 166 * 1.3, 14 * 1.3);
 }
 
 void CplayerData::hitPlayer(int damage)
@@ -186,19 +191,35 @@ void CplayerData::recoveryMana(int recovery)
 	}
 }
 
-void CplayerData::dragUI()
+bool CplayerData::useStamina(int costStamina, bool check)
 {
-	if (INPUT->isOnceKeyDown(VK_RBUTTON) && m_ptMouse.x > testrect.left && m_ptMouse.x < testrect.right &&
-		m_ptMouse.y>testrect.top && m_ptMouse.y < testrect.bottom)
-	{
-		tempX = m_ptMouse.x - testrect.left;
-		tempY = m_ptMouse.y - testrect.top;
-	}
-	else if (INPUT->isStayKeyDown(VK_RBUTTON) && m_ptMouse.x > testrect.left && m_ptMouse.x < testrect.right &&
-		m_ptMouse.y>testrect.top && m_ptMouse.y < testrect.bottom)
-	{
-		width = testrect.right - testrect.left;
-		height = testrect.bottom - testrect.top;
-		testrect = RectMake(m_ptMouse.x - tempX, m_ptMouse.y - tempY, width, height);
+	if (_defaultStamina < costStamina&&check)  return false; 
+	else if(check) return true;
+		_defaultStamina -= costStamina;
+		_recoveryStaminaCoolTimeCount = 100;
+		if (_defaultStamina < 0)
+			_defaultStamina = 0;
+}
+
+void CplayerData::recoveryStamina()
+{
+	if (_recoveryStaminaCoolTimeCount) 
+		_recoveryStaminaCoolTimeCount--;
+	else if (_defaultStamina < 100) {
+		if (PLAYER->getSTATEAddress() == STATE::IDLE)
+			_defaultStamina += 3;
+		else if (PLAYER->getSTATEAddress() == STATE::WALK)
+			_defaultStamina += 2;
+		else if (PLAYER->getSTATEAddress() == STATE::RUN)
+			_defaultStamina++;
+		if (_defaultStamina >= 100) 
+			_defaultStamina = 100;
 	}
 }
+void CplayerData::recoveryStamina(int recovery)
+{
+	_defaultStamina += recovery;
+	if (_defaultStamina >= 100) 
+		_defaultStamina = 100;
+}
+

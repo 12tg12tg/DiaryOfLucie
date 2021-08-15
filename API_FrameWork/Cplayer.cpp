@@ -78,7 +78,7 @@ void Cplayer::render(HDC hdc)
 
 	this->renderDashEffecct(hdc);
 	if(_state==STATE::STOP)
-		ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("걷기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection, 100);
+		ZORDER->ZorderFrameRender(IMAGE->findImage("걷기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection);
 	else if (_state == STATE::DIE)
 	{
 		//IMAGE->findImage("죽기")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 0, 0, _dieAlpha);
@@ -149,7 +149,7 @@ void Cplayer::render(HDC hdc)
 void Cplayer::imageInit()
 {
 	_walk_img = IMAGE->addFrameImage("걷기", "images/Player/걷기순서수정.bmp", 300, 800, 3, 8, true, RGB(255, 0, 255));
-	_run_img = IMAGE->addFrameImage("달리기", "images/Player/달리기수정.bmp", 400, 800, 4, 8, true, RGB(255, 0, 255));
+	_run_img = IMAGE->addFrameImage("달리기", "images/Player/달리기수정왼발먼저.bmp", 400, 800, 4, 8, true, RGB(255, 0, 255));
 	_dash_img = IMAGE->addFrameImage("대쉬", "images/Player/대쉬수정.bmp", 600, 800, 6, 8, true, RGB(255, 0, 255));
 	_attStaff_img = IMAGE->addFrameImage("기본공격", "images/Player/기본공격.bmp", 600, 800, 6, 8, true, RGB(255, 0, 255));
 	_knockBack_img = IMAGE->addFrameImage("넉백", "images/Player/피격수정.bmp", 300, 800, 3, 8, true, RGB(255, 0, 255));
@@ -160,11 +160,12 @@ void Cplayer::inputCheck()
 {
 	if (INPUT->isStayKeyDown('R')) {
 		PLAYERDATA->healPlayer(6);
+		PLAYERDATA->recoveryStamina(100);
 		_state = STATE::IDLE;
 		_dieAlpha = 255;
 	}
 	if (INPUT->isOnceKeyDown('P'))
-		playerStop();
+		this->playerStop();
 	if (INPUT->isStayKeyDown('W'))
 		_inputDirection.isUp = true;
 	else _inputDirection.isUp = false;
@@ -235,16 +236,23 @@ void Cplayer::stateCheck()
 				_state = STATE::IDLE;
 			else if (!_isAutoRun && INPUT->isStayKeyDown(VK_LSHIFT) || _isAutoRun && !INPUT->isStayKeyDown(VK_LSHIFT))
 			{
-				if (_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft) {
+				if ((_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft)
+					&&PLAYERDATA->useStamina(2,1)) 
+				{
 					_moveDirection = _direction;
 					_state = STATE::RUN;
+				}
+				else
+				{
+					_moveDirection = _direction;
+					_state = STATE::WALK;
 				}
 			}
 			else if (_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft) {
 				_moveDirection = _direction;
 				_state = STATE::WALK;
 			}
-			if (INPUT->isOnceKeyDown(VK_LBUTTON))
+			if (INPUT->isOnceKeyDown(VK_LBUTTON)&&PLAYERDATA->useStamina(5,1))
 			{
 				if (_player.weapon == WEAPONTYPE::EMPTY || _player.weapon == WEAPONTYPE::STAFF)
 					_state = STATE::ATTSTAFF;
@@ -252,12 +260,14 @@ void Cplayer::stateCheck()
 				_attAngle = _attAngle - 0.03 +0.00003* RND->getFromInTo(0,2000);
 				_Cbullet->getMgcBulInstance()->fire(_player.x, _player.y - 20, _attAngle, 20);
 				this->angleCheckDirection(_attAngle);
+				PLAYERDATA->useStamina(5);
 			}
 		}
 
 		if (INPUT->isOnceKeyDown(VK_SPACE))
 		{
 			_state = STATE::DASH;
+			PLAYERDATA->useStamina(10);
 			if (_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft)
 			{
 				_moveDirection = _direction;
@@ -347,7 +357,10 @@ void Cplayer::movePlayer()
 		_player.y -= sinf(_attAngle);
 		break;
 	case STATE::KNOCKBACK:
+		if(_knockBackAngle+PI<PI2)
 		this->angleCheckDirection(_knockBackAngle+PI);
+		if(_knockBackAngle+PI>PI2)
+			this->angleCheckDirection(_knockBackAngle - PI);
 		_player.x += cosf(_knockBackAngle) * 1.5;
 		_player.y -= sinf(_knockBackAngle) * 1.5;
 		break;
