@@ -78,7 +78,7 @@ void Cplayer::render(HDC hdc)
 
 	this->renderDashEffecct(hdc);
 	if(_state==STATE::STOP)
-		ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("걷기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection, 100);
+		ZORDER->ZorderFrameRender(IMAGE->findImage("걷기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection);
 	else if (_state == STATE::DIE)
 	{
 		//IMAGE->findImage("죽기")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 0, 0, _dieAlpha);
@@ -149,8 +149,9 @@ void Cplayer::render(HDC hdc)
 void Cplayer::imageInit()
 {
 	_walk_img = IMAGE->addFrameImage("걷기", "images/Player/걷기순서수정.bmp", 300, 800, 3, 8, true, RGB(255, 0, 255));
-	_run_img = IMAGE->addFrameImage("달리기", "images/Player/달리기수정.bmp", 400, 800, 4, 8, true, RGB(255, 0, 255));
+	_run_img = IMAGE->addFrameImage("달리기", "images/Player/달리기수정왼발먼저.bmp", 400, 800, 4, 8, true, RGB(255, 0, 255));
 	_dash_img = IMAGE->addFrameImage("대쉬", "images/Player/대쉬수정.bmp", 600, 800, 6, 8, true, RGB(255, 0, 255));
+	IMAGE->addFrameImage("대쉬이펙트", "images/Player/대쉬수정.bmp", 600, 800, 6, 8, true, RGB(255, 0, 255));
 	_attStaff_img = IMAGE->addFrameImage("기본공격", "images/Player/기본공격.bmp", 600, 800, 6, 8, true, RGB(255, 0, 255));
 	_knockBack_img = IMAGE->addFrameImage("넉백", "images/Player/피격수정.bmp", 300, 800, 3, 8, true, RGB(255, 0, 255));
 	_die_img = IMAGE->addFrameImage("죽기", "images/Player/사망.bmp", 100, 100, 1, 1, true, RGB(255, 0, 255));
@@ -160,11 +161,12 @@ void Cplayer::inputCheck()
 {
 	if (INPUT->isStayKeyDown('R')) {
 		PLAYERDATA->healPlayer(6);
+		PLAYERDATA->recoveryStamina(100);
 		_state = STATE::IDLE;
 		_dieAlpha = 255;
 	}
 	if (INPUT->isOnceKeyDown('P'))
-		playerStop();
+		this->playerStop();
 	if (INPUT->isStayKeyDown('W'))
 		_inputDirection.isUp = true;
 	else _inputDirection.isUp = false;
@@ -235,16 +237,23 @@ void Cplayer::stateCheck()
 				_state = STATE::IDLE;
 			else if (!_isAutoRun && INPUT->isStayKeyDown(VK_LSHIFT) || _isAutoRun && !INPUT->isStayKeyDown(VK_LSHIFT))
 			{
-				if (_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft) {
+				if ((_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft)
+					&&PLAYERDATA->useStamina(2,1)) 
+				{
 					_moveDirection = _direction;
 					_state = STATE::RUN;
+				}
+				else
+				{
+					_moveDirection = _direction;
+					_state = STATE::WALK;
 				}
 			}
 			else if (_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft) {
 				_moveDirection = _direction;
 				_state = STATE::WALK;
 			}
-			if (INPUT->isOnceKeyDown(VK_LBUTTON))
+			if (INPUT->isOnceKeyDown(VK_LBUTTON)&&PLAYERDATA->useStamina(5,1))
 			{
 				if (_player.weapon == WEAPONTYPE::EMPTY || _player.weapon == WEAPONTYPE::STAFF)
 					_state = STATE::ATTSTAFF;
@@ -252,12 +261,14 @@ void Cplayer::stateCheck()
 				_attAngle = _attAngle - 0.03 +0.00003* RND->getFromInTo(0,2000);
 				_Cbullet->getMgcBulInstance()->fire(_player.x, _player.y - 20, _attAngle, 20);
 				this->angleCheckDirection(_attAngle);
+				PLAYERDATA->useStamina(5);
 			}
 		}
 
 		if (INPUT->isOnceKeyDown(VK_SPACE))
 		{
 			_state = STATE::DASH;
+			PLAYERDATA->useStamina(10);
 			if (_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft)
 			{
 				_moveDirection = _direction;
@@ -347,7 +358,10 @@ void Cplayer::movePlayer()
 		_player.y -= sinf(_attAngle);
 		break;
 	case STATE::KNOCKBACK:
+		if(_knockBackAngle+PI<PI2)
 		this->angleCheckDirection(_knockBackAngle+PI);
+		if(_knockBackAngle+PI>PI2)
+			this->angleCheckDirection(_knockBackAngle - PI);
 		_player.x += cosf(_knockBackAngle) * 1.5;
 		_player.y -= sinf(_knockBackAngle) * 1.5;
 		break;
@@ -402,9 +416,10 @@ void Cplayer::setPlayerFrame()
 		break;
 	case STATE::DASH:
 		_dashCount++;
+		if(_dashCount%2==0)
+			this->pushbackDashEffect(_player.x-50,_player.y-70,_dashIndex,_moveDirection);
 		if (_dashCount % 5 == 0)
 		{
-			this->pushbackDashEffect(_player.x-50,_player.y-70,_dashIndex,_moveDirection);
 			_dashCount = 0;
 			_dashIndex++;
 			if (_dashIndex > _dash_img->getMaxFrameX()) {
@@ -466,7 +481,7 @@ void Cplayer::angleCheckDirection(float angle)
 
 void Cplayer::pushbackDashEffect(int x, int y, int FrameX, DIRECTION direction)
 {
-	DashEffect temp = { IMAGE->addFrameImage("대쉬", "images/Player/대쉬수정.bmp", 600, 800, 6, 8, true, RGB(255, 0, 255)),  x, y, FrameX,direction, 200 };
+	DashEffect temp = {   x, y, FrameX,direction, 200 };
 	_vectDashEffect.push_back(temp);
 }
 
@@ -474,7 +489,7 @@ void Cplayer::renderDashEffecct(HDC hdc)
 {
 	for (_iterDashEffect = _vectDashEffect.begin(); _iterDashEffect !=_vectDashEffect.end();)
 	{
-		_iterDashEffect->dashEffect->alphaFrameRender(hdc, _iterDashEffect->x, _iterDashEffect->y, _iterDashEffect->dashFrameX, _iterDashEffect->direction, _iterDashEffect->dashAlpha);
+		ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("대쉬이펙트"),ZUNIT , RecCenY(_player.playerRect)-1, _iterDashEffect->x, _iterDashEffect->y, _iterDashEffect->dashFrameX, _iterDashEffect->direction, _iterDashEffect->dashAlpha);
 		_iterDashEffect->dashAlpha -= 10;
 
 		if (_iterDashEffect->dashAlpha<0) _iterDashEffect=_vectDashEffect.erase(_iterDashEffect); 
