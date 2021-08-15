@@ -207,9 +207,12 @@
     <ClInclude Include="motherMap.h">
       <Filter>DOL\Map</Filter>
     </ClInclude>
+<<<<<<< HEAD
+=======
     <ClInclude Include="progressBar.h">
       <Filter>progressBar</Filter>
     </ClInclude>
+>>>>>>> 새로태어나자브랜치
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -317,9 +320,12 @@
     <ClCompile Include="motherMap.cpp">
       <Filter>DOL\Map</Filter>
     </ClCompile>
+<<<<<<< HEAD
+=======
     <ClCompile Include="progressBar.cpp">
       <Filter>progressBar</Filter>
     </ClCompile>
+>>>>>>> 새로태어나자브랜치
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="API_FrameWork.rc">

@@ -1,6 +1,8 @@
 #pragma once
 #include "singleton.h"
 
+class progressBar;
+
 struct PlayerData 
 {
 };
@@ -29,18 +31,21 @@ private:
 	int _Critical;
 
 	int _lastHP;
-	int _defaultHp;
-	int _defaultMaxHp;
+	int _lastMaxHP;
+	int _defaultHP;
+	int _defaultMaxHP;
 	int _equipHP;
+	int	_equipMaxHP;
 	int _presentHP;
-	int	_MaxEquipHP;
 	int _MaxHP;
+	int _heartstartX;
 
 
 	int _defaultMP;
+	int _defaultMaxMP;
 	int _equipMP;
+	int _equipMaxMP;
 	int _presentMP;
-	int _MaxequipMP;
 	int _MaxMP;
 
 	int _defaultAtk;
@@ -48,14 +53,36 @@ private:
 
 	int _money;
 
+	RECT testrect;
+	int width;
+	int height;
+	int tempX;
+	int tempY;
+
+	int UIalpha;
+
+private:
+	progressBar* _EXP;
+	progressBar* _Stamina;
+private:
+	image* _layout_image;
+	image* _level_image;
 public:
 	HRESULT init();
 	void release();
 	void update();
 	void render(HDC hdc);
 
-	void hitPlayer();
+	void imageInit();
+
+	void hitPlayer(int damage);
+	void healPlayer(int recovery);
+	bool useMana(int manaCost, bool Check);
+	void recoveryMana(int recovery);
+	void dragUI();
+
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	int getPresentHP() { return _presentHP; }
-	void setpresenthp(int defalut, int last) { _defaultHp = defalut; _lastHP = last; }
+
+	void setpresenthp(int defalut, int last) { _defaultHP = defalut; _lastHP = last; }
 };

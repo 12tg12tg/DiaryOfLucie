@@ -79,9 +79,6 @@
     <Filter Include="manager\버튼">
       <UniqueIdentifier>{1aa13093-b110-4d98-a436-6b7fd3d4eff1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="progressBar">
-      <UniqueIdentifier>{e12b9d16-0226-4ddf-b8d1-62be163fa35f}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -207,9 +204,6 @@
     <ClInclude Include="motherMap.h">
       <Filter>DOL\Map</Filter>
     </ClInclude>
-    <ClInclude Include="progressBar.h">
-      <Filter>progressBar</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -316,9 +310,6 @@
     </ClCompile>
     <ClCompile Include="motherMap.cpp">
       <Filter>DOL\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="progressBar.cpp">
-      <Filter>progressBar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

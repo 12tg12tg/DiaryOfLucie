@@ -8,26 +8,31 @@
 HRESULT Cplayer::init()
 {
 	this->imageInit();
+	_player.place = PLACE::DUNGEON;
 
 	_player.x = WINSIZEX / 2;
 	_player.y = WINSIZEY / 2;
 	_player.playerRect = RectMakeCenter(_player.x, _player.y, 10, 10);
-
 	_player.weapon = WEAPONTYPE::EMPTY;
-	_walkspeed = 1.5;
 
 	_direction = DIRECTION::DOWN;
 	_moveDirection = _direction;
+	_walkspeed = 1.5;
 
 	_isAutoRun = false;
 	_frameswitching = true;
 
-	_player.isHit = false;
-	_player.isDashHit = false;
 	_knockBackTime = 20;
 	_gracePeriod = 130;
 	_hitCount = 1;
 	_knockBackIndex = 0;
+	_player.isHit = false;
+	_player.isDashHit = false;
+
+	_attCount = 0;
+	_attIndex = 0;
+	_dashCount = 0;
+	_dashIndex = 0;
 
 	imageLeftCorrection = 50 - (_player.playerRect.right - _player.playerRect.left) / 2;
 	imageTopCorrection = 70 - (_player.playerRect.bottom - _player.playerRect.top) / 2 ;
@@ -44,7 +49,7 @@ void Cplayer::update()
 {
 		this->inputCheck();
 		this->inputDirectionCheck();
-	if (_state != STATE::DIE) 
+	if (!(_state == STATE::DIE||_state == STATE::STOP)) 
 	{
 		this->hitStateCheck();
 		this->stateCheck();
@@ -58,6 +63,7 @@ void Cplayer::render(HDC hdc)
 {
 	char str[256];
 	SetTextColor(hdc, RGB(0, 0, 255));
+
 	if (_isDebug)
 	{
 		//카메라 영향을 받는 zorder 디버그
@@ -69,11 +75,15 @@ void Cplayer::render(HDC hdc)
 		sprintf_s(str, "마우스 위치? %d , %d",m_ptMouse.x,m_ptMouse.y );
 		TextOut(hdc, 0, WINSIZEY - 60, str, strlen(str));
 	}
-	this->renderDashEffecct(hdc);
 
-	if (_state == STATE::DIE)
+	this->renderDashEffecct(hdc);
+	if(_state==STATE::STOP)
+		ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("걷기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection, 100);
+	else if (_state == STATE::DIE)
 	{
-		IMAGE->findImage("죽기")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 0, 0, _dieAlpha);
+		//IMAGE->findImage("죽기")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 0, 0, _dieAlpha);
+		ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("죽기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 0, 0, _dieAlpha);
+
 		if (_dieAlpha > 50) 
 			_dieAlpha--;
 	}
@@ -149,9 +159,12 @@ void Cplayer::imageInit()
 void Cplayer::inputCheck()
 {
 	if (INPUT->isStayKeyDown('R')) {
-		PLAYERDATA->setpresenthp(4, 1);
+		PLAYERDATA->healPlayer(6);
 		_state = STATE::IDLE;
+		_dieAlpha = 255;
 	}
+	if (INPUT->isOnceKeyDown('P'))
+		playerStop();
 	if (INPUT->isStayKeyDown('W'))
 		_inputDirection.isUp = true;
 	else _inputDirection.isUp = false;
@@ -165,12 +178,7 @@ void Cplayer::inputCheck()
 		_inputDirection.isLeft = true;
 	else _inputDirection.isLeft = false;
 	if (INPUT->isOnceKeyDown('Q'))
-	{
-		if (_isAutoRun)
-			_isAutoRun = false;
-		else if (!_isAutoRun)
-			_isAutoRun = true;
-	}
+			_isAutoRun = !_isAutoRun;
 }
 
 void Cplayer::inputDirectionCheck()
@@ -191,7 +199,6 @@ void Cplayer::inputDirectionCheck()
 			_direction = DOWNLEFT;
 		else if (_inputDirection.isDown && _inputDirection.isRight)
 			_direction = DOWNRIGHT;
-
 		if (_inputDirection.isLeft && !_inputDirection.isUp && !_inputDirection.isDown)
 			_direction = LEFT;
 }
@@ -226,7 +233,7 @@ void Cplayer::stateCheck()
 		{
 			if (!(_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft))
 				_state = STATE::IDLE;
-			if (!_isAutoRun && INPUT->isStayKeyDown(VK_LSHIFT) || _isAutoRun && !INPUT->isStayKeyDown(VK_LSHIFT))
+			else if (!_isAutoRun && INPUT->isStayKeyDown(VK_LSHIFT) || _isAutoRun && !INPUT->isStayKeyDown(VK_LSHIFT))
 			{
 				if (_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft) {
 					_moveDirection = _direction;
@@ -239,8 +246,6 @@ void Cplayer::stateCheck()
 			}
 			if (INPUT->isOnceKeyDown(VK_LBUTTON))
 			{
-				_attCount = 0;
-				_attIndex = 0;
 				if (_player.weapon == WEAPONTYPE::EMPTY || _player.weapon == WEAPONTYPE::STAFF)
 					_state = STATE::ATTSTAFF;
 				_attAngle = UTIL::getAngle(_player.x, _player.y - 20, m_ptMouse.x, m_ptMouse.y);
@@ -252,8 +257,6 @@ void Cplayer::stateCheck()
 
 		if (INPUT->isOnceKeyDown(VK_SPACE))
 		{
-			_dashCount = 0;
-			_dashIndex = 0;
 			_state = STATE::DASH;
 			if (_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft)
 			{
@@ -406,6 +409,8 @@ void Cplayer::setPlayerFrame()
 			_dashIndex++;
 			if (_dashIndex > _dash_img->getMaxFrameX()) {
 				_state = STATE::IDLE;
+				_dashCount = 0;
+				_dashIndex = 0;
 			}
 			_dash_img->setFrameX(_dashIndex);
 		}
@@ -418,6 +423,8 @@ void Cplayer::setPlayerFrame()
 			_attIndex++;
 			if (_attIndex > _attStaff_img->getMaxFrameX()) {
 				_state = STATE::IDLE;
+				_attCount = 0;
+				_attIndex = 0;
 			}
 			_attStaff_img->setFrameX(_attIndex);
 		}
@@ -477,7 +484,16 @@ void Cplayer::renderDashEffecct(HDC hdc)
 
 void Cplayer::hitPlayer(int bulletX, int bulletY)
 {
-	PLAYERDATA->hitPlayer();
+	if (_state != STATE::STOP) {
 	_player.isHit = true;
-	_knockBackAngle = UTIL::getAngle(  bulletX, bulletY, _player.x, _player.y);
+		PLAYERDATA->hitPlayer(1);
+		_knockBackAngle = UTIL::getAngle(bulletX, bulletY, _player.x, _player.y);
+	}
+}
+
+void Cplayer::playerStop()
+{
+	if (_state != STATE::STOP)
+		_state = STATE::STOP;
+	else _state = STATE::IDLE;
 }
