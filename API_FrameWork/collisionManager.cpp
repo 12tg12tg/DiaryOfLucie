@@ -36,370 +36,380 @@ void collisionManager::update()
 void collisionManager::bulletToplayer()
 {
 	//cir面倒
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
-	{
-		if (PLAYER->getPlayerAddress().isHit == false)
-		{
-			for (int i = 0; i < bm->getCirBulInstance()->getVBullet().size(); )
-			{
-				if (IntersectRect(&temprc, &bm->getCirBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-				{
-					PLAYER->hitPlayer(bm->getCirBulInstance()->getVBullet()[i].x, bm->getCirBulInstance()->getVBullet()[i].y);
-					bm->getCirBulInstance()->removeBullet(i);
-					break;
-				}
-				else {
-					i++;
-				}
+	//if (PLAYER->getSTATEAddress() != STATE::DASH)
+	//{
+	//	if (PLAYER->getPlayerAddress().isHit == false)
+	//	{
+	//		for (int i = 0; i < bm->getCirBulInstance()->getVBullet().size(); )
+	//		{
+	//			if (IntersectRect(&temprc, &bm->getCirBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
+	//			{
+	//				PLAYER->hitPlayer(bm->getCirBulInstance()->getVBullet()[i].x, bm->getCirBulInstance()->getVBullet()[i].y);
+	//				bm->getCirBulInstance()->removeBullet(i);
+	//				break;
+	//				PLAYER->hitDash();
+	//			}
+	//			else {
+	//				i++;
+	//			}
+	//		}
+	//	}
+	//}
+	//else
+	//{
+	//	PLAYER->hitDash();
+	//}
+
+	//cir面倒
+	for (int i = 0; i < bm->getCirBulInstance()->getVBullet().size(); ) {
+		if (IntersectRect(&temprc, &bm->getCirBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect)) {
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getCirBulInstance()->getVBullet()[i].x, bm->getCirBulInstance()->getVBullet()[i].y);
+				bm->getCirBulInstance()->removeBullet(i);
+				break;
+			}
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
 			}
 		}
-	}
-	else
-	{
-		PLAYER->hitDash();
+		else {
+			i++;
+		}
 	}
 	//flwbos1面倒
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
+	for (int i = 0; i < bm->getFlwBos1Bullnstance()->getVBullet3().size(); i++)
 	{
-		if (PLAYER->getPlayerAddress().isHit == false)
+		if (IntersectRect(&temprc, &bm->getFlwBos1Bullnstance()->getVBullet3()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 		{
-			for (int i = 0; i < bm->getFlwBos1Bullnstance()->getVBullet3().size(); i++)
-			{
-				if (IntersectRect(&temprc, &bm->getFlwBos1Bullnstance()->getVBullet3()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-				{
-					PLAYER->hitPlayer(bm->getFlwBos1Bullnstance()->getVBullet3()[i].x, bm->getFlwBos1Bullnstance()->getVBullet3()[i].y);
-					break;
-				}
-
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getFlwBos1Bullnstance()->getVBullet3()[i].x, bm->getFlwBos1Bullnstance()->getVBullet3()[i].y);
+				break;
+			}
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
 			}
 		}
-	}
-	else
-	{
-		PLAYER->hitDash();
 	}
 	//flwbos2面倒
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
+	for (int i = 0; i < bm->getFlwBos2Bullnstance()->getVBullet2().size(); i++)
 	{
-		if (PLAYER->getPlayerAddress().isHit == false)
+		if (IntersectRect(&temprc, &bm->getFlwBos2Bullnstance()->getVBullet2()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 		{
-			for (int i = 0; i < bm->getFlwBos2Bullnstance()->getVBullet2().size(); i++)
-			{
-				if (IntersectRect(&temprc, &bm->getFlwBos2Bullnstance()->getVBullet2()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-				{
-					PLAYER->hitPlayer(bm->getFlwBos2Bullnstance()->getVBullet2()[i].x, bm->getFlwBos2Bullnstance()->getVBullet2()[i].y);
-					break;
-				}
-
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getFlwBos2Bullnstance()->getVBullet2()[i].x, bm->getFlwBos2Bullnstance()->getVBullet2()[i].y);
+				break;
+			}
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
 			}
 		}
-	}
-	else
-	{
-		PLAYER->hitDash();
+
 	}
 	//flwbos3面倒
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
+	for (int i = 0; i < bm->getFlwBos3Bullnstance()->getVBullet().size(); )
 	{
-		if (PLAYER->getPlayerAddress().isHit == false)
+		if (IntersectRect(&temprc, &bm->getFlwBos3Bullnstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 		{
-			for (int i = 0; i < bm->getFlwBos3Bullnstance()->getVBullet().size(); )
-			{
-				if (IntersectRect(&temprc, &bm->getFlwBos3Bullnstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-				{
-					PLAYER->hitPlayer(bm->getFlwBos3Bullnstance()->getVBullet()[i].x, bm->getFlwBos3Bullnstance()->getVBullet()[i].y);
-					bm->getFlwBos3Bullnstance()->removeBullet(i);
-					break;
-				}
-				else {
-					i++;
-				}
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getFlwBos3Bullnstance()->getVBullet()[i].x, bm->getFlwBos3Bullnstance()->getVBullet()[i].y);
+				bm->getFlwBos3Bullnstance()->removeBullet(i);
+				break;
+			}
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
 			}
 		}
-	}
-	else
-	{
-		PLAYER->hitDash();
+		else {
+			i++;
+		}
 	}
 	//long poison面倒
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
+	for (int i = 0; i < bm->getLPsnBulInstance()->getVBullet().size(); i++)
 	{
-		if (PLAYER->getPlayerAddress().isHit == false)
+		if (IntersectRect(&temprc, &bm->getLPsnBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 		{
-			for (int i = 0; i < bm->getLPsnBulInstance()->getVBullet().size(); i++)
-			{
-				if (IntersectRect(&temprc, &bm->getLPsnBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-				{
-					PLAYER->hitPlayer(bm->getLPsnBulInstance()->getVBullet()[i].x, bm->getLPsnBulInstance()->getVBullet()[i].y);
-					break;
-				}
-
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getLPsnBulInstance()->getVBullet()[i].x, bm->getLPsnBulInstance()->getVBullet()[i].y);
+				break;
+			}
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
 			}
 		}
 	}
-	else
-	{
-		PLAYER->hitDash();
-	}
+
+
+
+
+
 	//niddle 面倒
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
+	for (int i = 0; i < bm->getnidBulInstance()->getVBullet2().size(); i++)
 	{
-			for (int i = 0; i < bm->getnidBulInstance()->getVBullet2().size(); i++)
-			{
-				if (!PLAYER->getPlayerAddress().isHit&&IntersectRect(&temprc, &bm->getnidBulInstance()->getVBullet2()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-				{
-					PLAYER->hitPlayer(bm->getnidBulInstance()->getVBullet2()[i].x, bm->getnidBulInstance()->getVBullet2()[i].y);
-					break;
-				}
+		if (!PLAYER->getPlayerAddress().isHit && IntersectRect(&temprc, &bm->getnidBulInstance()->getVBullet2()[i].rc, &PLAYER->getPlayerAddress().playerRect))
+		{
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getnidBulInstance()->getVBullet2()[i].x, bm->getnidBulInstance()->getVBullet2()[i].y);
+				break;
 			}
-	}
-	else
-	{
-		PLAYER->hitDash();
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
+			}
+		}
 	}
 	//poison 面倒
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
+	for (int i = 0; i < bm->getPsnBulInstance()->getVBullet().size(); i++)
 	{
-		if (PLAYER->getPlayerAddress().isHit == false)
+		if (IntersectRect(&temprc, &bm->getPsnBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 		{
-			for (int i = 0; i < bm->getPsnBulInstance()->getVBullet().size(); i++)
-			{
-				if (IntersectRect(&temprc, &bm->getPsnBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-				{
-					PLAYER->hitPlayer(bm->getPsnBulInstance()->getVBullet()[i].x, bm->getPsnBulInstance()->getVBullet()[i].y);
-					break;
-				}
-
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getPsnBulInstance()->getVBullet()[i].x, bm->getPsnBulInstance()->getVBullet()[i].y);
+				break;
+			}
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
 			}
 		}
-	}
-	else
-	{
-		PLAYER->hitDash();
+
 	}
 	//return1 面倒
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
+	for (int i = 0; i < bm->getRtnBulInstance()->getVBullet().size(); i++)
 	{
-		if (PLAYER->getPlayerAddress().isHit == false)
+		if (IntersectRect(&temprc, &bm->getRtnBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 		{
-			for (int i = 0; i < bm->getRtnBulInstance()->getVBullet().size(); i++)
-			{
-				if (IntersectRect(&temprc, &bm->getRtnBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-				{
-					PLAYER->hitPlayer(bm->getRtnBulInstance()->getVBullet()[i].x, bm->getRtnBulInstance()->getVBullet()[i].y);
-					bm->getRtnBulInstance()->getVBullet()[i].iscollison = true;
-					break;
-				}
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getRtnBulInstance()->getVBullet()[i].x, bm->getRtnBulInstance()->getVBullet()[i].y);
+				bm->getRtnBulInstance()->getVBullet()[i].iscollison = true;
+				break;
+			}
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
+			}
+		}
 
-			}
-		}
 	}
-	else
+
+	for (int i = 0; i < bm->getRtnBulInstance()->getVBullet2().size(); )
 	{
-		PLAYER->hitDash();
-	}
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
-	{
-		if (PLAYER->getPlayerAddress().isHit == false)
+		if (IntersectRect(&temprc, &bm->getRtnBulInstance()->getVBullet2()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 		{
-			for (int i = 0; i < bm->getRtnBulInstance()->getVBullet2().size(); )
-			{
-				if (IntersectRect(&temprc, &bm->getRtnBulInstance()->getVBullet2()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-				{
-					PLAYER->hitPlayer(bm->getRtnBulInstance()->getVBullet2()[i].x, bm->getRtnBulInstance()->getVBullet2()[i].y);
-					bm->getRtnBulInstance()->removeBullet2(i);
-					break;
-				}
-				else {
-					i++;
-				}
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getRtnBulInstance()->getVBullet2()[i].x, bm->getRtnBulInstance()->getVBullet2()[i].y);
+				bm->getRtnBulInstance()->removeBullet2(i);
+				break;
+			}
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
 			}
 		}
-	}
-	else
-	{
-		PLAYER->hitDash();
+		else {
+			i++;
+		}
 	}
 	//slime boss 1 面倒
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
+	for (int i = 0; i < bm->getSlmBos1Bullnstance()->getVBullet().size(); i++)
 	{
-		if (PLAYER->getPlayerAddress().isHit == false)
+		if (IntersectRect(&temprc, &bm->getSlmBos1Bullnstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 		{
-			for (int i = 0; i < bm->getSlmBos1Bullnstance()->getVBullet().size(); i++)
-			{
-				if (IntersectRect(&temprc, &bm->getSlmBos1Bullnstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-				{
-					PLAYER->hitPlayer(bm->getSlmBos1Bullnstance()->getVBullet()[i].x, bm->getSlmBos1Bullnstance()->getVBullet()[i].y);
-					bm->getSlmBos1Bullnstance()->getVBullet()[i].iscollison = true;
-					break;
-				}
-
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getSlmBos1Bullnstance()->getVBullet()[i].x, bm->getSlmBos1Bullnstance()->getVBullet()[i].y);
+				bm->getSlmBos1Bullnstance()->getVBullet()[i].iscollison = true;
+				break;
+			}
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
 			}
 		}
-	}
-	else
-	{
-		PLAYER->hitDash();
-	}
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
-	{
-		if (PLAYER->getPlayerAddress().isHit == false)
-		{
-			for (int i = 0; i < bm->getSlmBos1Bullnstance()->getVBullet2().size();)
-			{
-				if (IntersectRect(&temprc, &bm->getSlmBos1Bullnstance()->getVBullet2()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-				{
-					PLAYER->hitPlayer(bm->getSlmBos1Bullnstance()->getVBullet2()[i].x, bm->getSlmBos1Bullnstance()->getVBullet2()[i].y);
-					bm->getSlmBos1Bullnstance()->removeBullet2(i);
-					break;
-				}
-				else
-				{
-					i++;
-				}
 
+	}
+	for (int i = 0; i < bm->getSlmBos1Bullnstance()->getVBullet2().size();)
+	{
+		if (IntersectRect(&temprc, &bm->getSlmBos1Bullnstance()->getVBullet2()[i].rc, &PLAYER->getPlayerAddress().playerRect))
+		{
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getSlmBos1Bullnstance()->getVBullet2()[i].x, bm->getSlmBos1Bullnstance()->getVBullet2()[i].y);
+				bm->getSlmBos1Bullnstance()->removeBullet2(i);
+				break;
+			}
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
 			}
 		}
-	}
-	else
-	{
-		PLAYER->hitDash();
+		else
+		{
+			i++;
+		}
+
 	}
 	//tree boss 1 面倒
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
+	for (int i = 0; i < bm->getTreBos1Bullnstance()->getVBullet().size(); i++)
 	{
-		if (PLAYER->getPlayerAddress().isHit == false)
+		if (IntersectRect(&temprc, &bm->getTreBos1Bullnstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 		{
-			for (int i = 0; i < bm->getTreBos1Bullnstance()->getVBullet().size(); i++)
-			{
-				if (IntersectRect(&temprc, &bm->getTreBos1Bullnstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-				{
-					PLAYER->hitPlayer(bm->getTreBos1Bullnstance()->getVBullet()[i].x, bm->getTreBos1Bullnstance()->getVBullet()[i].y);
-					break;
-				}
-
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getTreBos1Bullnstance()->getVBullet()[i].x, bm->getTreBos1Bullnstance()->getVBullet()[i].y);
+				break;
+			}
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
 			}
 		}
-	}
-	else
-	{
-		PLAYER->hitDash();
+
 	}
 	//tree boss 2 面倒
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
+	for (int i = 0; i < bm->getTreBos2Bullnstance()->getVBullet().size(); )
 	{
-		if (PLAYER->getPlayerAddress().isHit == false)
+		if (IntersectRect(&temprc, &bm->getTreBos2Bullnstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 		{
-			for (int i = 0; i < bm->getTreBos2Bullnstance()->getVBullet().size(); )
-			{
-				if (IntersectRect(&temprc, &bm->getTreBos2Bullnstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-				{
-					PLAYER->hitPlayer(bm->getTreBos2Bullnstance()->getVBullet()[i].x, bm->getTreBos2Bullnstance()->getVBullet()[i].y);
-					bm->getTreBos2Bullnstance()->removeBullet(i);
-					break;
-				}
-				else {
-					i++;
-				}
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getTreBos2Bullnstance()->getVBullet()[i].x, bm->getTreBos2Bullnstance()->getVBullet()[i].y);
+				bm->getTreBos2Bullnstance()->removeBullet(i);
+				break;
+			}
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
 			}
 		}
-	}
-	else
-	{
-		PLAYER->hitDash();
+		else {
+			i++;
+		}
 	}
 	//tree boss 3 面倒
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
+	for (int i = 0; i < bm->getTreBos3Bullnstance()->getVBullet().size(); )
 	{
-		if (PLAYER->getPlayerAddress().isHit == false)
+		if (IntersectRect(&temprc, &bm->getTreBos3Bullnstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 		{
-			for (int i = 0; i < bm->getTreBos3Bullnstance()->getVBullet().size(); )
-			{
-				if (IntersectRect(&temprc, &bm->getTreBos3Bullnstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-				{
-					PLAYER->hitPlayer(bm->getTreBos3Bullnstance()->getVBullet()[i].x, bm->getTreBos3Bullnstance()->getVBullet()[i].y);
-					bm->getTreBos3Bullnstance()->removeBullet(i);
-					break;
-				}
-				else {
-					i++;
-				}
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getTreBos3Bullnstance()->getVBullet()[i].x, bm->getTreBos3Bullnstance()->getVBullet()[i].y);
+				bm->getTreBos3Bullnstance()->removeBullet(i);
+				break;
+			}
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
 			}
 		}
-	}
-	else
-	{
-		PLAYER->hitDash();
+		else {
+			i++;
+		}
 	}
 	//triple 面倒
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
+	for (int i = 0; i < bm->getTriBulInstance()->getVBullet().size();)
 	{
-		if (PLAYER->getPlayerAddress().isHit == false)
+		if (IntersectRect(&temprc, &bm->getTriBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 		{
-			for (int i = 0; i < bm->getTriBulInstance()->getVBullet().size();)
-			{
-				if (IntersectRect(&temprc, &bm->getTriBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-				{
-					PLAYER->hitPlayer(bm->getTriBulInstance()->getVBullet()[i].x, bm->getTriBulInstance()->getVBullet()[i].y);
-					bm->getTriBulInstance()->removeBullet(i);
-					break;
-				}
-				else {
-					i++;
-				}
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getTriBulInstance()->getVBullet()[i].x, bm->getTriBulInstance()->getVBullet()[i].y);
+				bm->getTriBulInstance()->removeBullet(i);
+				break;
 			}
-
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
+			}
 		}
-	}
-	else
-	{
-		PLAYER->hitDash();
+		else {
+			i++;
+		}
 	}
 	//wide 面倒
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
+	for (int i = 0; i < bm->getWidBulInstance()->getVBullet().size(); )
 	{
-		if (PLAYER->getPlayerAddress().isHit == false)
+		if (IntersectRect(&temprc, &bm->getWidBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 		{
-			for (int i = 0; i < bm->getWidBulInstance()->getVBullet().size(); )
-			{
-				if (IntersectRect(&temprc, &bm->getWidBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-				{
-					PLAYER->hitPlayer(bm->getWidBulInstance()->getVBullet()[i].x, bm->getWidBulInstance()->getVBullet()[i].y);
-					bm->getWidBulInstance()->removeBullet(i);
-					break;
-				}
-				else {
-					i++;
-				}
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getWidBulInstance()->getVBullet()[i].x, bm->getWidBulInstance()->getVBullet()[i].y);
+				bm->getWidBulInstance()->removeBullet(i);
+				break;
+			}
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
 			}
 		}
-	}
-	else
-	{
-		PLAYER->hitDash();
+		else {
+			i++;
+		}
 	}
 	//homing 面倒
-	if (PLAYER->getSTATEAddress() != STATE::DASH)
+	for (int i = 0; i < bm->getHomBulInstance()->getVBullet().size(); i++)
 	{
-		if (PLAYER->getPlayerAddress().isHit == false)
+		if (OBB->isOBBCollision(bm->getHomBulInstance()->getVBullet()[i].rc, bm->getHomBulInstance()->getVBullet()[i].angle,
+			PLAYER->getPlayerAddress().playerRect, 0))
 		{
-			for (int i = 0; i < bm->getHomBulInstance()->getVBullet().size(); i++)
-			{
-				if (OBB->isOBBCollision(bm->getHomBulInstance()->getVBullet()[i].rc, bm->getHomBulInstance()->getVBullet()[i].angle,
-					PLAYER->getPlayerAddress().playerRect, 0))
-				{
-					PLAYER->hitPlayer(bm->getHomBulInstance()->getVBullet()[i].x, bm->getHomBulInstance()->getVBullet()[i].y);
-					bm->getHomBulInstance()->removeBullet(i);
-					break;
-				}
-
+			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
+				PLAYER->hitPlayer(bm->getHomBulInstance()->getVBullet()[i].x, bm->getHomBulInstance()->getVBullet()[i].y);
+				bm->getHomBulInstance()->removeBullet(i);
+				break;
 			}
-
+			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
+				PLAYER->hitDash();
+				break;
+			}
+			else if (PLAYER->getPlayerAddress().isHit) {
+				break;
+			}
 		}
-	}
-	else
-	{
-		PLAYER->hitDash();
 	}
 }
 void collisionManager::bulletTomon()
@@ -602,7 +612,7 @@ void collisionManager::checkMonRight(monster* monster)
 		for (int i = RecCenX(iter->footRc) + 1; i < RecCenX(iter->footRc) + 10; i++)
 		{
 			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), i, RecCenY(iter->footRc));
-			
+
 			int r = GetRValue(color);
 			int g = GetGValue(color);
 			int b = GetBValue(color);
@@ -709,7 +719,7 @@ void collisionManager::playerToDoor()
 		mapm->checktopdoorcollison(false);
 
 	}
-	if (mapm->getCurrentDoor()[2].isOpen &&IntersectRect(&temprc, &mapm->getCurrentDoor()[2].Door, &PLAYER->getPlayerAddress().playerRect))
+	if (mapm->getCurrentDoor()[2].isOpen && IntersectRect(&temprc, &mapm->getCurrentDoor()[2].Door, &PLAYER->getPlayerAddress().playerRect))
 	{
 		mapm->checkrightdoorcollison(true);
 	}
@@ -717,7 +727,7 @@ void collisionManager::playerToDoor()
 	{
 		mapm->checkrightdoorcollison(false);
 	}
-	if (mapm->getCurrentDoor()[3].isOpen &&IntersectRect(&temprc, &mapm->getCurrentDoor()[3].Door, &PLAYER->getPlayerAddress().playerRect))
+	if (mapm->getCurrentDoor()[3].isOpen && IntersectRect(&temprc, &mapm->getCurrentDoor()[3].Door, &PLAYER->getPlayerAddress().playerRect))
 	{
 		mapm->checkdowndoorcollison(true);
 	}
@@ -731,7 +741,7 @@ void collisionManager::bulletToMap()
 {
 	for (int i = 0; i < bm->getCirBulInstance()->getVBullet().size(); )
 	{
-		for (int k = bm->getCirBulInstance()->getVBullet()[i].x+ 1; k < bm->getCirBulInstance()->getVBullet()[i].x + 10; k++)
+		for (int k = bm->getCirBulInstance()->getVBullet()[i].x + 1; k < bm->getCirBulInstance()->getVBullet()[i].x + 10; k++)
 		{
 			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getCirBulInstance()->getVBullet()[i].y);
 
