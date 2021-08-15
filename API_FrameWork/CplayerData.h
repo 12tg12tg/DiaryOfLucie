@@ -46,6 +46,11 @@ private:
 
 	int _defaultStamina;
 	int _recoveryStaminaCoolTimeCount;
+	
+	int _EXP;
+
+	bool _getSkill;
+	
 	int _money;
 
 private:

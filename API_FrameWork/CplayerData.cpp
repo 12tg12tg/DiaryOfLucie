@@ -33,6 +33,8 @@ HRESULT CplayerData::init()
 
 	UIalpha = 255;
 
+	_EXP = 0;
+	_getSkill = false;
 	_money = 0;
 
 	return S_OK;
@@ -54,7 +56,7 @@ void CplayerData::update()
 	this->recoveryStamina();
 	_StaminaBar->setGauge(_defaultStamina, 100);
 
-	_EXPBar->setGauge(40, 100);
+	_EXPBar->setGauge(_EXP, 100);
 }
 
 void CplayerData::render(HDC hdc)
@@ -108,7 +110,7 @@ void CplayerData::render(HDC hdc)
 void CplayerData::imageInit()
 {
 	_layout_image = IMAGE->addImage("하단피통레이아웃", "images/UI/피통배경.bmp", 230 * 1.3, 90 * 1.3, true);
-	IMAGE->addFrameImage("레벨", "images/UI/레벨숫자.bmp", 320 * 1.3, 19 * 1.3, 10, 1, true);
+	IMAGE->addFrameImage("레벨", "images/UI/레벨숫자.bmp", 318 * 1.3, 19 * 1.3, 10, 1, true);
 	IMAGE->addFrameImage("피통", "images/UI/피통.bmp", 48*1.3, 22*1.3, 2, 1, true);
 	IMAGE->addFrameImage("작은피통", "images/UI/피통.bmp", 48*1.3/2, 22*1.3/2, 2, 1, true);
 	IMAGE->addFrameImage("마나통", "images/UI/마나통.bmp", 48 * 1.3, 24 * 1.3, 2, 1, true);
@@ -200,7 +202,6 @@ bool CplayerData::useStamina(int costStamina, bool check)
 		if (_defaultStamina < 0)
 			_defaultStamina = 0;
 }
-
 void CplayerData::recoveryStamina()
 {
 	if (_recoveryStaminaCoolTimeCount) 
@@ -223,3 +224,19 @@ void CplayerData::recoveryStamina(int recovery)
 		_defaultStamina = 100;
 }
 
+void CplayerData::expUP(int exp)
+{
+	_EXP += exp;
+	if (_EXP > 100) {
+		if (_level < 9) 
+		{
+			_level++;
+			_EXP -= 100;
+			_getSkill == true;
+		}
+		else
+		{
+			_EXP = 100;
+		}
+	}
+}
