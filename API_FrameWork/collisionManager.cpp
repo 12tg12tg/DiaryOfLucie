@@ -56,7 +56,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		                                                                                                                              ;
 	}
 	//flwbos1Ãæµ¹
 	if (PLAYER->getSTATEAddress() != STATE::DASH)

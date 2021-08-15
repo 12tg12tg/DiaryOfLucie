@@ -13,12 +13,12 @@
 #define ZABOVEMAP	9
 
 //최대레이어
-#define ZMAXLAYER	9
+#define ZMAXLAYER	10
 
 //색상정의
 #define MINT		RGB(88, 245, 206)
 
-static image* _backBuffer = IMAGE->addImage("backBuffer", WINSIZEX, WINSIZEY);
+static image* _backBuffer = IMAGE->addImage("backBuffer", WINSIZEX+300, WINSIZEY+300);
 class gameNode
 {
 private:

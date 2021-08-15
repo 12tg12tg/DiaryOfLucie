@@ -17,8 +17,8 @@ protected:
 
 	bool _isDebug;
 public:
-	object();
-	~object();
+	chest();
+	~chest();
 
 	virtual HRESULT add();
 	virtual void release();
