@@ -2,7 +2,7 @@
 #include"gameNode.h"
 #include"Cmap.h"
 #include<map>
-#define MAXSIZE 7
+#define MAXSIZE 9
 
 
 enum MAPKIND
