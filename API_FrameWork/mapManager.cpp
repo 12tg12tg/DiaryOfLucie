@@ -30,9 +30,9 @@ HRESULT mapManager::init()
 	while (remainRoom > 4 )
 	{
 		makeclear();
-		makestage1((MAXSIZE - 1) / 2,(5));
+		makestage1(MAXSIZE / 2, MAXSIZE / 2 - 1);
 	}
-
+	stage1[MAXSIZE / 2][MAXSIZE / 2] = { _Cmap9,"_Cmap9",false,true, START };
 
 	//MAP stage1[2][2] = { {{nullptr,"",false,true,NONE,},{_Cmap5,"_Cmap5",false,true,NONE}},{{_Cmap2,"_Cmap2",false,true,START},{_Cmap3,"_Cmap3",false,true,NONE}} };
 	for (int i = 0; i < MAXSIZE; i++)
@@ -115,7 +115,15 @@ void mapManager::update()
 void mapManager::render()
 {
 	SCENE->render();
-
+	for (size_t i = 0; i < MAXSIZE; i++)
+	{
+		for (size_t j = 0; j < MAXSIZE; j++)
+		{
+			TCHAR str[128];
+			string temp = to_string((int)stage1[i][j].mapkind);
+			ZORDER->ZorderTextOut(temp, 10, 100 + 20 * j, 100 + 20 * i, RGB(0, 0, 0));
+		}
+	}
 }
 
 
@@ -173,14 +181,14 @@ void mapManager::makeclear() {
 	{
 		for (int k = 0; k < MAXSIZE; k++)
 		{
-			stage1[i][k].mapkind == NONE;
+			stage1[i][k].mapkind = NONE;
 			stage1[i][k].canMake = true;
 			stage1[i][k].isMake = false;
 			stage1[i][k].sceneKey = "";
 			stage1[i][k]._motherMap = nullptr;
 		}
 	}
-	stage1[(MAXSIZE - 1) / 2][(MAXSIZE - 1) / 2] = { _Cmap9,"_Cmap9",false,true,START };
+	stage1[MAXSIZE / 2][MAXSIZE / 2] = { _Cmap9,"_Cmap9",false,true, START };
 	remainRoom = 12;
 	remain_SHOP = 1;
 	remain_MORUROOM = 1;

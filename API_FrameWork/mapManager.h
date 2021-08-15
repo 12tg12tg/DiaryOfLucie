@@ -2,7 +2,7 @@
 #include"gameNode.h"
 #include"Cmap.h"
 #include<map>
-#define MAXSIZE 9
+#define MAXSIZE 7
 
 
 enum MAPKIND
@@ -18,6 +18,7 @@ enum MAPKIND
 	BOSSROOM,
 	NEXTSTAGE
 };
+
 struct MAP {
 	motherMap* _motherMap;
 	string sceneKey;
