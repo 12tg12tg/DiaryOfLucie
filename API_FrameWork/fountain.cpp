@@ -72,9 +72,10 @@ void fountain::bulletCollision(bulletManager* bm)
 		{
 			if (_hp > 0) {
 				float angle = UTIL::getAngle(bm->getMgcBulInstance()->getVBullet()[i].x,
-					bm->getMgcBulInstance()->getVBullet()[i].y, _x, _y);
-				_x += cosf(angle) * 10;
-				_y -= sinf(angle) * 10;
+					bm->getMgcBulInstance()->getVBullet()[i].y,
+					_x + _img->getFrameWidth() / 2, _y + _img->getFrameHeight() / 2);
+				_x += cosf(angle) * 5;
+				_y -= sinf(angle) * 5;
 			}
 			bm->getMgcBulInstance()->removeBullet(i);
 			afterHit();
@@ -87,7 +88,8 @@ void fountain::bulletCollision(bulletManager* bm)
 		{
 			if (_hp > 0) {
 				float angle = UTIL::getAngle(bm->getArwBulInstance()->getVBullet()[i].x,
-					bm->getArwBulInstance()->getVBullet()[i].y, _x, _y);
+					bm->getArwBulInstance()->getVBullet()[i].y,
+					_x + _img->getFrameWidth() / 2, _y + _img->getFrameHeight() / 2);
 				_x += cosf(angle) * 5;
 				_y -= sinf(angle) * 5;
 			}

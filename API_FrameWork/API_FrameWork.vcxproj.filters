@@ -91,6 +91,9 @@
     <Filter Include="DOL\object\statue">
       <UniqueIdentifier>{7702cce3-d526-4093-b0ea-aa2b78df09d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DOL\object\chest">
+      <UniqueIdentifier>{1b1ba6a8-9c29-4de6-a504-c8b9ef962db4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -225,6 +228,9 @@
     <ClInclude Include="statue.h">
       <Filter>DOL\object\statue</Filter>
     </ClInclude>
+    <ClInclude Include="chest.h">
+      <Filter>DOL\object\chest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -340,6 +346,9 @@
     </ClCompile>
     <ClCompile Include="statue.cpp">
       <Filter>DOL\object\statue</Filter>
+    </ClCompile>
+    <ClCompile Include="chest.cpp">
+      <Filter>DOL\object\chest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
