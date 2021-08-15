@@ -13,8 +13,8 @@ fountain::~fountain()
 HRESULT fountain::add(float centerx, float centery)
 {
 	_img = IMAGE->findImage("분수대");
-	_x = centerx - _img->getFrameWidth();
-	_y = centery - _img->getFrameHeight();
+	_x = centerx - _img->getFrameWidth()/2;
+	_y = centery - _img->getFrameHeight()/2;
 	_hitRc = RectMake(_x, _y + _img->getFrameHeight()*2 / 5,
 		_img->getFrameWidth(), _img->getFrameHeight() * 3 / 5);
 	_footRc = RectMake(_hitRc.left-2,_hitRc.top, RecWidth(_hitRc)+4,  RecHeight(_hitRc));
@@ -95,7 +95,9 @@ void fountain::bulletCollision(bulletManager* bm)
 			afterHit();
 		}
 	}
-	//3. 검은 안해도 됨.
+	//3. 검
+
+
 }
 
 void fountain::playerCollision()

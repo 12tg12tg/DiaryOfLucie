@@ -24,8 +24,8 @@ moru::~moru()
 HRESULT moru::add(float centerx, float centery)
 {
 	_img = IMAGE->findImage("¸ð·ç");
-	_x = centerx - _img->getFrameWidth();
-	_y = centery - _img->getFrameHeight();
+	_x = centerx - _img->getFrameWidth()/2;
+	_y = centery - _img->getFrameHeight()/2;
 	_hitRc = RectMake(_x + _img->getFrameWidth() / 9, _y + _img->getFrameHeight() / 4, 
 		_img->getFrameWidth()*7/9, _img->getFrameHeight()*3/4);
 	_footRc = RectMake(_hitRc.left, _hitRc.top + RecHeight(_hitRc) / 3, RecWidth(_hitRc), RecHeight(_hitRc) * 2 / 3);

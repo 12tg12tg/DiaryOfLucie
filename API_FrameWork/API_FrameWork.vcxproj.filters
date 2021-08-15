@@ -88,6 +88,9 @@
     <Filter Include="DOL\object\moru">
       <UniqueIdentifier>{683c0ed6-343b-4af0-88c3-1d998ed957bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DOL\object\statue">
+      <UniqueIdentifier>{7702cce3-d526-4093-b0ea-aa2b78df09d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -219,6 +222,9 @@
     <ClInclude Include="moru.h">
       <Filter>DOL\object\moru</Filter>
     </ClInclude>
+    <ClInclude Include="statue.h">
+      <Filter>DOL\object\statue</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -331,6 +337,9 @@
     </ClCompile>
     <ClCompile Include="moru.cpp">
       <Filter>DOL\object\moru</Filter>
+    </ClCompile>
+    <ClCompile Include="statue.cpp">
+      <Filter>DOL\object\statue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
