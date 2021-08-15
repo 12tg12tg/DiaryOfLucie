@@ -82,9 +82,9 @@ void mainDOL::render()
 
 	BUTTON->render();
 	PLAYER->render(getMemDC());
-	PLAYERDATA->render(getMemDC());
 
 	EFFECT->render();
-
 	ZORDER->ZorderTotalRender(getMemDC());
+
+	PLAYERDATA->render(getMemDC());
 }

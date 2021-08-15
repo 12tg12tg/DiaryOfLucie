@@ -46,7 +46,7 @@ void collisionManager::bulletToplayer()
 				{
 					PLAYER->hitPlayer(bm->getCirBulInstance()->getVBullet()[i].x, bm->getCirBulInstance()->getVBullet()[i].y);
 					bm->getCirBulInstance()->removeBullet(i);
-					continue;
+					break;
 				}
 				else {
 					i++;
@@ -68,6 +68,7 @@ void collisionManager::bulletToplayer()
 				if (IntersectRect(&temprc, &bm->getFlwBos1Bullnstance()->getVBullet3()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 				{
 					PLAYER->hitPlayer(bm->getFlwBos1Bullnstance()->getVBullet3()[i].x, bm->getFlwBos1Bullnstance()->getVBullet3()[i].y);
+					break;
 				}
 
 			}
@@ -87,6 +88,7 @@ void collisionManager::bulletToplayer()
 				if (IntersectRect(&temprc, &bm->getFlwBos2Bullnstance()->getVBullet2()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 				{
 					PLAYER->hitPlayer(bm->getFlwBos2Bullnstance()->getVBullet2()[i].x, bm->getFlwBos2Bullnstance()->getVBullet2()[i].y);
+					break;
 				}
 
 			}
@@ -107,6 +109,7 @@ void collisionManager::bulletToplayer()
 				{
 					PLAYER->hitPlayer(bm->getFlwBos3Bullnstance()->getVBullet()[i].x, bm->getFlwBos3Bullnstance()->getVBullet()[i].y);
 					bm->getFlwBos3Bullnstance()->removeBullet(i);
+					break;
 				}
 				else {
 					i++;
@@ -128,6 +131,7 @@ void collisionManager::bulletToplayer()
 				if (IntersectRect(&temprc, &bm->getLPsnBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 				{
 					PLAYER->hitPlayer(bm->getLPsnBulInstance()->getVBullet()[i].x, bm->getLPsnBulInstance()->getVBullet()[i].y);
+					break;
 				}
 
 			}
@@ -140,17 +144,14 @@ void collisionManager::bulletToplayer()
 	//niddle Ãæµ¹
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
 	{
-		if (PLAYER->getPlayerAddress().isHit == false)
-		{
 			for (int i = 0; i < bm->getnidBulInstance()->getVBullet2().size(); i++)
 			{
-				if (IntersectRect(&temprc, &bm->getnidBulInstance()->getVBullet2()[i].rc, &PLAYER->getPlayerAddress().playerRect))
+				if (!PLAYER->getPlayerAddress().isHit&&IntersectRect(&temprc, &bm->getnidBulInstance()->getVBullet2()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 				{
 					PLAYER->hitPlayer(bm->getnidBulInstance()->getVBullet2()[i].x, bm->getnidBulInstance()->getVBullet2()[i].y);
+					break;
 				}
-
 			}
-		}
 	}
 	else
 	{
@@ -166,6 +167,7 @@ void collisionManager::bulletToplayer()
 				if (IntersectRect(&temprc, &bm->getPsnBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 				{
 					PLAYER->hitPlayer(bm->getPsnBulInstance()->getVBullet()[i].x, bm->getPsnBulInstance()->getVBullet()[i].y);
+					break;
 				}
 
 			}
@@ -186,6 +188,7 @@ void collisionManager::bulletToplayer()
 				{
 					PLAYER->hitPlayer(bm->getRtnBulInstance()->getVBullet()[i].x, bm->getRtnBulInstance()->getVBullet()[i].y);
 					bm->getRtnBulInstance()->getVBullet()[i].iscollison = true;
+					break;
 				}
 
 			}
@@ -205,6 +208,7 @@ void collisionManager::bulletToplayer()
 				{
 					PLAYER->hitPlayer(bm->getRtnBulInstance()->getVBullet2()[i].x, bm->getRtnBulInstance()->getVBullet2()[i].y);
 					bm->getRtnBulInstance()->removeBullet2(i);
+					break;
 				}
 				else {
 					i++;
@@ -227,6 +231,7 @@ void collisionManager::bulletToplayer()
 				{
 					PLAYER->hitPlayer(bm->getSlmBos1Bullnstance()->getVBullet()[i].x, bm->getSlmBos1Bullnstance()->getVBullet()[i].y);
 					bm->getSlmBos1Bullnstance()->getVBullet()[i].iscollison = true;
+					break;
 				}
 
 			}
@@ -246,6 +251,7 @@ void collisionManager::bulletToplayer()
 				{
 					PLAYER->hitPlayer(bm->getSlmBos1Bullnstance()->getVBullet2()[i].x, bm->getSlmBos1Bullnstance()->getVBullet2()[i].y);
 					bm->getSlmBos1Bullnstance()->removeBullet2(i);
+					break;
 				}
 				else
 				{
@@ -269,6 +275,7 @@ void collisionManager::bulletToplayer()
 				if (IntersectRect(&temprc, &bm->getTreBos1Bullnstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
 				{
 					PLAYER->hitPlayer(bm->getTreBos1Bullnstance()->getVBullet()[i].x, bm->getTreBos1Bullnstance()->getVBullet()[i].y);
+					break;
 				}
 
 			}
@@ -289,6 +296,7 @@ void collisionManager::bulletToplayer()
 				{
 					PLAYER->hitPlayer(bm->getTreBos2Bullnstance()->getVBullet()[i].x, bm->getTreBos2Bullnstance()->getVBullet()[i].y);
 					bm->getTreBos2Bullnstance()->removeBullet(i);
+					break;
 				}
 				else {
 					i++;
@@ -311,6 +319,7 @@ void collisionManager::bulletToplayer()
 				{
 					PLAYER->hitPlayer(bm->getTreBos3Bullnstance()->getVBullet()[i].x, bm->getTreBos3Bullnstance()->getVBullet()[i].y);
 					bm->getTreBos3Bullnstance()->removeBullet(i);
+					break;
 				}
 				else {
 					i++;
@@ -333,6 +342,7 @@ void collisionManager::bulletToplayer()
 				{
 					PLAYER->hitPlayer(bm->getTriBulInstance()->getVBullet()[i].x, bm->getTriBulInstance()->getVBullet()[i].y);
 					bm->getTriBulInstance()->removeBullet(i);
+					break;
 				}
 				else {
 					i++;
@@ -356,6 +366,7 @@ void collisionManager::bulletToplayer()
 				{
 					PLAYER->hitPlayer(bm->getWidBulInstance()->getVBullet()[i].x, bm->getWidBulInstance()->getVBullet()[i].y);
 					bm->getWidBulInstance()->removeBullet(i);
+					break;
 				}
 				else {
 					i++;
@@ -379,6 +390,7 @@ void collisionManager::bulletToplayer()
 				{
 					PLAYER->hitPlayer(bm->getHomBulInstance()->getVBullet()[i].x, bm->getHomBulInstance()->getVBullet()[i].y);
 					bm->getHomBulInstance()->removeBullet(i);
+					break;
 				}
 
 			}

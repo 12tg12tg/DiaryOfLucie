@@ -62,7 +62,6 @@ struct Player
 };
 
 struct DashEffect {
-	image* dashEffect;
 	int x, y;
 	int dashFrameX;
 	DIRECTION direction;
