@@ -100,12 +100,17 @@ void CplayerData::render(HDC hdc)
 
 	char str[256];
 	SetTextColor(hdc, RGB(0, 0, 255));
-	if(_isDebug)
+	if (_isDebug)
 	{
 		/*
 		sprintf_s(str, "최대마나통? %d",_MaxMP );
 		TextOut(hdc, 0, WINSIZEY - 120, str, strlen(str));
 		*/
+		//카메라영향을 받지 않는 상태확인.
+		sprintf_s(str, "플레이어 x,y? %d , %d", (int)PLAYER->getPlayerAddress().x, (int)PLAYER->getPlayerAddress().y);
+		TextOut(hdc, 0, WINSIZEY - 80, str, strlen(str));
+		sprintf_s(str, "마우스 위치? %d , %d", m_ptMouse.x, m_ptMouse.y);
+		TextOut(hdc, 0, WINSIZEY - 60, str, strlen(str));
 	}
 }
 
