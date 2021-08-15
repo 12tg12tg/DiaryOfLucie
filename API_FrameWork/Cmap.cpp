@@ -51,10 +51,10 @@ Cmap2::Cmap2()
 	IMAGE->addImage("57배경", "images/map/ground57.bmp", 1008, 672, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("57픽셀", "images/map/!m57.bmp", 1008, 672, true, RGB(255, 0, 255));
 	IMAGE->addImage("57가림", "images/map/par57.bmp", 1008, 672, true, RGB(255, 0, 255));
-	_door[0].Door = RectMakeCenter(0, WINSIZEY / 2, 200, 200);//left
-	_door[1].Door = RectMakeCenter(WINSIZEX / 2, 0, 200, 200); //top
-	_door[2].Door = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);//right
-	_door[3].Door = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200); //bottom
+	_door[0].Door = RectMakeCenter(0, WINSIZEY / 2, 200, 200);			//left
+	_door[1].Door = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);			//top
+	_door[2].Door = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);	//right
+	_door[3].Door = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200);	//bottom
 }
 
 Cmap2::~Cmap2()

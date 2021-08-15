@@ -128,7 +128,15 @@ void mapManager::update()
 void mapManager::render()
 {
 	SCENE->render();
-
+	for (size_t i = 0; i < MAXSIZE; i++)
+	{
+		for (size_t j = 0; j < MAXSIZE; j++)
+		{
+			string str;
+			str = to_string((int)stage1[i][j].mapkind);
+			ZORDER->ZorderTextOut(str, ZMAXLAYER, 100 + 20 * i, 100 + 20 * j, RGB(0, 0, 0));
+		}
+	}
 }
 
 
