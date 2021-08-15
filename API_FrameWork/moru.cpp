@@ -24,8 +24,8 @@ moru::~moru()
 HRESULT moru::add(float centerx, float centery)
 {
 	_img = IMAGE->findImage("葛风");
-	_x = centerx - _img->getFrameWidth();
-	_y = centery - _img->getFrameHeight();
+	_x = centerx - _img->getFrameWidth()/2;
+	_y = centery - _img->getFrameHeight()/2;
 	_hitRc = RectMake(_x + _img->getFrameWidth() / 9, _y + _img->getFrameHeight() / 4, 
 		_img->getFrameWidth()*7/9, _img->getFrameHeight()*3/4);
 	_footRc = RectMake(_hitRc.left, _hitRc.top + RecHeight(_hitRc) / 3, RecWidth(_hitRc), RecHeight(_hitRc) * 2 / 3);
@@ -116,37 +116,37 @@ void moru::giveFrame()
 	case MORUSTATE::NONE:
 		{
 		int arr[] = { 0 };
-		_ani = ANIMATION->addNoneKeyAnimation("葛风", arr, sizeof(arr) / sizeof(int), 6, true);
+		ANIMATION->changeNonKeyAnimation(_ani, "葛风", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
 		break;
 	case MORUSTATE::SPEAK:
 		if (_speakCount == 0) {
 			int arr[] = { 0, 1 };
-			_ani = ANIMATION->addNoneKeyAnimation("葛风", arr, sizeof(arr) / sizeof(int), 6, true);
+			ANIMATION->changeNonKeyAnimation(_ani, "葛风", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
 		else if (_speakCount == 100) {
 			int arr[] = { 0 };
-			_ani = ANIMATION->addNoneKeyAnimation("葛风", arr, sizeof(arr) / sizeof(int), 6, true);
+			ANIMATION->changeNonKeyAnimation(_ani, "葛风", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
 		break;
 	case MORUSTATE::BROKEN:
 		if (_speakCount == 0) {
 			int arr[] = { 6, 3 };
-			_ani = ANIMATION->addNoneKeyAnimation("葛风", arr, sizeof(arr) / sizeof(int), 6, true);
+			ANIMATION->changeNonKeyAnimation(_ani, "葛风", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
 		else if (_speakCount == 120) {
 			int arr[] = { 0 };
-			_ani = ANIMATION->addNoneKeyAnimation("葛风", arr, sizeof(arr) / sizeof(int), 6, true);
+			ANIMATION->changeNonKeyAnimation(_ani, "葛风", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
 		break;
 	case MORUSTATE::NOMONEY:
 		if (_speakCount == 0) {
 			int arr[] = { 0, 4 };
-			_ani = ANIMATION->addNoneKeyAnimation("葛风", arr, sizeof(arr) / sizeof(int), 6, true);
+			ANIMATION->changeNonKeyAnimation(_ani, "葛风", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
 		else if (_speakCount == 100) {
 			int arr[] = { 0 };
-			_ani = ANIMATION->addNoneKeyAnimation("葛风", arr, sizeof(arr) / sizeof(int), 6, true);
+			ANIMATION->changeNonKeyAnimation(_ani, "葛风", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
 		break;
 	}

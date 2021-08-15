@@ -35,9 +35,10 @@ void Cmap::render()
 {
 	
 
-	ZORDER->ZorderRender(IMAGE->findImage("95배경"), 0, WINSIZEX, 0, 0);
-	ZORDER->ZorderRender(IMAGE->findImage("95가림"), 9, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("95배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("95가림"), ZABOVEMAP, WINSIZEX, 0, 0);
 
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("95픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
@@ -50,10 +51,10 @@ Cmap2::Cmap2()
 	IMAGE->addImage("57배경", "images/map/ground57.bmp", 1008, 672, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("57픽셀", "images/map/!m57.bmp", 1008, 672, true, RGB(255, 0, 255));
 	IMAGE->addImage("57가림", "images/map/par57.bmp", 1008, 672, true, RGB(255, 0, 255));
-	_door[0].Door = RectMakeCenter(0, WINSIZEY / 2, 200, 200);//left
-	_door[1].Door = RectMakeCenter(WINSIZEX / 2, 0, 200, 200); //top
-	_door[2].Door = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);//right
-	_door[3].Door = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200); //bottom
+	_door[0].Door = RectMakeCenter(0, WINSIZEY / 2, 200, 200);			//left
+	_door[1].Door = RectMakeCenter(WINSIZEX / 2, 0, 200, 200);			//top
+	_door[2].Door = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);	//right
+	_door[3].Door = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200);	//bottom
 }
 
 Cmap2::~Cmap2()
@@ -82,11 +83,10 @@ void Cmap2::update()
 void Cmap2::render()
 {
 
-	ZORDER->ZorderRender(IMAGE->findImage("57배경"), 0, WINSIZEX, 0, 0);
-	ZORDER->ZorderRender(IMAGE->findImage("57가림"), 9, WINSIZEX, 0, 0);
-	
-	
-	
+	ZORDER->ZorderRender(IMAGE->findImage("57배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("57가림"), ZABOVEMAP, WINSIZEX, 0, 0);
+
+	if(_isDebug) ZORDER->ZorderRender(IMAGE->findImage("57픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door,ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door,ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door,ZEFFECT1);
@@ -129,8 +129,9 @@ void Cmap3::render()
 {
 	
 	
-	ZORDER->ZorderRender(IMAGE->findImage("104배경"), 0, WINSIZEX, 0, 0);
-	ZORDER->ZorderRender(IMAGE->findImage("104가림"), 9, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("104배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("104가림"), ZABOVEMAP, WINSIZEX, 0, 0);
+	if(_isDebug) ZORDER->ZorderRender(IMAGE->findImage("104픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
@@ -172,9 +173,10 @@ void Cmap4::update()
 void Cmap4::render()
 {
 
-	ZORDER->ZorderRender(IMAGE->findImage("105배경"), 0, WINSIZEX, 0, 0);
-	ZORDER->ZorderRender(IMAGE->findImage("105가림"), 9, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("105배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("105가림"), ZABOVEMAP, WINSIZEX, 0, 0);
 
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("105픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door,ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door,ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door,ZEFFECT1);
@@ -215,9 +217,10 @@ void Cmap5::render()
 {
 
 
-	ZORDER->ZorderRender(IMAGE->findImage("115배경"), 0, WINSIZEX, 0, 0);
-	ZORDER->ZorderRender(IMAGE->findImage("115가림"), 9, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("115배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("115가림"), ZABOVEMAP, WINSIZEX, 0, 0);
 
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("115픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
@@ -226,9 +229,9 @@ void Cmap5::render()
 
 Cmap6::Cmap6()
 {
-	IMAGE->addImage("100배경", "images/map/ground100.bmp", 1008, 768, true, RGB(255, 0, 255));
-	_collisionMap = IMAGE->addImage("100픽셀", "images/map/!m100.bmp", 1008, 768, true, RGB(255, 0, 255));
-	IMAGE->addImage("100가림", "images/map/par100.bmp", 1008, 768, true, RGB(255, 0, 255));
+	IMAGE->addImage("50배경", "images/map/ground50.bmp", 1008, 768, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("50픽셀", "images/map/!m50.bmp", 1008, 768, true, RGB(255, 0, 255));
+	IMAGE->addImage("50가림", "images/map/par50.bmp", 1008, 768, true, RGB(255, 0, 255));
 	_door[0].Door = RectMakeCenter(0, WINSIZEY / 2, 200, 200);//left
 	_door[1].Door = RectMakeCenter(WINSIZEX / 2, 0, 200, 200); //top
 	_door[2].Door = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);//right
@@ -256,8 +259,9 @@ void Cmap6::update()
 
 void Cmap6::render()
 {
-	ZORDER->ZorderRender(IMAGE->findImage("100배경"), 0, WINSIZEX, 0, 0);
-	ZORDER->ZorderRender(IMAGE->findImage("100가림"), 9, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("50배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("50가림"), ZABOVEMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("50픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
@@ -266,9 +270,9 @@ void Cmap6::render()
 
 Cmap7::Cmap7()
 {
-	IMAGE->addImage("102배경", "images/map/ground102.bmp", 1008, 960, true, RGB(255, 0, 255));
-	_collisionMap = IMAGE->addImage("102픽셀", "images/map/!m102.bmp", 1008, 960, true, RGB(255, 0, 255));
-	IMAGE->addImage("102가림", "images/map/par102.bmp", 1008, 960, true, RGB(255, 0, 255));
+	IMAGE->addImage("51배경", "images/map/ground51.bmp", 1008, 672, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("51픽셀", "images/map/!m51.bmp", 1008, 672, true, RGB(255, 0, 255));
+	IMAGE->addImage("51가림", "images/map/par51.bmp", 1008, 672, true, RGB(255, 0, 255));
 	_door[0].Door = RectMakeCenter(0, WINSIZEY / 2, 200, 200);//left
 	_door[1].Door = RectMakeCenter(WINSIZEX / 2, 0, 200, 200); //top
 	_door[2].Door = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);//right
@@ -296,8 +300,9 @@ void Cmap7::update()
 
 void Cmap7::render()
 {
-	ZORDER->ZorderRender(IMAGE->findImage("102배경"), 0, WINSIZEX, 0, 0);
-	ZORDER->ZorderRender(IMAGE->findImage("102가림"), 9, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("51배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("51가림"), ZABOVEMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("51픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
@@ -336,8 +341,9 @@ void Cmap8::update()
 
 void Cmap8::render()
 {
-	ZORDER->ZorderRender(IMAGE->findImage("103배경"), 0, WINSIZEX, 0, 0);
-	ZORDER->ZorderRender(IMAGE->findImage("103가림"), 9, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("103배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("103가림"), ZABOVEMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("103픽셀"), ZCOLMAP, WINSIZEY, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
@@ -376,8 +382,9 @@ void Cmap9::update()
 
 void Cmap9::render()
 {
-	ZORDER->ZorderRender(IMAGE->findImage("108배경"), 0, WINSIZEX, 0, 0);
-	ZORDER->ZorderRender(IMAGE->findImage("108가림"), 9, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("108배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("108가림"), ZABOVEMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("108픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
@@ -416,8 +423,165 @@ void Cmap10::update()
 
 void Cmap10::render()
 {
-	ZORDER->ZorderRender(IMAGE->findImage("114배경"), 0, WINSIZEX, 0, 0);
-	ZORDER->ZorderRender(IMAGE->findImage("114가림"), 9, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("114배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("114가림"), ZABOVEMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("114픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
+}
+
+chestMap::chestMap()
+{
+	IMAGE->addImage("상자방배경", "images/map/chestMap.bmp", 1008, 672, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("상자방픽셀", "images/map/!mchestMap.bmp", 1008, 672, true, RGB(255, 0, 255));
+	IMAGE->addImage("상자방가림", "images/map/parchestMap.bmp", 1008, 672, true, RGB(255, 0, 255));
+	_door[0].Door = RectMakeCenter(0, WINSIZEY / 2, 200, 200);//left
+	_door[1].Door = RectMakeCenter(WINSIZEX / 2, 0, 200, 200); //top
+	_door[2].Door = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);//right
+	_door[3].Door = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200); //bottom
+}
+
+chestMap::~chestMap()
+{
+}
+
+HRESULT chestMap::init()
+{
+	return S_OK;
+}
+
+void chestMap::release()
+{
+}
+
+void chestMap::update()
+{
+}
+
+void chestMap::render()
+{
+	ZORDER->ZorderRender(IMAGE->findImage("상자방배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("상자방가림"), ZABOVEMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("상자방픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
+}
+
+shopMap::shopMap()
+{
+	IMAGE->addImage("상점방배경", "images/map/ground103.bmp", 960, 576, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("상점방픽셀", "images/map/!m103.bmp", 960, 576, true, RGB(255, 0, 255));
+	IMAGE->addImage("상점방가림", "images/map/par103.bmp", 960, 576, true, RGB(255, 0, 255));
+	_door[0].Door = RectMakeCenter(0, WINSIZEY / 2, 200, 200);//left
+	_door[1].Door = RectMakeCenter(WINSIZEX / 2, 0, 200, 200); //top
+	_door[2].Door = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);//right
+	_door[3].Door = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200); //bottom
+}
+
+shopMap::~shopMap()
+{
+}
+
+HRESULT shopMap::init()
+{
+	return S_OK;
+}
+
+void shopMap::release()
+{
+}
+
+void shopMap::update()
+{
+}
+
+void shopMap::render()
+{
+	ZORDER->ZorderRender(IMAGE->findImage("상점방배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("상점방가림"), ZABOVEMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("상점방픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
+}
+
+statueMap::statueMap()
+{
+	IMAGE->addImage("석상방배경", "images/map/statueMap.bmp", 1104, 960, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("석상방픽셀", "images/map/!mstatueMap.bmp", 1104, 960, true, RGB(255, 0, 255));
+	IMAGE->addImage("석상방가림", "images/map/parstatueMap.bmp", 1104, 960, true, RGB(255, 0, 255));
+	_door[0].Door = RectMakeCenter(0, WINSIZEY / 2, 200, 200);//left
+	_door[1].Door = RectMakeCenter(WINSIZEX / 2, 0, 200, 200); //top
+	_door[2].Door = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);//right
+	_door[3].Door = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200); //bottom
+}
+
+statueMap::~statueMap()
+{
+}
+
+HRESULT statueMap::init()
+{
+	return S_OK;
+}
+
+void statueMap::release()
+{
+}
+
+void statueMap::update()
+{
+}
+
+void statueMap::render()
+{
+	ZORDER->ZorderRender(IMAGE->findImage("석상방배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("석상방가림"), ZABOVEMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("석상방픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
+}
+
+moruMap::moruMap()
+{
+	IMAGE->addImage("모루방배경", "images/map/moruMap.bmp", 1104, 960, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("모루방픽셀", "images/map/!mmoruMap.bmp", 1104, 960, true, RGB(255, 0, 255));
+	IMAGE->addImage("모루방가림", "images/map/parmoruMap.bmp", 1104, 960, true, RGB(255, 0, 255));
+	_door[0].Door = RectMakeCenter(0, WINSIZEY / 2, 200, 200);//left
+	_door[1].Door = RectMakeCenter(WINSIZEX / 2, 0, 200, 200); //top
+	_door[2].Door = RectMakeCenter(WINSIZEX, WINSIZEY / 2, 200, 200);//right
+	_door[3].Door = RectMakeCenter(WINSIZEX / 2, WINSIZEY, 200, 200); //bottom
+}
+
+moruMap::~moruMap()
+{
+}
+
+HRESULT moruMap::init()
+{
+	return S_OK;
+}
+
+void moruMap::release()
+{
+}
+
+void moruMap::update()
+{
+}
+
+void moruMap::render()
+{
+	ZORDER->ZorderRender(IMAGE->findImage("모루방배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("모루방가림"), ZABOVEMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("모루방픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);

@@ -1,7 +1,8 @@
 #pragma once
 #include "image.h"
 //Z레이어설정
-#define ZFLOORMAP	1
+#define ZFLOORMAP	0
+#define ZCOLMAP		1
 #define ZEFFECT1	2
 #define ZCOL1		3
 #define ZCOL2		4
