@@ -40,8 +40,8 @@ public:
 
 	virtual void afterHit();
 	virtual void giveFrame();
+	virtual void bulletCollision(bulletManager* bm);
 	
-	void bulletCollision(bulletManager* bm);
 	void playerCollision();
 	void playerInterCollision();
 	void checkRepair();

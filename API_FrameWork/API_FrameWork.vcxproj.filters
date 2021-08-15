@@ -82,6 +82,12 @@
     <Filter Include="progressBar">
       <UniqueIdentifier>{e12b9d16-0226-4ddf-b8d1-62be163fa35f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DOL\object\fountain">
+      <UniqueIdentifier>{18eb4281-4a84-40b1-994a-ce06454fea47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOL\object\moru">
+      <UniqueIdentifier>{683c0ed6-343b-4af0-88c3-1d998ed957bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -198,9 +204,6 @@
     <ClInclude Include="object.h">
       <Filter>DOL\object</Filter>
     </ClInclude>
-    <ClInclude Include="moru.h">
-      <Filter>DOL\object</Filter>
-    </ClInclude>
     <ClInclude Include="button.h">
       <Filter>manager\버튼</Filter>
     </ClInclude>
@@ -209,6 +212,12 @@
     </ClInclude>
     <ClInclude Include="progressBar.h">
       <Filter>progressBar</Filter>
+    </ClInclude>
+    <ClInclude Include="fountain.h">
+      <Filter>DOL\object\fountain</Filter>
+    </ClInclude>
+    <ClInclude Include="moru.h">
+      <Filter>DOL\object\moru</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -308,9 +317,6 @@
     <ClCompile Include="object.cpp">
       <Filter>DOL\object</Filter>
     </ClCompile>
-    <ClCompile Include="moru.cpp">
-      <Filter>DOL\object</Filter>
-    </ClCompile>
     <ClCompile Include="button.cpp">
       <Filter>manager\버튼</Filter>
     </ClCompile>
@@ -319,6 +325,12 @@
     </ClCompile>
     <ClCompile Include="progressBar.cpp">
       <Filter>progressBar</Filter>
+    </ClCompile>
+    <ClCompile Include="fountain.cpp">
+      <Filter>DOL\object\fountain</Filter>
+    </ClCompile>
+    <ClCompile Include="moru.cpp">
+      <Filter>DOL\object\moru</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

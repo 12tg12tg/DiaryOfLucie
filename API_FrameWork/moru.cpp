@@ -5,14 +5,14 @@ moru::moru()
 {
 	IMAGE->addFrameImage("모루", "images/object/moru.bmp", 288, 384, 2, 4, true);
 	IMAGE->addImage("이름상자", "images/object/moruNamebox.bmp", 250, 52, false);
-	IMAGE->addImage("모루대화상자", "images/object/interactionBox.bmp", WINSIZEX*3/5, 200, false);
-	IMAGE->addImage("모루이름", "images/object/moruName.bmp", 250, 45, true);
-	IMAGE->addImage("모루멘트1", "images/object/morument1.bmp", WINSIZEX*3/5, 200, true);
-	IMAGE->addImage("모루멘트2", "images/object/morument2.bmp", WINSIZEX*3/5, 200, true);
-	IMAGE->addImage("모루멘트3", "images/object/morument3.bmp", WINSIZEX*3/5, 200, true);
-	IMAGE->addImage("모루멘트4", "images/object/morument4.bmp", WINSIZEX*3/5, 200, true);
-	but1 = BUTTON->addButton("모루-수리한다", 238, 577, 222, 35);
-	but2 = BUTTON->addButton("모루-무시한다", 238, 629, 222, 35);
+	IMAGE->addImage("모루대화상자", "images/object/interactionBox.bmp", WINSIZEX*3/5, 150, false);
+	IMAGE->addImage("모루이름", "images/object/moruName.bmp", 225, 42, true);
+	IMAGE->addImage("모루멘트1", "images/object/morument1.bmp", 614, 160, true);
+	IMAGE->addImage("모루멘트2", "images/object/morument2.bmp", 614, 160, true);
+	IMAGE->addImage("모루멘트3", "images/object/morument3.bmp", 614, 160, true);
+	IMAGE->addImage("모루멘트4", "images/object/morument4.bmp", 614, 160, true);
+	but1 = BUTTON->addButton("모루-수리한다", 225, 475, 222, 35);
+	but2 = BUTTON->addButton("모루-무시한다", 225, 516, 222, 35);
 	mouseoverImg = new image;
 	mouseoverImg->init(222, 35, RGB(85, 115, 226));
 }
@@ -73,44 +73,34 @@ void moru::render()
 	//할배 네임태그
 	if (isConversation1 || isConversation2 || isConversation3 || isConversation4)
 	{
-		IMAGE->findImage("이름상자")->alphaRender(getMemDC(), 188, 438, 200);
-		IMAGE->findImage("모루이름")->render(getMemDC(), 188, 441);
+		IMAGE->findImage("이름상자")->alphaRender(getMemDC(), 188, 360, 200);
+		IMAGE->findImage("모루이름")->render(getMemDC(), 200, 365);
+		IMAGE->findImage("모루대화상자")->alphaRender(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
+			420, 200);
 	}
 	//대화상자 출력
 	if (isConversation1)
 	{
 		//수리를 할거냐는 문구와 버튼 두개가 뜸.
-		IMAGE->findImage("모루대화상자")->alphaRender(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
-			WINSIZEY - IMAGE->findImage("모루대화상자")->getHeight() - 75, 200);
-		IMAGE->findImage("모루멘트1")->render(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
-			WINSIZEY - IMAGE->findImage("모루대화상자")->getHeight() - 75);
 		if (BUTTON->isMouseOver("모루-수리한다")) {
-			mouseoverImg->alphaRender(getMemDC(), 238, 577, 100);
-		}
+			mouseoverImg->alphaRender(getMemDC(), 225, 475, 100);
+		}										
 		if (BUTTON->isMouseOver("모루-무시한다")) {
-			mouseoverImg->alphaRender(getMemDC(), 238, 629, 100);
+			mouseoverImg->alphaRender(getMemDC(), 225, 516, 100);
 		}
+		IMAGE->findImage("모루멘트1")->render(getMemDC(), 190, 410);
 	}
 	else if (isConversation2)
 	{
-		IMAGE->findImage("모루대화상자")->alphaRender(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
-			WINSIZEY - IMAGE->findImage("모루대화상자")->getHeight() - 75, 200);
-		IMAGE->findImage("모루멘트2")->render(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
-			WINSIZEY - IMAGE->findImage("모루대화상자")->getHeight() - 75);
+		IMAGE->findImage("모루멘트2")->render(getMemDC(), 190, 410);
 	}
 	else if (isConversation3)
 	{
-		IMAGE->findImage("모루대화상자")->alphaRender(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
-			WINSIZEY - IMAGE->findImage("모루대화상자")->getHeight() - 75, 200);
-		IMAGE->findImage("모루멘트3")->render(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
-			WINSIZEY - IMAGE->findImage("모루대화상자")->getHeight() - 75);
+		IMAGE->findImage("모루멘트3")->render(getMemDC(), 190, 410);
 	}
 	else if (isConversation4)
 	{
-		IMAGE->findImage("모루대화상자")->alphaRender(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
-			WINSIZEY - IMAGE->findImage("모루대화상자")->getHeight() - 75, 200);
-		IMAGE->findImage("모루멘트4")->render(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
-			WINSIZEY - IMAGE->findImage("모루대화상자")->getHeight() - 75);
+		IMAGE->findImage("모루멘트4")->render(getMemDC(), 190, 410);
 	}
 }
 
@@ -246,12 +236,6 @@ void moru::checkRepair()
 	//충돌매니저에서 inter상자 충돌시 e키가 눌리면 canInteraction이 true가 됨.
 	if (isConversation1)
 	{
-		//수리를 할거냐는 문구와 버튼 두개가 뜸.
-		//지금 그 무기를 수리할텐가?
-		//수리한다(30 골드)
-		//무시한다
-
-
 		//수리한다 선택시
 		if (BUTTON->isClick("모루-수리한다")) {
 			BUTTON->buttonOff("모루-수리한다");

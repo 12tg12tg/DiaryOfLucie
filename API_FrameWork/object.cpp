@@ -28,6 +28,10 @@ void object::render()
 
 }
 
+void object::bulletCollision(bulletManager* bm)
+{
+}
+
 void object::afterHit()
 {
 }
