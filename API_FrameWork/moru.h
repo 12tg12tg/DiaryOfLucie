@@ -16,7 +16,18 @@ private:
 	MORUSTATE _state;
 	int _price;
 
-	bool canInteraction;
+	image* mouseoverImg;
+
+	Button* but1;
+	Button* but2;
+
+	BYTE boxAlpha;
+
+
+	bool isConversation1;	//수리하겠나
+	bool isConversation2;	//자, 수리가 완료되었네.
+	bool isConversation3;	//그런날도있는게지
+	bool isConversation4;	//자네는 돈이
 	bool _isDebug;
 public:
 	moru();
@@ -29,12 +40,14 @@ public:
 
 	virtual void afterHit();
 	virtual void giveFrame();
+	virtual void bulletCollision(bulletManager* bm);
 	
-	void bulletCollision(bulletManager* bm);
+	void playerCollision();
+	void playerInterCollision();
 	void checkRepair();
 
 	RECT getInterRc() { return _interRc; }
-	bool getCanInteraction() { return canInteraction; }
-	void setCanInteraction(bool canInter) {	canInteraction = canInter;	}
+	bool getCanInteraction() { return isConversation1; }
+	void setCanInteraction(bool canInter) {	isConversation1 = canInter;	}
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };

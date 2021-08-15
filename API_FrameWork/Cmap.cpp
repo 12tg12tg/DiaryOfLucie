@@ -35,9 +35,10 @@ void Cmap::render()
 {
 	
 
-	ZORDER->ZorderRender(IMAGE->findImage("95배경"), 0, WINSIZEX, 0, 0);
-	ZORDER->ZorderRender(IMAGE->findImage("95가림"), 9, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("95배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("95가림"), ZABOVEMAP, WINSIZEX, 0, 0);
 
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("95픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
@@ -66,7 +67,7 @@ HRESULT Cmap2::init()
 	monpos[1] = { 624,263 };
 	monpos[2] = { 464,282 };
 	monpos[3] = { 525,342 };
-	summonMon(4);
+	//summonMon(4);
 
 	return S_OK;
 }
@@ -338,6 +339,7 @@ void Cmap8::render()
 {
 	ZORDER->ZorderRender(IMAGE->findImage("103배경"), 0, WINSIZEX, 0, 0);
 	ZORDER->ZorderRender(IMAGE->findImage("103가림"), 9, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("103픽셀"), ZCOLMAP, WINSIZEY, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
@@ -378,6 +380,7 @@ void Cmap9::render()
 {
 	ZORDER->ZorderRender(IMAGE->findImage("108배경"), 0, WINSIZEX, 0, 0);
 	ZORDER->ZorderRender(IMAGE->findImage("108가림"), 9, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("108픽셀"), 1, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
@@ -422,4 +425,104 @@ void Cmap10::render()
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
+}
+
+chestMap::chestMap()
+{
+}
+
+chestMap::~chestMap()
+{
+}
+
+HRESULT chestMap::init()
+{
+	return E_NOTIMPL;
+}
+
+void chestMap::release()
+{
+}
+
+void chestMap::update()
+{
+}
+
+void chestMap::render()
+{
+}
+
+shopMap::shopMap()
+{
+}
+
+shopMap::~shopMap()
+{
+}
+
+HRESULT shopMap::init()
+{
+	return E_NOTIMPL;
+}
+
+void shopMap::release()
+{
+}
+
+void shopMap::update()
+{
+}
+
+void shopMap::render()
+{
+}
+
+statueMap::statueMap()
+{
+}
+
+statueMap::~statueMap()
+{
+}
+
+HRESULT statueMap::init()
+{
+	return E_NOTIMPL;
+}
+
+void statueMap::release()
+{
+}
+
+void statueMap::update()
+{
+}
+
+void statueMap::render()
+{
+}
+
+moruMap::moruMap()
+{
+}
+
+moruMap::~moruMap()
+{
+}
+
+HRESULT moruMap::init()
+{
+	return E_NOTIMPL;
+}
+
+void moruMap::release()
+{
+}
+
+void moruMap::update()
+{
+}
+
+void moruMap::render()
+{
 }

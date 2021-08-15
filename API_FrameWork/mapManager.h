@@ -13,7 +13,7 @@ enum MAPKIND
 	NORMAL,
 	SHOP,
 	MORUROOM,
-	SSUCKSANGROOM,
+	statueROOM,
 	CHESTROOM,
 	BOSSROOM,
 	NEXTSTAGE
@@ -22,8 +22,6 @@ enum MAPKIND
 struct MAP {
 	motherMap* _motherMap;
 	string sceneKey;
-	bool isMake = false;
-	bool canMake = true;
 	MAPKIND mapkind = NONE;
 };
 
@@ -51,9 +49,10 @@ private:
 	int currentMonNum =0;
 
 	int remainRoom = 12;
+	int mapSize = 0;
 	int remain_SHOP =1;
 	int	remain_MORUROOM=1;
-	int	remain_SSUCKSANGROOM=1;
+	int	remain_statueROOM=1;
 	int	remain_CHESTROOM=1;
 
 	bool topdoor_open;
@@ -121,11 +120,12 @@ public:
 	void checktopdoorcollison(bool checktopdoorcollison) { checktop = checktopdoorcollison; }
 	void checkdowndoorcollison(bool checkdowndoorcollison) { checkbottom = checkdowndoorcollison; }
 
-public:
 	void doorstate(monster* monster);
 	void UseableDoor();
 	void makestage1(int i, int k);
 	void makeclear();
+
+
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }
 	void setIsDebug(bool isDebug) {
@@ -142,4 +142,13 @@ public:
 		_Cmap10->setIsDebug(_isDebug);
 	
 	}
+
+	bool setShopRoom();
+	bool setMORURoom();
+	bool setstatueRoom();
+	bool setchestRoom();
+	bool setBossRoom();
+	bool setNextRoom();
+
+
 };

@@ -606,7 +606,6 @@ void collisionManager::checkMonRight(monster* monster)
 
 void collisionManager::mapTobullet()
 {
-
 }
 
 void collisionManager::mapTomon()
@@ -718,6 +717,23 @@ void collisionManager::playerToDoor()
 
 void collisionManager::bulletToMap()
 {
+	for (int i = 0; i < bm->getCirBulInstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getCirBulInstance()->getVBullet()[i].x+ 1; k < bm->getCirBulInstance()->getVBullet()[i].x + 10; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getCirBulInstance()->getVBullet()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getCirBulInstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
 }
 
 void collisionManager::checkMonsterRectPlayer(monster* monster)

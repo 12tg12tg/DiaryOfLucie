@@ -25,6 +25,8 @@ public:
 	virtual void update(bulletManager* bm);
 	virtual void render();
 	
+	virtual void playerCollision();
+	virtual void bulletCollision(bulletManager* bm);
 	virtual void afterHit();
 	virtual void giveFrame();
 

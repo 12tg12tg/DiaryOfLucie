@@ -26,13 +26,18 @@ HRESULT mapManager::init()
 	_Cmap9->setMonstermemoryLink(mm);
 	_Cmap10->setMonstermemoryLink(mm);
 
-
+	
 	while (remainRoom > 4 )
 	{
 		makeclear();
-		makestage1(MAXSIZE / 2, MAXSIZE / 2 - 1);
+		remainRoom = mapSize;
+		makestage1((MAXSIZE - 1) / 2,(MAXSIZE+1)/2);
+		setstatueRoom();
+		setchestRoom();
+		setMORURoom();
+		setShopRoom();
 	}
-	stage1[MAXSIZE / 2][MAXSIZE / 2] = { _Cmap9,"_Cmap9",false,true, START };
+
 
 	//MAP stage1[2][2] = { {{nullptr,"",false,true,NONE,},{_Cmap5,"_Cmap5",false,true,NONE}},{{_Cmap2,"_Cmap2",false,true,START},{_Cmap3,"_Cmap3",false,true,NONE}} };
 	for (int i = 0; i < MAXSIZE; i++)
@@ -115,15 +120,7 @@ void mapManager::update()
 void mapManager::render()
 {
 	SCENE->render();
-	for (size_t i = 0; i < MAXSIZE; i++)
-	{
-		for (size_t j = 0; j < MAXSIZE; j++)
-		{
-			TCHAR str[128];
-			string temp = to_string((int)stage1[i][j].mapkind);
-			ZORDER->ZorderTextOut(temp, 10, 100 + 20 * j, 100 + 20 * i, RGB(0, 0, 0));
-		}
-	}
+
 }
 
 
@@ -162,9 +159,9 @@ void mapManager::makestage1(int i, int k)
 {
 	if (remainRoom < 0 ||
 		i < 0 ||
-		i>=MAXSIZE ||
-		k <0 ||
-		k>=MAXSIZE ||
+		i >= MAXSIZE ||
+		k < 0 ||
+		k >= MAXSIZE ||
 		stage1[i][k].mapkind != MAPKIND::NONE)
 		return;
 
@@ -176,22 +173,126 @@ void mapManager::makestage1(int i, int k)
 	if (!(bool)(RND->getInt(4))) makestage1(i, k +1);//d
 
 }
+
+bool mapManager::setstatueRoom()
+{
+	int setstatue = mapSize - 6;
+	for (int i = 0; i < MAXSIZE; i++)
+	{
+		for (int k = 0; k < MAXSIZE; k++)
+		{
+			if (stage1[i][k].mapkind == MAPKIND::NORMAL)
+			{
+				setstatue--;
+				if (RND->getInt(100) > 50 || setstatue == 0)
+				{
+					stage1[i][k] = { _Cmap8,"_Cmap8",SHOP };
+
+				}
+				return true;
+			}
+		}
+	}
+	return false;
+}
+bool mapManager::setchestRoom()
+{
+	int setchest = mapSize-5;
+	for (int i = 0; i < MAXSIZE; i++)
+	{
+		for (int k = 0; k < MAXSIZE; k++)
+		{
+			if (stage1[i][k].mapkind == MAPKIND::NORMAL)
+			{
+				setchest--;
+				if (RND->getInt(100) > 50 || setchest == 0)
+				{
+					stage1[i][k] = { _Cmap8,"_Cmap8",SHOP };
+
+				}
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+
+bool mapManager::setMORURoom()
+{
+	int setMORU = mapSize-4;
+	for (int i = 0; i < MAXSIZE; i++)
+	{
+		for (int k = 0; k < MAXSIZE; k++)
+		{
+			if (stage1[i][k].mapkind == MAPKIND::NORMAL)
+			{
+				setMORU--;
+				if (RND->getInt(100) > 50 || setMORU == 0)
+				{
+					stage1[i][k] = { _Cmap8,"_Cmap8",SHOP };
+
+				}
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool mapManager::setShopRoom()
+{
+	int setShop = mapSize-3;
+	for (int i = 0; i < MAXSIZE; i++)
+	{
+		for (int k = 0; k < MAXSIZE; k++)
+		{
+			if (stage1[i][k].mapkind == MAPKIND::NORMAL)
+			{
+				setShop--;
+				if ( RND->getInt(100) >50 || setShop == 0)
+				{
+					stage1[i][k] = { _Cmap8,"_Cmap8",SHOP };
+					
+				}
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+
+
+
+//bool mapManager::setBossRoom()
+//{
+//
+//}
+//
+//bool mapManager::setNextRoom()
+//{
+//
+//}
+
+
+
+
+
 void mapManager::makeclear() {
 	for (int i = 0; i < MAXSIZE; i++)
 	{
 		for (int k = 0; k < MAXSIZE; k++)
 		{
 			stage1[i][k].mapkind = NONE;
-			stage1[i][k].canMake = true;
-			stage1[i][k].isMake = false;
 			stage1[i][k].sceneKey = "";
 			stage1[i][k]._motherMap = nullptr;
 		}
 	}
-	stage1[MAXSIZE / 2][MAXSIZE / 2] = { _Cmap9,"_Cmap9",false,true, START };
+	stage1[(MAXSIZE - 1) / 2][(MAXSIZE - 1) / 2] = { _Cmap9,"_Cmap9",START };
 	remainRoom = 12;
 	remain_SHOP = 1;
 	remain_MORUROOM = 1;
-	remain_SSUCKSANGROOM = 1;
+	remain_statueROOM = 1;
 	remain_CHESTROOM = 1;
 }

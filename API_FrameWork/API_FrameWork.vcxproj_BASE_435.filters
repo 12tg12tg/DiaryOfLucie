@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="gameNode">
+      <UniqueIdentifier>{456ccd31-a2dd-4ba8-9f22-c7d462a1773e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mainGame">
+      <UniqueIdentifier>{b0320f66-3036-499a-bc52-2864aa106a7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="singleton">
+      <UniqueIdentifier>{d5af6b0f-4c74-4ebe-a0df-998a3b2f9a9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UTIL">
+      <UniqueIdentifier>{ae8ed1ca-b7db-445d-a3e2-970c23ee8efd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="image">
+      <UniqueIdentifier>{ca8e2a9d-9a89-40fa-9687-e9811869698e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="타이머">
+      <UniqueIdentifier>{fced4742-a1d1-43ed-afee-d70fd59892a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="텍스트데이터">
+      <UniqueIdentifier>{dc1a7e9c-3e65-4527-8e0e-9d1fed69e1a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="애니메이션">
+      <UniqueIdentifier>{11b65d6c-5712-498b-861a-5c52f25e16a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="manager">
+      <UniqueIdentifier>{8c61072a-dba4-46b6-8ed7-d49ee1e7d011}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="이펙트">
+      <UniqueIdentifier>{cbc2bffc-abb2-4cb5-9970-639497ba2fff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="맵툴">
+      <UniqueIdentifier>{e3922ca6-9d5f-4c7a-a20e-7f72caa6fe44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOL">
+      <UniqueIdentifier>{6565b5be-dde9-4f4e-800e-20a14ddb6358}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOL\bullet">
+      <UniqueIdentifier>{36af2e70-7ea2-4b78-b995-fc8072cd778a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOL\player">
+      <UniqueIdentifier>{2fa5e2d3-ba00-42e2-90dc-782fa39e9f51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOL\monsters">
+      <UniqueIdentifier>{816c170c-d46d-4155-8a14-e1c82144d357}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOL\DOL_Manager">
+      <UniqueIdentifier>{38de8317-e6c7-4781-9bb7-8d07bd95154b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOL\Map">
+      <UniqueIdentifier>{84654aab-c12f-4f51-b945-2ca24adf98c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="manager\OBB">
+      <UniqueIdentifier>{1af3ce06-36a7-44a8-aeff-3887b8b69dde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="manager\Zorder">
+      <UniqueIdentifier>{8d7c25ed-e013-4602-99ae-a281af32861d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOL\minimap">
+      <UniqueIdentifier>{e40542d0-b522-49a7-98bc-d95f57242400}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOL\object">
+      <UniqueIdentifier>{42c8022b-306d-41b5-a496-214e49b15675}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="manager\버튼">
+      <UniqueIdentifier>{1aa13093-b110-4d98-a436-6b7fd3d4eff1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="API_FrameWork.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="commonMacroFunction.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="singleton.h">
+      <Filter>singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="gameNode.h">
+      <Filter>gameNode</Filter>
+    </ClInclude>
+    <ClInclude Include="mainGame.h">
+      <Filter>mainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>manager</Filter>
+    </ClInclude>
+    <ClInclude Include="randomFunction.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>UTIL</Filter>
+    </ClInclude>
+    <ClInclude Include="image.h">
+      <Filter>image</Filter>
+    </ClInclude>
+    <ClInclude Include="imageManager.h">
+      <Filter>manager</Filter>
+    </ClInclude>
+    <ClInclude Include="timer.h">
+      <Filter>타이머</Filter>
+    </ClInclude>
+    <ClInclude Include="timeManager.h">
+      <Filter>manager</Filter>
+    </ClInclude>
+    <ClInclude Include="txtData.h">
+      <Filter>텍스트데이터</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneManager.h">
+      <Filter>manager</Filter>
+    </ClInclude>
+    <ClInclude Include="soundManager.h">
+      <Filter>manager</Filter>
+    </ClInclude>
+    <ClInclude Include="animation.h">
+      <Filter>애니메이션</Filter>
+    </ClInclude>
+    <ClInclude Include="animationManager.h">
+      <Filter>manager</Filter>
+    </ClInclude>
+    <ClInclude Include="effect.h">
+      <Filter>이펙트</Filter>
+    </ClInclude>
+    <ClInclude Include="effectManager.h">
+      <Filter>manager</Filter>
+    </ClInclude>
+    <ClInclude Include="mapTool.h">
+      <Filter>맵툴</Filter>
+    </ClInclude>
+    <ClInclude Include="mainDOL.h">
+      <Filter>DOL</Filter>
+    </ClInclude>
+    <ClInclude Include="collisionManager.h">
+      <Filter>DOL\DOL_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="monsterManager.h">
+      <Filter>DOL\DOL_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="bulletManager.h">
+      <Filter>DOL\DOL_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Cplayer.h">
+      <Filter>DOL\player</Filter>
+    </ClInclude>
+    <ClInclude Include="Cmonsters.h">
+      <Filter>DOL\monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="monster.h">
+      <Filter>DOL\monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="Cbullets.h">
+      <Filter>DOL\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="mapManager.h">
+      <Filter>DOL\DOL_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Cmap.h">
+      <Filter>DOL\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="OBBCollision.h">
+      <Filter>manager\OBB</Filter>
+    </ClInclude>
+    <ClInclude Include="CplayerData.h">
+      <Filter>DOL\player</Filter>
+    </ClInclude>
+    <ClInclude Include="Zorder.h">
+      <Filter>manager\Zorder</Filter>
+    </ClInclude>
+    <ClInclude Include="miniMap.h">
+      <Filter>DOL\minimap</Filter>
+    </ClInclude>
+    <ClInclude Include="object.h">
+      <Filter>DOL\object</Filter>
+    </ClInclude>
+    <ClInclude Include="moru.h">
+      <Filter>DOL\object</Filter>
+    </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>manager\버튼</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="API_FrameWork.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="gameNode.cpp">
+      <Filter>gameNode</Filter>
+    </ClCompile>
+    <ClCompile Include="mainGame.cpp">
+      <Filter>mainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>UTIL</Filter>
+    </ClCompile>
+    <ClCompile Include="image.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="imageManager.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
+    <ClCompile Include="timer.cpp">
+      <Filter>타이머</Filter>
+    </ClCompile>
+    <ClCompile Include="timeManager.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
+    <ClCompile Include="txtData.cpp">
+      <Filter>텍스트데이터</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneManager.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
+    <ClCompile Include="soundManager.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
+    <ClCompile Include="animation.cpp">
+      <Filter>애니메이션</Filter>
+    </ClCompile>
+    <ClCompile Include="animationManager.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
+    <ClCompile Include="effect.cpp">
+      <Filter>이펙트</Filter>
+    </ClCompile>
+    <ClCompile Include="effectManager.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
+    <ClCompile Include="mapTool.cpp">
+      <Filter>맵툴</Filter>
+    </ClCompile>
+    <ClCompile Include="mainDOL.cpp">
+      <Filter>DOL</Filter>
+    </ClCompile>
+    <ClCompile Include="collisionManager.cpp">
+      <Filter>DOL\DOL_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="bulletManager.cpp">
+      <Filter>DOL\DOL_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="monsterManager.cpp">
+      <Filter>DOL\DOL_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Cplayer.cpp">
+      <Filter>DOL\player</Filter>
+    </ClCompile>
+    <ClCompile Include="Cmonsters.cpp">
+      <Filter>DOL\monsters</Filter>
+    </ClCompile>
+    <ClCompile Include="Cbullets.cpp">
+      <Filter>DOL\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="monster.cpp">
+      <Filter>DOL\monsters</Filter>
+    </ClCompile>
+    <ClCompile Include="mapManager.cpp">
+      <Filter>DOL\DOL_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Cmap.cpp">
+      <Filter>DOL\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="OBBCollision.cpp">
+      <Filter>manager\OBB</Filter>
+    </ClCompile>
+    <ClCompile Include="CplayerData.cpp">
+      <Filter>DOL\player</Filter>
+    </ClCompile>
+    <ClCompile Include="Zorder.cpp">
+      <Filter>manager\Zorder</Filter>
+    </ClCompile>
+    <ClCompile Include="miniMap.cpp">
+      <Filter>DOL\minimap</Filter>
+    </ClCompile>
+    <ClCompile Include="object.cpp">
+      <Filter>DOL\object</Filter>
+    </ClCompile>
+    <ClCompile Include="moru.cpp">
+      <Filter>DOL\object</Filter>
+    </ClCompile>
+    <ClCompile Include="button.cpp">
+      <Filter>manager\버튼</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="API_FrameWork.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="API_FrameWork.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

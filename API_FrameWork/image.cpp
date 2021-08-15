@@ -54,6 +54,53 @@ HRESULT image::init(const int width, const int height)
 	return S_OK;
 }
 
+HRESULT image::init(const int width, const int height, COLORREF color)
+{
+	//이미지 정보가 들어있으면 해제하라.
+	if (_imageInfo != NULL) release();
+
+	//DC가져오기(현재 윈도우에 대한 화면 DC를 임시로 가져옴)
+	HDC hdc = GetDC(m_hWnd);
+
+	//CreateCompatibleDC : 비트맵을 출력하기 위해서 메모리DC를 만들어준다.
+	//CreateCompatibleBitmap : 원본DC와 호환되는 비트맵 생성.
+
+	//이미지 정보 생성
+	_imageInfo = new IMAGE_INFO;
+	_imageInfo->loadType = static_cast<BYTE>(IMAGE_LOAD_KIND::LOAD_EMPTY);
+	_imageInfo->resID = 0;
+	_imageInfo->hMemDC = CreateCompatibleDC(hdc); //비트맵출력을위해메모리dc를 만들어주는 함수.
+	_imageInfo->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, width, height); //원본dc와 호환되는 비트맵을 만듬.
+	_imageInfo->hOBit = (HBITMAP)SelectObject(_imageInfo->hMemDC, _imageInfo->hBit);
+	_imageInfo->width = width;
+	_imageInfo->height = height;
+
+	//파일 이름 초기화
+	_fileName = NULL;
+
+	//투명키 셋팅
+	_isTrans = false;
+	_transColor = RGB(0, 0, 0);
+
+	//리소스를 얻어오는데 실패하면
+	if (_imageInfo->hBit == NULL)
+	{
+		release();
+		return E_FAIL;
+	}
+
+	ReleaseDC(m_hWnd, hdc);
+
+	BitBlt(_imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, hdc, 0, 0, BLACKNESS);
+	HBRUSH hBrush = CreateSolidBrush(color);
+	HBRUSH oBrush = (HBRUSH)SelectObject(_imageInfo->hMemDC, hBrush);
+	ExtFloodFill(_imageInfo->hMemDC, 1, 1, RGB(0, 0, 0), FLOODFILLSURFACE);
+	SelectObject(_imageInfo->hMemDC, oBrush);
+	DeleteObject(hBrush);
+
+	return S_OK;
+}
+
 HRESULT image::init(const char* fileName, const int width, const int height, bool isTrans, COLORREF transColor)
 {
 

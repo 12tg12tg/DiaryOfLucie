@@ -158,6 +158,7 @@
     <ClInclude Include="CplayerData.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
+    <ClInclude Include="fountain.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="gameNode.h" />
     <ClInclude Include="image.h" />
@@ -174,11 +175,13 @@
     <ClInclude Include="motherMap.h" />
     <ClInclude Include="OBBCollision.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="soundManager.h" />
+    <ClInclude Include="statue.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="timeManager.h" />
     <ClInclude Include="timer.h" />
@@ -200,6 +203,7 @@
     <ClCompile Include="CplayerData.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
+    <ClCompile Include="fountain.cpp" />
     <ClCompile Include="gameNode.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
@@ -215,8 +219,10 @@
     <ClCompile Include="motherMap.cpp" />
     <ClCompile Include="OBBCollision.cpp" />
     <ClCompile Include="object.cpp" />
+    <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="soundManager.cpp" />
+    <ClCompile Include="statue.cpp" />
     <ClCompile Include="timeManager.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="txtData.cpp" />
