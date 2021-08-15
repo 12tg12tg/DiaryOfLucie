@@ -420,6 +420,7 @@ void Cplayer::setPlayerFrame()
 				_state = STATE::IDLE;
 				_dashCount = 0;
 				_dashIndex = 0;
+				_player.isDashHit = false;
 			}
 			_dash_img->setFrameX(_dashIndex);
 		}
@@ -497,6 +498,15 @@ void Cplayer::hitPlayer(int bulletX, int bulletY)
 	_player.isHit = true;
 		PLAYERDATA->hitPlayer(1);
 		_knockBackAngle = UTIL::getAngle(bulletX, bulletY, _player.x, _player.y);
+	}
+}
+
+void Cplayer::hitDash()
+{
+	if (_player.isDashHit != true) 
+	{
+		_player.isDashHit = true;
+		PLAYERDATA->recoveryMana(1);
 	}
 }
 

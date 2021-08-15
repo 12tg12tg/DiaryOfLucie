@@ -14,14 +14,14 @@ HRESULT CplayerData::init()
 
 	_lastHP = 1;
 	_lastMaxHP = _lastHP;
-	_defaultHP = 5;
+	_defaultHP = 7;
 	_defaultMaxHP = _defaultHP;
 	_equipHP = 0;
 	_equipMaxHP = _equipHP;
 	_presentHP = _lastHP+_defaultHP+_equipHP;
 	_MaxHP = _lastHP + _defaultMaxHP + _equipMaxHP;
 
-	_defaultMP=3;
+	_defaultMP=0;
 	_defaultMaxMP = 3;
 	_equipMP = 0;
 	_equipMaxMP = _equipMP;
@@ -29,7 +29,7 @@ HRESULT CplayerData::init()
 	_MaxMP = _defaultMaxMP + _equipMaxMP;
 
 	_defaultStamina = 100;
-	_recoveryStaminaCoolTimeCount = 100;
+	_recoveryStaminaCoolTimeCount = 80;
 
 	UIalpha = 255;
 
@@ -208,7 +208,7 @@ bool CplayerData::useStamina(int costStamina, bool check)
 	if (_defaultStamina < costStamina&&check)  return false; 
 	else if(check) return true;
 		_defaultStamina -= costStamina;
-		_recoveryStaminaCoolTimeCount = 100;
+		_recoveryStaminaCoolTimeCount = 80;
 		if (_defaultStamina < 0)
 			_defaultStamina = 0;
 }
@@ -218,11 +218,11 @@ void CplayerData::recoveryStamina()
 		_recoveryStaminaCoolTimeCount--;
 	else if (_defaultStamina < 100) {
 		if (PLAYER->getSTATEAddress() == STATE::IDLE)
-			_defaultStamina += 3;
+			_defaultStamina += 1.5;
 		else if (PLAYER->getSTATEAddress() == STATE::WALK)
-			_defaultStamina += 2;
+			_defaultStamina += 1;
 		else if (PLAYER->getSTATEAddress() == STATE::RUN)
-			_defaultStamina++;
+			_defaultStamina+=0.5;
 		if (_defaultStamina >= 100) 
 			_defaultStamina = 100;
 	}

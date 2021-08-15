@@ -56,7 +56,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 	//flwbos1面倒
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
@@ -76,7 +76,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 	//flwbos2面倒
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
@@ -96,7 +96,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 	//flwbos3面倒
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
@@ -119,7 +119,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 	//long poison面倒
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
@@ -139,7 +139,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 	//niddle 面倒
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
@@ -155,7 +155,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 	//poison 面倒
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
@@ -175,7 +175,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 	//return1 面倒
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
@@ -196,7 +196,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
 	{
@@ -218,7 +218,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 	//slime boss 1 面倒
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
@@ -239,7 +239,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
 	{
@@ -263,7 +263,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 	//tree boss 1 面倒
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
@@ -283,7 +283,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 	//tree boss 2 面倒
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
@@ -306,7 +306,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 	//tree boss 3 面倒
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
@@ -329,7 +329,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 	//triple 面倒
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
@@ -353,7 +353,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 	//wide 面倒
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
@@ -376,7 +376,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 	//homing 面倒
 	if (PLAYER->getSTATEAddress() != STATE::DASH)
@@ -399,7 +399,7 @@ void collisionManager::bulletToplayer()
 	}
 	else
 	{
-		;
+		PLAYER->hitDash();
 	}
 }
 void collisionManager::bulletTomon()
