@@ -44,9 +44,10 @@ HRESULT monsterManager::init()
     _yggdrasil_bomb->addMonster(WINSIZEX / 2, 100);
     _yggdrasil->addMonster(WINSIZEX / 2, 100);*/
 
-    _moru = new moru;
-    _moru->add(WINSIZEX /2, WINSIZEY/2);
-
+    _ft = new fountain;
+    _ft->add(WINSIZEX /2, WINSIZEY/2);
+    _mr = new moru;
+    _mr->add(WINSIZEX / 2 + 100, WINSIZEY / 2);
 
     return S_OK;
 }
@@ -87,7 +88,8 @@ void monsterManager::release()
     SAFE_DELETE(_yggdrasil_bomb);
 
 
-    SAFE_DELETE(_moru);
+    SAFE_DELETE(_ft);
+    SAFE_DELETE(_mr);
 
 }
 
@@ -134,7 +136,8 @@ void monsterManager::update()
     //    //}
     }
 
-
+    _ft->update(_bm);
+    _mr->update(_bm);
 }
 
 void monsterManager::render()
@@ -158,5 +161,6 @@ void monsterManager::render()
 
 
 
-    _moru->render();
+    _ft->render();
+    _mr->render();
 }
