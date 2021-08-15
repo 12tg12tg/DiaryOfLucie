@@ -36,31 +36,6 @@ void collisionManager::update()
 void collisionManager::bulletToplayer()
 {
 	//cir충돌
-	//if (PLAYER->getSTATEAddress() != STATE::DASH)
-	//{
-	//	if (PLAYER->getPlayerAddress().isHit == false)
-	//	{
-	//		for (int i = 0; i < bm->getCirBulInstance()->getVBullet().size(); )
-	//		{
-	//			if (IntersectRect(&temprc, &bm->getCirBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect))
-	//			{
-	//				PLAYER->hitPlayer(bm->getCirBulInstance()->getVBullet()[i].x, bm->getCirBulInstance()->getVBullet()[i].y);
-	//				bm->getCirBulInstance()->removeBullet(i);
-	//				break;
-	//				PLAYER->hitDash();
-	//			}
-	//			else {
-	//				i++;
-	//			}
-	//		}
-	//	}
-	//}
-	//else
-	//{
-	//	PLAYER->hitDash();
-	//}
-
-	//cir충돌
 	for (int i = 0; i < bm->getCirBulInstance()->getVBullet().size(); ) {
 		if (IntersectRect(&temprc, &bm->getCirBulInstance()->getVBullet()[i].rc, &PLAYER->getPlayerAddress().playerRect)) {
 			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
@@ -146,6 +121,7 @@ void collisionManager::bulletToplayer()
 		{
 			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
 				PLAYER->hitPlayer(bm->getLPsnBulInstance()->getVBullet()[i].x, bm->getLPsnBulInstance()->getVBullet()[i].y);
+				bm->getLPsnBulInstance()->removeBullet(i);
 				break;
 			}
 			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
@@ -625,11 +601,6 @@ void collisionManager::checkMonRight(monster* monster)
 		}
 	}
 }
-
-void collisionManager::mapTobullet()
-{
-}
-
 void collisionManager::mapTomon()
 {
 
@@ -739,9 +710,10 @@ void collisionManager::playerToDoor()
 
 void collisionManager::bulletToMap()
 {
+	//cir 불릿
 	for (int i = 0; i < bm->getCirBulInstance()->getVBullet().size(); )
 	{
-		for (int k = bm->getCirBulInstance()->getVBullet()[i].x + 1; k < bm->getCirBulInstance()->getVBullet()[i].x + 10; k++)
+		for (int k = bm->getCirBulInstance()->getVBullet()[i].x -4; k < bm->getCirBulInstance()->getVBullet()[i].x + 4; k++)
 		{
 			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getCirBulInstance()->getVBullet()[i].y);
 
@@ -756,6 +728,24 @@ void collisionManager::bulletToMap()
 		}
 		i++;
 	}
+	for (int i = 0; i < bm->getCirBulInstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getCirBulInstance()->getVBullet()[i].y -4; k < bm->getCirBulInstance()->getVBullet()[i].y + 4; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), bm->getCirBulInstance()->getVBullet()[i].y, k);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getCirBulInstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+
 }
 
 void collisionManager::checkMonsterRectPlayer(monster* monster)

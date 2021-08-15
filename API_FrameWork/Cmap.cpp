@@ -408,7 +408,7 @@ Cmap10::~Cmap10()
 
 HRESULT Cmap10::init()
 {
-	//summonMon(4);
+	summonMon(4);
 
 	return S_OK;
 }
