@@ -26,11 +26,12 @@ HRESULT mapManager::init()
 	_Cmap9->setMonstermemoryLink(mm);
 	_Cmap10->setMonstermemoryLink(mm);
 
-
+	
 	while (remainRoom > 4 )
 	{
 		makeclear();
-		makestage1((MAXSIZE - 1) / 2,(5));
+		remainRoom = mapSize;
+		makestage1((MAXSIZE - 1) / 2,(MAXSIZE+1)/2);
 	}
 
 
@@ -154,9 +155,9 @@ void mapManager::makestage1(int i, int k)
 {
 	if (remainRoom < 0 ||
 		i < 0 ||
-		i>=MAXSIZE ||
-		k <0 ||
-		k>=MAXSIZE ||
+		i >= MAXSIZE ||
+		k < 0 ||
+		k >= MAXSIZE ||
 		stage1[i][k].mapkind != MAPKIND::NONE)
 		return;
 
@@ -168,12 +169,61 @@ void mapManager::makestage1(int i, int k)
 	if (!(bool)(RND->getInt(4))) makestage1(i, k +1);//d
 
 }
+
+void mapManager::setShopRoom()
+{
+	int setShop = mapSize-3;
+	POINT startRoom = { (MAXSIZE - 1) / 2,(MAXSIZE + 1) / 2 };
+
+	for (int i = 0; i < MAXSIZE; i++)
+	{
+		for (int k = 0; k < MAXSIZE; k++)
+		{
+		//	if (stage1[i][k].mapkind == MAPKIND::NORMAL)
+		}
+	}
+}
+
+void mapManager::setMORURoom()
+{
+	int setMORU = mapSize-4;
+	POINT startRoom = { (MAXSIZE - 1) / 2,(MAXSIZE + 1) / 2 };
+}
+
+void mapManager::setstatueRoom()
+{
+	int setstatue = mapSize-6;
+	POINT startRoom = { (MAXSIZE - 1) / 2,(MAXSIZE + 1) / 2 };
+}
+
+void mapManager::setchestRoom()
+{
+	int chest = mapSize-5;
+	POINT startRoom = { (MAXSIZE - 1) / 2,(MAXSIZE + 1) / 2 };
+}
+
+
+
+void mapManager::setBossRoom()
+{
+
+}
+
+void mapManager::setNextRoom()
+{
+
+}
+
+
+
+
+
 void mapManager::makeclear() {
 	for (int i = 0; i < MAXSIZE; i++)
 	{
 		for (int k = 0; k < MAXSIZE; k++)
 		{
-			stage1[i][k].mapkind == NONE;
+			stage1[i][k].mapkind = NONE;
 			stage1[i][k].canMake = true;
 			stage1[i][k].isMake = false;
 			stage1[i][k].sceneKey = "";
@@ -184,6 +234,6 @@ void mapManager::makeclear() {
 	remainRoom = 12;
 	remain_SHOP = 1;
 	remain_MORUROOM = 1;
-	remain_SSUCKSANGROOM = 1;
+	remain_statueROOM = 1;
 	remain_CHESTROOM = 1;
 }
