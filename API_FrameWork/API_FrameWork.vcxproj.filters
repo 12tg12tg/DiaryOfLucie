@@ -236,9 +236,6 @@
     <ClCompile Include="txtData.cpp">
       <Filter>텍스트데이터</Filter>
     </ClCompile>
-    <ClCompile Include="sceneManager.cpp">
-      <Filter>manager</Filter>
-    </ClCompile>
     <ClCompile Include="soundManager.cpp">
       <Filter>manager</Filter>
     </ClCompile>
@@ -310,6 +307,9 @@
     </ClCompile>
     <ClCompile Include="motherMap.cpp">
       <Filter>DOL\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneManager.cpp">
+      <Filter>manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

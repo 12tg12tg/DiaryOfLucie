@@ -21,8 +21,6 @@ enum MAPKIND
 struct MAP {
 	motherMap* _motherMap;
 	string sceneKey;
-	bool isMake = false;
-	bool canMake = true;
 	MAPKIND mapkind = NONE;
 };
 
@@ -144,12 +142,12 @@ public:
 	
 	}
 
-	void setShopRoom();
-	void setMORURoom();
-	void setstatueRoom();
-	void setchestRoom();
-	void setBossRoom();
-	void setNextRoom();
+	bool setShopRoom();
+	bool setMORURoom();
+	bool setstatueRoom();
+	bool setchestRoom();
+	bool setBossRoom();
+	bool setNextRoom();
 
 
 };

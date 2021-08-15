@@ -32,6 +32,10 @@ HRESULT mapManager::init()
 		makeclear();
 		remainRoom = mapSize;
 		makestage1((MAXSIZE - 1) / 2,(MAXSIZE+1)/2);
+		setstatueRoom();
+		setchestRoom();
+		setMORURoom();
+		setShopRoom();
 	}
 
 
@@ -170,49 +174,106 @@ void mapManager::makestage1(int i, int k)
 
 }
 
-void mapManager::setShopRoom()
+bool mapManager::setstatueRoom()
 {
-	int setShop = mapSize-3;
-	POINT startRoom = { (MAXSIZE - 1) / 2,(MAXSIZE + 1) / 2 };
-
+	int setstatue = mapSize - 6;
 	for (int i = 0; i < MAXSIZE; i++)
 	{
 		for (int k = 0; k < MAXSIZE; k++)
 		{
-		//	if (stage1[i][k].mapkind == MAPKIND::NORMAL)
+			if (stage1[i][k].mapkind == MAPKIND::NORMAL)
+			{
+				setstatue--;
+				if (RND->getInt(100) > 50 || setstatue == 0)
+				{
+					stage1[i][k] = { _Cmap8,"_Cmap8",SHOP };
+
+				}
+				return true;
+			}
 		}
 	}
+	return false;
+}
+bool mapManager::setchestRoom()
+{
+	int setchest = mapSize-5;
+	for (int i = 0; i < MAXSIZE; i++)
+	{
+		for (int k = 0; k < MAXSIZE; k++)
+		{
+			if (stage1[i][k].mapkind == MAPKIND::NORMAL)
+			{
+				setchest--;
+				if (RND->getInt(100) > 50 || setchest == 0)
+				{
+					stage1[i][k] = { _Cmap8,"_Cmap8",SHOP };
+
+				}
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
-void mapManager::setMORURoom()
+
+bool mapManager::setMORURoom()
 {
 	int setMORU = mapSize-4;
-	POINT startRoom = { (MAXSIZE - 1) / 2,(MAXSIZE + 1) / 2 };
+	for (int i = 0; i < MAXSIZE; i++)
+	{
+		for (int k = 0; k < MAXSIZE; k++)
+		{
+			if (stage1[i][k].mapkind == MAPKIND::NORMAL)
+			{
+				setMORU--;
+				if (RND->getInt(100) > 50 || setMORU == 0)
+				{
+					stage1[i][k] = { _Cmap8,"_Cmap8",SHOP };
+
+				}
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
-void mapManager::setstatueRoom()
+bool mapManager::setShopRoom()
 {
-	int setstatue = mapSize-6;
-	POINT startRoom = { (MAXSIZE - 1) / 2,(MAXSIZE + 1) / 2 };
+	int setShop = mapSize-3;
+	for (int i = 0; i < MAXSIZE; i++)
+	{
+		for (int k = 0; k < MAXSIZE; k++)
+		{
+			if (stage1[i][k].mapkind == MAPKIND::NORMAL)
+			{
+				setShop--;
+				if ( RND->getInt(100) >50 || setShop == 0)
+				{
+					stage1[i][k] = { _Cmap8,"_Cmap8",SHOP };
+					
+				}
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
-void mapManager::setchestRoom()
-{
-	int chest = mapSize-5;
-	POINT startRoom = { (MAXSIZE - 1) / 2,(MAXSIZE + 1) / 2 };
-}
 
 
 
-void mapManager::setBossRoom()
-{
-
-}
-
-void mapManager::setNextRoom()
-{
-
-}
+//bool mapManager::setBossRoom()
+//{
+//
+//}
+//
+//bool mapManager::setNextRoom()
+//{
+//
+//}
 
 
 
@@ -224,13 +285,11 @@ void mapManager::makeclear() {
 		for (int k = 0; k < MAXSIZE; k++)
 		{
 			stage1[i][k].mapkind = NONE;
-			stage1[i][k].canMake = true;
-			stage1[i][k].isMake = false;
 			stage1[i][k].sceneKey = "";
 			stage1[i][k]._motherMap = nullptr;
 		}
 	}
-	stage1[(MAXSIZE - 1) / 2][(MAXSIZE - 1) / 2] = { _Cmap9,"_Cmap9",false,true,START };
+	stage1[(MAXSIZE - 1) / 2][(MAXSIZE - 1) / 2] = { _Cmap9,"_Cmap9",START };
 	remainRoom = 12;
 	remain_SHOP = 1;
 	remain_MORUROOM = 1;

@@ -13,8 +13,8 @@ public:
 	void release();
 	void update();
 	void render();
-	
-	
+
+
 
 };
 
@@ -30,7 +30,7 @@ public:
 	void update();
 	void render();
 
-	
+
 };
 
 
@@ -46,7 +46,7 @@ public:
 	void update();
 	void render();
 
-	
+
 };
 
 
@@ -61,7 +61,7 @@ public:
 	void release();
 	void update();
 	void render();
-	
+
 
 };
 
@@ -77,8 +77,8 @@ public:
 	void release();
 	void update();
 	void render();
-	
-	
+
+
 };
 
 class Cmap6 : public motherMap
@@ -154,6 +154,74 @@ public:
 
 
 };
+class chestMap : public motherMap
+{
+private:
+
+public:
+	chestMap();
+	~chestMap();
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+
+};
+class shopMap : public motherMap
+{
+private:
+
+public:
+	shopMap();
+	~shopMap();
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+
+};
+class statueMap : public motherMap
+{
+private:
+
+public:
+	statueMap();
+	~statueMap();
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+
+};
+
+
+class moruMap : public motherMap
+{
+private:
+
+public:
+	moruMap();
+	~moruMap();
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+
+};
+
+
+
+
+
+
+
+
+
+
 
 
 
