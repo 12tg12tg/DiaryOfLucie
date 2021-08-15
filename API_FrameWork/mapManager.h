@@ -13,7 +13,7 @@ enum MAPKIND
 	NORMAL,
 	SHOP,
 	MORUROOM,
-	statueROOM,
+	STATUEROOM,
 	CHESTROOM,
 	BOSSROOM,
 	NEXTSTAGE
@@ -40,6 +40,10 @@ private:
 	Cmap8* _Cmap8;
 	Cmap9* _Cmap9;
 	Cmap10* _Cmap10;
+	chestMap* _chestMap;
+	shopMap* _shopMap;
+	moruMap* _moruMap;
+	statueMap* _statueMap;
 
 	string currentMap;
 	DungeonDoor _dgDoor;
@@ -85,6 +89,15 @@ public:
 	Cmap3* getCmap3Instance() { return _Cmap3; }
 	Cmap4* getCmap4Instance() { return _Cmap4; }
 	Cmap5* getCmap5Instance() { return _Cmap5; }
+	Cmap6* getCmap6Instance() { return _Cmap6; }
+	Cmap7* getCmap7Instance() { return _Cmap7; }
+	Cmap8* getCmap8Instance() { return _Cmap8; }
+	Cmap9* getCmap9Instance() { return _Cmap9; }
+	Cmap10* getCmap10Instance() { return _Cmap10; }
+	chestMap* getchestMapInstance() { return _chestMap; }
+	shopMap* getshopMapInstance() { return _shopMap; }
+	statueMap* getstatueMapInstance() { return _statueMap; }
+	moruMap* getmoruMapInstance() { return _moruMap; }
 
 	image* getCurrentColMap()
 	{
@@ -140,6 +153,10 @@ public:
 		_Cmap8->setIsDebug(_isDebug);
 		_Cmap9->setIsDebug(_isDebug);
 		_Cmap10->setIsDebug(_isDebug);
+		_chestMap->setIsDebug(_isDebug);
+		_moruMap->setIsDebug(_isDebug);
+		_statueMap->setIsDebug(_isDebug);
+		_shopMap->setIsDebug(_isDebug);
 	
 	}
 

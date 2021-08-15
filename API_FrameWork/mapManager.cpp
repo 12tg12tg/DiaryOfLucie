@@ -13,6 +13,10 @@ HRESULT mapManager::init()
 	_Cmap8 = dynamic_cast<Cmap8*>(SCENE->addScene("_Cmap8", new Cmap8));
 	_Cmap9 = dynamic_cast<Cmap9*>(SCENE->addScene("_Cmap9", new Cmap9));
 	_Cmap10 = dynamic_cast<Cmap10*>(SCENE->addScene("_Cmap10", new Cmap10));
+	_chestMap = dynamic_cast<chestMap*>(SCENE->addScene("_chestMap", new chestMap));
+	_shopMap = dynamic_cast<shopMap*>(SCENE->addScene("_shopMap", new shopMap));
+	_statueMap = dynamic_cast<statueMap*>(SCENE->addScene("_statueMap", new statueMap));
+	_moruMap = dynamic_cast<moruMap*>(SCENE->addScene("_moruMap", new moruMap));
 
 
 	_Cmap1->setMonstermemoryLink(mm);
@@ -25,6 +29,10 @@ HRESULT mapManager::init()
 	_Cmap8->setMonstermemoryLink(mm);
 	_Cmap9->setMonstermemoryLink(mm);
 	_Cmap10->setMonstermemoryLink(mm);
+	_chestMap->setMonstermemoryLink(mm);
+	_shopMap->setMonstermemoryLink(mm);
+	_statueMap->setMonstermemoryLink(mm);
+	_moruMap->setMonstermemoryLink(mm);
 
 	
 	while (remainRoom > 4 )
@@ -186,7 +194,7 @@ bool mapManager::setstatueRoom()
 				setstatue--;
 				if (RND->getInt(100) > 50 || setstatue == 0)
 				{
-					stage1[i][k] = { _Cmap8,"_Cmap8",SHOP };
+					stage1[i][k] = { _statueMap,"_statueMap",STATUEROOM };
 
 				}
 				return true;
@@ -207,7 +215,7 @@ bool mapManager::setchestRoom()
 				setchest--;
 				if (RND->getInt(100) > 50 || setchest == 0)
 				{
-					stage1[i][k] = { _Cmap8,"_Cmap8",SHOP };
+					stage1[i][k] = { _chestMap,"_chestMap",CHESTROOM };
 
 				}
 				return true;
@@ -230,7 +238,7 @@ bool mapManager::setMORURoom()
 				setMORU--;
 				if (RND->getInt(100) > 50 || setMORU == 0)
 				{
-					stage1[i][k] = { _Cmap8,"_Cmap8",SHOP };
+					stage1[i][k] = { _moruMap,"_moruMap",MORUROOM };
 
 				}
 				return true;
@@ -252,7 +260,7 @@ bool mapManager::setShopRoom()
 				setShop--;
 				if ( RND->getInt(100) >50 || setShop == 0)
 				{
-					stage1[i][k] = { _Cmap8,"_Cmap8",SHOP };
+					stage1[i][k] = { _shopMap,"_shopMap",SHOP };
 					
 				}
 				return true;
