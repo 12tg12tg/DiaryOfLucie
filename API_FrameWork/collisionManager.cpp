@@ -26,6 +26,7 @@ void collisionManager::update()
 {
 	bulletToplayer();
 	bulletTomon();
+	bulletToMap();
 	playerTomon();
 	mapToplayer();
 	playerToDoor();
@@ -680,91 +681,43 @@ void collisionManager::mapTomon()
 void collisionManager::playerToDoor()
 {
 	//Cmap
-	if (IntersectRect(&temprc, &mapm->getCmapInstance()->getDungeonDoor()._bottomDoor, &PLAYER->getPlayerAddress().playerRect))
+	if (mapm->getCurrentDoor()[0].isOpen && IntersectRect(&temprc, &mapm->getCurrentDoor()[0].Door, &PLAYER->getPlayerAddress().playerRect))
 	{
-	
-		
+		mapm->checkleftdoorcollison(true);
 	}
-	if (IntersectRect(&temprc, &mapm->getCmapInstance()->getDungeonDoor()._leftDoor, &PLAYER->getPlayerAddress().playerRect))
+	else
 	{
+		mapm->checkleftdoorcollison(false);
+	}
+	if (mapm->getCurrentDoor()[1].isOpen && IntersectRect(&temprc, &mapm->getCurrentDoor()[1].Door, &PLAYER->getPlayerAddress().playerRect))
+	{
+		mapm->checktopdoorcollison(true);
+	}
+	else
+	{
+		mapm->checktopdoorcollison(false);
 
 	}
-	if (IntersectRect(&temprc, &mapm->getCmapInstance()->getDungeonDoor()._topDoor, &PLAYER->getPlayerAddress().playerRect))
+	if (mapm->getCurrentDoor()[2].isOpen &&IntersectRect(&temprc, &mapm->getCurrentDoor()[2].Door, &PLAYER->getPlayerAddress().playerRect))
 	{
+		mapm->checkrightdoorcollison(true);
+	}
+	else
+	{
+		mapm->checkrightdoorcollison(false);
+	}
+	if (mapm->getCurrentDoor()[3].isOpen &&IntersectRect(&temprc, &mapm->getCurrentDoor()[3].Door, &PLAYER->getPlayerAddress().playerRect))
+	{
+		mapm->checkdowndoorcollison(true);
+	}
+	else
+	{
+		mapm->checkdowndoorcollison(false);
+	}
+}
 
-	}
-	if (IntersectRect(&temprc, &mapm->getCmapInstance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-
-	}
-	//Cmap2
-	if (IntersectRect(&temprc, &mapm->getCmap2Instance()->getDungeonDoor()._bottomDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-		
-	}
-	if (IntersectRect(&temprc, &mapm->getCmap2Instance()->getDungeonDoor()._leftDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-
-	}
-	if (IntersectRect(&temprc, &mapm->getCmap2Instance()->getDungeonDoor()._topDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-
-	}
-	if (IntersectRect(&temprc, &mapm->getCmap2Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-
-	}
-	//Cmap3
-	if (IntersectRect(&temprc, &mapm->getCmap3Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-
-	}
-	if (IntersectRect(&temprc, &mapm->getCmap3Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-
-	}
-	if (IntersectRect(&temprc, &mapm->getCmap3Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-
-	}
-	if (IntersectRect(&temprc, &mapm->getCmap3Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-
-	}
-	//Cmap4
-	if (IntersectRect(&temprc, &mapm->getCmap4Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-
-	}
-	if (IntersectRect(&temprc, &mapm->getCmap4Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-
-	}
-	if (IntersectRect(&temprc, &mapm->getCmap4Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-
-	}
-	if (IntersectRect(&temprc, &mapm->getCmap4Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-
-	}
-	//Cmap5
-	if (IntersectRect(&temprc, &mapm->getCmap5Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-
-	}
-	if (IntersectRect(&temprc, &mapm->getCmap5Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-
-	}
-	if (IntersectRect(&temprc, &mapm->getCmap5Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-
-	}
-	if (IntersectRect(&temprc, &mapm->getCmap5Instance()->getDungeonDoor()._rightDoor, &PLAYER->getPlayerAddress().playerRect))
-	{
-
-	}
+void collisionManager::bulletToMap()
+{
 }
 
 void collisionManager::checkMonsterRectPlayer(monster* monster)

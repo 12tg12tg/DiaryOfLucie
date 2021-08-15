@@ -75,6 +75,7 @@ void CpMagicBullet::fire(float x, float y, float angle,int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.isPlayerBullet = true;
 	_vBullet.push_back(bullet);
 }
@@ -90,7 +91,7 @@ void CpMagicBullet::move()
 			_viBullet->bulletImage->getWidth(),
 			_viBullet->bulletImage->getHeight());
 
-		if (_range > UTIL::getDistance(_viBullet->x, _viBullet->y, _viBullet->fireX, _viBullet->fireY))
+		if (_viBullet->iscollison)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 		}
@@ -153,6 +154,7 @@ void CpArrowBullet::fire(float x, float y, float angle, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.isPlayerBullet = true;
 	_vBullet.push_back(bullet);
 }
@@ -169,7 +171,7 @@ void CpArrowBullet::move()
 			_viBullet->bulletImage->getWidth(),
 			_viBullet->bulletImage->getHeight());
 
-		if (_range > UTIL::getDistance(_viBullet->x, _viBullet->y, _viBullet->fireX, _viBullet->fireY))
+		if (_viBullet->iscollison)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 		}
@@ -237,6 +239,7 @@ void CmTripleBullet::fire(float x, float y, float angle, int plussize)
 		bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 			bullet.bulletImage->getWidth()+plussize,
 			bullet.bulletImage->getHeight()+plussize);
+		bullet.iscollison = false;
 		bullet.isPlayerBullet = false;
 		_vBullet.push_back(bullet);
 	}
@@ -254,7 +257,7 @@ void CmTripleBullet::move()
 			_viBullet->bulletImage->getWidth(),
 			_viBullet->bulletImage->getHeight());
 
-		if (_viBullet->x < 0 || _viBullet->x > WINSIZEX || _viBullet->y <0 || _viBullet->y > WINSIZEY)
+		if (_viBullet->iscollison)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 		}
@@ -321,6 +324,7 @@ void CmCircleBullet::fire(float x, float y, float angle, int plussize)
 			bullet.bulletImage->getWidth(),
 			bullet.bulletImage->getHeight());
 		bullet.isPlayerBullet = false;
+		bullet.iscollison = false;
 		_vBullet.push_back(bullet);
 	}
 }
@@ -337,7 +341,7 @@ void CmCircleBullet::move()
 			_viBullet->bulletImage->getWidth(),
 			_viBullet->bulletImage->getHeight());
 
-		if (_viBullet->x < 0 || _viBullet->x > WINSIZEX || _viBullet->y <0 || _viBullet->y > WINSIZEY)
+		if (_viBullet->iscollison)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 		}
@@ -435,6 +439,7 @@ void CmReturnBullet::fire2(float x, float y, float angle, int plussize)
 		bullet2.rc = RectMakeCenter(bullet2.x, bullet2.y,
 			bullet2.bulletImage2->getWidth(),
 			bullet2.bulletImage2->getHeight());
+		bullet2.iscollison = false;
 		bullet2.count = 100;
 
 		_vBullet2.push_back(bullet2);
@@ -469,9 +474,9 @@ void CmReturnBullet::move()
 		}
 		else if (_viBullet->count == 100 )
 		{
-			fire2(_viBullet->fireX, _viBullet->fireY, UTIL::getAngle(WINSIZEX / 2, WINSIZEY / 2, m_ptMouse.x, m_ptMouse.y),  0);
-			_viBullet = _vBullet.erase(_viBullet);
-			continue;
+				fire2(_viBullet->fireX, _viBullet->fireY, UTIL::getAngle(WINSIZEX / 2, WINSIZEY / 2, m_ptMouse.x, m_ptMouse.y), 0);
+				_viBullet = _vBullet.erase(_viBullet);
+				continue;
 		}
 		++_viBullet;
 	}
@@ -484,7 +489,7 @@ void CmReturnBullet::move2()
 	{
 		_viBullet2->count++;
 
-		if ((_viBullet2->count >= 0) && _viBullet2->count < 250)
+		if ((_viBullet2->count >= 0) && _viBullet2->count < 250 && !(_viBullet2->iscollison))
 		{
 			float omega = 0.02;
 
@@ -497,8 +502,9 @@ void CmReturnBullet::move2()
 
 
 		}
-		else if (_viBullet2->count >= 250)
+		else if (_viBullet2->count >= 250 || _viBullet2->iscollison)
 		{
+
 			_viBullet2 = _vBullet2.erase(_viBullet2);
 			continue;
 		}
@@ -573,6 +579,7 @@ void CmWideBullet::fire(float x, float y, float angle, int plussize)
 				bullet.bulletImage->getWidth(),
 				bullet.bulletImage->getHeight());
 			bullet.count = 0;
+			bullet.iscollison = false;
 			bullet.isPlayerBullet = false;
 			_vBullet.push_back(bullet);
 		}
@@ -599,7 +606,7 @@ void CmWideBullet::move()
 		}
 			_viBullet->x += cosf(_viBullet->angle) * _viBullet->speed;
 			_viBullet->y -= sinf(_viBullet->angle) * _viBullet->speed;
-			if (_viBullet->count >= 50)
+			if (_viBullet->count >= 50 && !(_viBullet->iscollison))
 			{
 				_viBullet->angle = _viBullet->angle2;
 				_viBullet->speed = _viBullet->speed2;
@@ -607,7 +614,7 @@ void CmWideBullet::move()
 			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
 				_viBullet->bulletImage->getWidth(),
 				_viBullet->bulletImage->getHeight());
-		if (_viBullet->x < 0 || _viBullet->x > WINSIZEX || _viBullet->y <0 || _viBullet->y > WINSIZEY)
+		if (_viBullet->iscollison)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 		}
@@ -675,6 +682,7 @@ void CmHomingBullet::fire(float x, float y, float angle, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 }
@@ -689,7 +697,7 @@ void CmHomingBullet::move()
 		{
 			_viBullet->count = 0;
 		}
-		if (_viBullet->count < 100)
+		if (_viBullet->count < 100& !(_viBullet->iscollison))
 		{
 			_viBullet->x += cosf(_viBullet->angle) * 1;
 			_viBullet->y -= sinf(_viBullet->angle) * 1;
@@ -710,7 +718,7 @@ void CmHomingBullet::move()
 				_viBullet->bulletImage->getWidth(),
 				_viBullet->bulletImage->getHeight());
 		}
-		else if (_viBullet->count >= 110)
+		else if (_viBullet->count >= 110 && !(_viBullet->iscollison))
 		{
 			_viBullet->x += cosf(_viBullet->angle) * 4;
 			_viBullet->y -= sinf(_viBullet->angle) * 4;
@@ -719,7 +727,7 @@ void CmHomingBullet::move()
 				_viBullet->bulletImage->getHeight());
 		}
 
-		if (_viBullet->x < 0 || _viBullet->x > WINSIZEX || _viBullet->y <0 || _viBullet->y > WINSIZEY)
+		if (_viBullet->iscollison)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 		}
@@ -785,6 +793,7 @@ void CmPoisonBullet::fire(float x, float y, float angle, int plussize)
 		bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 			bullet.bulletImage->getWidth(),
 			bullet.bulletImage->getHeight());
+		bullet.iscollison = false;
 		bullet.count = 0;
 
 		_vBullet.push_back(bullet);
@@ -803,6 +812,7 @@ void CmPoisonBullet::fire(float x, float y, float angle, int plussize)
 		bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 			bullet.bulletImage->getWidth(),
 			bullet.bulletImage->getHeight());
+		bullet.iscollison = false;
 		bullet.count = 0;
 
 		_vBullet.push_back(bullet);
@@ -819,7 +829,7 @@ void CmPoisonBullet::move()
 		{
 			_viBullet->count = 0;
 		}
-		if (_viBullet->count < 100)
+		if (_viBullet->count < 100 && !(_viBullet->iscollison))
 		{
 			_viBullet->x += cosf(_viBullet->angle) * 1;
 			_viBullet->y -= sinf(_viBullet->angle) * 1;
@@ -830,7 +840,7 @@ void CmPoisonBullet::move()
 
 
 		}
-		else if (_viBullet->count >= 100 && _viBullet->count < 150)
+		else if (_viBullet->count >= 100 && _viBullet->count < 150 && !(_viBullet->iscollison))
 		{
 
 
@@ -843,7 +853,7 @@ void CmPoisonBullet::move()
 
 
 		}
-		else if (_viBullet->count >= 150 && _viBullet->count < 180)
+		else if (_viBullet->count >= 150 && _viBullet->count < 180 && !(_viBullet->iscollison))
 		{
 
 
@@ -856,10 +866,8 @@ void CmPoisonBullet::move()
 
 
 		}
-		else if (_viBullet->count >= 180 && _viBullet->count < 300)
+		else if (_viBullet->count >= 180 && _viBullet->count < 300 && !(_viBullet->iscollison))
 		{
-
-
 			_viBullet->x += cosf(_viBullet->angle2) * 0;
 			_viBullet->y -= sinf(_viBullet->angle2) * 0;
 
@@ -870,7 +878,7 @@ void CmPoisonBullet::move()
 
 		}
 
-		else if (_viBullet->count >= 300)
+		else if (_viBullet->count >= 300 || _viBullet->iscollison)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 			continue;
@@ -946,6 +954,7 @@ void CmNiddleBullet::fire(float x, float y, float angle, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 
 	_vBullet.push_back(bullet);
@@ -964,6 +973,7 @@ void CmNiddleBullet::fire2(float x, float y, float angle, int plussize)
 	bullet2.rc = RectMakeCenter(bullet2.x, bullet2.y,
 		bullet2.bulletImage2->getWidth(),
 		bullet2.bulletImage2->getHeight());
+	bullet2.iscollison = false;
 	bullet2.count = 50;
 
 	_vBullet2.push_back(bullet2);
@@ -1091,6 +1101,7 @@ void CmLongPoisonBullet::fire(float x, float y, float angle, int plussize)
 		bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 			bullet.bulletImage->getWidth(),
 			bullet.bulletImage->getHeight());
+		bullet.iscollison = false;
 		bullet.count = 0;
 
 		_vBullet.push_back(bullet);
@@ -1109,7 +1120,7 @@ void CmLongPoisonBullet::move()
 			_viBullet->bulletImage->getWidth(),
 			_viBullet->bulletImage->getHeight());
 
-		if (_viBullet->x < 0 || _viBullet->x > WINSIZEX || _viBullet->y <0 || _viBullet->y > WINSIZEY)
+		if (_viBullet->iscollison)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 		}
@@ -1264,7 +1275,7 @@ void CmSBoss1Bullet::move2()
 		{
 			_viBullet2->count = 0;
 		}
-		if ((_viBullet2->count >= 100) && _viBullet2->count < 250)
+		if ((_viBullet2->count >= 100) && _viBullet2->count < 250 && !(_viBullet2->iscollison))
 		{
 			float omega = 0.02;
 
@@ -1277,7 +1288,7 @@ void CmSBoss1Bullet::move2()
 
 
 		}
-		else if (_viBullet2->count >= 250)
+		else if (_viBullet2->count >= 250 || _viBullet2->iscollison)
 		{
 			_viBullet2 = _vBullet2.erase(_viBullet2);
 			continue;
@@ -1367,6 +1378,7 @@ void CmFBoss1Bullet::fire(float x, float y,bool isleft, int plussize)
 		bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 			bullet.bulletImage->getWidth(),
 			bullet.bulletImage->getHeight());
+		bullet.iscollison = false;
 		bullet.count = 00;
 
 		_vBullet.push_back(bullet);
@@ -1422,7 +1434,7 @@ void CmFBoss1Bullet::move()
 		{
 			_viBullet->count = 0;
 		}
-		if (_viBullet->count >= 0)
+		if (_viBullet->count >= 0 && !(_viBullet->iscollison))
 		{
 			
 			_viBullet->x += cosf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
@@ -1437,7 +1449,7 @@ void CmFBoss1Bullet::move()
 			{
 				fire2(_viBullet->fireX, _viBullet->fireY,0);
 			}
-			if (_viBullet->x < 0 || _viBullet->x > WINSIZEX || _viBullet->y <0 || _viBullet->y > WINSIZEY)
+			if (_viBullet->iscollison)
 			{
 				_viBullet = _vBullet.erase(_viBullet);
 			}
@@ -1742,6 +1754,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -1758,6 +1771,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -1774,6 +1788,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -1790,6 +1805,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -1806,6 +1822,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -1822,6 +1839,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -1838,6 +1856,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -1854,6 +1873,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -1870,6 +1890,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -1886,6 +1907,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -1902,6 +1924,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -1918,6 +1941,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -1934,6 +1958,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -1950,6 +1975,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -1966,6 +1992,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -1982,6 +2009,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -1998,6 +2026,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -2014,6 +2043,7 @@ void CmFBoss3Bullet::fire(float x, float y, int plussize)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
 	bullet.count = 0;
 	_vBullet.push_back(bullet);
 
@@ -2030,7 +2060,7 @@ void CmFBoss3Bullet::move()
 		{
 			_viBullet->count = 0;
 		}
-		if (_viBullet->count >= 0 && _viBullet->count < 300)
+		if (_viBullet->count >= 0 && _viBullet->count < 300 && !(_viBullet->iscollison))
 		{
 			_viBullet->x -= 2 * cosf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
 			_viBullet->y += 2 * sinf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
@@ -2039,7 +2069,7 @@ void CmFBoss3Bullet::move()
 				_viBullet->bulletImage->getWidth(),
 				_viBullet->bulletImage->getHeight());
 		}
-		else if (_viBullet->count >= 300)
+		else if (_viBullet->count >= 300 || _viBullet->iscollison)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 			continue;
@@ -2113,6 +2143,7 @@ void CmTBoss1Bullet::fire(float x, float y, float angle, bool isLeft, int plussi
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
 	bullet.count = 0;
+	bullet.iscollison = false;
 	_vBullet.push_back(bullet);
 
 }
@@ -2224,6 +2255,7 @@ void CmTBoss2Bullet::fire(float x, float y, float angle, bool isLeft, int plussi
 			bullet.bulletImage->getFrameWidth()/2,
 			bullet.bulletImage->getFrameHeight()/2);
 		bullet.rendercount = 0;
+		bullet.iscollison = false;
 		bullet.count = 0;
 		_vBullet.push_back(bullet);
 	}
@@ -2240,7 +2272,7 @@ void CmTBoss2Bullet::move()
 			_viBullet->bulletImage->getFrameWidth()/2,
 			_viBullet->bulletImage->getFrameHeight()/2);
 
-		if (_viBullet->x < 0 || _viBullet->x > WINSIZEX || _viBullet->y <0 || _viBullet->y > WINSIZEY)
+		if (_viBullet->iscollison)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 		}
@@ -2303,6 +2335,7 @@ void CmTBoss3Bullet::fire(float x, float y, float angle, bool isLeft, int plussi
 		bullet.bulletImage->getWidth(),
 		bullet.bulletImage->getHeight());
 	bullet.count = 0;
+	bullet.iscollison = false;
 	_vBullet.push_back(bullet);
 }
 
@@ -2316,7 +2349,7 @@ void CmTBoss3Bullet::move()
 		{
 			_viBullet->count = 0;
 		}
-		if (_viBullet->count < 100)
+		if (_viBullet->count < 100 && !(_viBullet->iscollison))
 		{
 
 			_viBullet->x += cosf(_viBullet->angle2) * 0.5;
@@ -2329,7 +2362,7 @@ void CmTBoss3Bullet::move()
 			_viBullet->fireY = _viBullet->y;
 
 		}
-		else if (_viBullet->count >= 100 && _viBullet->count < 110)
+		else if (_viBullet->count >= 100 && _viBullet->count < 110 && !(_viBullet->iscollison))
 		{
 			_viBullet->angle = UTIL::getAngle(_viBullet->fireX, _viBullet->fireY, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 			_viBullet->x += cosf(_viBullet->angle) * 4;
@@ -2338,7 +2371,7 @@ void CmTBoss3Bullet::move()
 				_viBullet->bulletImage->getWidth(),
 				_viBullet->bulletImage->getHeight());
 		}
-		else if (_viBullet->count >= 110)
+		else if (_viBullet->count >= 110 && !(_viBullet->iscollison))
 		{
 			_viBullet->x += cosf(_viBullet->angle) * 4;
 			_viBullet->y -= sinf(_viBullet->angle) * 4;
@@ -2347,7 +2380,7 @@ void CmTBoss3Bullet::move()
 				_viBullet->bulletImage->getHeight());
 		}
 
-		if (_viBullet->x < 0 || _viBullet->x > WINSIZEX || _viBullet->y <0 || _viBullet->y > WINSIZEY)
+		if (_viBullet->iscollison)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 		}

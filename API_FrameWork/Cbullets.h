@@ -10,7 +10,7 @@ struct tagBullet
 	image* bulletImage2;
 	image* bulletImage3;
 	RECT rc;
-	float x, y;
+	float x,y ;
 	float fireX, fireY;
 	float radius;
 	float angle;
