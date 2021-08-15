@@ -26,6 +26,7 @@ void collisionManager::update()
 {
 	bulletToplayer();
 	bulletTomon();
+	bulletToMap();
 	playerTomon();
 	mapToplayer();
 	playerToDoor();
@@ -601,7 +602,7 @@ void collisionManager::checkMonRight(monster* monster)
 		for (int i = RecCenX(iter->footRc) + 1; i < RecCenX(iter->footRc) + 10; i++)
 		{
 			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), i, RecCenY(iter->footRc));
-
+			
 			int r = GetRValue(color);
 			int g = GetGValue(color);
 			int b = GetBValue(color);
@@ -691,7 +692,44 @@ void collisionManager::mapTomon()
 
 void collisionManager::playerToDoor()
 {
+	//Cmap
+	if (mapm->getCurrentDoor()[0].isOpen && IntersectRect(&temprc, &mapm->getCurrentDoor()[0].Door, &PLAYER->getPlayerAddress().playerRect))
+	{
+		mapm->checkleftdoorcollison(true);
+	}
+	else
+	{
+		mapm->checkleftdoorcollison(false);
+	}
+	if (mapm->getCurrentDoor()[1].isOpen && IntersectRect(&temprc, &mapm->getCurrentDoor()[1].Door, &PLAYER->getPlayerAddress().playerRect))
+	{
+		mapm->checktopdoorcollison(true);
+	}
+	else
+	{
+		mapm->checktopdoorcollison(false);
 
+	}
+	if (mapm->getCurrentDoor()[2].isOpen &&IntersectRect(&temprc, &mapm->getCurrentDoor()[2].Door, &PLAYER->getPlayerAddress().playerRect))
+	{
+		mapm->checkrightdoorcollison(true);
+	}
+	else
+	{
+		mapm->checkrightdoorcollison(false);
+	}
+	if (mapm->getCurrentDoor()[3].isOpen &&IntersectRect(&temprc, &mapm->getCurrentDoor()[3].Door, &PLAYER->getPlayerAddress().playerRect))
+	{
+		mapm->checkdowndoorcollison(true);
+	}
+	else
+	{
+		mapm->checkdowndoorcollison(false);
+	}
+}
+
+void collisionManager::bulletToMap()
+{
 }
 
 void collisionManager::checkMonsterRectPlayer(monster* monster)

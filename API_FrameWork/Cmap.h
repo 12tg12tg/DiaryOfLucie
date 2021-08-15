@@ -13,9 +13,9 @@ public:
 	void release();
 	void update();
 	void render();
-	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	
-	image* getcolMap() { return _collisionMap; }
+	
+
 };
 
 class Cmap2 : public motherMap
@@ -29,8 +29,8 @@ public:
 	void release();
 	void update();
 	void render();
-	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
-	image* getcolMap() { return _collisionMap; }
+
+	
 };
 
 
@@ -45,8 +45,8 @@ public:
 	void release();
 	void update();
 	void render();
-	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
-	image* getcolMap() { return _collisionMap; }
+
+	
 };
 
 
@@ -61,8 +61,8 @@ public:
 	void release();
 	void update();
 	void render();
-	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
-	image* getcolMap() { return _collisionMap; }
+	
+
 };
 
 
@@ -77,8 +77,88 @@ public:
 	void release();
 	void update();
 	void render();
-	image* getcolMap() { return _collisionMap; }
+	
 	
 };
+
+class Cmap6 : public motherMap
+{
+private:
+
+public:
+	Cmap6();
+	~Cmap6();
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+
+};
+class Cmap7 : public motherMap
+{
+private:
+
+public:
+	Cmap7();
+	~Cmap7();
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+
+};
+
+class Cmap8 : public motherMap
+{
+private:
+
+public:
+	Cmap8();
+	~Cmap8();
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+
+};
+
+class Cmap9 : public motherMap
+{
+private:
+
+public:
+	Cmap9();
+	~Cmap9();
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+
+};
+
+class Cmap10 : public motherMap
+{
+private:
+
+public:
+	Cmap10();
+	~Cmap10();
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+
+};
+
+
+
+
+
+
 
 

@@ -30,10 +30,10 @@ void motherMap::render()
 
 void motherMap::summonMon(int x)
 {
+	
 	for (int i = 0; i < monNum; i++)
 	{
 		chooseMon = RND->getFromInTo(0, x);
-
 		if (chooseMon == MONKIND::SNABY)
 		{
 			mm->getSnaby()->addMonster(monpos[i].x, monpos[i].y);

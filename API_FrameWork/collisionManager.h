@@ -41,6 +41,7 @@ public:
 	void mapTobullet();
 	void mapTomon();
 	void playerToDoor();
+	void bulletToMap();
 	//보조함수
 	void checkMonsterRectColl(monster* monster, bool isBoss);
 	void checkMonsterRectPlayer(monster* monster);
