@@ -225,6 +225,8 @@ void moru::playerInterCollision()
 				BUTTON->buttonOn("모루-무시한다");
 				_speakCount = 0;
 				_state = MORUSTATE::SPEAK;
+
+				PLAYER->playerStop();
 			}
 		}
 	}
@@ -269,15 +271,18 @@ void moru::checkRepair()
 			BUTTON->buttonOff("모루-무시한다");
 			_state = MORUSTATE::NONE;
 			isConversation1 = false;
+			PLAYER->playerStop();
 		}
 	}
 	if ((isConversation2 || isConversation4) && (_speakCount > 100))
 	{
 		isConversation2 = false;
 		isConversation4 = false;
+		PLAYER->playerStop();
 	}
 	if (isConversation3 && _speakCount > 120)
 	{
 		isConversation3 = false;
+		PLAYER->playerStop();
 	}
 }

@@ -3,6 +3,7 @@
 #include "Cmonsters.h"
 //테에에에에에스으으으으응으으으트
 #include "fountain.h"
+#include "moru.h"
 class Cplayer;
 class bulletManager;
 class monsterManager : public gameNode
@@ -28,6 +29,7 @@ private:
 	Cyggdrasil_bomb*		_yggdrasil_bomb;
 
 	fountain* _ft;
+	moru* _mr;
 
 private:
 	bool _isDebug;

@@ -28,6 +28,10 @@ void object::render()
 
 }
 
+void object::playerCollision()
+{
+}
+
 void object::bulletCollision(bulletManager* bm)
 {
 }

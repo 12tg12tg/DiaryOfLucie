@@ -46,7 +46,8 @@ HRESULT monsterManager::init()
 
     _ft = new fountain;
     _ft->add(WINSIZEX /2, WINSIZEY/2);
-
+    _mr = new moru;
+    _mr->add(WINSIZEX / 2 + 100, WINSIZEY / 2);
 
     return S_OK;
 }
@@ -88,6 +89,7 @@ void monsterManager::release()
 
 
     SAFE_DELETE(_ft);
+    SAFE_DELETE(_mr);
 
 }
 
@@ -135,6 +137,7 @@ void monsterManager::update()
     }
 
     _ft->update(_bm);
+    _mr->update(_bm);
 }
 
 void monsterManager::render()
@@ -159,4 +162,5 @@ void monsterManager::render()
 
 
     _ft->render();
+    _mr->render();
 }

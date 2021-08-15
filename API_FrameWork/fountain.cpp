@@ -17,7 +17,7 @@ HRESULT fountain::add(float centerx, float centery)
 	_y = centery - _img->getFrameHeight();
 	_hitRc = RectMake(_x, _y + _img->getFrameHeight()*2 / 5,
 		_img->getFrameWidth(), _img->getFrameHeight() * 3 / 5);
-	_footRc = _hitRc;
+	_footRc = RectMake(_hitRc.left-2,_hitRc.top, RecWidth(_hitRc)+4,  RecHeight(_hitRc));
 	_interRc = RectMake(_footRc.left - 1,
 		_footRc.top - 1,
 		RecWidth(_footRc) + 2,
@@ -70,11 +70,14 @@ void fountain::bulletCollision(bulletManager* bm)
 	{
 		if (IntersectRect(&temp, &bm->getMgcBulInstance()->getVBullet()[i].rc, &_hitRc))
 		{
-			float angle = UTIL::getAngle(bm->getMgcBulInstance()->getVBullet()[i].x,
-				bm->getMgcBulInstance()->getVBullet()[i].y, _x, _y);
-			_x += cosf(angle)*10;
-			_y -= sinf(angle)*10;
+			if (_hp > 0) {
+				float angle = UTIL::getAngle(bm->getMgcBulInstance()->getVBullet()[i].x,
+					bm->getMgcBulInstance()->getVBullet()[i].y, _x, _y);
+				_x += cosf(angle) * 10;
+				_y -= sinf(angle) * 10;
+			}
 			bm->getMgcBulInstance()->removeBullet(i);
+			afterHit();
 		}
 	}
 	//2. 플레이어 화살
@@ -82,11 +85,14 @@ void fountain::bulletCollision(bulletManager* bm)
 	{
 		if (OBB->isOBBCollision(bm->getArwBulInstance()->getVBullet()[i].rc, bm->getArwBulInstance()->getVBullet()[i].angle, _hitRc, 0))
 		{
-			float angle = UTIL::getAngle(bm->getArwBulInstance()->getVBullet()[i].x,
-				bm->getArwBulInstance()->getVBullet()[i].y, _x, _y);
-			_x += cosf(angle) * 5;
-			_y -= sinf(angle) * 5;
+			if (_hp > 0) {
+				float angle = UTIL::getAngle(bm->getArwBulInstance()->getVBullet()[i].x,
+					bm->getArwBulInstance()->getVBullet()[i].y, _x, _y);
+				_x += cosf(angle) * 5;
+				_y -= sinf(angle) * 5;
+			}
 			bm->getArwBulInstance()->removeBullet(i);
+			afterHit();
 		}
 	}
 	//3. 검은 안해도 됨.
@@ -131,6 +137,8 @@ void fountain::playerCollision()
 
 void fountain::afterHit()
 {
+	/*동전 투척*/
+	_hp--;
 }
 
 void fountain::giveFrame()
@@ -140,6 +148,6 @@ void fountain::giveFrame()
 void fountain::setBox()
 {
 	_hitRc = RectMake(_x, _y + _img->getFrameHeight() * 2 / 5,_img->getFrameWidth(), _img->getFrameHeight() * 3 / 5);
-	_footRc = _hitRc;
+	_footRc = RectMake(_hitRc.left - 2, _hitRc.top, RecWidth(_hitRc) + 4, RecHeight(_hitRc));
 	_interRc = RectMake(_footRc.left - 1, _footRc.top - 1, RecWidth(_footRc) + 2, RecHeight(_footRc) + 2);
 }
