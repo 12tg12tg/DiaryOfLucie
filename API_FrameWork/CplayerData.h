@@ -51,7 +51,7 @@ private:
 
 	bool _getSkill;
 	
-	int _money;
+	int _gold;
 
 private:
 	int UIalpha;
@@ -60,6 +60,7 @@ private:
 
 private:
 	image* _layout_image;
+	image* _gold_G;
 	int _heartstartX;
 
 public:
@@ -78,6 +79,9 @@ public:
 	void recoveryStamina();
 	void recoveryStamina(int recovery);
 	
+	void goldRender(HDC hdc);
+	bool changeGold(int difference,bool check=false);
+
 	void expUP(int exp);
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }

@@ -35,7 +35,7 @@ HRESULT CplayerData::init()
 
 	_EXP = 0;
 	_getSkill = false;
-	_money = 0;
+	_gold = 0;
 
 	return S_OK;
 }
@@ -65,6 +65,8 @@ void CplayerData::render(HDC hdc)
 	_EXPBar->render();
 	//testrect.left,testrect.top
 	_layout_image->render(hdc,WINSIZEX/2-_layout_image->getWidth()/2,583);
+	_gold_G->render(hdc,WINSIZEX-60,20);
+	goldRender(hdc);
 	
 	IMAGE->findImage("레벨")->alphaFrameRender(hdc, 394,639, _level,0, UIalpha);
 	
@@ -100,20 +102,23 @@ void CplayerData::render(HDC hdc)
 	SetTextColor(hdc, RGB(0, 0, 255));
 	if(_isDebug)
 	{
-		sprintf_s(str, "현재마나통? %d",_presentMP);
-		TextOut(hdc, 0, WINSIZEY - 100, str, strlen(str));
+		/*
 		sprintf_s(str, "최대마나통? %d",_MaxMP );
 		TextOut(hdc, 0, WINSIZEY - 120, str, strlen(str));
+		*/
 	}
 }
 
 void CplayerData::imageInit()
 {
 	_layout_image = IMAGE->addImage("하단피통레이아웃", "images/UI/피통배경.bmp", 230 * 1.3, 90 * 1.3, true);
+	_gold_G = IMAGE->addImage("골드단위G", "images/UI/골드G.bmp", 14*1.3, 19*1.3, true);
+	IMAGE->addImage("하단피통레이아웃", "images/UI/피통배경.bmp", 230 * 1.3, 90 * 1.3, true);
 	IMAGE->addFrameImage("레벨", "images/UI/레벨숫자.bmp", 318 * 1.3, 19 * 1.3, 10, 1, true);
 	IMAGE->addFrameImage("피통", "images/UI/피통.bmp", 48*1.3, 22*1.3, 2, 1, true);
 	IMAGE->addFrameImage("작은피통", "images/UI/피통.bmp", 48*1.3/2, 22*1.3/2, 2, 1, true);
 	IMAGE->addFrameImage("마나통", "images/UI/마나통.bmp", 48 * 1.3, 24 * 1.3, 2, 1, true);
+	IMAGE->addFrameImage("골드숫자", "images/UI/골드숫자.bmp", 140 * 1.3, 20 * 1.3, 10, 1, true);
 
 	_EXPBar = new progressBar;
 	_EXPBar->init("images/UI/겸치통.bmp", "images/UI/겸치통백.bmp",444,650,126*1.3,7 * 1.3);
@@ -222,6 +227,57 @@ void CplayerData::recoveryStamina(int recovery)
 	_defaultStamina += recovery;
 	if (_defaultStamina >= 100) 
 		_defaultStamina = 100;
+}
+
+//망한함수
+//void CplayerData::goldRender(HDC hdc)
+//{
+//	if (_gold == 0) 
+//	{
+//		IMAGE->frameRender("골드숫자", hdc, 947, 20, 0, 0);
+//		return;
+//	}
+//	int tempgold = _gold;
+//	int i=1;
+//	int j = 0;
+//	
+//	while (tempgold / i) 
+//	{
+//		j++;
+//		i *= 10;
+//		tempgold -= tempgold % i;
+//	}
+//	tempgold = _gold;
+//	for (j; j > 0; j--)
+//	{
+//		i /= 10;																						
+//		IMAGE->frameRender("골드숫자", hdc, 947 - (j - 1) * IMAGE->findImage("골드숫자")->getFrameWidth() , 20,  (int)tempgold/i,0);
+//		tempgold -= tempgold / i * i;
+//	}
+//}
+
+void CplayerData::goldRender(HDC hdc)
+{
+	if (_gold == 0)
+	{
+		IMAGE->frameRender("골드숫자", hdc, 947, 20, 0, 0);
+		return;
+	}
+	int tempgold = _gold;
+	int i = 1;
+	for (int j=0; tempgold!=0; j++)
+	{
+		i *= 10;																						
+		IMAGE->frameRender("골드숫자", hdc, 947 - j * IMAGE->findImage("골드숫자")->getFrameWidth() , 20,  (tempgold%i)/(i/10),0);
+		tempgold -= tempgold % i;
+	}
+}
+
+bool CplayerData::changeGold(int difference, bool check)
+{
+	if (_gold + difference < 0)  return false;
+	else if(check) return true;
+	_gold += difference;
 }
 
 void CplayerData::expUP(int exp)
