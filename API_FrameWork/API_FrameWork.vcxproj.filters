@@ -94,6 +94,9 @@
     <Filter Include="DOL\object\chest">
       <UniqueIdentifier>{1b1ba6a8-9c29-4de6-a504-c8b9ef962db4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="manager\카메라">
+      <UniqueIdentifier>{d9f6413c-bdb3-4ef6-9878-9cbf87983a63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -231,6 +234,9 @@
     <ClInclude Include="chest.h">
       <Filter>DOL\object\chest</Filter>
     </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>manager\카메라</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -349,6 +355,9 @@
     </ClCompile>
     <ClCompile Include="chest.cpp">
       <Filter>DOL\object\chest</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>manager\카메라</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
