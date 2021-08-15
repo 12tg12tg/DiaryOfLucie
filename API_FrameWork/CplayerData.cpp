@@ -229,32 +229,6 @@ void CplayerData::recoveryStamina(int recovery)
 		_defaultStamina = 100;
 }
 
-//¸ÁÇÑÇÔ¼ö
-//void CplayerData::goldRender(HDC hdc)
-//{
-//	if (_gold == 0) 
-//	{
-//		IMAGE->frameRender("°ñµå¼ýÀÚ", hdc, 947, 20, 0, 0);
-//		return;
-//	}
-//	int tempgold = _gold;
-//	int i=1;
-//	int j = 0;
-//	
-//	while (tempgold / i) 
-//	{
-//		j++;
-//		i *= 10;
-//		tempgold -= tempgold % i;
-//	}
-//	tempgold = _gold;
-//	for (j; j > 0; j--)
-//	{
-//		i /= 10;																						
-//		IMAGE->frameRender("°ñµå¼ýÀÚ", hdc, 947 - (j - 1) * IMAGE->findImage("°ñµå¼ýÀÚ")->getFrameWidth() , 20,  (int)tempgold/i,0);
-//		tempgold -= tempgold / i * i;
-//	}
-//}
 
 void CplayerData::goldRender(HDC hdc)
 {
@@ -263,13 +237,11 @@ void CplayerData::goldRender(HDC hdc)
 		IMAGE->frameRender("°ñµå¼ýÀÚ", hdc, 947, 20, 0, 0);
 		return;
 	}
-	int tempgold = _gold;
 	int i = 1;
-	for (int j=0; tempgold!=0; j++)
+	for (int j=0; _gold/i>=1; j++)
 	{
+		IMAGE->frameRender("°ñµå¼ýÀÚ", hdc, 947 - j * IMAGE->findImage("°ñµå¼ýÀÚ")->getFrameWidth() , 20,  (_gold/i)%10,0);
 		i *= 10;																						
-		IMAGE->frameRender("°ñµå¼ýÀÚ", hdc, 947 - j * IMAGE->findImage("°ñµå¼ýÀÚ")->getFrameWidth() , 20,  (tempgold%i)/(i/10),0);
-		tempgold -= tempgold % i;
 	}
 }
 
