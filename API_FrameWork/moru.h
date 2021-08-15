@@ -16,7 +16,7 @@ private:
 	MORUSTATE _state;
 	int _price;
 
-
+	image* mouseoverImg;
 
 	Button* but1;
 	Button* but2;
@@ -43,6 +43,7 @@ public:
 	
 	void bulletCollision(bulletManager* bm);
 	void playerCollision();
+	void playerInterCollision();
 	void checkRepair();
 
 	RECT getInterRc() { return _interRc; }

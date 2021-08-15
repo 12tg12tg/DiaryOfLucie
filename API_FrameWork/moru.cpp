@@ -4,9 +4,17 @@
 moru::moru()
 {
 	IMAGE->addFrameImage("모루", "images/object/moru.bmp", 288, 384, 2, 4, true);
+	IMAGE->addImage("이름상자", "images/object/moruNamebox.bmp", 250, 52, false);
 	IMAGE->addImage("모루대화상자", "images/object/interactionBox.bmp", WINSIZEX*3/5, 200, false);
-	but1 = BUTTON->addButton("모루-수리한다", 235, 568, 100, 30);
-	but2 = BUTTON->addButton("모루-무시한다", 235, 600, 100, 30);
+	IMAGE->addImage("모루이름", "images/object/moruName.bmp", 250, 45, true);
+	IMAGE->addImage("모루멘트1", "images/object/morument1.bmp", WINSIZEX*3/5, 200, true);
+	IMAGE->addImage("모루멘트2", "images/object/morument2.bmp", WINSIZEX*3/5, 200, true);
+	IMAGE->addImage("모루멘트3", "images/object/morument3.bmp", WINSIZEX*3/5, 200, true);
+	IMAGE->addImage("모루멘트4", "images/object/morument4.bmp", WINSIZEX*3/5, 200, true);
+	but1 = BUTTON->addButton("모루-수리한다", 238, 577, 222, 35);
+	but2 = BUTTON->addButton("모루-무시한다", 238, 629, 222, 35);
+	mouseoverImg = new image;
+	mouseoverImg->init(222, 35, RGB(85, 115, 226));
 }
 
 moru::~moru()
@@ -42,12 +50,14 @@ void moru::release()
 {
 	BUTTON->removeButton("모루_수리한다");
 	BUTTON->removeButton("모루_무시한다");
+	SAFE_DELETE(mouseoverImg);
 }
 
 void moru::update(bulletManager* bm)
 {
 	bulletCollision(bm);
 	playerCollision();
+	giveFrame();
 	checkRepair();
 }
 
@@ -60,54 +70,48 @@ void moru::render()
 	}
 	ZORDER->ZorderAniRender(_img, ZUNIT, _footRc.bottom, _x, _y, _ani);
 
+	//할배 네임태그
+	if (isConversation1 || isConversation2 || isConversation3 || isConversation4)
+	{
+		IMAGE->findImage("이름상자")->alphaRender(getMemDC(), 188, 438, 200);
+		IMAGE->findImage("모루이름")->render(getMemDC(), 188, 441);
+	}
 	//대화상자 출력
 	if (isConversation1)
 	{
 		//수리를 할거냐는 문구와 버튼 두개가 뜸.
 		IMAGE->findImage("모루대화상자")->alphaRender(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
 			WINSIZEY - IMAGE->findImage("모루대화상자")->getHeight() - 75, 200);
-		//지금 그 무기를 수리할텐가?
-		//수리한다(30 골드)
-		//무시한다
+		IMAGE->findImage("모루멘트1")->render(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
+			WINSIZEY - IMAGE->findImage("모루대화상자")->getHeight() - 75);
+		if (BUTTON->isMouseOver("모루-수리한다")) {
+			mouseoverImg->alphaRender(getMemDC(), 238, 577, 100);
+		}
+		if (BUTTON->isMouseOver("모루-무시한다")) {
+			mouseoverImg->alphaRender(getMemDC(), 238, 629, 100);
+		}
 	}
 	else if (isConversation2)
 	{
-
+		IMAGE->findImage("모루대화상자")->alphaRender(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
+			WINSIZEY - IMAGE->findImage("모루대화상자")->getHeight() - 75, 200);
+		IMAGE->findImage("모루멘트2")->render(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
+			WINSIZEY - IMAGE->findImage("모루대화상자")->getHeight() - 75);
 	}
 	else if (isConversation3)
 	{
-
+		IMAGE->findImage("모루대화상자")->alphaRender(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
+			WINSIZEY - IMAGE->findImage("모루대화상자")->getHeight() - 75, 200);
+		IMAGE->findImage("모루멘트3")->render(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
+			WINSIZEY - IMAGE->findImage("모루대화상자")->getHeight() - 75);
 	}
 	else if (isConversation4)
 	{
-
+		IMAGE->findImage("모루대화상자")->alphaRender(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
+			WINSIZEY - IMAGE->findImage("모루대화상자")->getHeight() - 75, 200);
+		IMAGE->findImage("모루멘트4")->render(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
+			WINSIZEY - IMAGE->findImage("모루대화상자")->getHeight() - 75);
 	}
-
-			//돈체크
-			//if(돈 충분){
-			//	
-			//	if(수리 성공){
-			//		speekCount = 0;
-			//		자 수리가 완료되었네.
-			//		돈차감
-			//		isConversation1 = false;		//상호작용 종료.
-			//	}
-			//	else{
-			//		speekCount = 0;
-			//		_state = MORUSTATE::BROKEN;
-			//		어이쿠 손이 미끄러졌네!
-			//		가끔은 이런날도 있는게지..
-			//		돈차감
-			//		isConversation1 = false;		//상호작용 종료.
-			//	}
-			//}
-			//else{
-			//	speekCount = 0;
-			//	_state = MORUSTATE::NOMONEY;
-			//	자네는 돈이 부족해보이는구만.
-			//	
-			//	isConversation1 = false;		//상호작용 종료.
-			//}
 }
 
 void moru::afterHit()
@@ -122,37 +126,37 @@ void moru::giveFrame()
 	case MORUSTATE::NONE:
 		{
 		int arr[] = { 0 };
-		_ani = ANIMATION->addNoneKeyAnimation("모루", arr, sizeof(arr) / sizeof(int), 5, true);
+		_ani = ANIMATION->addNoneKeyAnimation("모루", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
 		break;
 	case MORUSTATE::SPEAK:
 		if (_speakCount == 0) {
 			int arr[] = { 0, 1 };
-			_ani = ANIMATION->addNoneKeyAnimation("모루", arr, sizeof(arr) / sizeof(int), 5, true);
+			_ani = ANIMATION->addNoneKeyAnimation("모루", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
 		else if (_speakCount == 100) {
 			int arr[] = { 0 };
-			_ani = ANIMATION->addNoneKeyAnimation("모루", arr, sizeof(arr) / sizeof(int), 5, true);
+			_ani = ANIMATION->addNoneKeyAnimation("모루", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
 		break;
 	case MORUSTATE::BROKEN:
 		if (_speakCount == 0) {
 			int arr[] = { 6, 3 };
-			_ani = ANIMATION->addNoneKeyAnimation("모루", arr, sizeof(arr) / sizeof(int), 5, true);
+			_ani = ANIMATION->addNoneKeyAnimation("모루", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
-		else if (_speakCount == 100) {
+		else if (_speakCount == 120) {
 			int arr[] = { 0 };
-			_ani = ANIMATION->addNoneKeyAnimation("모루", arr, sizeof(arr) / sizeof(int), 5, true);
+			_ani = ANIMATION->addNoneKeyAnimation("모루", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
 		break;
 	case MORUSTATE::NOMONEY:
 		if (_speakCount == 0) {
 			int arr[] = { 0, 4 };
-			_ani = ANIMATION->addNoneKeyAnimation("모루", arr, sizeof(arr) / sizeof(int), 5, true);
+			_ani = ANIMATION->addNoneKeyAnimation("모루", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
 		else if (_speakCount == 100) {
 			int arr[] = { 0 };
-			_ani = ANIMATION->addNoneKeyAnimation("모루", arr, sizeof(arr) / sizeof(int), 5, true);
+			_ani = ANIMATION->addNoneKeyAnimation("모루", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
 		break;
 	}
@@ -181,6 +185,44 @@ void moru::bulletCollision(bulletManager* bm)
 }
 
 void moru::playerCollision()
+{
+	RECT temp;
+	if (IntersectRect(&temp, &PLAYER->getPlayerAddress().playerRect, &_footRc))
+	{
+		int fromtop, frombottom, fromleft, fromright;
+		int centerx, centery;
+		int min;
+		centerx = temp.left + (temp.right - temp.left) / 2;
+		centery = temp.top + (temp.bottom - temp.top) / 2;
+		fromtop = centery - _footRc.top;
+		frombottom = _footRc.bottom - centery;
+		fromleft = centerx - _footRc.left;
+		fromright = _footRc.right - centerx;
+
+		min = (fromtop >= frombottom) ? frombottom : fromtop;
+		min = (min >= fromleft) ? fromleft : min;
+		min = (min >= fromright) ? fromright : min;
+		if (min == fromtop && min <= 50)
+		{
+			PLAYER->getPlayerAddress().y = _footRc.top - (PLAYER->getPlayerAddress().playerRect.bottom - PLAYER->getPlayerAddress().playerRect.top) / 2;
+		}
+		else if (min == frombottom)
+		{
+			PLAYER->getPlayerAddress().y = _footRc.bottom + (PLAYER->getPlayerAddress().playerRect.bottom - PLAYER->getPlayerAddress().playerRect.top) / 2;
+		}
+		else if (min == fromleft)
+		{
+			PLAYER->getPlayerAddress().x = _footRc.left - (PLAYER->getPlayerAddress().playerRect.right - PLAYER->getPlayerAddress().playerRect.left) / 2;
+		}
+		else if (min == fromright)
+		{
+			PLAYER->getPlayerAddress().x = _footRc.right + (PLAYER->getPlayerAddress().playerRect.right - PLAYER->getPlayerAddress().playerRect.left) / 2;
+		}
+	}
+	playerInterCollision();
+}
+
+void moru::playerInterCollision()
 {
 	RECT temp;
 	if (!isConversation1 && !isConversation2 && !isConversation3 && !isConversation4) {
@@ -215,10 +257,10 @@ void moru::checkRepair()
 			BUTTON->buttonOff("모루-수리한다");
 			BUTTON->buttonOff("모루-무시한다");
 			isConversation1 = false;
-			if (true)//남은돈이충분하면)
+			if (true)/*돈 비교 구문*/
 			{
-				//돈차감구문.
-				if (true)//수리성공) 
+				/*돈차감구문.*/
+				if (RND->getInt(2))
 				{
 					_speakCount = 0;
 					isConversation2 = true;	//자 수리가 완료되었네.
@@ -245,10 +287,13 @@ void moru::checkRepair()
 			isConversation1 = false;
 		}
 	}
-	if ((isConversation2 || isConversation3 || isConversation4) && (_speakCount > 100))
+	if ((isConversation2 || isConversation4) && (_speakCount > 100))
 	{
 		isConversation2 = false;
-		isConversation3 = false;
 		isConversation4 = false;
+	}
+	if (isConversation3 && _speakCount > 120)
+	{
+		isConversation3 = false;
 	}
 }

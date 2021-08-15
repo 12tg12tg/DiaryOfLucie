@@ -30,11 +30,12 @@ void Cbutton::update()
 				_tempX = m_ptMouse.x - _miButton->second->rc.left;
 				_tempY = m_ptMouse.y - _miButton->second->rc.top;
 			}
-			else if(INPUT->isOnceKeyUp(VK_LBUTTON))
+			if (INPUT->isOnceKeyUp(VK_LBUTTON))
 			{
 				_miButton->second->isClick = false;
 			}
 		}
+
 
 		//드래그확인 후 버튼 갱신
 		if (_miButton->second->isMouseOver)
@@ -130,6 +131,9 @@ void Cbutton::buttonOff(string buttonkey)
 {
 	_miButton = _mButton.find(buttonkey);
 	_miButton->second->buttonOn = false;
+	_miButton->second->isMouseOver = false;
+	_miButton->second->isClick = false;
+	_miButton->second->isDrag = false;
 }
 
 void Cbutton::removeButton(string buttonkey)
