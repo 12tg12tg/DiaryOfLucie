@@ -48,6 +48,7 @@ HRESULT statue::add(float centerx, float centery)
 
 void statue::release()
 {
+
 }
 
 void statue::update(bulletManager* bm)
@@ -58,6 +59,7 @@ void statue::update(bulletManager* bm)
 	_y2 = _neverChangeY2;
 	bulletCollision(bm);
 	giveFrame();
+	playerCollision();
 }
 
 void statue::render()
@@ -68,6 +70,73 @@ void statue::render()
 
 void statue::playerCollision()
 {
+	//-------------------------------------------------------------------------레드석상
+	RECT temp;
+	if (IntersectRect(&temp, &PLAYER->getPlayerAddress().playerRect, &_footRc))
+	{
+		int fromtop, frombottom, fromleft, fromright;
+		int centerx, centery;
+		int min;
+		centerx = temp.left + (temp.right - temp.left) / 2;
+		centery = temp.top + (temp.bottom - temp.top) / 2;
+		fromtop = centery - _footRc.top;
+		frombottom = _footRc.bottom - centery;
+		fromleft = centerx - _footRc.left;
+		fromright = _footRc.right - centerx;
+
+		min = (fromtop >= frombottom) ? frombottom : fromtop;
+		min = (min >= fromleft) ? fromleft : min;
+		min = (min >= fromright) ? fromright : min;
+		if (min == fromtop && min <= 50)
+		{
+			PLAYER->getPlayerAddress().y = _footRc.top - (PLAYER->getPlayerAddress().playerRect.bottom - PLAYER->getPlayerAddress().playerRect.top) / 2;
+		}
+		else if (min == frombottom)
+		{
+			PLAYER->getPlayerAddress().y = _footRc.bottom + (PLAYER->getPlayerAddress().playerRect.bottom - PLAYER->getPlayerAddress().playerRect.top) / 2;
+		}
+		else if (min == fromleft)
+		{
+			PLAYER->getPlayerAddress().x = _footRc.left - (PLAYER->getPlayerAddress().playerRect.right - PLAYER->getPlayerAddress().playerRect.left) / 2;
+		}
+		else if (min == fromright)
+		{
+			PLAYER->getPlayerAddress().x = _footRc.right + (PLAYER->getPlayerAddress().playerRect.right - PLAYER->getPlayerAddress().playerRect.left) / 2;
+		}
+	}
+	//-------------------------------------------------------------------------블루석상
+	if (IntersectRect(&temp, &PLAYER->getPlayerAddress().playerRect, &_footRc2))
+	{
+		int fromtop, frombottom, fromleft, fromright;
+		int centerx, centery;
+		int min;
+		centerx = temp.left + (temp.right - temp.left) / 2;
+		centery = temp.top + (temp.bottom - temp.top) / 2;
+		fromtop = centery - _footRc2.top;
+		frombottom = _footRc2.bottom - centery;
+		fromleft = centerx - _footRc2.left;
+		fromright = _footRc2.right - centerx;
+
+		min = (fromtop >= frombottom) ? frombottom : fromtop;
+		min = (min >= fromleft) ? fromleft : min;
+		min = (min >= fromright) ? fromright : min;
+		if (min == fromtop && min <= 50)
+		{
+			PLAYER->getPlayerAddress().y = _footRc2.top - (PLAYER->getPlayerAddress().playerRect.bottom - PLAYER->getPlayerAddress().playerRect.top) / 2;
+		}
+		else if (min == frombottom)
+		{
+			PLAYER->getPlayerAddress().y = _footRc2.bottom + (PLAYER->getPlayerAddress().playerRect.bottom - PLAYER->getPlayerAddress().playerRect.top) / 2;
+		}
+		else if (min == fromleft)
+		{
+			PLAYER->getPlayerAddress().x = _footRc2.left - (PLAYER->getPlayerAddress().playerRect.right - PLAYER->getPlayerAddress().playerRect.left) / 2;
+		}
+		else if (min == fromright)
+		{
+			PLAYER->getPlayerAddress().x = _footRc2.right + (PLAYER->getPlayerAddress().playerRect.right - PLAYER->getPlayerAddress().playerRect.left) / 2;
+		}
+	}
 }
 
 void statue::bulletCollision(bulletManager* bm)
@@ -160,19 +229,19 @@ void statue::afterHit()
 		if (_isHit) {
 			_isHit2 = true;
 			if (RND->getInt(2)) {
-				/*피깎기*/
+				PLAYERDATA->hitPlayer(2);
 			}
 			else {
-				/*피채우기*/
+				PLAYERDATA->healPlayer(2);
 			}
 		}
 		if (_isHit2) {
 			_isHit = true;
 			if (RND->getInt(2)) {
-				/*마나깎기*/
+				PLAYERDATA->useMana(2);
 			}
 			else {
-				/*마나채우기*/
+				PLAYERDATA->recoveryMana(2);
 			}
 		}
 	}

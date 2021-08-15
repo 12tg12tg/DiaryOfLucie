@@ -146,6 +146,7 @@ public:
 
 	void hitStateCheck();
 	void hitPlayer(int bulletX, int bulletY);
+	void hitDash();
 
 	void playerStop();
 

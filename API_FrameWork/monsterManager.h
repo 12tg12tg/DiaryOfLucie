@@ -5,6 +5,7 @@
 #include "fountain.h"
 #include "moru.h"
 #include "statue.h"
+#include "chest.h"
 class Cplayer;
 class bulletManager;
 class monsterManager : public gameNode
@@ -32,6 +33,7 @@ private:
 	fountain* _ft;
 	moru* _mr;
 	statue* _st;
+	chest* _ct;
 private:
 	bool _isDebug;
 public:

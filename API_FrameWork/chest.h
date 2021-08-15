@@ -2,29 +2,30 @@
 #include "object.h"
 class chest : public object
 {
-protected:
-	RECT _hitRc;
-	RECT _footRc;
-	RECT _interRc;
-	image* _img;
-	float _x, _y;
-	int _hp;
-	animation* _ani;
+private:
+	//RECT _hitRc;
+	//RECT _footRc;
+	//RECT _interRc;
+	//image* _img;
+	//float _x, _y;
+	//int _hp;
+	//animation* _ani;
 
+	int _openCount;
+	bool _isOpen;
+	int _curBox;
 
-
-
-
-	bool _isDebug;
+	//bool _isDebug;
 public:
 	chest();
 	~chest();
 
-	virtual HRESULT add();
+	virtual HRESULT add(float centerx, float centery);
 	virtual void release();
 	virtual void update(bulletManager* bm);
 	virtual void render();
 
+	void playerInterCollision();
 	virtual void playerCollision();
 	virtual void bulletCollision(bulletManager* bm);
 	virtual void afterHit();

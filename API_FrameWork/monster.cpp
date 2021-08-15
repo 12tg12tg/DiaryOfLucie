@@ -74,6 +74,7 @@ void monster::deathCheck()
 		_viMonster->activestate = MONSTERACTIVE::DEATH;
 		_viMonster->framecount = 0;
 		_viMonster->patternCount = 0;
+		PLAYERDATA->expUP(10);
 	}
 }
 
