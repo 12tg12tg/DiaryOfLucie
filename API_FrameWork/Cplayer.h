@@ -5,6 +5,11 @@ class bulletManager;
 
 //////////////////////////////////////////////////
 
+struct tagDamegeFont {
+	int damage;
+	bool isActivate;
+};
+
 enum class PLACE {
 	ROOM,
 	DUNGEON
@@ -19,17 +24,14 @@ enum class STATE {
 	STAFFCHARGE,
 	KNOCKBACK,
 	TALK,
-	DIE
+	DIE,
+	STOP
 };
 enum class WEAPONTYPE{
 	EMPTY,
 	SWORD,
 	BOW,
 	STAFF
-};
-struct tagDamegeFont {
-	int damage;
-	bool isActivate;
 };
 enum DIRECTION
 {
@@ -40,7 +42,7 @@ enum DIRECTION
 	DOWNRIGHT,
 	DOWN,
 	DOWNLEFT,
-	LEFT
+	LEFT=7
 };
 struct tagInputDirection {
 	bool isRight;
@@ -48,14 +50,13 @@ struct tagInputDirection {
 	bool isLeft;
 	bool isUp;
 };
+
 struct Player
 {
 	RECT playerRect;
-	PLACE _place;
+	PLACE place;
 	WEAPONTYPE weapon;
 	float x, y;
-	int HealthPoint;
-	int ManaPoint;
 	int isHit;
 	int isDashHit;
 };
@@ -76,15 +77,17 @@ private:
 	bool _isDebug;
 	bool _isAutoRun;
 	bool _frameswitching;
+
 private:
 	vector<tagDamegeFont*> _damageFont;
+
 private:
-	float _walkspeed;
 	Player _player;
 	STATE _state;
 	tagInputDirection _inputDirection;
 	DIRECTION _direction;
 	DIRECTION _moveDirection;
+	float _walkspeed;
 
 	int _knockBackTime;
 	int _gracePeriod;
@@ -106,9 +109,9 @@ private:
 	int shootingCorrection;
 
 private:
-
 	int imageLeftCorrection;
 	int imageTopCorrection;
+
 	image* _walk_img;
 	image* _run_img;
 	image* _dash_img;
@@ -120,7 +123,6 @@ private:
 	vector<DashEffect>::iterator _iterDashEffect;
 
 private:
-
 	bulletManager* _Cbullet;
 
 public:
@@ -133,9 +135,11 @@ public:
 
 	void inputCheck();
 	void inputDirectionCheck();
+
 	void stateCheck();
 	void movePlayer();
 	void setPlayerFrame();
+
 	void angleCheckDirection(float angle);
 
 	void pushbackDashEffect(int x,int y, int FrameX,DIRECTION direction);
@@ -144,12 +148,10 @@ public:
 	void hitStateCheck();
 	void hitPlayer(int bulletX, int bulletY);
 
+	void playerStop();
+
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	void setBulletManagerMemoryLink(bulletManager* BM) { _Cbullet = BM; }
 	Player& getPlayerAddress() { return _player; }
 	STATE& getSTATEAddress() { return _state; }
-	bool& getW() { return _inputDirection.isUp; }
-	bool& getA(){ return _inputDirection.isLeft; }
-	bool& getS(){ return _inputDirection.isDown; }
-	bool& getD(){ return _inputDirection.isRight; }
 };

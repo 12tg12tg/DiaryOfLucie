@@ -67,7 +67,7 @@ HRESULT Cmap2::init()
 	monpos[1] = { 624,263 };
 	monpos[2] = { 464,282 };
 	monpos[3] = { 525,342 };
-	summonMon(4);
+	//summonMon(4);
 
 	return S_OK;
 }

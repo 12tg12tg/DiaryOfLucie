@@ -27,29 +27,26 @@ HRESULT monsterManager::init()
     _mushmam_mushroom_B = new Cmushmam_mushroom_B;
     _yggdrasil = new Cyggdrasil;
     _yggdrasil_bomb = new Cyggdrasil_bomb;
-    /*
-    _snaby->addMonster(WINSIZEX / 2, 100);
-    _slime->addMonster(WINSIZEX / 2, 300);
-    _mushman_mushroom->addMonster(200, 300);
-    _mushman->addMonster(WINSIZEX - 50, 300);
-    _fairy->addMonster(50, 300);
-    _flime->addMonster(WINSIZEX / 2, WINSIZEY / 2);
-    _bossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
-    _semiBossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
-    _bossflime->addMonster(WINSIZEX/2, WINSIZEY/2);
-    _bossMushmam->addMonster(WINSIZEX/2, WINSIZEY/2);
-    _mushmam_mushroom_G->addMonster(100, 200);
-    _mushmam_mushroom_P->addMonster(100, 300);
-    _mushmam_mushroom_B->addMonster(100, 400);
-    _yggdrasil_bomb->addMonster(WINSIZEX / 2, 100);
-    _yggdrasil->addMonster(WINSIZEX / 2, 100);*/
+    
+    //_snaby->addMonster(WINSIZEX / 2, 100);
+    //_slime->addMonster(WINSIZEX / 2, 300);
+    //_mushman_mushroom->addMonster(200, 300);
+    //_mushman->addMonster(WINSIZEX - 50, 300);
+    //_fairy->addMonster(50, 300);
+    //_flime->addMonster(WINSIZEX / 2, WINSIZEY / 2);
+    //_bossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
+    //_semiBossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
+    //_bossflime->addMonster(WINSIZEX/2, WINSIZEY/2);
+    //_bossMushmam->addMonster(WINSIZEX/2, WINSIZEY/2);
+    //_mushmam_mushroom_G->addMonster(100, 200);
+    //_mushmam_mushroom_P->addMonster(100, 300);
+    //_mushmam_mushroom_B->addMonster(100, 400);
+    //_yggdrasil_bomb->addMonster(WINSIZEX / 2, 100);
+    //_yggdrasil->addMonster(WINSIZEX / 2, 100);
 
-    _ft = new fountain;
-    _ft->add(WINSIZEX /2, WINSIZEY/2);
-    _mr = new moru;
-    _mr->add(WINSIZEX / 2 + 100, WINSIZEY / 2);
-    _st = new statue;
-    _st->add(WINSIZEX / 2, WINSIZEY / 2+150);
+    _moru = new moru;
+    _moru->add(WINSIZEX /2, WINSIZEY/2);
+
 
     return S_OK;
 }
@@ -90,9 +87,7 @@ void monsterManager::release()
     SAFE_DELETE(_yggdrasil_bomb);
 
 
-    SAFE_DELETE(_ft);
-    SAFE_DELETE(_mr);
-    SAFE_DELETE(_st);
+    SAFE_DELETE(_moru);
 
 }
 
@@ -139,9 +134,7 @@ void monsterManager::update()
     //    //}
     }
 
-    _ft->update(_bm);
-    _mr->update(_bm);
-    _st->update(_bm);
+
 }
 
 void monsterManager::render()
@@ -165,7 +158,5 @@ void monsterManager::render()
 
 
 
-    _ft->render();
-    _mr->render();
-    _st->render();
+    _moru->render();
 }

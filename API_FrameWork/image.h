@@ -75,6 +75,7 @@ private:
 public:
 	//비트맵 초기화
 	HRESULT init(const int width, const int height);
+	HRESULT init(const int width, const int height, COLORREF color);
 	HRESULT init(const char * fileName, const int width, const int height, bool isTrans = false, COLORREF transColor = RGB(255, 0, 255));
 	HRESULT init(const char * fileName, const float x, const float y, const int width, const int height, bool isTrans = false, COLORREF transColor = RGB(255, 0, 255));
 	
