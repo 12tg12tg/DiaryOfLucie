@@ -3,16 +3,7 @@
 #include"monsterManager.h"
 HRESULT mapManager::init()
 {
-	/*_Cmap1 = dynamic_cast<Cmap*>(SCENE->addScene("_Cmap1", new Cmap));
-	_Cmap2 = dynamic_cast<Cmap2*>(SCENE->addScene("_Cmap2", new Cmap2));
-	_Cmap3 = dynamic_cast<Cmap3*>(SCENE->addScene("_Cmap3", new Cmap3));
-	_Cmap4 = dynamic_cast<Cmap4*>(SCENE->addScene("_Cmap4", new Cmap4));
-	_Cmap5 = dynamic_cast<Cmap5*>(SCENE->addScene("_Cmap5", new Cmap5));
-	_Cmap6 = dynamic_cast<Cmap6*>(SCENE->addScene("_Cmap6", new Cmap6));
-	_Cmap7 = dynamic_cast<Cmap7*>(SCENE->addScene("_Cmap7", new Cmap7));
-	_Cmap8 = dynamic_cast<Cmap8*>(SCENE->addScene("_Cmap8", new Cmap8));
-	_Cmap9 = dynamic_cast<Cmap9*>(SCENE->addScene("_Cmap9", new Cmap9));*/
-
+	
 	_Cmap10 = nullptr;
     _chestMap  = nullptr;
     _shopMap  = nullptr;
@@ -21,9 +12,6 @@ HRESULT mapManager::init()
     _fountainMap = nullptr;
     _stage1_Boss = nullptr;
     _nextStage = nullptr;
-
-
-
 
 	_none =IMAGE->addImage("∫ÛπÊ", "images/minimap/minimap_none.bmp", 30, 30, true, RGB(255, 0, 255));
 	_start =IMAGE->addImage("Ω√¿€πÊ", "images/minimap/minimap_cellIcon_start.bmp", 30, 30, true, RGB(255, 0, 255));
@@ -80,6 +68,33 @@ HRESULT mapManager::init()
 		{
 			if (stage1[i][k].mapkind != MAPKIND::NONE)
 			{
+				switch (stage1[i][k].mapkind)
+				{
+				case START:
+					stage1[i][k]._motherMap = _Cmap10;
+					break;
+				case SHOP:
+					stage1[i][k]._motherMap = _shopMap;
+					break;
+				case MORUROOM:
+					stage1[i][k]._motherMap = _moruMap;
+					break;
+				case STATUEROOM:
+					stage1[i][k]._motherMap = _statueMap;
+					break;
+				case CHESTROOM:
+					stage1[i][k]._motherMap = _chestMap;
+					break;
+				case FOUNTAIN:
+					stage1[i][k]._motherMap = _fountainMap;
+					break;
+				case BOSSROOM:
+					stage1[i][k]._motherMap = _stage1_Boss;
+					break;
+				case NEXTSTAGE:
+					stage1[i][k]._motherMap = _nextStage;
+					break;
+				}
 				_mStage1.insert(pair<string, motherMap*>(stage1[i][k].sceneKey, stage1[i][k]._motherMap));
 				if (stage1[i][k].mapkind == MAPKIND::START)
 				{
@@ -90,6 +105,7 @@ HRESULT mapManager::init()
 					SCENE->changeScene(currentMap);
 				}
 			}
+
 		}
 	}
 
@@ -684,7 +700,7 @@ void mapManager::makeclear() {
 	}
 	remainRoom = 12;
 	remainNextStage = 1;
-	stage1[(MAXSIZE - 1) / 2][(MAXSIZE - 1) / 2] = { nullptr,"_Cmap10",START};
+	stage1[(MAXSIZE - 1) / 2][(MAXSIZE - 1) / 2] = { _Cmap10,"_Cmap10",START};
 	remainRoom--;
 	SCENE->release();
 }
