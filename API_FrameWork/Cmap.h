@@ -1,7 +1,6 @@
 #pragma once
 #include"gameNode.h"
 #include"motherMap.h"
-
 class Cmap : public motherMap
 {
 private:
@@ -157,7 +156,7 @@ public:
 class chestMap : public motherMap
 {
 private:
-
+	chest* _chest;
 public:
 	chestMap();
 	~chestMap();
@@ -171,7 +170,7 @@ public:
 class shopMap : public motherMap
 {
 private:
-
+	
 public:
 	shopMap();
 	~shopMap();
@@ -185,7 +184,7 @@ public:
 class statueMap : public motherMap
 {
 private:
-
+	statue* _statue;
 public:
 	statueMap();
 	~statueMap();
@@ -201,7 +200,7 @@ public:
 class moruMap : public motherMap
 {
 private:
-
+	moru* _moru;
 public:
 	moruMap();
 	~moruMap();
@@ -211,6 +210,18 @@ public:
 	void render();
 
 
+};
+class fountainMap : public motherMap
+{
+private:
+	fountain* _fountain;
+public:
+	fountainMap();
+	~fountainMap();
+	HRESULT init();
+	void release();
+	void update();
+	void render();
 };
 class stage1_Boss : public motherMap
 {
@@ -226,6 +237,22 @@ public:
 
 
 };
+class nextStage : public motherMap
+{
+private:
+
+public:
+	nextStage();
+	~nextStage();
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+
+};
+
+
 
 
 
