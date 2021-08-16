@@ -29,7 +29,7 @@ HRESULT CplayerData::init()
 	_MaxMP = _defaultMaxMP + _equipMaxMP;
 
 	_defaultStamina = 100;
-	_recoveryStaminaCoolTimeCount = 80;
+	_recoveryStaminaCoolTimeCount = 50;
 
 	UIalpha = 255;
 
@@ -208,7 +208,7 @@ bool CplayerData::useStamina(int costStamina, bool check)
 	if (_defaultStamina < costStamina&&check)  return false; 
 	else if(check) return true;
 		_defaultStamina -= costStamina;
-		_recoveryStaminaCoolTimeCount = 80;
+		_recoveryStaminaCoolTimeCount = 50;
 		if (_defaultStamina < 0)
 			_defaultStamina = 0;
 }
