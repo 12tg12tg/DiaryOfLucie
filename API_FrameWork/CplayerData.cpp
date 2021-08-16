@@ -5,37 +5,50 @@
 HRESULT CplayerData::init()
 {
 	this->imageInit();
+	_Data =
+	{
+		1.5,
+		0,
+		_Data.walkspeed + _Data.equipspeed,
 
+		 0,
+
+		 10,
+		 0,
+		 _Data.defaultAtk + _Data.equipAtk,
+
+		 10,
+		 0,
+		 _Data.defaultSkillPower + _Data.equipSkillPower,
+
+		 0,
+
+		 0
+	};
 	_isDebug = false;
 
 	_level = 1;
-	_Critical = 5;
-	_defaultAtk = 10;
 
-	_lastHP = 1;
-	_lastMaxHP = _lastHP;
-	_defaultHP = 7;
-	_defaultMaxHP = _defaultHP;
-	_equipHP = 0;
-	_equipMaxHP = _equipHP;
-	_presentHP = _lastHP+_defaultHP+_equipHP;
-	_MaxHP = _lastHP + _defaultMaxHP + _equipMaxHP;
+	_lastMaxHP = 1;
+	_defaultMaxHP = 5;
+	_equipMaxHP = 0;
+	_presentHP = _lastMaxHP + _defaultMaxHP + _equipMaxHP;
+	_MaxHP = _lastMaxHP + _defaultMaxHP + _equipMaxHP;
 
-	_defaultMP=0;
 	_defaultMaxMP = 3;
-	_equipMP = 0;
-	_equipMaxMP = _equipMP;
-	_presentMP = _defaultMP + _equipMP;
+	_equipMaxMP = 0;
+	_presentMP = _defaultMaxMP + _equipMaxMP;
 	_MaxMP = _defaultMaxMP + _equipMaxMP;
 
 	_defaultStamina = 100;
 	_recoveryStaminaCoolTimeCount = 50;
 
-	UIalpha = 255;
 
 	_EXP = 0;
 	_getSkill = false;
 	_gold = 0;
+
+	UIalpha = 255;
 
 	return S_OK;
 }
@@ -48,64 +61,25 @@ void CplayerData::release()
 
 void CplayerData::update()
 {
-	_presentHP = _defaultHP + _equipHP + _lastHP;
+	_Data.presentSpeed = _Data.walkspeed + _Data.equipspeed;
+	_Data.presentAtk = _Data.defaultAtk + _Data.equipAtk;
+	_Data.presentSkillPower = _Data.defaultSkillPower + _Data.equipSkillPower;
 	_MaxHP = _defaultMaxHP + _equipMaxHP + _lastMaxHP;
-	_presentMP = _defaultMP + _equipMP;
 	_MaxMP = _defaultMaxMP + _equipMaxMP;
 
 	this->recoveryStamina();
 	_StaminaBar->setGauge(_defaultStamina, 100);
-
 	_EXPBar->setGauge(_EXP, 100);
 }
 
 void CplayerData::render(HDC hdc)
 {
-	_StaminaBar->render();
-	_EXPBar->render();
-	//testrect.left,testrect.top
-	_layout_image->render(hdc,WINSIZEX/2-_layout_image->getWidth()/2,583);
-	_gold_G->render(hdc,WINSIZEX-60,20);
-	goldRender(hdc);
-	
-	IMAGE->findImage("레벨")->alphaFrameRender(hdc, 394,639, _level,0, UIalpha);
-	
-	for (int i = 0; i < _MaxHP / 2 + _MaxHP % 2; i++)
-	{
-		if (_MaxHP % 2 == 1 && i == 0) {
-			IMAGE->findImage("작은피통")->alphaFrameRender(hdc, 436,614, 0, 0, UIalpha);
-			continue;
-		}
-		IMAGE->findImage("피통")->alphaFrameRender(hdc, 429 - i * IMAGE->findImage("피통")->getFrameWidth(), 606, 0, 0, UIalpha);
-		if (i == _MaxHP / 2 + _MaxHP % 2 - 1)
-			_heartstartX = 429 - i * IMAGE->findImage("피통")->getFrameWidth();
-	}
-	for (int i = 0; i < _presentHP/2+_presentHP%2; i++)
-	{
-		if (_presentHP % 2 == 1 && i == _presentHP / 2 + _presentHP % 2-1) {
-			IMAGE->findImage("작은피통")->alphaFrameRender(hdc, _heartstartX + i * IMAGE->findImage("피통")->getFrameWidth()+7, 614, 1, 0, UIalpha);
-			continue;
-		}
-		IMAGE->findImage("피통")->alphaFrameRender(hdc, _heartstartX + i * IMAGE->findImage("피통")->getFrameWidth(), 606, 1, 0, UIalpha);
-	}
-
-	for (int i = 0; i < _MaxMP; i++)
-	{
-		IMAGE->findImage("마나통")->alphaFrameRender(hdc, 551 + i * IMAGE->findImage("마나통")->getFrameWidth(), 606, 0, 0, UIalpha);
-	}
-	for (int i = 0; i < _presentMP; i++)
-	{
-	IMAGE->findImage("마나통")->alphaFrameRender(hdc, 551 + i * IMAGE->findImage("마나통")->getFrameWidth(), 606 , 1, 0, UIalpha);
-	}
+	this->renderUI(hdc);
 
 	char str[256];
 	SetTextColor(hdc, RGB(0, 0, 255));
 	if (_isDebug)
 	{
-		/*
-		sprintf_s(str, "최대마나통? %d",_MaxMP );
-		TextOut(hdc, 0, WINSIZEY - 120, str, strlen(str));
-		*/
 //		카메라영향을 받지 않는 상태확인.
 		wsprintf(str, "맵상마우스위치x,y? : %d, %d", (int)CAMMOUSEX, (int)CAMMOUSEY);
 		TextOut(hdc, 0, WINSIZEY-100, str, lstrlen(str));
@@ -133,83 +107,66 @@ void CplayerData::imageInit()
 	_StaminaBar->init("images/UI/스테미너프론트.bmp", "images/UI/스테미너백.bmp", 398, 664, 166 * 1.3, 14 * 1.3);
 }
 
-void CplayerData::hitPlayer(int damage)
+void CplayerData::changeHP(int HP)
 {
-	for (int i = 0; i < damage; i++) 
+	_presentHP += HP;
+	if (_presentHP < 0)
+		_presentHP = 0;
+	if (_presentHP > _MaxHP)
+		_presentHP = _MaxHP;
+}
+int CplayerData::costHP(int cost,bool check)
+{
+	if (check) 
 	{
-		if (_defaultHP > 0) {
-			_defaultHP--;
-		}
-		else if (_equipHP > 0) {
-			_equipHP--;
-		}
-		else if (_lastHP > 0) {
-			_lastHP--;
-		}
-		if (_presentHP == 0) {
-			break;
-		}
+		if (cost >= _presentHP)return false;
+		else return true;
+	}
+	if (cost >= _presentHP)
+	{
+		int i = _presentHP-1;
+		_presentHP = 1;
+		return i;
+	}
+	else {
+		_presentHP -= cost;
+		return cost;
 	}
 }
-void CplayerData::healPlayer(int recovery)
+void CplayerData::changeMP(int MP)
 {
-
-	for (int i = 0; i < recovery; i++)
-	{
-		if (_lastHP < _lastMaxHP) {
-			_lastHP++;
-		}
-		else if (_equipHP < _equipMaxHP) {
-			_equipHP++;
-		}
-		else if (_defaultHP < _defaultMaxHP) {
-			_defaultHP++;
-		}
-		if (_presentHP == _MaxHP) {
-			break;
-		}
-	}
+	_presentMP += MP;
+	if (_presentMP < 0)
+		_presentMP = 0;
+	if (_presentMP > _MaxMP)
+		_presentMP = _MaxMP;
 }
-bool CplayerData::useMana(int manaCost,bool Check)
+int CplayerData::costMP(int cost,bool check)
 {
-	if (Check)
-		if (manaCost > _presentMP) { return false; }
-	if (!Check) {
-		for (int i = 0; i < manaCost; i++)
-		{
-			if (_defaultMP > 0) {
-				_defaultMP--;
-			}
-			else if (_equipMP > 0) {
-				_equipMP--;
-			}
-			if (_presentMP == 0) {
-				break;
-			}
-		}
-	}
-	return true;
-}
-void CplayerData::recoveryMana(int recovery)
-{
-	for (int i = 0; i < recovery; i++)
+	if (check)
 	{
-		if (_equipMP < _equipMaxMP) {
-			_equipMP++;
-		}
-		else if (_defaultMP < _defaultMaxMP) {
-			_defaultMP++;
-		}
-		if (_presentMP == _MaxMP) {
-			break;
-		}
+		if (cost > _presentMP) return false;
+		else return true;
+	}
+	if (cost > _presentMP)
+	{
+		int i = _presentMP;
+		_presentMP = 0;
+		return i;
+	}
+	else {
+		_presentMP -= cost;
+		return cost;
 	}
 }
 
 bool CplayerData::useStamina(int costStamina, bool check)
 {
-	if (_defaultStamina < costStamina&&check)  return false; 
-	else if(check) return true;
+	if (check) 
+	{
+		if (_defaultStamina < costStamina)  return false;
+		else return true;
+	}
 		_defaultStamina -= costStamina;
 		_recoveryStaminaCoolTimeCount = 50;
 		if (_defaultStamina < 0)
@@ -219,24 +176,24 @@ void CplayerData::recoveryStamina()
 {
 	if (_recoveryStaminaCoolTimeCount) 
 		_recoveryStaminaCoolTimeCount--;
-	else if (_defaultStamina < 100) {
+	else if (_defaultStamina < 100)
+	{
 		if (PLAYER->getSTATEAddress() == STATE::IDLE)
 			_defaultStamina += 1.5;
 		else if (PLAYER->getSTATEAddress() == STATE::WALK)
 			_defaultStamina += 1;
 		else if (PLAYER->getSTATEAddress() == STATE::RUN)
 			_defaultStamina+=0.5;
-		if (_defaultStamina >= 100) 
+		if (_defaultStamina > 100) 
 			_defaultStamina = 100;
 	}
 }
 void CplayerData::recoveryStamina(int recovery)
 {
 	_defaultStamina += recovery;
-	if (_defaultStamina >= 100) 
+	if (_defaultStamina > 100) 
 		_defaultStamina = 100;
 }
-
 
 void CplayerData::goldRender(HDC hdc)
 {
@@ -250,6 +207,55 @@ void CplayerData::goldRender(HDC hdc)
 	{
 		IMAGE->frameRender("골드숫자", hdc, 947 - j * IMAGE->findImage("골드숫자")->getFrameWidth() , 20,  (_gold/i)%10,0);
 		i *= 10;																						
+	}
+}
+
+void CplayerData::renderUI(HDC hdc)
+{
+	_StaminaBar->render();
+	_EXPBar->render();
+	_layout_image->render(hdc, WINSIZEX / 2 - _layout_image->getWidth() / 2, 583);
+	_gold_G->render(hdc, WINSIZEX - 60, 20);
+	goldRender(hdc);
+
+	IMAGE->findImage("레벨")->alphaFrameRender(hdc, 394, 639, _level, 0, UIalpha);
+
+	for (int i = 0; i < _MaxHP / 2 + _MaxHP % 2; i++)
+	{
+		if (_MaxHP % 2 == 1 && i == 0) {
+			IMAGE->findImage("작은피통")->alphaFrameRender(hdc, 436, 614, 0, 0, UIalpha);
+			continue;
+		}
+		IMAGE->findImage("피통")->alphaFrameRender(hdc, 
+			429 - (i%10)* IMAGE->findImage("피통")->getFrameWidth(),
+			606-(i/10)*IMAGE->findImage("피통")->getFrameHeight(), 0, 0, UIalpha);
+		if (i == _MaxHP / 2 + _MaxHP % 2 - 1) {
+			_heartstartX = 429 - (i % 10) * IMAGE->findImage("피통")->getFrameWidth();
+			_heartstartY = 606 - (i / 10) * IMAGE->findImage("피통")->getFrameHeight();
+		}
+	}
+	for (int i = 0; i < _presentHP / 2 + _presentHP % 2; i++)
+	{
+		
+		if (_presentHP % 2 == 1 && i == _presentHP / 2 + _presentHP % 2 - 1) {
+			IMAGE->findImage("작은피통")->alphaFrameRender(hdc, _heartstartX + i * IMAGE->findImage("피통")->getFrameWidth() + 7, _heartstartY+8, 1, 0, UIalpha);
+			continue;
+		}
+		IMAGE->findImage("피통")->alphaFrameRender(hdc, _heartstartX + i * IMAGE->findImage("피통")->getFrameWidth(), _heartstartY, 1, 0, UIalpha);
+		if ((_MaxHP / 2 + _MaxHP % 2 )%10==(i+1)%10) {
+			_heartstartX -= 10 * IMAGE->findImage("피통")->getFrameWidth();
+			_heartstartY += IMAGE->findImage("피통")->getFrameHeight();
+		}
+	}
+	for (int i = 0; i < _MaxMP; i++)
+	{
+		IMAGE->findImage("마나통")->alphaFrameRender(hdc, 551 + (i % 10) * IMAGE->findImage("마나통")->getFrameWidth(),
+			606- (i / 10) * IMAGE->findImage("마나통")->getFrameHeight(), 0, 0, UIalpha);
+	}
+	for (int i = 0; i < _presentMP; i++)
+	{
+		IMAGE->findImage("마나통")->alphaFrameRender(hdc, 551 + (i % 10) * IMAGE->findImage("마나통")->getFrameWidth(), 
+			606 - (i/10) * IMAGE->findImage("마나통")->getFrameHeight(), 1, 0, UIalpha);
 	}
 }
 
@@ -275,4 +281,34 @@ void CplayerData::expUP(int exp)
 			_EXP = 100;
 		}
 	}
+}
+
+void CplayerData::setEquip(int equipHP, int equipMaxHP, int equipMP, int equipMaxMP, float equipSpeed, int equipAtk, int equipAtkSpeed, int equipCritical, int equipSkillPower, int equipSkillCollTime)
+{
+	_presentHP += equipHP;
+	_equipMaxHP += equipMaxHP;
+	_presentMP += equipMP;
+	_equipMaxMP += equipMaxMP;
+	
+	_Data.equipspeed += equipSpeed;
+	_Data.equipAtk += equipAtk;
+	_Data.AtkSpeed += equipAtkSpeed;
+	_Data.Critical += equipCritical;
+	_Data.equipSkillCoolTime += equipSkillPower;
+	_Data.equipSkillCoolTime += equipSkillCollTime;
+}
+
+void CplayerData::takeOffEquip(int& equipHP, int equipMaxHP, int& equipMP, int equipMaxMP, float equipSpeed, int equipAtk, int equipAtkSpeed, int equipCritical, int equipSkillPower, int equipSkillCollTime)
+{
+	equipHP=costHP(equipMaxHP);
+	_equipMaxHP -= equipMaxHP;
+	equipMP = costMP(equipMaxMP);
+	_equipMaxMP -= equipMaxMP;
+
+	_Data.equipspeed -= equipSpeed;
+	_Data.equipAtk -= equipAtk;
+	_Data.AtkSpeed -= equipAtkSpeed;
+	_Data.Critical -= equipCritical;
+	_Data.equipSkillCoolTime -= equipSkillPower;
+	_Data.equipSkillCoolTime -= equipSkillCollTime;
 }

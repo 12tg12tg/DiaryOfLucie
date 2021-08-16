@@ -23,7 +23,6 @@ enum class STATE {
 	ATTSTAFF,
 	STAFFCHARGE,
 	KNOCKBACK,
-	TALK,
 	DIE,
 	STOP
 };
@@ -86,7 +85,8 @@ private:
 	tagInputDirection _inputDirection;
 	DIRECTION _direction;
 	DIRECTION _moveDirection;
-	float _walkspeed;
+	
+	float _speed;
 
 	int _knockBackTime;
 	int _gracePeriod;
@@ -130,23 +130,29 @@ public:
 	void update();
 	void render(HDC hdc);
 
+private:
 	void imageInit();
 
+private:
 	void inputCheck();
 	void inputDirectionCheck();
 
+private:
 	void stateCheck();
 	void movePlayer();
 	void setPlayerFrame();
 
+private:
 	void angleCheckDirection(float angle);
 
+private:
 	void pushbackDashEffect(int x,int y, int FrameX,DIRECTION direction);
 	void renderDashEffecct(HDC hdc);
 
 	void hitStateCheck();
-	void hitPlayer(int bulletX, int bulletY);
+public:
 	void hitDash();
+	void hitPlayer(int bulletX, int bulletY);
 
 	void playerStop();
 
