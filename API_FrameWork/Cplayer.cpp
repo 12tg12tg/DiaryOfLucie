@@ -1,7 +1,6 @@
 #include "framework.h"
 #include "Cplayer.h"
 #include "bulletmanager.h"
-#include "gameNode.h"
 //이곳의 주목적
 //키입력에따른 프레임 랜더와 이동
 
