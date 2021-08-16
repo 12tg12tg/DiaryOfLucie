@@ -25,7 +25,7 @@ struct MAP {
 	motherMap* _motherMap;
 	string sceneKey;
 	MAPKIND mapkind = NONE;
-	int range = 0;
+	
 };
 
 class bulletManager;
@@ -112,29 +112,10 @@ public:
 	moruMap* getmoruMapInstance() { return _moruMap; }
 	stage1_Boss* getstage1_BossInstance() {return _stage1_Boss;}
 	nextStage* getnextStageInstance() { return _nextStage; }
-	image* getCurrentColMap()
-	{
-
-		if (_mStage1.find(currentMap) != _mStage1.end())
-		{
-			return	_mStage1.find(currentMap)->second->getcolMap();
-		}
-		else
-		{
-			return nullptr;
-		}
-	}
-	DungeonDoor* getCurrentDoor()
-	{
-		if (_mStage1.find(currentMap) != _mStage1.end())
-		{
-			return	_mStage1.find(currentMap)->second->getDungeonDoor();
-		}
-		else
-		{
-			return nullptr;
-		}
-	}
+	image* getCurrentColMap();
+	
+	DungeonDoor* getCurrentDoor();
+	
 public:
 	void setrightdoor_state(bool rightdoor_open) { this->rightdoor_open = rightdoor_open; }
 	void setleftdoor_state(bool leftdoor_open) { this->leftdoor_open = leftdoor_open; }
@@ -166,7 +147,6 @@ public:
 				}
 			}
 		}
-				
 				_Cmap10->setIsDebug(_isDebug);
 				_chestMap->setIsDebug(_isDebug);
 				_moruMap->setIsDebug(_isDebug);

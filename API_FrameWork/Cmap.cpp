@@ -60,6 +60,10 @@ Cmap2::Cmap2()
 	_door[1].Door = RectMake(432, 0, 140, 25); //top
 	_door[2].Door = RectMake(985, 358,25 , 120);//right
 	_door[3].Door = RectMake(428, 655,150, 25); //bottom
+	monpos[0] = { 445,570 };
+	monpos[1] = { 624,263 };
+	monpos[2] = { 464,282 };
+	monpos[3] = { 525,342 };
 }
 
 Cmap2::~Cmap2()
@@ -68,10 +72,7 @@ Cmap2::~Cmap2()
 
 HRESULT Cmap2::init()
 {
-	monpos[0] = { 445,570 };
-	monpos[1] = { 624,263 };
-	monpos[2] = { 464,282 };
-	monpos[3] = { 525,342 };
+	
 	//summonMon(4);
 
 	return S_OK;

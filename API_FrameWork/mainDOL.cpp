@@ -27,9 +27,9 @@ HRESULT mainDOL::init()
 	_mapm->setBulletManagerMemoryLink(_bm);//¸Ê¿¡¼­ ºÒ¸´¸µÅ©
 	PLAYER->setBulletManagerMemoryLink(_bm);
 	
-
-
 	_mapm->init();
+
+
 
 
 	return S_OK;
