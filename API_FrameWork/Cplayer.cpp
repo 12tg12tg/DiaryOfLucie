@@ -68,12 +68,6 @@ void Cplayer::render(HDC hdc)
 	{
 		//카메라 영향을 받는 zorder 디버그
 		ZORDER->ZorderRectangle(_player.playerRect, ZCOL1);
-
-		//카메라영향을 받지 않는 상태확인.
-		sprintf_s(str, "플레이어 x,y? %d , %d",(int)_player.x, (int)_player.y);
-		TextOut(hdc, 0, WINSIZEY - 80, str, strlen(str));
-		sprintf_s(str, "마우스 위치? %d , %d",m_ptMouse.x,m_ptMouse.y );
-		TextOut(hdc, 0, WINSIZEY - 60, str, strlen(str));
 	}
 
 	this->renderDashEffecct(hdc);
@@ -426,6 +420,7 @@ void Cplayer::setPlayerFrame()
 				_state = STATE::IDLE;
 				_dashCount = 0;
 				_dashIndex = 0;
+				_player.isDashHit = false;
 			}
 			_dash_img->setFrameX(_dashIndex);
 		}
@@ -503,6 +498,15 @@ void Cplayer::hitPlayer(int bulletX, int bulletY)
 	_player.isHit = true;
 		PLAYERDATA->hitPlayer(1);
 		_knockBackAngle = UTIL::getAngle(bulletX, bulletY, _player.x, _player.y);
+	}
+}
+
+void Cplayer::hitDash()
+{
+	if (_player.isDashHit != true) 
+	{
+		_player.isDashHit = true;
+		PLAYERDATA->recoveryMana(1);
 	}
 }
 

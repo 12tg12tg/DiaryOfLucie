@@ -53,11 +53,7 @@ private:
 	int currentMonNum =0;
 
 	int remainRoom = 12;
-	int mapSize = 0;
-	int remain_SHOP =1;
-	int	remain_MORUROOM=1;
-	int	remain_statueROOM=1;
-	int	remain_CHESTROOM=1;
+	int mapSize;
 
 	bool topdoor_open;
 	bool bottomdoor_open;
@@ -137,27 +133,28 @@ public:
 	void UseableDoor();
 	void makestage1(int i, int k);
 	void makeclear();
-
+	
 
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }
 	void setIsDebug(bool isDebug) {
 		_isDebug = isDebug;
-		_Cmap1->setIsDebug(_isDebug);
-		_Cmap2->setIsDebug(_isDebug);
-		_Cmap3->setIsDebug(_isDebug);
-		_Cmap4->setIsDebug(_isDebug);
-		_Cmap5->setIsDebug(_isDebug);
-		_Cmap6->setIsDebug(_isDebug);
-		_Cmap7->setIsDebug(_isDebug);
-		_Cmap8->setIsDebug(_isDebug);
-		_Cmap9->setIsDebug(_isDebug);
-		_Cmap10->setIsDebug(_isDebug);
-		_chestMap->setIsDebug(_isDebug);
-		_moruMap->setIsDebug(_isDebug);
-		_statueMap->setIsDebug(_isDebug);
-		_shopMap->setIsDebug(_isDebug);
-	
+		for (int i = 0; i < MAXSIZE; i++)
+		{
+			for (int k = 0; k < MAXSIZE; k++)
+			{
+				if (stage1[i][k].mapkind != NONE)
+				{
+					stage1[i][k]._motherMap->setIsDebug(_isDebug);
+				}
+			}
+		}
+				
+				_Cmap10->setIsDebug(_isDebug);
+				_chestMap->setIsDebug(_isDebug);
+				_moruMap->setIsDebug(_isDebug);
+				_statueMap->setIsDebug(_isDebug);
+				_shopMap->setIsDebug(_isDebug);
 	}
 
 	bool setShopRoom();
@@ -166,6 +163,6 @@ public:
 	bool setchestRoom();
 	bool setBossRoom();
 	bool setNextRoom();
-
+	bool setNormal();
 
 };

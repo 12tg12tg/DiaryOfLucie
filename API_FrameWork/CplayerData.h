@@ -7,15 +7,7 @@ class CplayerData: public Singleton<CplayerData>
 {
 	//공격력 마법력 공속 경험치
 	//스킬쿨감수치
-	//이속 최대체력 최대마나 
-	
-	//장비의 마나는 마지막에 사용됨
-	//장비마나까지 소비하면 빈마나상태가됨
-	//빈마나인 장비를 마나가 잇을때 착용시 장비의 빈마나를 현재마나로 채움
-	//마나의소비는 오른쪽에서 왼쪽으로
-
-	//빈하트의 장비를 체력이 잇을때 착용시 체력을 뺏어감
-	//소비는 오른쪽에서 왼쪽
+	//이속
 
 private:
 	bool _isDebug;
@@ -44,14 +36,14 @@ private:
 	int _presentMP;
 	int _MaxMP;
 
-	int _defaultStamina;
+	float _defaultStamina;
 	int _recoveryStaminaCoolTimeCount;
 	
 	int _EXP;
 
 	bool _getSkill;
 	
-	int _money;
+	int _gold;
 
 private:
 	int UIalpha;
@@ -60,6 +52,7 @@ private:
 
 private:
 	image* _layout_image;
+	image* _gold_G;
 	int _heartstartX;
 
 public:
@@ -78,6 +71,9 @@ public:
 	void recoveryStamina();
 	void recoveryStamina(int recovery);
 	
+	void goldRender(HDC hdc);
+	bool changeGold(int difference,bool check=false);
+
 	void expUP(int exp);
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
