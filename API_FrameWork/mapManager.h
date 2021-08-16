@@ -2,6 +2,7 @@
 #include"gameNode.h"
 #include"Cmap.h"
 #include<map>
+
 #define MAXSIZE 9
 
 
@@ -15,6 +16,7 @@ enum MAPKIND
 	MORUROOM,
 	STATUEROOM,
 	CHESTROOM,
+	FOUNTAIN,
 	BOSSROOM,
 	NEXTSTAGE
 };
@@ -23,7 +25,7 @@ struct MAP {
 	motherMap* _motherMap;
 	string sceneKey;
 	MAPKIND mapkind = NONE;
-	bool isClear = false;
+	
 };
 
 class bulletManager;
@@ -31,21 +33,25 @@ class monsterManager;
 class mapManager :public gameNode
 {
 private:
-	Cmap* _Cmap1;
-	Cmap2* _Cmap2;
-	Cmap3* _Cmap3;
-	Cmap4* _Cmap4;
-	Cmap5* _Cmap5;
-	Cmap6* _Cmap6;
-	Cmap7* _Cmap7;
-	Cmap8* _Cmap8;
-	Cmap9* _Cmap9;
+	
 	Cmap10* _Cmap10;
 	chestMap* _chestMap;
 	shopMap* _shopMap;
 	moruMap* _moruMap;
 	statueMap* _statueMap;
 	stage1_Boss* _stage1_Boss;
+	nextStage* _nextStage;
+	fountainMap* _fountainMap;
+
+	image* _none;
+	image* _start;
+	image* _shop;
+	image* _boss;
+	image* _event;
+	image* _goal;
+	image* _fight;
+	image* _chest;
+	image* _back;
 
 	string currentMap;
 	DungeonDoor _dgDoor;
@@ -56,7 +62,7 @@ private:
 
 	int remainRoom = 12;
 	int mapSize;
-
+	int remainNextStage = 1;
 	bool topdoor_open;
 	bool bottomdoor_open;
 	bool rightdoor_open;
@@ -70,6 +76,7 @@ private:
 
 
 	MAP stage1[MAXSIZE][MAXSIZE];
+	MAP stage2[MAXSIZE][MAXSIZE];
 
 	map<string,motherMap*> _mStage1;
 	map<string, motherMap*>::iterator _imStage1;
@@ -82,45 +89,18 @@ public:
 	virtual void update();
 	virtual void render(/*HDC hdc*/);
 
-	Cmap* getCmapInstance() { return _Cmap1; }
-	Cmap2* getCmap2Instance() { return _Cmap2; }
-	Cmap3* getCmap3Instance() { return _Cmap3; }
-	Cmap4* getCmap4Instance() { return _Cmap4; }
-	Cmap5* getCmap5Instance() { return _Cmap5; }
-	Cmap6* getCmap6Instance() { return _Cmap6; }
-	Cmap7* getCmap7Instance() { return _Cmap7; }
-	Cmap8* getCmap8Instance() { return _Cmap8; }
-	Cmap9* getCmap9Instance() { return _Cmap9; }
+	
 	Cmap10* getCmap10Instance() { return _Cmap10; }
 	chestMap* getchestMapInstance() { return _chestMap; }
 	shopMap* getshopMapInstance() { return _shopMap; }
 	statueMap* getstatueMapInstance() { return _statueMap; }
 	moruMap* getmoruMapInstance() { return _moruMap; }
 	stage1_Boss* getstage1_BossInstance() {return _stage1_Boss;}
-
-	image* getCurrentColMap()
-	{
-
-		if (_mStage1.find(currentMap) != _mStage1.end())
-		{
-			return	_mStage1.find(currentMap)->second->getcolMap();
-		}
-		else
-		{
-			return nullptr;
-		}
-	}
-	DungeonDoor* getCurrentDoor()
-	{
-		if (_mStage1.find(currentMap) != _mStage1.end())
-		{
-			return	_mStage1.find(currentMap)->second->getDungeonDoor();
-		}
-		else
-		{
-			return nullptr;
-		}
-	}
+	nextStage* getnextStageInstance() { return _nextStage; }
+	image* getCurrentColMap();
+	
+	DungeonDoor* getCurrentDoor();
+	
 public:
 	void setrightdoor_state(bool rightdoor_open) { this->rightdoor_open = rightdoor_open; }
 	void setleftdoor_state(bool leftdoor_open) { this->leftdoor_open = leftdoor_open; }
@@ -152,13 +132,14 @@ public:
 				}
 			}
 		}
-				
 				_Cmap10->setIsDebug(_isDebug);
 				_chestMap->setIsDebug(_isDebug);
 				_moruMap->setIsDebug(_isDebug);
 				_statueMap->setIsDebug(_isDebug);
 				_shopMap->setIsDebug(_isDebug);
 				_stage1_Boss->setIsDebug(_isDebug);
+				_nextStage->setIsDebug(_isDebug);
+				_fountainMap->setIsDebug(_isDebug);
 	}
 
 	bool setShopRoom();
@@ -166,7 +147,8 @@ public:
 	bool setstatueRoom();
 	bool setchestRoom();
 	bool setBossRoom();
-	bool setNextRoom();
+	void setNextRoom();
 	bool setNormal();
-
+	bool setfountainMap();
+	bool checkNextStage();
 };

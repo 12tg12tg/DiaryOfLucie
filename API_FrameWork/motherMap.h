@@ -1,7 +1,11 @@
 #pragma once
 #include "gameNode.h"
 #include"monsterManager.h"
-
+#include"bulletManager.h"
+#include "chest.h"
+#include"fountain.h"
+#include"moru.h"
+#include"statue.h"
 enum MONKIND
 {
 	SNABY,
@@ -14,9 +18,14 @@ struct DungeonDoor {
 	RECT Door;
 	bool isOpen = false;
 };
+class bulletManager;
 class motherMap :public gameNode
 {
 protected:
+
+
+
+
 
 	bool _isDebug;
 	int monNum = RND->getFromInTo(2, 4);
@@ -25,6 +34,7 @@ protected:
 	DungeonDoor _door[4];
 	image* _collisionMap;
 	monsterManager* mm;
+	bulletManager* bm;
 	int chooseMon;
 public:
 	motherMap();
@@ -38,6 +48,7 @@ public:
 	virtual DungeonDoor* getDungeonDoor() { return _door; }
 	virtual image* getcolMap() { return _collisionMap; }
 	virtual void setMonstermemoryLink(monsterManager* mm) { this->mm = mm; }
+	virtual void setbulletmemoryLink(bulletManager* bm) { this->bm = bm; }
 
 	/*virtual POINT getPoint() { return _current_point; }
 	virtual void setPoint(POINT _current_point) { this->_current_point = _current_point; }

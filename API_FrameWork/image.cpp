@@ -373,10 +373,6 @@ void image::release()
 		DeleteObject(_imageInfo->hBit);
 		DeleteDC(_imageInfo->hMemDC);
 
-		SelectObject(_blendImage->hMemDC, _imageInfo->hBit);
-		DeleteObject(_blendImage->hBit);
-		DeleteDC(_blendImage->hMemDC);
-
 		SAFE_DELETE(_imageInfo);
 		SAFE_DELETE(_fileName);
 

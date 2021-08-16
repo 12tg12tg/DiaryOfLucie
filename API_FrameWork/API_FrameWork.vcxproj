@@ -170,7 +170,6 @@
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="mapManager.h" />
     <ClInclude Include="mapTool.h" />
-    <ClInclude Include="miniMap.h" />
     <ClInclude Include="monster.h" />
     <ClInclude Include="monsterManager.h" />
     <ClInclude Include="moru.h" />
@@ -181,6 +180,7 @@
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="sceneManager.h" />
+    <ClInclude Include="shop.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="statue.h" />
@@ -216,7 +216,6 @@
     <ClCompile Include="mainGame.cpp" />
     <ClCompile Include="mapManager.cpp" />
     <ClCompile Include="mapTool.cpp" />
-    <ClCompile Include="miniMap.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="monsterManager.cpp" />
     <ClCompile Include="moru.cpp" />
@@ -225,6 +224,7 @@
     <ClCompile Include="object.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="sceneManager.cpp" />
+    <ClCompile Include="shop.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="statue.cpp" />
     <ClCompile Include="timeManager.cpp" />

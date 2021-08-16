@@ -76,7 +76,7 @@ void moru::render()
 		IMAGE->findImage("이름상자")->alphaRender(getMemDC(), 188, 360, 200);
 		IMAGE->findImage("모루이름")->render(getMemDC(), 200, 365);
 		IMAGE->findImage("모루대화상자")->alphaRender(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
-			420, 200);
+			420, boxAlpha);
 	}
 	//대화상자 출력
 	if (isConversation1)
@@ -243,9 +243,9 @@ void moru::checkRepair()
 			BUTTON->buttonOff("모루-수리한다");
 			BUTTON->buttonOff("모루-무시한다");
 			isConversation1 = false;
-			if (true)/*돈 비교 구문*/
+			if (PLAYERDATA->changeGold(-30, true))//돈 비교. 차감 구문
 			{
-				/*돈차감구문.*/
+				PLAYERDATA->changeGold(-30, false);
 				if (RND->getInt(2))
 				{
 					_speakCount = 0;

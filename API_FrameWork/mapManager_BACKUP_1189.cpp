@@ -3,15 +3,28 @@
 #include"monsterManager.h"
 HRESULT mapManager::init()
 {
-	
-	_Cmap10 = nullptr;
-    _chestMap  = nullptr;
-    _shopMap  = nullptr;
-    _statueMap 	 = nullptr;
-    _moruMap = nullptr;
-    _fountainMap = nullptr;
-    _stage1_Boss = nullptr;
-    _nextStage = nullptr;
+	/*_Cmap1 = dynamic_cast<Cmap*>(SCENE->addScene("_Cmap1", new Cmap));
+	_Cmap2 = dynamic_cast<Cmap2*>(SCENE->addScene("_Cmap2", new Cmap2));
+	_Cmap3 = dynamic_cast<Cmap3*>(SCENE->addScene("_Cmap3", new Cmap3));
+	_Cmap4 = dynamic_cast<Cmap4*>(SCENE->addScene("_Cmap4", new Cmap4));
+	_Cmap5 = dynamic_cast<Cmap5*>(SCENE->addScene("_Cmap5", new Cmap5));
+	_Cmap6 = dynamic_cast<Cmap6*>(SCENE->addScene("_Cmap6", new Cmap6));
+	_Cmap7 = dynamic_cast<Cmap7*>(SCENE->addScene("_Cmap7", new Cmap7));
+	_Cmap8 = dynamic_cast<Cmap8*>(SCENE->addScene("_Cmap8", new Cmap8));
+	_Cmap9 = dynamic_cast<Cmap9*>(SCENE->addScene("_Cmap9", new Cmap9));*/
+	_Cmap10 = dynamic_cast<Cmap10*>(SCENE->addScene("_Cmap10", new Cmap10));
+
+	_chestMap = dynamic_cast<chestMap*>(SCENE->addScene("_chestMap", new chestMap));
+	_chestMap->setbulletmemoryLink(bm);
+	_shopMap = dynamic_cast<shopMap*>(SCENE->addScene("_shopMap", new shopMap));
+	_statueMap = dynamic_cast<statueMap*>(SCENE->addScene("_statueMap", new statueMap));
+	_statueMap->setbulletmemoryLink(bm);
+	_moruMap = dynamic_cast<moruMap*>(SCENE->addScene("_moruMap", new moruMap));
+	_moruMap->setbulletmemoryLink(bm);
+	_fountainMap = dynamic_cast<fountainMap*>(SCENE->addScene("_fountainMap", new fountainMap));
+	_fountainMap->setbulletmemoryLink(bm);
+	_stage1_Boss = dynamic_cast<stage1_Boss*>(SCENE->addScene("_stage1_Boss", new stage1_Boss));
+	_nextStage = dynamic_cast<nextStage*>(SCENE->addScene("_nextStage", new nextStage));
 
 	_none =IMAGE->addImage("ºó¹æ", "images/minimap/minimap_none.bmp", 30, 30, true, RGB(255, 0, 255));
 	_start =IMAGE->addImage("½ÃÀÛ¹æ", "images/minimap/minimap_cellIcon_start.bmp", 30, 30, true, RGB(255, 0, 255));
@@ -24,42 +37,30 @@ HRESULT mapManager::init()
 	_back = IMAGE->addImage("¹ÙÅÁ", "images/minimap/minimap_backSpriteL.bmp", 455, 317, true, RGB(255, 0, 255));
 
 
-	
+	_Cmap10->setMonstermemoryLink(mm);
+	_chestMap->setMonstermemoryLink(mm);
+	_shopMap->setMonstermemoryLink(mm);
+	_statueMap->setMonstermemoryLink(mm);
+	_moruMap->setMonstermemoryLink(mm);
+	_stage1_Boss->setMonstermemoryLink(mm);
+	_nextStage->setMonstermemoryLink(mm);
+	_fountainMap->setMonstermemoryLink(mm);
 
 	while (remainRoom >= 1 || checkNextStage() == false)
 	{
 		makeclear();
 		makestage1((MAXSIZE - 1) / 2, (MAXSIZE + 1) / 2);
-		mapSize = 11 - remainRoom;
+		mapSize = 12 - remainRoom;
 		setNormal();
-		setBossRoom();
 		setstatueRoom();
 		setchestRoom();
 		setMORURoom();
 		setShopRoom();
 		setfountainMap();
+		setBossRoom();
 		setNextRoom();
 	}
-		_Cmap10 = dynamic_cast<Cmap10*>(SCENE->addScene("_Cmap10", new Cmap10));
-		_chestMap = dynamic_cast<chestMap*>(SCENE->addScene("_chestMap", new chestMap));
-		_chestMap->setbulletmemoryLink(bm);
-		_shopMap = dynamic_cast<shopMap*>(SCENE->addScene("_shopMap", new shopMap));
-		_statueMap = dynamic_cast<statueMap*>(SCENE->addScene("_statueMap", new statueMap));
-		_statueMap->setbulletmemoryLink(bm);
-		_moruMap = dynamic_cast<moruMap*>(SCENE->addScene("_moruMap", new moruMap));
-		_moruMap->setbulletmemoryLink(bm);
-		_fountainMap = dynamic_cast<fountainMap*>(SCENE->addScene("_fountainMap", new fountainMap));
-		_fountainMap->setbulletmemoryLink(bm);
-		_stage1_Boss = dynamic_cast<stage1_Boss*>(SCENE->addScene("_stage1_Boss", new stage1_Boss));
-		_nextStage = dynamic_cast<nextStage*>(SCENE->addScene("_nextStage", new nextStage));
-		_Cmap10->setMonstermemoryLink(mm);
-		_chestMap->setMonstermemoryLink(mm);
-		_shopMap->setMonstermemoryLink(mm);
-		_statueMap->setMonstermemoryLink(mm);
-		_moruMap->setMonstermemoryLink(mm);
-		_stage1_Boss->setMonstermemoryLink(mm);
-		_nextStage->setMonstermemoryLink(mm);
-		_fountainMap->setMonstermemoryLink(mm);
+
 
 
 	for (int i = 0; i < MAXSIZE; i++)
@@ -68,33 +69,6 @@ HRESULT mapManager::init()
 		{
 			if (stage1[i][k].mapkind != MAPKIND::NONE)
 			{
-				switch (stage1[i][k].mapkind)
-				{
-				case START:
-					stage1[i][k]._motherMap = _Cmap10;
-					break;
-				case SHOP:
-					stage1[i][k]._motherMap = _shopMap;
-					break;
-				case MORUROOM:
-					stage1[i][k]._motherMap = _moruMap;
-					break;
-				case STATUEROOM:
-					stage1[i][k]._motherMap = _statueMap;
-					break;
-				case CHESTROOM:
-					stage1[i][k]._motherMap = _chestMap;
-					break;
-				case FOUNTAIN:
-					stage1[i][k]._motherMap = _fountainMap;
-					break;
-				case BOSSROOM:
-					stage1[i][k]._motherMap = _stage1_Boss;
-					break;
-				case NEXTSTAGE:
-					stage1[i][k]._motherMap = _nextStage;
-					break;
-				}
 				_mStage1.insert(pair<string, motherMap*>(stage1[i][k].sceneKey, stage1[i][k]._motherMap));
 				if (stage1[i][k].mapkind == MAPKIND::START)
 				{
@@ -105,7 +79,6 @@ HRESULT mapManager::init()
 					SCENE->changeScene(currentMap);
 				}
 			}
-
 		}
 	}
 
@@ -202,6 +175,25 @@ void mapManager::render()
 	{
 		for (size_t j = 0; j < MAXSIZE; j++)
 		{
+<<<<<<< HEAD
+			string str;
+			//str = to_string((int)stage1[i][j].mapkind);
+			//ZORDER->ZorderTextOut(str, ZMAXLAYER, 100 + 20 * i, 100 + 20 * j, RGB(0, 0, 0));
+
+			str = stage1[i][j].sceneKey;
+			ZORDER->ZorderTextOut(str, ZMAXLAYER, 300 + 50 * i, 100 + 20 * j, RGB(0, 0, 0));
+		}
+	}
+	string str;
+	str = to_string((int)currentIndex.x);
+	ZORDER->ZorderTextOut(str, ZMAXLAYER, 100 + 20 , 300 , RGB(0, 0, 0));
+	string str2;
+	str2 = to_string((int)currentIndex.y);
+	ZORDER->ZorderTextOut(str2, ZMAXLAYER, 100 + 40 , 300 , RGB(0, 0, 0));
+
+	str = currentMap;
+	ZORDER->ZorderTextOut(str, ZMAXLAYER, WINSIZEX/2, WINSIZEY/2, RGB(0, 0, 0));
+=======
 			if (stage1[i][j].mapkind == MAPKIND::START)
 			{
 				ZORDER->ZorderAlphaRender(_start, 10, 501, 400 + i * 30, 200 + j * 30, 170);
@@ -246,28 +238,15 @@ void mapManager::render()
 			}
 		}
 	}
-	for (size_t i = 0; i < MAXSIZE; i++)
-	{
-		for (size_t j = 0; j < MAXSIZE; j++)
-		{
-			string str;
-			//str = to_string((int)stage1[i][j].mapkind);
-			//ZORDER->ZorderTextOut(str, ZMAXLAYER, 100 + 20 * i, 100 + 20 * j, RGB(0, 0, 0));
-
-			str = stage1[i][j].sceneKey;
-			ZORDER->ZorderTextOut(str, ZMAXLAYER, 300 + 70 * i, 100 + 20 * j, RGB(0, 0, 0));
-		}
-	}
-
+	
 		string str;
 		str = to_string((int)currentIndex.x);
 		ZORDER->ZorderTextOut(str, ZMAXLAYER, 100 + 20, 300, RGB(0, 0, 0));
 		string str2;
 		str2 = to_string((int)currentIndex.y);
 		ZORDER->ZorderTextOut(str2, ZMAXLAYER, 100 + 40, 300, RGB(0, 0, 0));
-	str = currentMap;
-	ZORDER->ZorderTextOut(str, ZMAXLAYER, WINSIZEX / 2, WINSIZEY / 2, RGB(0, 0, 0));
 	}
+>>>>>>> mapbranch
 }
 
 
@@ -357,7 +336,7 @@ void mapManager::makestage1(int i, int k)
 
 bool mapManager::setstatueRoom()
 {
-	int setstatue = mapSize - 1;
+	int setstatue = mapSize - 11;
 	for (int i = 0; i < MAXSIZE; i++)
 	{
 		for (int k = 0; k < MAXSIZE; k++)
@@ -377,7 +356,7 @@ bool mapManager::setstatueRoom()
 }
 bool mapManager::setchestRoom()
 {
-	int setchest = mapSize - 2;
+	int setchest = mapSize - 10;
 	for (int i = 0; i < MAXSIZE; i++)
 	{
 		for (int k = 0; k < MAXSIZE; k++)
@@ -400,7 +379,7 @@ bool mapManager::setchestRoom()
 
 bool mapManager::setMORURoom()
 {
-	int setMORU = mapSize - 3;
+	int setMORU = mapSize - 9;
 	for (int i = 0; i < MAXSIZE; i++)
 	{
 		for (int k = 0; k < MAXSIZE; k++)
@@ -421,7 +400,7 @@ bool mapManager::setMORURoom()
 
 bool mapManager::setShopRoom()
 {
-	int setShop = mapSize - 4;
+	int setShop = mapSize - 8;
 	for (int i = 0; i < MAXSIZE; i++)
 	{
 		for (int k = 0; k < MAXSIZE; k++)
@@ -441,7 +420,7 @@ bool mapManager::setShopRoom()
 }
 bool mapManager::setBossRoom()
 {
-	int setBoss = mapSize;
+	int setBoss = mapSize - 6;
 	for (int k = 0; k < MAXSIZE; k++)
 	{
 		for (int i = 0; i < MAXSIZE; i++)
@@ -696,35 +675,11 @@ void mapManager::makeclear() {
 			stage1[i][k].mapkind = NONE;
 			stage1[i][k].sceneKey = "";
 			stage1[i][k]._motherMap = nullptr;
+
 		}
 	}
 	remainRoom = 12;
 	remainNextStage = 1;
-	stage1[(MAXSIZE - 1) / 2][(MAXSIZE - 1) / 2] = { _Cmap10,"_Cmap10",START};
+	stage1[(MAXSIZE - 1) / 2][(MAXSIZE - 1) / 2] = { _Cmap10,"_Cmap10",START,true };
 	remainRoom--;
-	SCENE->release();
-}
-
-image* mapManager::getCurrentColMap()
-{
-
-	if (_mStage1.find(currentMap) != _mStage1.end())
-	{
-		return	_mStage1.find(currentMap)->second->getcolMap();
-	}
-	else
-	{
-		return nullptr;
-	}
-}
-DungeonDoor* mapManager::getCurrentDoor()
-{
-	if (_mStage1.find(currentMap) != _mStage1.end())
-	{
-		return	_mStage1.find(currentMap)->second->getDungeonDoor();
-	}
-	else
-	{
-		return nullptr;
-	}
 }

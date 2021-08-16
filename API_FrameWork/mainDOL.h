@@ -4,6 +4,9 @@
 #include "collisionManager.h"
 #include "monsterManager.h"
 #include "mapManager.h"
+
+#include "shop.h"
+
 class mainDOL : public gameNode
 {
 //DOL 관련 매니저 인스턴스
@@ -19,7 +22,7 @@ private:
 
 
 
-
+	shop* _sp;
 
 
 
@@ -48,6 +51,8 @@ public:
 		BUTTON->setIsDebug(_isDebug);	
 		PLAYER->setIsDebug(_isDebug);
 		PLAYERDATA->setIsDebug(_isDebug);
+
+		_sp->setIsDebug(_isDebug);
 	}
 };
 

@@ -31,14 +31,18 @@ HRESULT mainDOL::init()
 	_mapm->setBulletManagerMemoryLink(_bm);		//맵에서 불릿링크
 	PLAYER->setBulletManagerMemoryLink(_bm);
 	
-
-
 	_mapm->init();
+
+
 
 	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
 		1008, 672, 0, 0, CAMERASIZEX /2, CAMERASIZEY /2, CAMERASIZEX, CAMERASIZEY);
 	CAMERA->FadeInit(80, FADE_IN);
 	CAMERA->FadeStart();
+
+
+	_sp = new shop;
+	_sp->add(WINSIZEX/2, WINSIZEY/2);
 	return S_OK;
 }
 
@@ -58,7 +62,7 @@ void mainDOL::release()
 	SAFE_DELETE(_mapm);
 
 
-
+	SAFE_DELETE(_sp);
 
 }
 
@@ -77,12 +81,14 @@ void mainDOL::update()
 
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
+
+
+	_sp->update(_bm);
 }
 
 void mainDOL::render()
 {
 	//아래로 쭉 Zorder에 저장
-	_mapm->render();
 	_bm->render();
 	_mm->render();
 	_cm->render();
@@ -104,11 +110,12 @@ void mainDOL::render()
 	IMAGE->findImage("SCORPDC")->stretchRenderXY(getMemDC(), 0, 0, GAMEDCRATIO);
 
 	//화면 고정형 UI 여기서부터 출력.
-	BUTTON->render(getMemDC());
 	PLAYERDATA->render(getMemDC());
+	BUTTON->render(getMemDC());
 
 	//페이드 효과 출력 - 알아서 멈춤
 	CAMERA->FadeRender(getMemDC());
+	_mapm->render();
 
 	//테스트
 	//TCHAR str[128];
@@ -116,4 +123,6 @@ void mainDOL::render()
 	//TextOut(getMemDC(), 0, 60, str, lstrlen(str));
 	//wsprintf(str, "플레이어좌표 : %d, %d", (int)PLAYER->getPlayerAddress().x, (int)PLAYER->getPlayerAddress().y);
 	//TextOut(getMemDC(), 0, 80, str, lstrlen(str));
+
+	_sp->render();
 }

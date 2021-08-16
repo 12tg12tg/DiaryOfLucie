@@ -43,16 +43,6 @@ HRESULT monsterManager::init()
     _mushmam_mushroom_B->addMonster(100, 400);
     _yggdrasil_bomb->addMonster(WINSIZEX / 2, 100);
     _yggdrasil->addMonster(WINSIZEX / 2, 100);*/
-
-    _ft = new fountain;
-    _ft->add(WINSIZEX /2, WINSIZEY/2);
-    _mr = new moru;
-    _mr->add(WINSIZEX / 2 + 150, WINSIZEY / 2);
-    _st = new statue;
-    _st->add(WINSIZEX / 2, WINSIZEY / 2+150);
-    _ct = new chest;
-    _ct->add(WINSIZEX / 2 - 150, WINSIZEY / 2-150);
-
     return S_OK;
 }
 
@@ -90,12 +80,6 @@ void monsterManager::release()
     SAFE_DELETE(_mushmam_mushroom_B);
     SAFE_DELETE(_yggdrasil);
     SAFE_DELETE(_yggdrasil_bomb);
-
-
-    SAFE_DELETE(_ft);
-    SAFE_DELETE(_mr);
-    SAFE_DELETE(_st);
-    SAFE_DELETE(_ct);
 
 }
 
@@ -141,11 +125,6 @@ void monsterManager::update()
     //    //    _slime->knockback(iter3, m_ptMouse.x, m_ptMouse.y, 1, 10, true);
     //    //}
     }
-
-    _ft->update(_bm);
-    _mr->update(_bm);
-    _st->update(_bm);
-    _ct->update(_bm);
 }
 
 void monsterManager::render()
@@ -165,12 +144,4 @@ void monsterManager::render()
     _mushman_mushroom->render();
     _yggdrasil->render();
     _yggdrasil_bomb->render();
-
-
-
-
-    _ft->render();
-    _mr->render();
-    _st->render();
-    _ct->render();
 }

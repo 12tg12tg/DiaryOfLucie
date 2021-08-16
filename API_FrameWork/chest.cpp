@@ -60,11 +60,11 @@ void chest::update(bulletManager* bm)
 
 void chest::render()
 {
-	//if (_isDebug) {
+	if (_isDebug) {
 		ZORDER->ZorderRectangle(_interRc, ZCOL1);
-		//ZORDER->ZorderRectangle(_hitRc, ZCOL2);
+		ZORDER->ZorderRectangle(_hitRc, ZCOL2);
 		ZORDER->ZorderRectangleColor(_footRc, ZCOL2, MINT);
-	//}
+	}
 	ZORDER->ZorderAniRender(_img, ZUNIT, _footRc.bottom, _x, _y, _ani);
 }
 

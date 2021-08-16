@@ -70,9 +70,6 @@
     <Filter Include="manager\Zorder">
       <UniqueIdentifier>{8d7c25ed-e013-4602-99ae-a281af32861d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DOL\minimap">
-      <UniqueIdentifier>{e40542d0-b522-49a7-98bc-d95f57242400}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DOL\object">
       <UniqueIdentifier>{42c8022b-306d-41b5-a496-214e49b15675}</UniqueIdentifier>
     </Filter>
@@ -96,6 +93,9 @@
     </Filter>
     <Filter Include="manager\카메라">
       <UniqueIdentifier>{d9f6413c-bdb3-4ef6-9878-9cbf87983a63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOL\object\shop">
+      <UniqueIdentifier>{cd6434d3-165a-4595-b7cf-637bc07907e8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -207,9 +207,6 @@
     <ClInclude Include="Zorder.h">
       <Filter>manager\Zorder</Filter>
     </ClInclude>
-    <ClInclude Include="miniMap.h">
-      <Filter>DOL\minimap</Filter>
-    </ClInclude>
     <ClInclude Include="object.h">
       <Filter>DOL\object</Filter>
     </ClInclude>
@@ -236,6 +233,9 @@
     </ClInclude>
     <ClInclude Include="camera.h">
       <Filter>manager\카메라</Filter>
+    </ClInclude>
+    <ClInclude Include="shop.h">
+      <Filter>DOL\object\shop</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -329,9 +329,6 @@
     <ClCompile Include="Zorder.cpp">
       <Filter>manager\Zorder</Filter>
     </ClCompile>
-    <ClCompile Include="miniMap.cpp">
-      <Filter>DOL\minimap</Filter>
-    </ClCompile>
     <ClCompile Include="object.cpp">
       <Filter>DOL\object</Filter>
     </ClCompile>
@@ -358,6 +355,9 @@
     </ClCompile>
     <ClCompile Include="camera.cpp">
       <Filter>manager\카메라</Filter>
+    </ClCompile>
+    <ClCompile Include="shop.cpp">
+      <Filter>DOL\object\shop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
