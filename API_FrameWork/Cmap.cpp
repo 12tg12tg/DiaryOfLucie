@@ -5,7 +5,7 @@ Cmap::Cmap()
 {
 	IMAGE->addImage("95배경", "images/map/ground95.bmp", 1104,960, true, RGB(255, 0, 255));
 	_collisionMap =IMAGE->addImage("95픽셀", "images/map/!m95.bmp", 1104, 960, true, RGB(255, 0, 255));
-	IMAGE->addImage("95가림", "images/map/par95.bmp", 1104, 960, true, RGB(255, 0, 255));
+	IMAGE->addImage("95가림", "images/map/Par95.bmp", 1104, 960, true, RGB(255, 0, 255));
 	_door[0].Door = RectMake(0,454, 25, 150);//left
 	_door[1].Door = RectMake(482, 0, 140, 25); //top
 	_door[2].Door = RectMake(1085, 450, 25 , 150);//right
@@ -54,8 +54,8 @@ void Cmap::render()
 Cmap2::Cmap2()
 {
 	IMAGE->addImage("57배경", "images/map/ground57.bmp", 1008, 672, true, RGB(255, 0, 255));
-	_collisionMap = IMAGE->addImage("57픽셀", "images/map/!m57.bmp", 1008, 672, true, RGB(255, 0, 255));
-	IMAGE->addImage("57가림", "images/map/par57.bmp", 1008, 672, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("57픽셀","images/map/!m57.bmp", 1008, 672, true, RGB(255, 0, 255));
+	IMAGE->addImage("57가림", "images/map/Par57.bmp", 1008, 672, true, RGB(255, 0, 255));
 	_door[0].Door = RectMake(0, 404 , 25, 70);//left
 	_door[1].Door = RectMake(432, 0, 140, 25); //top
 	_door[2].Door = RectMake(985, 358,25 , 120);//right
@@ -102,7 +102,7 @@ Cmap3::Cmap3()
 {
 	IMAGE->addImage("104배경", "images/map/ground104.bmp", 1008, 768, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("104픽셀", "images/map/!m104.bmp", 1008, 768, true, RGB(255, 0, 255));
-	IMAGE->addImage("104가림", "images/map/par104.bmp", 1008, 768, true, RGB(255, 0, 255));
+	IMAGE->addImage("104가림", "images/map/Par104.bmp", 1008, 768, true, RGB(255, 0, 255));
 	_door[0].Door = RectMake(0,333, 20,100);//left
 	_door[1].Door = RectMake(433, 0, 140, 25); //top
 	_door[2].Door = RectMake(985, 321, 25,110 );//right
@@ -152,7 +152,7 @@ Cmap4::Cmap4()
 {
 	IMAGE->addImage("105배경", "images/map/ground105.bmp", 1008, 768, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("105픽셀", "images/map/!m105.bmp", 1008, 768, true, RGB(255, 0, 255));
-	IMAGE->addImage("105가림", "images/map/par105.bmp", 1008, 768, true, RGB(255, 0, 255));
+	IMAGE->addImage("105가림", "images/map/Par105.bmp", 1008, 768, true, RGB(255, 0, 255));
 	_door[0].Door = RectMake(0, 268, 25,160);//left
 	_door[1].Door = RectMake(433, 0, 140, 25); //top
 	_door[2].Door = RectMake(990, 333 , 25, 100);//right
@@ -200,7 +200,7 @@ Cmap5::Cmap5()
 {
 	IMAGE->addImage("115배경", "images/map/ground115.bmp", 1008, 672, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("115픽셀", "images/map/!m115.bmp", 1008, 672, true, RGB(255, 0, 255));
-	IMAGE->addImage("115가림", "images/map/par115.bmp", 1008, 672, true, RGB(255, 0, 255));
+	IMAGE->addImage("115가림", "images/map/Par115.bmp", 1008, 672, true, RGB(255, 0, 255));
 	_door[0].Door = RectMake(0, 353, 25,150);//left
 	_door[1].Door = RectMake(433, 0, 140, 25); //top
 	_door[2].Door = RectMake(990, 356, 25, 140);//right
@@ -248,7 +248,7 @@ Cmap6::Cmap6()
 {
 	IMAGE->addImage("50배경", "images/map/ground50.bmp", 1008, 768, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("50픽셀", "images/map/!m50.bmp", 1008, 768, true, RGB(255, 0, 255));
-	IMAGE->addImage("50가림", "images/map/par50.bmp", 1008, 768, true, RGB(255, 0, 255));
+	IMAGE->addImage("50가림", "images/map/Par50.bmp", 1008, 768, true, RGB(255, 0, 255));
 	_door[0].Door = RectMake(0, 312, 25, 130);//left
 	_door[1].Door = RectMake(432, 0, 140, 25); //top
 	_door[2].Door = RectMake(990, 303, 25, 130);//right
@@ -293,7 +293,7 @@ Cmap7::Cmap7()
 {
 	IMAGE->addImage("51배경", "images/map/ground51.bmp", 1008, 672, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("51픽셀", "images/map/!m51.bmp", 1008, 672, true, RGB(255, 0, 255));
-	IMAGE->addImage("51가림", "images/map/par51.bmp", 1008, 672, true, RGB(255, 0, 255));
+	IMAGE->addImage("51가림", "images/map/Par51.bmp", 1008, 672, true, RGB(255, 0, 255));
 	_door[0].Door = RectMake(0, 404, 25, 70);//left
 	_door[1].Door = RectMake(432, 0, 140, 25); //top
 	_door[2].Door = RectMake(985, 358, 25, 120);//right
@@ -338,7 +338,7 @@ Cmap8::Cmap8()
 {
 	IMAGE->addImage("100배경", "images/map/ground100.bmp", 1008,768, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("100픽셀", "images/map/!m100.bmp", 1008, 768, true, RGB(255, 0, 255));
-	IMAGE->addImage("100가림", "images/map/par100.bmp", 1008, 768, true, RGB(255, 0, 255));
+	IMAGE->addImage("100가림", "images/map/Par100.bmp", 1008, 768, true, RGB(255, 0, 255));
 	_door[0].Door = RectMake(0, 312, 25, 130);//left
 	_door[1].Door = RectMake(432, 0, 140, 25); //top
 	_door[2].Door = RectMake(990, 303, 25, 130);//right
@@ -383,7 +383,7 @@ Cmap9::Cmap9()
 {
 	IMAGE->addImage("108배경", "images/map/ground108.bmp", 1008, 672, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("108픽셀", "images/map/!m108.bmp", 1008, 672 , true, RGB(255, 0, 255));
-	IMAGE->addImage("108가림", "images/map/par108.bmp", 1008, 672 , true, RGB(255, 0, 255));
+	IMAGE->addImage("108가림", "images/map/Par108.bmp", 1008, 672 , true, RGB(255, 0, 255));
 	_door[0].Door = RectMake(0, 355, 25, 120);//left
 	_door[1].Door = RectMake(433,0, 140, 25); //top
 	_door[2].Door = RectMake(990, 355, 25, 120);//right
@@ -428,7 +428,7 @@ Cmap10::Cmap10()
 {
 	IMAGE->addImage("114배경", "images/map/ground114.bmp", 1108,672, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("114픽셀", "images/map/!m114.bmp", 1108, 672, true, RGB(255, 0, 255));
-	IMAGE->addImage("114가림", "images/map/par114.bmp", 1108, 672, true, RGB(255, 0, 255));
+	IMAGE->addImage("114가림", "images/map/Par114.bmp", 1108, 672, true, RGB(255, 0, 255));
 	_door[0].Door = RectMakeCenter(0, 426, 50, 100);//left
 	_door[1].Door = RectMake(474, 0, 170, 25); //top
 	_door[2].Door = RectMake(1005, 424, 25, 100);//right
@@ -441,7 +441,7 @@ Cmap10::~Cmap10()
 
 HRESULT Cmap10::init()
 {
-	summonMon(4);
+	
 
 	return S_OK;
 }
@@ -469,11 +469,13 @@ chestMap::chestMap()
 {
 	IMAGE->addImage("상자방배경", "images/map/chestMap.bmp", 1008, 672, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("상자방픽셀", "images/map/!mchestMap.bmp", 1008, 672, true, RGB(255, 0, 255));
-	IMAGE->addImage("상자방가림", "images/map/parchestMap.bmp", 1008, 672, true, RGB(255, 0, 255));
+	IMAGE->addImage("상자방가림", "images/map/ParchestMap.bmp", 1008, 672, true, RGB(255, 0, 255));
 	_door[0].Door = RectMake(0, 355, 25, 120);//left
 	_door[1].Door = RectMake(433, 0, 140, 25); //top
 	_door[2].Door = RectMake(990, 355, 25, 120);//right
 	_door[3].Door = RectMake(427, 650, 160, 25); //bottom
+	_chest = new chest;
+	_chest->add(504, 336);
 }
 
 chestMap::~chestMap()
@@ -482,15 +484,18 @@ chestMap::~chestMap()
 
 HRESULT chestMap::init()
 {
+	
 	return S_OK;
 }
 
 void chestMap::release()
 {
+	SAFE_DELETE(_chest);
 }
 
 void chestMap::update()
 {
+	_chest->update(bm);
 }
 
 void chestMap::render()
@@ -502,17 +507,19 @@ void chestMap::render()
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
+	_chest->render();
 }
 
 shopMap::shopMap()
 {
 	IMAGE->addImage("상점방배경", "images/map/ground103.bmp", 960, 576, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("상점방픽셀", "images/map/!m103.bmp", 960, 576, true, RGB(255, 0, 255));
-	IMAGE->addImage("상점방가림", "images/map/par103.bmp", 960, 576, true, RGB(255, 0, 255));
+	IMAGE->addImage("상점방가림", "images/map/Par103.bmp", 960, 576, true, RGB(255, 0, 255));
 	_door[0].Door = RectMake(0, 364, 25, 140);//left
 	_door[1].Door = RectMake(530, 0, 90, 25); //top
 	_door[2].Door = RectMake(940, 310, 25, 115);//right
 	_door[3].Door = RectMake(436, 560, 140, 25); //bottom
+	
 }
 
 shopMap::~shopMap()
@@ -547,11 +554,13 @@ statueMap::statueMap()
 {
 	IMAGE->addImage("석상방배경", "images/map/statueMap.bmp", 1104, 960, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("석상방픽셀", "images/map/!mstatueMap.bmp", 1104, 960, true, RGB(255, 0, 255));
-	IMAGE->addImage("석상방가림", "images/map/parstatueMap.bmp", 1104, 960, true, RGB(255, 0, 255));
+	IMAGE->addImage("석상방가림", "images/map/ParstatueMap.bmp", 1104, 960, true, RGB(255, 0, 255));
 	_door[0].Door = RectMake(0, 454, 25, 150);//left
 	_door[1].Door = RectMake(482, 0, 140, 25); //top
 	_door[2].Door = RectMake(1085, 450, 25, 150);//right
 	_door[3].Door = RectMake(476, 940, 140, 25); //bottom
+	_statue = new statue;
+	_statue->add(550, 480);
 }
 
 statueMap::~statueMap()
@@ -560,15 +569,18 @@ statueMap::~statueMap()
 
 HRESULT statueMap::init()
 {
+	
 	return S_OK;
 }
 
 void statueMap::release()
 {
+	SAFE_DELETE(_statue);
 }
 
 void statueMap::update()
 {
+	_statue->update(bm);
 }
 
 void statueMap::render()
@@ -580,17 +592,20 @@ void statueMap::render()
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
+	_statue->render();
 }
 
 moruMap::moruMap()
 {
 	IMAGE->addImage("모루방배경", "images/map/moruMap.bmp", 1104, 960, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("모루방픽셀", "images/map/!mmoruMap.bmp", 1104, 960, true, RGB(255, 0, 255));
-	IMAGE->addImage("모루방가림", "images/map/parmoruMap.bmp", 1104, 960, true, RGB(255, 0, 255));
+	IMAGE->addImage("모루방가림", "images/map/ParmoruMap.bmp", 1104, 960, true, RGB(255, 0, 255));
 	_door[0].Door = RectMake(0, 454, 25, 150);//left
 	_door[1].Door = RectMake(482, 0, 140, 25); //top
 	_door[2].Door = RectMake(1085, 450, 25, 150);//right
 	_door[3].Door = RectMake(476, 940, 140, 25); //bottom
+	_moru = new moru;
+	_moru->add(550, 480);
 }
 
 moruMap::~moruMap()
@@ -599,15 +614,18 @@ moruMap::~moruMap()
 
 HRESULT moruMap::init()
 {
+	
 	return S_OK;
 }
 
 void moruMap::release()
 {
+	SAFE_DELETE(_moru);
 }
 
 void moruMap::update()
 {
+	_moru->update(bm);
 }
 
 void moruMap::render()
@@ -619,13 +637,14 @@ void moruMap::render()
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
+	_moru->render();
 }
 
 stage1_Boss::stage1_Boss()
 {
 	IMAGE->addImage("보스방배경", "images/map/stage1_boss.bmp", 1104, 960, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("보스방픽셀", "images/map/!mstage1_boss.bmp", 1104, 960, true, RGB(255, 0, 255));
-	IMAGE->addImage("보스방가림", "images/map/parstage1_boss.bmp", 1104, 960, true, RGB(255, 0, 255));
+	IMAGE->addImage("보스방가림", "images/map/Parstage1_boss.bmp", 1104, 960, true, RGB(255, 0, 255));
 	_door[0].Door = RectMake(0, 454, 25, 150);//left
 	_door[1].Door = RectMake(482, 0, 140, 25); //top
 	_door[2].Door = RectMake(1085, 450, 25, 150);//right
@@ -658,4 +677,96 @@ void stage1_Boss::render()
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
+}
+
+nextStage::nextStage()
+{
+	IMAGE->addImage("다음층배경", "images/map/nextStage.bmp", 1008, 672, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("다음층픽셀", "images/map/!mnextStage.bmp", 1008, 672, true, RGB(255, 0, 255));
+	IMAGE->addImage("다음층가림", "images/map/ParnextStage.bmp", 1008, 672, true, RGB(255, 0, 255));
+	_door[0].Door = RectMake(0, 355, 25, 120);//left
+	_door[1].Door = RectMake(433, 0, 140, 25); //top
+	_door[2].Door = RectMake(990, 355, 25, 120);//right
+	_door[3].Door = RectMake(427, 650, 160, 25); //bottom
+	monpos[0] = { 504,156 };
+	monpos[1] = { 624,263 };
+	monpos[2] = { 464,282 };
+	monpos[3] = { 525,342 };
+}
+
+nextStage::~nextStage()
+{
+}
+
+HRESULT nextStage::init()
+{
+	return S_OK;
+}
+
+void nextStage::release()
+{
+}
+
+void nextStage::update()
+{
+}
+
+void nextStage::render()
+{
+	ZORDER->ZorderRender(IMAGE->findImage("다음층배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("다음층가림"), ZABOVEMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("다음층픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
+}
+fountainMap::fountainMap()
+{
+
+	IMAGE->addImage("분수방배경", "images/map/fountainMap.bmp", 1008, 672, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("분수방픽셀", "images/map/!mfountainMap.bmp", 1008, 672, true, RGB(255, 0, 255));
+	IMAGE->addImage("분수방가림", "images/map/ParfountainMap.bmp", 1008, 672, true, RGB(255, 0, 255));
+	_door[0].Door = RectMake(0, 404, 25, 70);//left
+	_door[1].Door = RectMake(432, 0, 140, 25); //top
+	_door[2].Door = RectMake(985, 358, 25, 120);//right
+	_door[3].Door = RectMake(428, 655, 150, 25); //bottom
+	monpos[0] = { 470,263 };
+	monpos[1] = { 473,573 };
+	monpos[2] = { 681,381 };
+	monpos[3] = { 330,440 };
+	_fountain = new fountain;
+	_fountain->add(504, 362);
+}
+
+fountainMap::~fountainMap()
+{
+}
+
+HRESULT fountainMap::init()
+{
+	
+	return S_OK;
+}
+
+void fountainMap::release()
+{
+	SAFE_DELETE(_fountain);
+}
+
+void fountainMap::update()
+{
+	_fountain->update(bm);
+}
+
+void fountainMap::render()
+{
+	ZORDER->ZorderRender(IMAGE->findImage("분수방배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("분수방가림"), ZABOVEMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("분수방픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
+	_fountain->render();
 }

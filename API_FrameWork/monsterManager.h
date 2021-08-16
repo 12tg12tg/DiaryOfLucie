@@ -25,6 +25,7 @@ private:
 	Cyggdrasil*				_yggdrasil;
 	Cyggdrasil_bomb*		_yggdrasil_bomb;
 
+
 private:
 	bool _isDebug;
 public:

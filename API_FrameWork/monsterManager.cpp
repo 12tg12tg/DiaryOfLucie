@@ -43,9 +43,6 @@ HRESULT monsterManager::init()
     _mushmam_mushroom_B->addMonster(100, 400);
     _yggdrasil_bomb->addMonster(WINSIZEX / 2, 100);
     _yggdrasil->addMonster(WINSIZEX / 2, 100);*/
-
-
-
     return S_OK;
 }
 
@@ -83,8 +80,6 @@ void monsterManager::release()
     SAFE_DELETE(_mushmam_mushroom_B);
     SAFE_DELETE(_yggdrasil);
     SAFE_DELETE(_yggdrasil_bomb);
-
-
 
 }
 
@@ -130,7 +125,6 @@ void monsterManager::update()
     //    //    _slime->knockback(iter3, m_ptMouse.x, m_ptMouse.y, 1, 10, true);
     //    //}
     }
-
 }
 
 void monsterManager::render()
@@ -150,8 +144,4 @@ void monsterManager::render()
     _mushman_mushroom->render();
     _yggdrasil->render();
     _yggdrasil_bomb->render();
-
-
-
-
 }

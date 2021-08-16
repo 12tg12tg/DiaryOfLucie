@@ -70,9 +70,6 @@
     <Filter Include="manager\Zorder">
       <UniqueIdentifier>{8d7c25ed-e013-4602-99ae-a281af32861d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DOL\minimap">
-      <UniqueIdentifier>{e40542d0-b522-49a7-98bc-d95f57242400}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DOL\object">
       <UniqueIdentifier>{42c8022b-306d-41b5-a496-214e49b15675}</UniqueIdentifier>
     </Filter>
@@ -210,9 +207,6 @@
     <ClInclude Include="Zorder.h">
       <Filter>manager\Zorder</Filter>
     </ClInclude>
-    <ClInclude Include="miniMap.h">
-      <Filter>DOL\minimap</Filter>
-    </ClInclude>
     <ClInclude Include="object.h">
       <Filter>DOL\object</Filter>
     </ClInclude>
@@ -334,9 +328,6 @@
     </ClCompile>
     <ClCompile Include="Zorder.cpp">
       <Filter>manager\Zorder</Filter>
-    </ClCompile>
-    <ClCompile Include="miniMap.cpp">
-      <Filter>DOL\minimap</Filter>
     </ClCompile>
     <ClCompile Include="object.cpp">
       <Filter>DOL\object</Filter>

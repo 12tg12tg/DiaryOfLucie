@@ -2,6 +2,7 @@
 #include"gameNode.h"
 #include"Cmap.h"
 #include<map>
+
 #define MAXSIZE 9
 
 
@@ -15,6 +16,7 @@ enum MAPKIND
 	MORUROOM,
 	STATUEROOM,
 	CHESTROOM,
+	FOUNTAIN,
 	BOSSROOM,
 	NEXTSTAGE
 };
@@ -23,7 +25,7 @@ struct MAP {
 	motherMap* _motherMap;
 	string sceneKey;
 	MAPKIND mapkind = NONE;
-	bool isClear = false;
+	int range = 0;
 };
 
 class bulletManager;
@@ -46,6 +48,18 @@ private:
 	moruMap* _moruMap;
 	statueMap* _statueMap;
 	stage1_Boss* _stage1_Boss;
+	nextStage* _nextStage;
+	fountainMap* _fountainMap;
+
+	image* _none;
+	image* _start;
+	image* _shop;
+	image* _boss;
+	image* _event;
+	image* _goal;
+	image* _fight;
+	image* _chest;
+	image* _back;
 
 	string currentMap;
 	DungeonDoor _dgDoor;
@@ -56,7 +70,7 @@ private:
 
 	int remainRoom = 12;
 	int mapSize;
-
+	int remainNextStage = 1;
 	bool topdoor_open;
 	bool bottomdoor_open;
 	bool rightdoor_open;
@@ -97,7 +111,7 @@ public:
 	statueMap* getstatueMapInstance() { return _statueMap; }
 	moruMap* getmoruMapInstance() { return _moruMap; }
 	stage1_Boss* getstage1_BossInstance() {return _stage1_Boss;}
-
+	nextStage* getnextStageInstance() { return _nextStage; }
 	image* getCurrentColMap()
 	{
 
@@ -159,6 +173,8 @@ public:
 				_statueMap->setIsDebug(_isDebug);
 				_shopMap->setIsDebug(_isDebug);
 				_stage1_Boss->setIsDebug(_isDebug);
+				_nextStage->setIsDebug(_isDebug);
+				_fountainMap->setIsDebug(_isDebug);
 	}
 
 	bool setShopRoom();
@@ -166,7 +182,8 @@ public:
 	bool setstatueRoom();
 	bool setchestRoom();
 	bool setBossRoom();
-	bool setNextRoom();
+	void setNextRoom();
 	bool setNormal();
-
+	bool setfountainMap();
+	bool checkNextStage();
 };
