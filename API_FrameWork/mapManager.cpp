@@ -13,19 +13,17 @@ HRESULT mapManager::init()
 	_Cmap8 = dynamic_cast<Cmap8*>(SCENE->addScene("_Cmap8", new Cmap8));
 	_Cmap9 = dynamic_cast<Cmap9*>(SCENE->addScene("_Cmap9", new Cmap9));*/
 
-	_Cmap10 = dynamic_cast<Cmap10*>(SCENE->addScene("_Cmap10", new Cmap10));
+	_Cmap10 = nullptr;
+    _chestMap  = nullptr;
+    _shopMap  = nullptr;
+    _statueMap 	 = nullptr;
+    _moruMap = nullptr;
+    _fountainMap = nullptr;
+    _stage1_Boss = nullptr;
+    _nextStage = nullptr;
 
-	_chestMap = dynamic_cast<chestMap*>(SCENE->addScene("_chestMap", new chestMap));
-	_chestMap->setbulletmemoryLink(bm);
-	_shopMap = dynamic_cast<shopMap*>(SCENE->addScene("_shopMap", new shopMap));
-	_statueMap = dynamic_cast<statueMap*>(SCENE->addScene("_statueMap", new statueMap));
-	_statueMap->setbulletmemoryLink(bm);
-	_moruMap = dynamic_cast<moruMap*>(SCENE->addScene("_moruMap", new moruMap));
-	_moruMap->setbulletmemoryLink(bm);
-	_fountainMap = dynamic_cast<fountainMap*>(SCENE->addScene("_fountainMap", new fountainMap));
-	_fountainMap->setbulletmemoryLink(bm);
-	_stage1_Boss = dynamic_cast<stage1_Boss*>(SCENE->addScene("_stage1_Boss", new stage1_Boss));
-	_nextStage = dynamic_cast<nextStage*>(SCENE->addScene("_nextStage", new nextStage));
+
+
 
 	_none =IMAGE->addImage("ºó¹æ", "images/minimap/minimap_none.bmp", 30, 30, true, RGB(255, 0, 255));
 	_start =IMAGE->addImage("½ÃÀÛ¹æ", "images/minimap/minimap_cellIcon_start.bmp", 30, 30, true, RGB(255, 0, 255));
@@ -38,30 +36,42 @@ HRESULT mapManager::init()
 	_back = IMAGE->addImage("¹ÙÅÁ", "images/minimap/minimap_backSpriteL.bmp", 455, 317, true, RGB(255, 0, 255));
 
 
-	_Cmap10->setMonstermemoryLink(mm);
-	_chestMap->setMonstermemoryLink(mm);
-	_shopMap->setMonstermemoryLink(mm);
-	_statueMap->setMonstermemoryLink(mm);
-	_moruMap->setMonstermemoryLink(mm);
-	_stage1_Boss->setMonstermemoryLink(mm);
-	_nextStage->setMonstermemoryLink(mm);
-	_fountainMap->setMonstermemoryLink(mm);
+	
 
 	while (remainRoom >= 1 || checkNextStage() == false)
 	{
 		makeclear();
 		makestage1((MAXSIZE - 1) / 2, (MAXSIZE + 1) / 2);
-		mapSize = 12 - remainRoom;
+		mapSize = 11 - remainRoom;
 		setNormal();
+		setBossRoom();
 		setstatueRoom();
 		setchestRoom();
 		setMORURoom();
 		setShopRoom();
 		setfountainMap();
-		setBossRoom();
 		setNextRoom();
 	}
-
+		_Cmap10 = dynamic_cast<Cmap10*>(SCENE->addScene("_Cmap10", new Cmap10));
+		_chestMap = dynamic_cast<chestMap*>(SCENE->addScene("_chestMap", new chestMap));
+		_chestMap->setbulletmemoryLink(bm);
+		_shopMap = dynamic_cast<shopMap*>(SCENE->addScene("_shopMap", new shopMap));
+		_statueMap = dynamic_cast<statueMap*>(SCENE->addScene("_statueMap", new statueMap));
+		_statueMap->setbulletmemoryLink(bm);
+		_moruMap = dynamic_cast<moruMap*>(SCENE->addScene("_moruMap", new moruMap));
+		_moruMap->setbulletmemoryLink(bm);
+		_fountainMap = dynamic_cast<fountainMap*>(SCENE->addScene("_fountainMap", new fountainMap));
+		_fountainMap->setbulletmemoryLink(bm);
+		_stage1_Boss = dynamic_cast<stage1_Boss*>(SCENE->addScene("_stage1_Boss", new stage1_Boss));
+		_nextStage = dynamic_cast<nextStage*>(SCENE->addScene("_nextStage", new nextStage));
+		_Cmap10->setMonstermemoryLink(mm);
+		_chestMap->setMonstermemoryLink(mm);
+		_shopMap->setMonstermemoryLink(mm);
+		_statueMap->setMonstermemoryLink(mm);
+		_moruMap->setMonstermemoryLink(mm);
+		_stage1_Boss->setMonstermemoryLink(mm);
+		_nextStage->setMonstermemoryLink(mm);
+		_fountainMap->setMonstermemoryLink(mm);
 
 
 	for (int i = 0; i < MAXSIZE; i++)
@@ -172,76 +182,75 @@ void mapManager::render()
 	if (InputManager->isToggleKey(VK_TAB))
 	{
 			ZORDER->ZorderAlphaRender(_back, 10, 500, 300,180,170);
-		for (size_t i = 0; i < MAXSIZE; i++)
+	for (size_t i = 0; i < MAXSIZE; i++)
+	{
+		for (size_t j = 0; j < MAXSIZE; j++)
 		{
-			for (size_t j = 0; j < MAXSIZE; j++)
+			if (stage1[i][j].mapkind == MAPKIND::START)
 			{
-				if (stage1[i][j].mapkind == MAPKIND::START)
-				{
-					ZORDER->ZorderAlphaRender(_start, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-				}
-				if (stage1[i][j].mapkind == MAPKIND::NORMAL)
-				{
-					ZORDER->ZorderAlphaRender(_fight, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-				}
-				if (stage1[i][j].mapkind == MAPKIND::BOSSROOM)
-				{
-					ZORDER->ZorderAlphaRender(_boss, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-				}
-				if (stage1[i][j].mapkind == MAPKIND::NEXTSTAGE)
-				{
-					ZORDER->ZorderAlphaRender(_goal, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-				}
-				if (stage1[i][j].mapkind == MAPKIND::CHESTROOM)
-				{
-					ZORDER->ZorderAlphaRender(_chest, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-				}
-				if (stage1[i][j].mapkind == MAPKIND::FOUNTAIN)
-				{
-					ZORDER->ZorderAlphaRender(_event, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-				}
-				if (stage1[i][j].mapkind == MAPKIND::MORUROOM)
-				{
-					ZORDER->ZorderAlphaRender(_event, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-				}
-				if (stage1[i][j].mapkind == MAPKIND::SHOP)
-				{
-					ZORDER->ZorderAlphaRender(_shop, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-				}
-				if (stage1[i][j].mapkind == MAPKIND::STATUEROOM)
-				{
-					ZORDER->ZorderAlphaRender(_event, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-				}
-				if (currentIndex.x == i && currentIndex.y == j)
-				{
-					int alpha = 170;
-					ZORDER->ZorderAlphaRender(_none, 10, 501, 400 + currentIndex.x * 30, 200 + currentIndex.y * 30, alpha);
-					alpha += 50;
-				}
+				ZORDER->ZorderAlphaRender(_start, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+			}
+			if (stage1[i][j].mapkind == MAPKIND::NORMAL)
+			{
+				ZORDER->ZorderAlphaRender(_fight, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+			}
+			if (stage1[i][j].mapkind == MAPKIND::BOSSROOM)
+			{
+				ZORDER->ZorderAlphaRender(_boss, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+			}
+			if (stage1[i][j].mapkind == MAPKIND::NEXTSTAGE)
+			{
+				ZORDER->ZorderAlphaRender(_goal, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+			}
+			if (stage1[i][j].mapkind == MAPKIND::CHESTROOM)
+			{
+				ZORDER->ZorderAlphaRender(_chest, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+			}
+			if (stage1[i][j].mapkind == MAPKIND::FOUNTAIN)
+			{
+				ZORDER->ZorderAlphaRender(_event, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+			}
+			if (stage1[i][j].mapkind == MAPKIND::MORUROOM)
+			{
+				ZORDER->ZorderAlphaRender(_event, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+			}
+			if (stage1[i][j].mapkind == MAPKIND::SHOP)
+			{
+				ZORDER->ZorderAlphaRender(_shop, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+			}
+			if (stage1[i][j].mapkind == MAPKIND::STATUEROOM)
+			{
+				ZORDER->ZorderAlphaRender(_event, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+			}
+			if (currentIndex.x == i && currentIndex.y == j)
+			{
+				int alpha = 170;
+				ZORDER->ZorderAlphaRender(_none, 10, 501, 400 + currentIndex.x * 30, 200 + currentIndex.y * 30, alpha);
+				alpha += 50;
 			}
 		}
-		
-		for (size_t i = 0; i < MAXSIZE; i++)
+	}
+	for (size_t i = 0; i < MAXSIZE; i++)
+	{
+		for (size_t j = 0; j < MAXSIZE; j++)
 		{
-			for (size_t j = 0; j < MAXSIZE; j++)
-			{
-				string str;
-				//str = to_string((int)stage1[i][j].mapkind);
-				//ZORDER->ZorderTextOut(str, ZMAXLAYER, 100 + 20 * i, 100 + 20 * j, RGB(0, 0, 0));
+			string str;
+			//str = to_string((int)stage1[i][j].mapkind);
+			//ZORDER->ZorderTextOut(str, ZMAXLAYER, 100 + 20 * i, 100 + 20 * j, RGB(0, 0, 0));
 
-				str = stage1[i][j].sceneKey;
-				ZORDER->ZorderTextOut(str, ZMAXLAYER, 300 + 50 * i, 100 + 20 * j, RGB(0, 0, 0));
-			}
+			str = stage1[i][j].sceneKey;
+			ZORDER->ZorderTextOut(str, ZMAXLAYER, 300 + 70 * i, 100 + 20 * j, RGB(0, 0, 0));
 		}
+	}
+
 		string str;
 		str = to_string((int)currentIndex.x);
 		ZORDER->ZorderTextOut(str, ZMAXLAYER, 100 + 20, 300, RGB(0, 0, 0));
 		string str2;
 		str2 = to_string((int)currentIndex.y);
 		ZORDER->ZorderTextOut(str2, ZMAXLAYER, 100 + 40, 300, RGB(0, 0, 0));
-
-		str = currentMap;
-		ZORDER->ZorderTextOut(str, ZMAXLAYER, WINSIZEX / 2, WINSIZEY / 2, RGB(0, 0, 0));
+	str = currentMap;
+	ZORDER->ZorderTextOut(str, ZMAXLAYER, WINSIZEX / 2, WINSIZEY / 2, RGB(0, 0, 0));
 	}
 }
 
@@ -332,7 +341,7 @@ void mapManager::makestage1(int i, int k)
 
 bool mapManager::setstatueRoom()
 {
-	int setstatue = mapSize - 11;
+	int setstatue = mapSize - 1;
 	for (int i = 0; i < MAXSIZE; i++)
 	{
 		for (int k = 0; k < MAXSIZE; k++)
@@ -352,7 +361,7 @@ bool mapManager::setstatueRoom()
 }
 bool mapManager::setchestRoom()
 {
-	int setchest = mapSize - 10;
+	int setchest = mapSize - 2;
 	for (int i = 0; i < MAXSIZE; i++)
 	{
 		for (int k = 0; k < MAXSIZE; k++)
@@ -375,7 +384,7 @@ bool mapManager::setchestRoom()
 
 bool mapManager::setMORURoom()
 {
-	int setMORU = mapSize - 9;
+	int setMORU = mapSize - 3;
 	for (int i = 0; i < MAXSIZE; i++)
 	{
 		for (int k = 0; k < MAXSIZE; k++)
@@ -396,7 +405,7 @@ bool mapManager::setMORURoom()
 
 bool mapManager::setShopRoom()
 {
-	int setShop = mapSize - 8;
+	int setShop = mapSize - 4;
 	for (int i = 0; i < MAXSIZE; i++)
 	{
 		for (int k = 0; k < MAXSIZE; k++)
@@ -416,7 +425,7 @@ bool mapManager::setShopRoom()
 }
 bool mapManager::setBossRoom()
 {
-	int setBoss = mapSize - 6;
+	int setBoss = mapSize;
 	for (int k = 0; k < MAXSIZE; k++)
 	{
 		for (int i = 0; i < MAXSIZE; i++)
@@ -504,7 +513,7 @@ bool mapManager::setNormal()
 		{
 			if (stage1[i][k].mapkind == MAPKIND::NORMAL)
 			{
-				switch (0)
+				switch (RND->getInt(9))
 				{
 				case 0:
 				{
@@ -671,11 +680,35 @@ void mapManager::makeclear() {
 			stage1[i][k].mapkind = NONE;
 			stage1[i][k].sceneKey = "";
 			stage1[i][k]._motherMap = nullptr;
-
 		}
 	}
 	remainRoom = 12;
 	remainNextStage = 1;
-	stage1[(MAXSIZE - 1) / 2][(MAXSIZE - 1) / 2] = { _Cmap10,"_Cmap10",START,true };
+	stage1[(MAXSIZE - 1) / 2][(MAXSIZE - 1) / 2] = { nullptr,"_Cmap10",START};
 	remainRoom--;
+	SCENE->release();
+}
+
+image* mapManager::getCurrentColMap()
+{
+
+	if (_mStage1.find(currentMap) != _mStage1.end())
+	{
+		return	_mStage1.find(currentMap)->second->getcolMap();
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+DungeonDoor* mapManager::getCurrentDoor()
+{
+	if (_mStage1.find(currentMap) != _mStage1.end())
+	{
+		return	_mStage1.find(currentMap)->second->getDungeonDoor();
+	}
+	else
+	{
+		return nullptr;
+	}
 }

@@ -31,9 +31,9 @@ HRESULT mainDOL::init()
 	_mapm->setBulletManagerMemoryLink(_bm);		//¸Ê¿¡¼­ ºÒ¸´¸µÅ©
 	PLAYER->setBulletManagerMemoryLink(_bm);
 	
-
-
 	_mapm->init();
+
+
 
 	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
 		1008, 672, 0, 0, CAMERASIZEX /2, CAMERASIZEY /2, CAMERASIZEX, CAMERASIZEY);
