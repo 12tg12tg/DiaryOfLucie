@@ -89,7 +89,6 @@ void mainDOL::update()
 void mainDOL::render()
 {
 	//아래로 쭉 Zorder에 저장
-	_mapm->render();
 	_bm->render();
 	_mm->render();
 	_cm->render();
@@ -116,6 +115,7 @@ void mainDOL::render()
 
 	//페이드 효과 출력 - 알아서 멈춤
 	CAMERA->FadeRender(getMemDC());
+	_mapm->render();
 
 	//테스트
 	//TCHAR str[128];

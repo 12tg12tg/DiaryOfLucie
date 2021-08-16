@@ -68,21 +68,19 @@ void shop::render()
 		//IMAGE->findImage("모루이름")->render(getMemDC(), 200, 365);
 		IMAGE->findImage("상점대화상자")->alphaRender(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("상점대화상자")->getWidth() / 2,
 			420, boxAlpha);
-		HFONT hFont = CreateFont(20, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
-			0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕"));
-		HFONT oFont = (HFONT)SelectObject(getMemDC(), hFont);
+	}
+	//폰트설정
+	HFONT hFont = CreateFont(30, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+		0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕"));
+	HFONT oFont = (HFONT)SelectObject(getMemDC(), hFont);
+	SetBkMode(getMemDC(), TRANSPARENT);	//배경 투명
+	SetTextColor(getMemDC(), RGB(255, 255, 255));//글자 색
+	if (isConversation1) {
+
 		RECT txtRc = RectMake(WINSIZEX / 2 - IMAGE->findImage("상점대화상자")->getWidth() / 2,
 			420, IMAGE->findImage("상점대화상자")->getWidth(), IMAGE->findImage("상점대화상자")->getHeight());
 		string str = "그건 빵";
-
-		SetBkMode(getMemDC(), TRANSPARENT);	//배경 투명
-		SetTextColor(getMemDC(), RGB(255, 255, 255));//글자 색
 		DrawText(getMemDC(), str.c_str(), -1, &txtRc, DT_LEFT | DT_VCENTER);
-		SelectObject(getMemDC(), oFont);
-		DeleteObject(hFont);
-		SetTextColor(getMemDC(), RGB(255, 255, 255));
-	}
-	if (isConversation1) {
 
 	}
 	if (isConversation2) {
@@ -94,6 +92,10 @@ void shop::render()
 	if (isConversation4) {
 
 	}
+	//폰트해제
+	SelectObject(getMemDC(), oFont);
+	DeleteObject(hFont);
+	SetTextColor(getMemDC(), RGB(255, 255, 255));
 }
 
 void shop::playerInterCollision()
