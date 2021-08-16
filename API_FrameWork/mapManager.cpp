@@ -12,6 +12,7 @@ HRESULT mapManager::init()
 	_Cmap7 = dynamic_cast<Cmap7*>(SCENE->addScene("_Cmap7", new Cmap7));
 	_Cmap8 = dynamic_cast<Cmap8*>(SCENE->addScene("_Cmap8", new Cmap8));
 	_Cmap9 = dynamic_cast<Cmap9*>(SCENE->addScene("_Cmap9", new Cmap9));*/
+
 	_Cmap10 = dynamic_cast<Cmap10*>(SCENE->addScene("_Cmap10", new Cmap10));
 
 	_chestMap = dynamic_cast<chestMap*>(SCENE->addScene("_chestMap", new chestMap));
@@ -171,61 +172,76 @@ void mapManager::render()
 	if (InputManager->isToggleKey(VK_TAB))
 	{
 			ZORDER->ZorderAlphaRender(_back, 10, 500, 300,180,170);
-	for (size_t i = 0; i < MAXSIZE; i++)
-	{
-		for (size_t j = 0; j < MAXSIZE; j++)
+		for (size_t i = 0; i < MAXSIZE; i++)
 		{
-			if (stage1[i][j].mapkind == MAPKIND::START)
+			for (size_t j = 0; j < MAXSIZE; j++)
 			{
-				ZORDER->ZorderAlphaRender(_start, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (stage1[i][j].mapkind == MAPKIND::NORMAL)
-			{
-				ZORDER->ZorderAlphaRender(_fight, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (stage1[i][j].mapkind == MAPKIND::BOSSROOM)
-			{
-				ZORDER->ZorderAlphaRender(_boss, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (stage1[i][j].mapkind == MAPKIND::NEXTSTAGE)
-			{
-				ZORDER->ZorderAlphaRender(_goal, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (stage1[i][j].mapkind == MAPKIND::CHESTROOM)
-			{
-				ZORDER->ZorderAlphaRender(_chest, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (stage1[i][j].mapkind == MAPKIND::FOUNTAIN)
-			{
-				ZORDER->ZorderAlphaRender(_event, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (stage1[i][j].mapkind == MAPKIND::MORUROOM)
-			{
-				ZORDER->ZorderAlphaRender(_event, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (stage1[i][j].mapkind == MAPKIND::SHOP)
-			{
-				ZORDER->ZorderAlphaRender(_shop, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (stage1[i][j].mapkind == MAPKIND::STATUEROOM)
-			{
-				ZORDER->ZorderAlphaRender(_event, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (currentIndex.x == i && currentIndex.y == j)
-			{
-				int alpha = 170;
-				ZORDER->ZorderAlphaRender(_none, 10, 501, 400 + currentIndex.x * 30, 200 + currentIndex.y * 30, alpha);
-				alpha += 50;
+				if (stage1[i][j].mapkind == MAPKIND::START)
+				{
+					ZORDER->ZorderAlphaRender(_start, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (stage1[i][j].mapkind == MAPKIND::NORMAL)
+				{
+					ZORDER->ZorderAlphaRender(_fight, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (stage1[i][j].mapkind == MAPKIND::BOSSROOM)
+				{
+					ZORDER->ZorderAlphaRender(_boss, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (stage1[i][j].mapkind == MAPKIND::NEXTSTAGE)
+				{
+					ZORDER->ZorderAlphaRender(_goal, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (stage1[i][j].mapkind == MAPKIND::CHESTROOM)
+				{
+					ZORDER->ZorderAlphaRender(_chest, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (stage1[i][j].mapkind == MAPKIND::FOUNTAIN)
+				{
+					ZORDER->ZorderAlphaRender(_event, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (stage1[i][j].mapkind == MAPKIND::MORUROOM)
+				{
+					ZORDER->ZorderAlphaRender(_event, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (stage1[i][j].mapkind == MAPKIND::SHOP)
+				{
+					ZORDER->ZorderAlphaRender(_shop, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (stage1[i][j].mapkind == MAPKIND::STATUEROOM)
+				{
+					ZORDER->ZorderAlphaRender(_event, 10, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (currentIndex.x == i && currentIndex.y == j)
+				{
+					int alpha = 170;
+					ZORDER->ZorderAlphaRender(_none, 10, 501, 400 + currentIndex.x * 30, 200 + currentIndex.y * 30, alpha);
+					alpha += 50;
+				}
 			}
 		}
-	}
-	
+		
+		for (size_t i = 0; i < MAXSIZE; i++)
+		{
+			for (size_t j = 0; j < MAXSIZE; j++)
+			{
+				string str;
+				//str = to_string((int)stage1[i][j].mapkind);
+				//ZORDER->ZorderTextOut(str, ZMAXLAYER, 100 + 20 * i, 100 + 20 * j, RGB(0, 0, 0));
+
+				str = stage1[i][j].sceneKey;
+				ZORDER->ZorderTextOut(str, ZMAXLAYER, 300 + 50 * i, 100 + 20 * j, RGB(0, 0, 0));
+			}
+		}
 		string str;
 		str = to_string((int)currentIndex.x);
 		ZORDER->ZorderTextOut(str, ZMAXLAYER, 100 + 20, 300, RGB(0, 0, 0));
 		string str2;
 		str2 = to_string((int)currentIndex.y);
 		ZORDER->ZorderTextOut(str2, ZMAXLAYER, 100 + 40, 300, RGB(0, 0, 0));
+
+		str = currentMap;
+		ZORDER->ZorderTextOut(str, ZMAXLAYER, WINSIZEX / 2, WINSIZEY / 2, RGB(0, 0, 0));
 	}
 }
 
@@ -488,7 +504,7 @@ bool mapManager::setNormal()
 		{
 			if (stage1[i][k].mapkind == MAPKIND::NORMAL)
 			{
-				switch (RND->getInt(9))
+				switch (0)
 				{
 				case 0:
 				{

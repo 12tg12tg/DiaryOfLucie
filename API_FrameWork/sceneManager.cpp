@@ -71,7 +71,7 @@ HRESULT SceneManager::changeScene(string sceneName)
     if (SUCCEEDED(find->second->init()))
     {
         //혹시 기존에 씬이 있다면 릴리즈
-       // if (_currentScene) _currentScene->release();
+        //if (_currentScene) _currentScene->release();          //씬이동할대 릴리즈하지않는다.
         
         _currentScene = find->second;
         return S_OK;
