@@ -24,7 +24,7 @@ public:
 	HRESULT init();
 	void update();		//오버상태인지 클릭상태인지 확인.
 	void release();		
-	void render();		//현재존재하는 모든 버튼 출력
+	void render(HDC hdc);		//현재존재하는 모든 버튼 출력
 
 	Button* addButton(string buttonkey, const int x, const int y, const int width, const int height, COLORREF color = RGB(255, 234, 38));
 	Button* addButtonCenter(string buttonkey, const int centerx, const int centery, const int width, const int height, COLORREF color = RGB(255, 234, 38));

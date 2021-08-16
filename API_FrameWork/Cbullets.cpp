@@ -474,7 +474,7 @@ void CmReturnBullet::move()
 		}
 		else if (_viBullet->count == 100 )
 		{
-				fire2(_viBullet->fireX, _viBullet->fireY, UTIL::getAngle(WINSIZEX / 2, WINSIZEY / 2, m_ptMouse.x, m_ptMouse.y), 0);
+				fire2(_viBullet->fireX, _viBullet->fireY, 0,0);
 				_viBullet = _vBullet.erase(_viBullet);
 				continue;
 		}
@@ -1002,7 +1002,7 @@ void CmNiddleBullet::move()
 		}
 		else if (_viBullet->count == 50)
 		{
-			fire2(_viBullet->fireX, _viBullet->fireY, UTIL::getAngle(WINSIZEX / 2, WINSIZEY / 2, m_ptMouse.x, m_ptMouse.y),  0);
+			fire2(_viBullet->fireX, _viBullet->fireY, 0,  0);
 			_viBullet = _vBullet.erase(_viBullet);
 			continue;
 		}
@@ -1257,7 +1257,7 @@ void CmSBoss1Bullet::move()
 		}
 		else if ((_viBullet->count == 100))
 		{
-			fire2(_viBullet->fireX, _viBullet->fireY, UTIL::getAngle(WINSIZEX / 2, WINSIZEY / 2, m_ptMouse.x, m_ptMouse.y), 0);
+			fire2(_viBullet->fireX, _viBullet->fireY, 0, 0);
 			_viBullet = _vBullet.erase(_viBullet);
 			continue;
 		}

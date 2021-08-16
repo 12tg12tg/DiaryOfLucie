@@ -23,6 +23,7 @@ struct MAP {
 	motherMap* _motherMap;
 	string sceneKey;
 	MAPKIND mapkind = NONE;
+	bool isClear = false;
 };
 
 class bulletManager;
@@ -44,6 +45,7 @@ private:
 	shopMap* _shopMap;
 	moruMap* _moruMap;
 	statueMap* _statueMap;
+	stage1_Boss* _stage1_Boss;
 
 	string currentMap;
 	DungeonDoor _dgDoor;
@@ -94,6 +96,7 @@ public:
 	shopMap* getshopMapInstance() { return _shopMap; }
 	statueMap* getstatueMapInstance() { return _statueMap; }
 	moruMap* getmoruMapInstance() { return _moruMap; }
+	stage1_Boss* getstage1_BossInstance() {return _stage1_Boss;}
 
 	image* getCurrentColMap()
 	{
@@ -155,6 +158,7 @@ public:
 				_moruMap->setIsDebug(_isDebug);
 				_statueMap->setIsDebug(_isDebug);
 				_shopMap->setIsDebug(_isDebug);
+				_stage1_Boss->setIsDebug(_isDebug);
 	}
 
 	bool setShopRoom();

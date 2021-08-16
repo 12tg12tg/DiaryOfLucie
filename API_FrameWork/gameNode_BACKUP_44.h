@@ -1,7 +1,29 @@
 #pragma once
 #include "image.h"
+//Z·¹ÀÌ¾î¼³Á¤
+#define ZFLOORMAP	0
+#define ZCOLMAP		1
+#define ZEFFECT1	2
+#define ZCOL1		3
+#define ZCOL2		4
+#define ZUNIT		5
+#define ZCOL3		6
+#define ZCOL4		7
+#define ZEFFECT2	8
+#define ZABOVEMAP	9
+
+//ÃÖ´ë·¹ÀÌ¾î
+#define ZMAXLAYER	10
+
+//»ö»óÁ¤ÀÇ
+#define MINT		RGB(88, 245, 206)
+
+<<<<<<< HEAD
 static image* _backBuffer = IMAGE->addImage("backBuffer", WINSIZEX, WINSIZEY);
 static image* _DOLBuffer = IMAGE->addImage("DOLBuffer", WINSIZEX*2, WINSIZEY*2);	//ÆÀÇÁ¿ë DC
+=======
+static image* _backBuffer = IMAGE->addImage("backBuffer", WINSIZEX+300, WINSIZEY+300);
+>>>>>>> ìƒˆë¡œíƒœì–´ë‚˜ìë¸Œëœì¹˜
 class gameNode
 {
 private:

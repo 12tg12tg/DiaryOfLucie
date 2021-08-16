@@ -212,6 +212,25 @@ public:
 
 
 };
+class stage1_Boss : public motherMap
+{
+private:
+
+public:
+	stage1_Boss();
+	~stage1_Boss();
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+
+};
+
+
+
+
+
 
 
 

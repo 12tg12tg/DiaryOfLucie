@@ -267,6 +267,7 @@ void collisionManager::bulletToplayer()
 		{
 			if (!(PLAYER->getSTATEAddress() == STATE::DASH || PLAYER->getPlayerAddress().isHit)) {
 				PLAYER->hitPlayer(bm->getTreBos1Bullnstance()->getVBullet()[i].x, bm->getTreBos1Bullnstance()->getVBullet()[i].y);
+				bm->getTreBos1Bullnstance()->removeBullet(i);
 				break;
 			}
 			else if (PLAYER->getSTATEAddress() == STATE::DASH) {
@@ -713,7 +714,7 @@ void collisionManager::bulletToMap()
 	//cir ºÒ¸´
 	for (int i = 0; i < bm->getCirBulInstance()->getVBullet().size(); )
 	{
-		for (int k = bm->getCirBulInstance()->getVBullet()[i].x -4; k < bm->getCirBulInstance()->getVBullet()[i].x + 4; k++)
+		for (int k = bm->getCirBulInstance()->getVBullet()[i].x -1; k < bm->getCirBulInstance()->getVBullet()[i].x +1; k++)
 		{
 			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getCirBulInstance()->getVBullet()[i].y);
 
@@ -728,11 +729,13 @@ void collisionManager::bulletToMap()
 		}
 		i++;
 	}
-	for (int i = 0; i < bm->getCirBulInstance()->getVBullet().size(); )
+	
+	//flowbos3 ºÒ¸´
+	for (int i = 0; i < bm->getFlwBos3Bullnstance()->getVBullet().size(); )
 	{
-		for (int k = bm->getCirBulInstance()->getVBullet()[i].y -4; k < bm->getCirBulInstance()->getVBullet()[i].y + 4; k++)
+		for (int k = bm->getFlwBos3Bullnstance()->getVBullet()[i].x - 1; k < bm->getFlwBos3Bullnstance()->getVBullet()[i].x + 1; k++)
 		{
-			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), bm->getCirBulInstance()->getVBullet()[i].y, k);
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getFlwBos3Bullnstance()->getVBullet()[i].y);
 
 			int r = GetRValue(color);
 			int g = GetGValue(color);
@@ -740,12 +743,239 @@ void collisionManager::bulletToMap()
 
 			if (!(r == 255 && g == 0 && b == 255))
 			{
-				bm->getCirBulInstance()->getVBullet()[i].iscollison = true;
+				bm->getFlwBos3Bullnstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+	//Long poion ºÒ¸´
+	for (int i = 0; i < bm->getLPsnBulInstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getLPsnBulInstance()->getVBullet()[i].x - 1; k < bm->getLPsnBulInstance()->getVBullet()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getLPsnBulInstance()->getVBullet()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getLPsnBulInstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+	
+	//poion ºÒ¸´
+	for (int i = 0; i < bm->getPsnBulInstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getPsnBulInstance()->getVBullet()[i].x - 1; k < bm->getPsnBulInstance()->getVBullet()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getPsnBulInstance()->getVBullet()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getPsnBulInstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+	
+	//return ºÒ¸´
+	for (int i = 0; i < bm->getRtnBulInstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getRtnBulInstance()->getVBullet()[i].x - 1; k < bm->getRtnBulInstance()->getVBullet()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getRtnBulInstance()->getVBullet()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getRtnBulInstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+	
+	//return ºÒ¸´
+	for (int i = 0; i < bm->getRtnBulInstance()->getVBullet2().size(); )
+	{
+		for (int k = bm->getRtnBulInstance()->getVBullet2()[i].x - 1; k < bm->getRtnBulInstance()->getVBullet2()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getRtnBulInstance()->getVBullet2()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getRtnBulInstance()->getVBullet2()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+	
+	//slimboss1 ºÒ¸´
+	for (int i = 0; i < bm->getSlmBos1Bullnstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getSlmBos1Bullnstance()->getVBullet()[i].x - 1; k < bm->getSlmBos1Bullnstance()->getVBullet()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getSlmBos1Bullnstance()->getVBullet()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getSlmBos1Bullnstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+	
+	//slimboss1 ºÒ¸´
+	for (int i = 0; i < bm->getSlmBos1Bullnstance()->getVBullet2().size(); )
+	{
+		for (int k = bm->getSlmBos1Bullnstance()->getVBullet2()[i].x - 1; k < bm->getSlmBos1Bullnstance()->getVBullet2()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getSlmBos1Bullnstance()->getVBullet2()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getSlmBos1Bullnstance()->getVBullet2()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+	
+	//treeboss1 ºÒ¸´
+	for (int i = 0; i < bm->getTreBos1Bullnstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getTreBos1Bullnstance()->getVBullet()[i].x - 1; k < bm->getTreBos1Bullnstance()->getVBullet()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getTreBos1Bullnstance()->getVBullet()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getTreBos1Bullnstance()->getVBullet()[i].iscollison = true;
 			}
 		}
 		i++;
 	}
 
+	//treeboss2 ºÒ¸´
+	for (int i = 0; i < bm->getTreBos2Bullnstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getTreBos2Bullnstance()->getVBullet()[i].x - 1; k < bm->getTreBos2Bullnstance()->getVBullet()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getTreBos2Bullnstance()->getVBullet()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getTreBos2Bullnstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+	
+	//treeboss3 ºÒ¸´
+	for (int i = 0; i < bm->getTreBos3Bullnstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getTreBos3Bullnstance()->getVBullet()[i].x - 1; k < bm->getTreBos3Bullnstance()->getVBullet()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getTreBos3Bullnstance()->getVBullet()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getTreBos3Bullnstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+	
+	//triple ºÒ¸´
+	for (int i = 0; i < bm->getTriBulInstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getTriBulInstance()->getVBullet()[i].x - 1; k < bm->getTriBulInstance()->getVBullet()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getTriBulInstance()->getVBullet()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getTriBulInstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+	
+	//wide ºÒ¸´
+	for (int i = 0; i < bm->getWidBulInstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getWidBulInstance()->getVBullet()[i].x - 1; k < bm->getWidBulInstance()->getVBullet()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getWidBulInstance()->getVBullet()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getWidBulInstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+	
+	//homingºÒ¸´
+	for (int i = 0; i < bm->getHomBulInstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getHomBulInstance()->getVBullet()[i].x - 1; k < bm->getHomBulInstance()->getVBullet()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getHomBulInstance()->getVBullet()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getHomBulInstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+	
 }
 
 void collisionManager::checkMonsterRectPlayer(monster* monster)

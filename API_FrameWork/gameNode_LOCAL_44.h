@@ -1,5 +1,23 @@
 #pragma once
 #include "image.h"
+//Z레이어설정
+#define ZFLOORMAP	0
+#define ZCOLMAP		1
+#define ZEFFECT1	2
+#define ZCOL1		3
+#define ZCOL2		4
+#define ZUNIT		5
+#define ZCOL3		6
+#define ZCOL4		7
+#define ZEFFECT2	8
+#define ZABOVEMAP	9
+
+//최대레이어
+#define ZMAXLAYER	9
+
+//색상정의
+#define MINT		RGB(88, 245, 206)
+
 static image* _backBuffer = IMAGE->addImage("backBuffer", WINSIZEX, WINSIZEY);
 static image* _DOLBuffer = IMAGE->addImage("DOLBuffer", WINSIZEX*2, WINSIZEY*2);	//팀프용 DC
 class gameNode

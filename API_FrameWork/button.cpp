@@ -58,13 +58,17 @@ void Cbutton::release()
 	removeAll();
 }
 
-void Cbutton::render()
+void Cbutton::render(HDC hdc)
 {
 	if (!_isDebug) return;
 	for (_miButton = _mButton.begin(); _miButton != _mButton.end(); ++_miButton)
 	{
-		if (!_miButton->second->buttonOn) continue;
-		ZORDER->ZorderRectangleColor(_miButton->second->rc, 10, _miButton->second->butColor); //레이어10은 매크로 미정의. 가려지지않는 충분히 높은값.
+		if (!_miButton->second->buttonOn) continue;	
+		HBRUSH brush = CreateSolidBrush(_miButton->second->butColor);
+		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
+		RectangleMake(hdc, _miButton->second->rc);
+		SelectObject(hdc, oldBrush);
+		DeleteObject(brush);
 	}
 }
 

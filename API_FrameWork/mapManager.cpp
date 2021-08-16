@@ -18,6 +18,7 @@ HRESULT mapManager::init()
 	_shopMap = dynamic_cast<shopMap*>(SCENE->addScene("_shopMap", new shopMap));
 	_statueMap = dynamic_cast<statueMap*>(SCENE->addScene("_statueMap", new statueMap));
 	_moruMap = dynamic_cast<moruMap*>(SCENE->addScene("_moruMap", new moruMap));
+	_stage1_Boss = dynamic_cast<stage1_Boss*>(SCENE->addScene("	_stage1_Boss", new 	stage1_Boss));
 
 	
 
@@ -27,7 +28,7 @@ HRESULT mapManager::init()
 	_shopMap->setMonstermemoryLink(mm);
 	_statueMap->setMonstermemoryLink(mm);
 	_moruMap->setMonstermemoryLink(mm);
-
+	_stage1_Boss->setMonstermemoryLink(mm);
 	
 	while (remainRoom > 2 )
 	{
@@ -39,6 +40,7 @@ HRESULT mapManager::init()
 		setMORURoom();
 		setShopRoom();
 		setNormal();
+		setBossRoom();
 	}
 
 
@@ -95,6 +97,7 @@ void mapManager::update()
 		checkleft = false;
 		checkleft = false;
 		checkbottom = false;
+		stage1[currentIndex.x][currentIndex.y].isClear = true;
 	}
 	else
 	{
@@ -422,11 +425,28 @@ bool mapManager::setNormal()
 
 
 
-//bool mapManager::setBossRoom()
-//{
-//
-//}
-//
+bool mapManager::setBossRoom()
+{
+
+	int setBoss = mapSize - 2;
+	for (int i = 0; i < MAXSIZE; i++)
+	{
+		for (int k = 0; k < MAXSIZE; k++)
+		{
+			if (stage1[i][k].mapkind == MAPKIND::NORMAL)
+			{
+				setBoss--;
+				if ( setBoss == 1)
+				{
+					stage1[i][k] = { _stage1_Boss,"	_stage1_Boss",BOSSROOM };
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
 //bool mapManager::setNextRoom()
 //{
 //
@@ -447,6 +467,6 @@ void mapManager::makeclear() {
 		}
 	}
 	remainRoom = 12;
-	stage1[(MAXSIZE - 1) / 2][(MAXSIZE - 1) / 2] = { _Cmap10,"_Cmap10",START };
+	stage1[(MAXSIZE - 1) / 2][(MAXSIZE - 1) / 2] = { _Cmap10,"_Cmap10",START,true };
 	remainRoom--;
 }
