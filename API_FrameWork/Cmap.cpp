@@ -10,6 +10,10 @@ Cmap::Cmap()
 	_door[1].Door = RectMake(482, 0, 140, 25); //top
 	_door[2].Door = RectMake(1085, 450, 25 , 150);//right
 	_door[3].Door = RectMake(476, 940,140, 25); //bottom
+	monpos[0] = { 380,380 };
+	monpos[1] = { 670,640 };
+	monpos[2] = { 432,522 };
+	monpos[3] = { 720,500 };
 }
 
 Cmap::~Cmap()
@@ -18,8 +22,9 @@ Cmap::~Cmap()
 
 HRESULT Cmap::init()
 {
+	
 	//summonMon(4);
-
+	
 	return S_OK;
 }
 
@@ -102,6 +107,10 @@ Cmap3::Cmap3()
 	_door[1].Door = RectMake(433, 0, 140, 25); //top
 	_door[2].Door = RectMake(985, 321, 25,110 );//right
 	_door[3].Door = RectMake(434, 754, 140, 25); //bottom
+	monpos[0] = { 350,350 };
+	monpos[1] = { 495,446 };
+	monpos[2] = { 477,544 };
+	monpos[3] = { 760,437 };
 }
 
 Cmap3::~Cmap3()
@@ -148,6 +157,10 @@ Cmap4::Cmap4()
 	_door[1].Door = RectMake(433, 0, 140, 25); //top
 	_door[2].Door = RectMake(990, 333 , 25, 100);//right
 	_door[3].Door = RectMake(433, 750, 145, 25); //bottom
+	monpos[0] = { 414,366 };
+	monpos[1] = { 542,421 };
+	monpos[2] = { 764,410 };
+	monpos[3] = { 537,646 };
 }
 
 Cmap4::~Cmap4()
@@ -192,6 +205,10 @@ Cmap5::Cmap5()
 	_door[1].Door = RectMake(433, 0, 140, 25); //top
 	_door[2].Door = RectMake(990, 356, 25, 140);//right
 	_door[3].Door = RectMake(428,650 , 150, 25); //bottom
+	monpos[0] = { 429,347 };
+	monpos[1] = {566,353 };
+	monpos[2] = {497,230 };
+	monpos[3] = { 756,423 };
 }
 
 Cmap5::~Cmap5()
@@ -236,6 +253,10 @@ Cmap6::Cmap6()
 	_door[1].Door = RectMake(432, 0, 140, 25); //top
 	_door[2].Door = RectMake(990, 303, 25, 130);//right
 	_door[3].Door = RectMake(430, 750, 150, 25); //bottom
+	monpos[0] = { 632,406 };
+	monpos[1] = {459,462 };
+	monpos[2] = {367,276 };
+	monpos[3] = { 692,392};
 }
 
 Cmap6::~Cmap6()
@@ -277,6 +298,10 @@ Cmap7::Cmap7()
 	_door[1].Door = RectMake(432, 0, 140, 25); //top
 	_door[2].Door = RectMake(985, 358, 25, 120);//right
 	_door[3].Door = RectMake(428, 655, 150, 25); //bottom
+	monpos[0] = { 470,263 };
+	monpos[1] = { 473,573 };
+	monpos[2] = { 681,381 };
+	monpos[3] = { 330,440 };
 }
 
 Cmap7::~Cmap7()
@@ -318,6 +343,10 @@ Cmap8::Cmap8()
 	_door[1].Door = RectMake(432, 0, 140, 25); //top
 	_door[2].Door = RectMake(990, 303, 25, 130);//right
 	_door[3].Door = RectMake(430, 750, 150, 25); //bottom
+	monpos[0] = { 662,402 };
+	monpos[1] = { 606,480 };
+	monpos[2] = {351,272 };
+	monpos[3] = { 593,260 };
 }
 
 Cmap8::~Cmap8()
@@ -359,6 +388,10 @@ Cmap9::Cmap9()
 	_door[1].Door = RectMake(433,0, 140, 25); //top
 	_door[2].Door = RectMake(990, 355, 25, 120);//right
 	_door[3].Door = RectMake(427, 650,160,25); //bottom
+	monpos[0] = { 504,156 };
+	monpos[1] = { 624,263 };
+	monpos[2] = { 464,282 };
+	monpos[3] = { 525,342 };
 }
 
 Cmap9::~Cmap9()
@@ -582,6 +615,45 @@ void moruMap::render()
 	ZORDER->ZorderRender(IMAGE->findImage("모루방배경"), ZFLOORMAP, WINSIZEX, 0, 0);
 	ZORDER->ZorderRender(IMAGE->findImage("모루방가림"), ZABOVEMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("모루방픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
+}
+
+stage1_Boss::stage1_Boss()
+{
+	IMAGE->addImage("보스방배경", "images/map/stage1_boss.bmp", 1104, 960, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("보스방픽셀", "images/map/!mstage1_boss.bmp", 1104, 960, true, RGB(255, 0, 255));
+	IMAGE->addImage("보스방가림", "images/map/parstage1_boss.bmp", 1104, 960, true, RGB(255, 0, 255));
+	_door[0].Door = RectMake(0, 454, 25, 150);//left
+	_door[1].Door = RectMake(482, 0, 140, 25); //top
+	_door[2].Door = RectMake(1085, 450, 25, 150);//right
+	_door[3].Door = RectMake(476, 940, 140, 25); //bottom
+}
+
+stage1_Boss::~stage1_Boss()
+{
+}
+
+HRESULT stage1_Boss::init()
+{
+	return S_OK;
+}
+
+void stage1_Boss::release()
+{
+}
+
+void stage1_Boss::update()
+{
+}
+
+void stage1_Boss::render()
+{
+	ZORDER->ZorderRender(IMAGE->findImage("보스방배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("보스방가림"), ZABOVEMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("보스방픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
