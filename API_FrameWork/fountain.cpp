@@ -141,7 +141,12 @@ void fountain::playerCollision()
 
 void fountain::afterHit()
 {
-	/*µ¿Àü ÅõÃ´*/
+	if (PLAYERDATA->useMana(1, true))
+	{
+		PLAYERDATA->useMana(1);
+		/*µ¿ÀüÅõÃ´*/
+		PLAYERDATA->changeGold(+100, false);
+	}
 	_hp--;
 }
 

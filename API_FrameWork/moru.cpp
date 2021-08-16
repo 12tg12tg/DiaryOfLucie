@@ -243,9 +243,9 @@ void moru::checkRepair()
 			BUTTON->buttonOff("모루-수리한다");
 			BUTTON->buttonOff("모루-무시한다");
 			isConversation1 = false;
-			if (true)/*돈 비교 구문*/
+			if (PLAYERDATA->changeGold(-30, true))//돈 비교. 차감 구문
 			{
-				/*돈차감구문.*/
+				PLAYERDATA->changeGold(-30, false);
 				if (RND->getInt(2))
 				{
 					_speakCount = 0;
