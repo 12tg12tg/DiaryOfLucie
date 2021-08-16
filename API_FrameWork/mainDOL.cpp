@@ -101,7 +101,7 @@ void mainDOL::render()
 
 
 	//SCORPDC를 확대하여 memDC에 출력.
-	IMAGE->findImage("SCORPDC")->stretchRenderXY(getMemDC(), 0, 0, RATIO);
+	IMAGE->findImage("SCORPDC")->stretchRenderXY(getMemDC(), 0, 0, GAMEDCRATIO);
 
 	//화면 고정형 UI 여기서부터 출력.
 	BUTTON->render(getMemDC());
@@ -110,10 +110,9 @@ void mainDOL::render()
 	//페이드 효과 출력 - 알아서 멈춤
 	CAMERA->FadeRender(getMemDC());
 
-
-	////테스트
+	//테스트
 	//TCHAR str[128];
-	//wsprintf(str, "마우스좌표 : %d, %d", getCamMouse().x, getCamMouse().y);
+	//wsprintf(str, "마우스좌표 : %d, %d", (int)CAMMOUSEX, (int)CAMMOUSEY);
 	//TextOut(getMemDC(), 0, 60, str, lstrlen(str));
 	//wsprintf(str, "플레이어좌표 : %d, %d", (int)PLAYER->getPlayerAddress().x, (int)PLAYER->getPlayerAddress().y);
 	//TextOut(getMemDC(), 0, 80, str, lstrlen(str));

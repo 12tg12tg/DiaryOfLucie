@@ -1,5 +1,22 @@
 #pragma once
 #include "singleton.h"
+//Z레이어설정
+#define ZFLOORMAP	0
+#define ZCOLMAP		1
+#define ZEFFECT1	2
+#define ZCOL1		3
+#define ZCOL2		4
+#define ZUNIT		5
+#define ZCOL3		6
+#define ZCOL4		7
+#define ZEFFECT2	8
+#define ZABOVEMAP	9
+
+//최대레이어
+#define ZMAXLAYER	10
+
+//색상정의
+#define MINT		RGB(88, 245, 206)
 
 enum ZORDERKIND
 {

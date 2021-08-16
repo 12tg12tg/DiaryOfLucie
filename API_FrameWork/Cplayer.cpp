@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "Cplayer.h"
 #include "bulletmanager.h"
-
+#include "gameNode.h"
 //이곳의 주목적
 //키입력에따른 프레임 랜더와 이동
 
@@ -251,7 +251,7 @@ void Cplayer::stateCheck()
 			{
 				if (_player.weapon == WEAPONTYPE::EMPTY || _player.weapon == WEAPONTYPE::STAFF)
 					_state = STATE::ATTSTAFF;
-				_attAngle = UTIL::getAngle(_player.x, _player.y - 20, m_ptMouse.x, m_ptMouse.y);
+				_attAngle = UTIL::getAngle(_player.x, _player.y - 20, CAMMOUSEX, CAMMOUSEY);
 				_attAngle = _attAngle - 0.03 +0.00003* RND->getFromInTo(0,2000);
 				_Cbullet->getMgcBulInstance()->fire(_player.x, _player.y - 20, _attAngle, 20);
 				this->angleCheckDirection(_attAngle);
@@ -296,7 +296,7 @@ void Cplayer::stateCheck()
 			}
 			else
 			{
-				_dashAngle = UTIL::getAngle(_player.x, _player.y, m_ptMouse.x, m_ptMouse.y);
+				_dashAngle = UTIL::getAngle(_player.x, _player.y, CAMMOUSEX, CAMMOUSEY);
 				this->angleCheckDirection(_dashAngle);
 			}
 		}

@@ -14,8 +14,8 @@
 #include <memory.h>
 #include <tchar.h>
 
-
 using namespace std;
+
 
 //=======================//
 //			STL			//
@@ -67,6 +67,8 @@ using namespace std;
 
 #define PLAYER			Cplayer::getSingleton()
 #define PLAYERDATA		CplayerData::getSingleton()
+
+
 //===================//
 //	매크로 설정부분	//
 //=================//
@@ -81,6 +83,11 @@ using namespace std;
 //#define WINSIZEY		640
 #define WINSTYLE		WS_CAPTION | WS_SYSMENU
 
+#define GAMEDCRATIO 1.5
+#define CAMERASIZEX WINSIZEX/GAMEDCRATIO
+#define CAMERASIZEY WINSIZEY/GAMEDCRATIO
+#define CAMMOUSEX		(m_ptMouse.x / GAMEDCRATIO) + CAMERA->getRect().left
+#define CAMMOUSEY		(m_ptMouse.y / GAMEDCRATIO) + CAMERA->getRect().top
 
 //===========================//
 //	메인게임 릴리즈에서 사용	//
