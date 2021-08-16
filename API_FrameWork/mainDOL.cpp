@@ -22,13 +22,13 @@ HRESULT mainDOL::init()
 	_cm->init();
 	_mm->init();
 
-	_mm->setBulletManagerMemoryLink(_bm);	//몬스터에서 블릿링크
+	_mm->setBulletManagerMemoryLink(_bm);		//몬스터에서 블릿링크
 
-	_cm->setBulletManagerMemoryLink(_bm);	//충돌에서 불릿링크
-	_cm->setMonsterManagerMemoryLink(_mm);	//충돌에서 몬스터링크
-	_cm->setmapManagerMemoryLink(_mapm);	//충돌에서 맵링크
-	_mapm->setMonsterManagerMemoryLink(_mm);//맵에서 몬스터링크
-	_mapm->setBulletManagerMemoryLink(_bm);//맵에서 불릿링크
+	_cm->setBulletManagerMemoryLink(_bm);		//충돌에서 불릿링크
+	_cm->setMonsterManagerMemoryLink(_mm);		//충돌에서 몬스터링크
+	_cm->setmapManagerMemoryLink(_mapm);		//충돌에서 맵링크
+	_mapm->setMonsterManagerMemoryLink(_mm);	//맵에서 몬스터링크
+	_mapm->setBulletManagerMemoryLink(_bm);		//맵에서 불릿링크
 	PLAYER->setBulletManagerMemoryLink(_bm);
 	
 
@@ -109,4 +109,12 @@ void mainDOL::render()
 
 	//페이드 효과 출력 - 알아서 멈춤
 	CAMERA->FadeRender(getMemDC());
+
+
+	////테스트
+	//TCHAR str[128];
+	//wsprintf(str, "마우스좌표 : %d, %d", getCamMouse().x, getCamMouse().y);
+	//TextOut(getMemDC(), 0, 60, str, lstrlen(str));
+	//wsprintf(str, "플레이어좌표 : %d, %d", (int)PLAYER->getPlayerAddress().x, (int)PLAYER->getPlayerAddress().y);
+	//TextOut(getMemDC(), 0, 80, str, lstrlen(str));
 }

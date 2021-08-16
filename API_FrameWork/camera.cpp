@@ -165,87 +165,90 @@ void camera::update()
 		}
 	}
 }
-
-RECT camera::RelativeRectMake(float x, float y, int width, int height)
-{
-	return RECT();
-}
-
 void camera::release()
 {
 }
 
-void camera::RelativeRectangle(HDC hdc, RECT rc)
-{
-}
+//RECT camera::RelativeRectMake(float x, float y, int width, int height)
+//{
+//	return RECT();
+//}
 
-void camera::RelativeRectangle(HDC hdc, int left, int top, int width, int height)
-{
-}
+//void camera::release()
+//{
+//}
 
-void camera::RelativeFrameRect(HDC hdc, RECT rc, COLORREF color)
-{
-}
+//void camera::RelativeRectangle(HDC hdc, RECT rc)
+//{
+//}
 
-void camera::RelativeLineMake(HDC hdc, int startX, int startY, int endX, int endY)
-{
-}
+//void camera::RelativeRectangle(HDC hdc, int left, int top, int width, int height)
+//{
+//}
 
-void camera::RelativeRender(HDC hdc, image* ig, int destX, int destY)
-{
-}
+//void camera::RelativeFrameRect(HDC hdc, RECT rc, COLORREF color)
+//{
+//}
 
-void camera::RelativeRender(HDC hdc, image* ig, int destX, int destY, int sourX, int sourY, int sourWid, int sourHei)
-{
-}
+//void camera::RelativeLineMake(HDC hdc, int startX, int startY, int endX, int endY)
+//{
+//}
 
-void camera::RelativeFrameRender(HDC hdc, image* ig, int destX, int destY, int frameX, int frameY)
-{
-}
+//void camera::RelativeRender(HDC hdc, image * ig, int destX, int destY)
+//{
+//}
 
-void camera::RelativeStretchRender(HDC hdc, image* ig, int destX, int destY, float size)
-{
-}
+//void camera::RelativeRender(HDC hdc, image * ig, int destX, int destY, int sourX, int sourY, int sourWid, int sourHei)
+//{
+//}
 
-void camera::RelativeStretchRender(HDC hdc, image* ig, int destX, int destY, float scaleX, float scaleY)
-{
-}
+//void camera::RelativeFrameRender(HDC hdc, image * ig, int destX, int destY, int frameX, int frameY)
+//{
+//}
 
-void camera::RelativeStretchFrameRender(HDC hdc, image* ig, int destX, int destY, int frameX, int frameY, float size)
-{
-}
+//void camera::RelativeStretchRender(HDC hdc, image * ig, int destX, int destY, float size)
+//{
+//}
 
-void camera::RelativeStretchFrameRender(HDC hdc, image* ig, int destX, int destY, int frameX, int frameY, float scaleX, float scaleY)
-{
-}
+//void camera::RelativeStretchRender(HDC hdc, image * ig, int destX, int destY, float scaleX, float scaleY)
+//{
+//}
 
-void camera::RelativeAlphaRender(HDC hdc, image* ig, int destX, int destY, BYTE alpha)
-{
-}
+//void camera::RelativeStretchFrameRender(HDC hdc, image * ig, int destX, int destY, int frameX, int frameY, float size)
+//{
+//}
 
-void camera::RelativeAlphaRender(HDC hdc, image* ig, int destX, int destY, int sourX, int sourY, int sourWid, int sourHei, BYTE alpha)
-{
-}
+//void camera::RelativeStretchFrameRender(HDC hdc, image * ig, int destX, int destY, int frameX, int frameY, float scaleX, float scaleY)
+//{
+//}
 
-void camera::RelativeAlphaFrameRender(HDC hdc, image* ig, int destX, int destY, int frameX, int frameY, BYTE alpha)
-{
-}
+//void camera::RelativeAlphaRender(HDC hdc, image * ig, int destX, int destY, BYTE alpha)
+//{
+//}
 
-void camera::RelativeRotateRender(HDC hdc, image* img, int centerX, int centerY, float angle)
-{
-}
+//void camera::RelativeAlphaRender(HDC hdc, image * ig, int destX, int destY, int sourX, int sourY, int sourWid, int sourHei, BYTE alpha)
+//{
+//}
 
-void camera::RelativeRotateFrameRender(HDC hdc, image* img, int centerX, int centerY, float angle, int frameX, int frameY)
-{
-}
+//void camera::RelativeAlphaFrameRender(HDC hdc, image * ig, int destX, int destY, int frameX, int frameY, BYTE alpha)
+//{
+//}
 
-void camera::RelativeRotateAlphaRender(HDC hdc, image* img, int centerX, int centerY, float angle, BYTE alpha)
-{
-}
+//void camera::RelativeRotateRender(HDC hdc, image * img, int centerX, int centerY, float angle)
+//{
+//}
 
-void camera::RelativeRotateAlphaFrameRender(HDC hdc, image* img, int centerX, int centerY, float angle, int frameX, int frameY, BYTE alpha)
-{
-}
+//void camera::RelativeRotateFrameRender(HDC hdc, image * img, int centerX, int centerY, float angle, int frameX, int frameY)
+//{
+//}
+
+//void camera::RelativeRotateAlphaRender(HDC hdc, image * img, int centerX, int centerY, float angle, BYTE alpha)
+//{
+//}
+
+//void camera::RelativeRotateAlphaFrameRender(HDC hdc, image * img, int centerX, int centerY, float angle, int frameX, int frameY, BYTE alpha)
+//{
+//}
 
 void camera::textOut(HDC hdc, int x, int y, const char* text, COLORREF color)
 {
@@ -311,12 +314,12 @@ void camera::setShake(float power, int time, int cool)
 
 int camera::getRelativeX(float x)
 {
-    return x - _cameraRect.left;
+	return x - _cameraRect.left;
 }
 
 int camera::getRelativeY(float y)
 {
-    return y - _cameraRect.top;
+	return y - _cameraRect.top;
 }
 
 POINT camera::getRelativePoint(POINT pt)

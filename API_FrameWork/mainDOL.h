@@ -18,7 +18,7 @@ private:
 //-----------------------------
 //각자의 브렌치 인스턴스
 private:
-
+	
 
 
 
@@ -42,6 +42,12 @@ public:
 	void update();
 	void render();
 
+	POINT getCamMouse() {
+		POINT newPt;
+		newPt.x = (m_ptMouse.x / RATIO) + CAMERA->getRect().left;
+		newPt.y = (m_ptMouse.y / RATIO) + CAMERA->getRect().top;
+		return newPt;
+	}
 	void setIsdebug(bool isDebug) {
 		_isDebug = isDebug;
 		_bm->setIsDebug(_isDebug);
