@@ -155,9 +155,11 @@ void mapManager::render()
 		for (size_t j = 0; j < MAXSIZE; j++)
 		{
 			string str;
-			str = to_string((int)stage1[i][j].mapkind);
-			ZORDER->ZorderTextOut(str, ZMAXLAYER, 100 + 20 * i, 100 + 20 * j, RGB(0, 0, 0));
+			//str = to_string((int)stage1[i][j].mapkind);
+			//ZORDER->ZorderTextOut(str, ZMAXLAYER, 100 + 20 * i, 100 + 20 * j, RGB(0, 0, 0));
 
+			str = stage1[i][j].sceneKey;
+			ZORDER->ZorderTextOut(str, ZMAXLAYER, 300 + 50 * i, 100 + 20 * j, RGB(0, 0, 0));
 		}
 	}
 	string str;
@@ -166,6 +168,9 @@ void mapManager::render()
 	string str2;
 	str2 = to_string((int)currentIndex.y);
 	ZORDER->ZorderTextOut(str2, ZMAXLAYER, 100 + 40 , 300 , RGB(0, 0, 0));
+
+	str = currentMap;
+	ZORDER->ZorderTextOut(str, ZMAXLAYER, WINSIZEX/2, WINSIZEY/2, RGB(0, 0, 0));
 }
 
 

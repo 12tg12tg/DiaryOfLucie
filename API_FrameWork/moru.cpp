@@ -76,7 +76,7 @@ void moru::render()
 		IMAGE->findImage("이름상자")->alphaRender(getMemDC(), 188, 360, 200);
 		IMAGE->findImage("모루이름")->render(getMemDC(), 200, 365);
 		IMAGE->findImage("모루대화상자")->alphaRender(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
-			420, 200);
+			420, boxAlpha);
 	}
 	//대화상자 출력
 	if (isConversation1)

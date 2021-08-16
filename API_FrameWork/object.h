@@ -30,6 +30,6 @@ public:
 	virtual void afterHit();
 	virtual void giveFrame();
 
-
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
 

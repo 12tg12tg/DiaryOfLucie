@@ -181,6 +181,7 @@
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="sceneManager.h" />
+    <ClInclude Include="shop.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="statue.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="object.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="sceneManager.cpp" />
+    <ClCompile Include="shop.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="statue.cpp" />
     <ClCompile Include="timeManager.cpp" />

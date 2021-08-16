@@ -49,5 +49,4 @@ public:
 	RECT getInterRc() { return _interRc; }
 	bool getCanInteraction() { return isConversation1; }
 	void setCanInteraction(bool canInter) {	isConversation1 = canInter;	}
-	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };

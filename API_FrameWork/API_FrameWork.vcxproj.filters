@@ -97,6 +97,9 @@
     <Filter Include="manager\카메라">
       <UniqueIdentifier>{d9f6413c-bdb3-4ef6-9878-9cbf87983a63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DOL\object\shop">
+      <UniqueIdentifier>{cd6434d3-165a-4595-b7cf-637bc07907e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -237,6 +240,9 @@
     <ClInclude Include="camera.h">
       <Filter>manager\카메라</Filter>
     </ClInclude>
+    <ClInclude Include="shop.h">
+      <Filter>DOL\object\shop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -358,6 +364,9 @@
     </ClCompile>
     <ClCompile Include="camera.cpp">
       <Filter>manager\카메라</Filter>
+    </ClCompile>
+    <ClCompile Include="shop.cpp">
+      <Filter>DOL\object\shop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
