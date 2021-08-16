@@ -33,15 +33,7 @@ class monsterManager;
 class mapManager :public gameNode
 {
 private:
-	Cmap* _Cmap1;
-	Cmap2* _Cmap2;
-	Cmap3* _Cmap3;
-	Cmap4* _Cmap4;
-	Cmap5* _Cmap5;
-	Cmap6* _Cmap6;
-	Cmap7* _Cmap7;
-	Cmap8* _Cmap8;
-	Cmap9* _Cmap9;
+	
 	Cmap10* _Cmap10;
 	chestMap* _chestMap;
 	shopMap* _shopMap;
@@ -84,6 +76,7 @@ private:
 
 
 	MAP stage1[MAXSIZE][MAXSIZE];
+	MAP stage2[MAXSIZE][MAXSIZE];
 
 	map<string,motherMap*> _mStage1;
 	map<string, motherMap*>::iterator _imStage1;
@@ -96,15 +89,7 @@ public:
 	virtual void update();
 	virtual void render(/*HDC hdc*/);
 
-	Cmap* getCmapInstance() { return _Cmap1; }
-	Cmap2* getCmap2Instance() { return _Cmap2; }
-	Cmap3* getCmap3Instance() { return _Cmap3; }
-	Cmap4* getCmap4Instance() { return _Cmap4; }
-	Cmap5* getCmap5Instance() { return _Cmap5; }
-	Cmap6* getCmap6Instance() { return _Cmap6; }
-	Cmap7* getCmap7Instance() { return _Cmap7; }
-	Cmap8* getCmap8Instance() { return _Cmap8; }
-	Cmap9* getCmap9Instance() { return _Cmap9; }
+	
 	Cmap10* getCmap10Instance() { return _Cmap10; }
 	chestMap* getchestMapInstance() { return _chestMap; }
 	shopMap* getshopMapInstance() { return _shopMap; }
