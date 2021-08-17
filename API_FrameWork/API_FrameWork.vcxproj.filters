@@ -100,6 +100,12 @@
     <Filter Include="DOL\Item">
       <UniqueIdentifier>{5c406f8f-fe6f-4d45-a493-f3276da9a453}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DOL\loading">
+      <UniqueIdentifier>{03f6cd8f-0764-4c40-8965-03f8b6bf5eb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOL\title">
+      <UniqueIdentifier>{722dc68b-5e6f-45cd-92ec-d3dcfc20c279}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -243,6 +249,12 @@
     <ClInclude Include="Item.h">
       <Filter>DOL\Item</Filter>
     </ClInclude>
+    <ClInclude Include="loading.h">
+      <Filter>DOL\loading</Filter>
+    </ClInclude>
+    <ClInclude Include="DOL_Title.h">
+      <Filter>DOL\title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -368,6 +380,12 @@
     <ClCompile Include="Item.cpp">
       <Filter>DOL\Item</Filter>
     </ClCompile>
+    <ClCompile Include="loading.cpp">
+      <Filter>DOL\loading</Filter>
+    </ClCompile>
+    <ClCompile Include="DOL_Title.cpp">
+      <Filter>DOL\title</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="API_FrameWork.rc">
@@ -381,5 +399,10 @@
     <Image Include="API_FrameWork.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\UI\icon2.cur">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
 </Project>
