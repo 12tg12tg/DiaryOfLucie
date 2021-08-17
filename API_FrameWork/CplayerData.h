@@ -34,6 +34,9 @@ private:
 
 	DATA _Data;
 //UI
+
+	RECT _UIrect;
+
 	int _level;
 
 	int _lastMaxHP;
@@ -56,6 +59,7 @@ private:
 	bool _getSkill;
 	
 	int _gold;
+	int correct;
 
 private:
 	int UIalpha;
