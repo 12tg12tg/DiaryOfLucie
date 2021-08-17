@@ -11,8 +11,8 @@ HRESULT Cplayer::init()
 	this->imageInit();
 	_player.place = PLACE::DUNGEON;
 
-	_player.x = WINSIZEX / 2;
-	_player.y = WINSIZEY / 2;
+	_player.x = 504;
+	_player.y = 400;
 	_player.playerRect = RectMakeCenter(_player.x, _player.y, 10, 10);
 	_player.weapon = WEAPONTYPE::EMPTY;
 
