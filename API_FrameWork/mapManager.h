@@ -44,7 +44,7 @@ private:
 	fountainMap* _fountainMap;
 	before_Boss* _before_boss;
 	last_Boss* _last_boss;
-
+	motherMap* _motherMap2;
 	image* _none;
 	image* _start;
 	image* _shop;
@@ -62,10 +62,9 @@ private:
 	monsterManager* mm;
 	bulletManager* bm;
 	int currentMonNum =0;
-	int stage =4;
-	int currentstage = stage;
 	int remainRoom = 12;
 	int mapSize;
+	int _curstage;
 	int remainNextStage = 1;
 	bool topdoor_open;
 	bool bottomdoor_open;
@@ -142,7 +141,7 @@ public:
 				}
 			}
 		}
-		if (stage < 4)
+		if (_curstage < 4)
 		{
 			_Cmap10->setIsDebug(_isDebug);
 			_chestMap->setIsDebug(_isDebug);

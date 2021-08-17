@@ -228,7 +228,7 @@ class stage1_Boss : public motherMap
 private:
 
 public:
-	stage1_Boss();
+	stage1_Boss(int currentboss);
 	~stage1_Boss();
 	HRESULT init();
 	void release();

@@ -908,26 +908,7 @@ void collisionManager::bulletToMap()
 		}
 		i++;
 	}
-	
-	//treeboss3 ºÒ¸´
-	for (int i = 0; i < bm->getTreBos3Bullnstance()->getVBullet().size(); )
-	{
-		for (int k = bm->getTreBos3Bullnstance()->getVBullet()[i].x - 1; k < bm->getTreBos3Bullnstance()->getVBullet()[i].x + 1; k++)
-		{
-			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getTreBos3Bullnstance()->getVBullet()[i].y);
 
-			int r = GetRValue(color);
-			int g = GetGValue(color);
-			int b = GetBValue(color);
-
-			if (!(r == 255 && g == 0 && b == 255))
-			{
-				bm->getTreBos3Bullnstance()->getVBullet()[i].iscollison = true;
-			}
-		}
-		i++;
-	}
-	
 	//triple ºÒ¸´
 	for (int i = 0; i < bm->getTriBulInstance()->getVBullet().size(); )
 	{

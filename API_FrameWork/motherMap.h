@@ -33,6 +33,7 @@ class motherMap :public gameNode
 protected:
 
 	bool _isDebug;
+	int stage = 1;
 	int monNum = RND->getFromInTo(2, 4);
 	bool isClear = false;
 	bool isrightRoom = false;
@@ -71,7 +72,7 @@ public:
 	virtual void setrightDoor(bool isrightRoom) { this->isrightRoom = isrightRoom; }
 	virtual void setbotDoor(bool isbotRoom) { this->isbotRoom = isbotRoom; }
 	virtual void settopDoor(bool istopRoom) { this->istopRoom = istopRoom; }
-
+	
 
 };
 

@@ -2356,14 +2356,38 @@ void CmTBoss3Bullet::move()
 		}
 		if (_viBullet->count < 100)
 		{
-			_viBullet->x += cosf(_viBullet->angle2) *0;
-			_viBullet->y -= sinf(_viBullet->angle2) *0;
+
+			_viBullet->x += cosf(_viBullet->angle2) * 0.5;
+			_viBullet->y -= sinf(_viBullet->angle2) * 0.5;
 
 			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
-				_viBullet->bulletImage->getFrameWidth(),
-				_viBullet->bulletImage->getFrameHeight());
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
 			_viBullet->fireX = _viBullet->x;
 			_viBullet->fireY = _viBullet->y;
+
+		}
+		else if (_viBullet->count >= 100 && _viBullet->count < 110)
+		{
+			_viBullet->angle = UTIL::getAngle(_viBullet->fireX, _viBullet->fireY, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+			_viBullet->x += cosf(_viBullet->angle) * 4;
+			_viBullet->y -= sinf(_viBullet->angle) * 4;
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+		}
+		else if (_viBullet->count >= 110)
+		{
+			_viBullet->x += cosf(_viBullet->angle) * 4;
+			_viBullet->y -= sinf(_viBullet->angle) * 4;
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+		}
+
+		if (_viBullet->x < 0 || _viBullet->x > 1500 || _viBullet->y <0 || _viBullet->y >1200)
+		{
+			_viBullet = _vBullet.erase(_viBullet);
 		}
 		else ++_viBullet;
 	}

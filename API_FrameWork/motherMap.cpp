@@ -22,6 +22,10 @@ void motherMap::release()
 
 void motherMap::update()
 {
+	if (isClear)
+	{
+		stage++;
+	}
 }
 
 void motherMap::render()
@@ -60,16 +64,16 @@ void motherMap::summonMon(int x)
 
 void motherMap::summonBoss(int x)
 {
-	chooseMon = RND->getFromInTo(0, x);
-	if (chooseMon == BOSS::SLIME_B)
+	
+	if (x == 1)
 	{
 		mm->getBoss_Slime()->addMonster(552,480);
 	}
-	if (chooseMon == BOSS::FLIME_B)
+	if (x == 2)
 	{
 		mm->getBoss_Flime()->addMonster(552, 480);
 	}
-	if (chooseMon == BOSS::MUSHMOM_B)
+	if (x == 3)
 	{
 		mm->getBoss_Mushmam()->addMonster(552, 480);
 	}

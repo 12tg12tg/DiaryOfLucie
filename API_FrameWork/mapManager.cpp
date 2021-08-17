@@ -4,7 +4,7 @@
 
 mapManager::mapManager()
 {
-	
+	_curstage = 1;
 }
 mapManager::~mapManager()
 {
@@ -12,7 +12,6 @@ mapManager::~mapManager()
 }
 HRESULT mapManager::init()
 {
-	
 	_Cmap10 = nullptr;
 	_chestMap = nullptr;
 	_shopMap = nullptr;
@@ -36,7 +35,7 @@ HRESULT mapManager::init()
 	
 
 
-	if (stage < 4)
+	if (_curstage < 4)
 	{
 		while (remainRoom >= 1 || checkNextStage() == false)
 		{
@@ -62,7 +61,7 @@ HRESULT mapManager::init()
 		_moruMap->setbulletmemoryLink(bm);
 		_fountainMap = dynamic_cast<fountainMap*>(SCENE->addScene("_fountainMap", new fountainMap));
 		_fountainMap->setbulletmemoryLink(bm);
-		_stage1_Boss = dynamic_cast<stage1_Boss*>(SCENE->addScene("_stage1_Boss", new stage1_Boss));
+		_stage1_Boss = dynamic_cast<stage1_Boss*>(SCENE->addScene("_stage1_Boss", new stage1_Boss(_curstage)));
 		_nextStage = dynamic_cast<nextStage*>(SCENE->addScene("_nextStage", new nextStage));
 			
 		_Cmap10->setMonstermemoryLink(mm);
@@ -269,7 +268,7 @@ void mapManager::update()
 			checkMagicDoor = false;
 			goNextStage = true;
 			remainRoom = 12;
-			stage++;
+			_curstage++;
 			_mStage1.clear();
 			SCENE->changeScene("·Îµù");
 		}
