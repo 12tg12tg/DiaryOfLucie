@@ -22,10 +22,10 @@ enum class STATE {
 	RUN,
 	DASH,
 	ATTSTAFF,
+	STAFFCHARGE,
 	ATTSWORD,
 	ATTBOWIDLE,
 	ATTBOWWALK,
-	STAFFCHARGE,
 	KNOCKBACK,
 	DIE,
 	STOP
@@ -89,6 +89,7 @@ private:
 	tagInputDirection _inputDirection;
 	DIRECTION _direction;
 	DIRECTION _moveDirection;
+	DIRECTION _bowDirection;
 	
 	float _speed;
 
@@ -109,18 +110,22 @@ private:
 	int _attIndex;
 	float _attAngle;
 	int _chargeShotCount;
+	int _bowCount;
 
 	int shootingCorrection;
 
 private:
 	int imageLeftCorrection;
 	int imageTopCorrection;
+	int _alpha;
 
 	image* _walk_img;
 	image* _run_img;
 	image* _dash_img;
 	image* _attStaff_img;
+	image* _chargeAtt_img;
 	image* _knockBack_img;
+	image* _bowWalk_img;
 	image* _die_img;
 	float _dieAlpha;
 	vector<DashEffect> _vectDashEffect;
@@ -151,7 +156,7 @@ private:
 	void setPlayerFrame();
 
 private:
-	void angleCheckDirection(float angle);
+	void angleCheckDirection(float angle, bool inputdirection = false);
 
 private:
 	void pushbackDashEffect(int x,int y, int FrameX,DIRECTION direction);

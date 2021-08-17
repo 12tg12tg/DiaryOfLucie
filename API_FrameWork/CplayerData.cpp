@@ -82,7 +82,7 @@ void CplayerData::render(HDC hdc)
 	if (_isDebug)
 	{
 		SetBkMode(hdc, OPAQUE);
-//		카메라영향을 받지 않는 상태확인.
+		//		카메라영향을 받지 않는 상태확인.
 		wsprintf(str, "맵상마우스위치x,y? : %d, %d", (int)CAMMOUSEX, (int)CAMMOUSEY);
 		ZORDER->UITextOut(str, ZUITHIRD, 0, WINSIZEY - 100, RGB(0, 0, 255));
 		//TextOut(hdc, 0, WINSIZEY-100, str, lstrlen(str));
@@ -101,16 +101,16 @@ void CplayerData::render(HDC hdc)
 void CplayerData::imageInit()
 {
 	_layout_image = IMAGE->addImage("하단피통레이아웃", "images/UI/피통배경.bmp", 230 * 1.3, 90 * 1.3, true);
-	_gold_G = IMAGE->addImage("골드단위G", "images/UI/골드G.bmp", 14*1.3, 19*1.3, true);
+	_gold_G = IMAGE->addImage("골드단위G", "images/UI/골드G.bmp", 14 * 1.3, 19 * 1.3, true);
 	IMAGE->addImage("하단피통레이아웃", "images/UI/피통배경.bmp", 230 * 1.3, 90 * 1.3, true);
 	IMAGE->addFrameImage("레벨", "images/UI/레벨숫자.bmp", 318 * 1.3, 19 * 1.3, 10, 1, true);
-	IMAGE->addFrameImage("피통", "images/UI/피통.bmp", 48*1.3, 22*1.3, 2, 1, true);
-	IMAGE->addFrameImage("작은피통", "images/UI/피통.bmp", 48*1.3/2, 22*1.3/2, 2, 1, true);
+	IMAGE->addFrameImage("피통", "images/UI/피통.bmp", 48 * 1.3, 22 * 1.3, 2, 1, true);
+	IMAGE->addFrameImage("작은피통", "images/UI/피통.bmp", 48 * 1.3 / 2, 22 * 1.3 / 2, 2, 1, true);
 	IMAGE->addFrameImage("마나통", "images/UI/마나통.bmp", 48 * 1.3, 24 * 1.3, 2, 1, true);
 	IMAGE->addFrameImage("골드숫자", "images/UI/골드숫자.bmp", 140 * 1.3, 20 * 1.3, 10, 1, true);
 
 	_EXPBar = new progressBar;
-	_EXPBar->init("images/UI/겸치통.bmp", "images/UI/겸치통백.bmp",444,650,126*1.3,7 * 1.3);
+	_EXPBar->init("images/UI/겸치통.bmp", "images/UI/겸치통백.bmp", 444, 650, 126 * 1.3, 7 * 1.3);
 	_StaminaBar = new progressBar;
 	_StaminaBar->init("images/UI/스테미너프론트.bmp", "images/UI/스테미너백.bmp", 398, 664, 166 * 1.3, 14 * 1.3);
 }
@@ -123,16 +123,16 @@ void CplayerData::changeHP(int HP)
 	if (_presentHP > _MaxHP)
 		_presentHP = _MaxHP;
 }
-int CplayerData::costHP(int cost,bool check)
+int CplayerData::costHP(int cost, bool check)
 {
-	if (check) 
+	if (check)
 	{
 		if (cost >= _presentHP)return false;
 		else return true;
 	}
 	if (cost >= _presentHP)
 	{
-		int i = _presentHP-1;
+		int i = _presentHP - 1;
 		_presentHP = 1;
 		return i;
 	}
@@ -149,7 +149,7 @@ void CplayerData::changeMP(int MP)
 	if (_presentMP > _MaxMP)
 		_presentMP = _MaxMP;
 }
-int CplayerData::costMP(int cost,bool check)
+int CplayerData::costMP(int cost, bool check)
 {
 	if (check)
 	{
@@ -170,19 +170,19 @@ int CplayerData::costMP(int cost,bool check)
 
 bool CplayerData::useStamina(int costStamina, bool check)
 {
-	if (check) 
+	if (check)
 	{
 		if (_defaultStamina < costStamina)  return false;
 		else return true;
 	}
-		_defaultStamina -= costStamina;
-		_recoveryStaminaCoolTimeCount = 50;
-		if (_defaultStamina < 0)
-			_defaultStamina = 0;
+	_defaultStamina -= costStamina;
+	_recoveryStaminaCoolTimeCount = 50;
+	if (_defaultStamina < 0)
+		_defaultStamina = 0;
 }
 void CplayerData::recoveryStamina()
 {
-	if (_recoveryStaminaCoolTimeCount) 
+	if (_recoveryStaminaCoolTimeCount)
 		_recoveryStaminaCoolTimeCount--;
 	else if (_defaultStamina < 100)
 	{
@@ -191,15 +191,15 @@ void CplayerData::recoveryStamina()
 		else if (PLAYER->getSTATEAddress() == STATE::WALK)
 			_defaultStamina += 1;
 		else if (PLAYER->getSTATEAddress() == STATE::RUN)
-			_defaultStamina+=0.5;
-		if (_defaultStamina > 100) 
+			_defaultStamina += 0.5;
+		if (_defaultStamina > 100)
 			_defaultStamina = 100;
 	}
 }
 void CplayerData::recoveryStamina(int recovery)
 {
 	_defaultStamina += recovery;
-	if (_defaultStamina > 100) 
+	if (_defaultStamina > 100)
 		_defaultStamina = 100;
 }
 
@@ -207,16 +207,16 @@ void CplayerData::goldRender(HDC hdc)
 {
 	if (_gold == 0)
 	{
-		ZORDER->UIFrameRender(IMAGE->findImage("골드숫자"), ZUIFIRST, 0,  947, 20, 0, 0);
+		ZORDER->UIFrameRender(IMAGE->findImage("골드숫자"), ZUIFIRST, 0, 947, 20, 0, 0);
 		//IMAGE->frameRender("골드숫자", hdc, 947, 20, 0, 0);
 		return;
 	}
 	int i = 1;
-	for (int j=0; _gold/i>=1; j++)
+	for (int j = 0; _gold / i >= 1; j++)
 	{
 		ZORDER->UIFrameRender(IMAGE->findImage("골드숫자"), ZUIFIRST, 0, 947 - j * IMAGE->findImage("골드숫자")->getFrameWidth(), 20, (_gold / i) % 10, 0);
 		//IMAGE->frameRender("골드숫자", hdc, 947 - j * IMAGE->findImage("골드숫자")->getFrameWidth() , 20,  (_gold/i)%10,0);
-		i *= 10;																						
+		i *= 10;
 	}
 }
 
@@ -271,7 +271,7 @@ void CplayerData::renderUI(HDC hdc)
 bool CplayerData::changeGold(int difference, bool check)
 {
 	if (_gold + difference < 0)  return false;
-	else if(check) return true;
+	else if (check) return true;
 	_gold += difference;
 }
 
@@ -279,7 +279,7 @@ void CplayerData::expUP(int exp)
 {
 	_EXP += exp;
 	if (_EXP > 100) {
-		if (_level < 9) 
+		if (_level < 9)
 		{
 			_level++;
 			_EXP -= 100;
@@ -294,13 +294,13 @@ void CplayerData::expUP(int exp)
 
 int CplayerData::getDamage()
 {
-	int damage=_Data.presentAtk;
+	int damage = _Data.presentAtk;
 	int critical = RND->getInt(100);
 	if (critical < _Data.Critical) {
 		damage *= 2;
 	}
 	else if (critical - _Data.Critical < (100 - _Data.Critical) / 2) {
-		damage *= 0.1*RND->getFromInTo(1,10);
+		damage *= 0.1 * RND->getFromInTo(1, 10);
 	}
 	else {
 		damage *= 1 + 0.1 * RND->getFromInTo(1, 10);
@@ -315,7 +315,7 @@ void CplayerData::setEquip(int equipHP, int equipMaxHP, int equipMP, int equipMa
 	_equipMaxHP += equipMaxHP;
 	_presentMP += equipMP;
 	_equipMaxMP += equipMaxMP;
-	
+
 	_Data.equipspeed += equipSpeed;
 	_Data.equipAtk += equipAtk;
 	_Data.AtkSpeed += equipAtkSpeed;
@@ -326,7 +326,7 @@ void CplayerData::setEquip(int equipHP, int equipMaxHP, int equipMP, int equipMa
 
 void CplayerData::takeOffEquip(int& equipHP, int equipMaxHP, int& equipMP, int equipMaxMP, float equipSpeed, int equipAtk, int equipAtkSpeed, int equipCritical, int equipSkillPower, int equipSkillCollTime)
 {
-	equipHP=costHP(equipMaxHP);
+	equipHP = costHP(equipMaxHP);
 	_equipMaxHP -= equipMaxHP;
 	equipMP = costMP(equipMaxMP);
 	_equipMaxMP -= equipMaxMP;
