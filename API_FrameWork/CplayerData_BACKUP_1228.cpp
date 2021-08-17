@@ -74,18 +74,65 @@ void CplayerData::update()
 
 void CplayerData::render(HDC hdc)
 {
-	this->renderUI(hdc);
+<<<<<<< HEAD
+	_StaminaBar->render();
+	_EXPBar->render();
+	//testrect.left,testrect.top
+	ZORDER->UIRender(_layout_image, ZUIFIRST, 0, WINSIZEX / 2 - _layout_image->getWidth() / 2, 583);
+	ZORDER->UIRender(_gold_G, ZUIFIRST, 0, WINSIZEX - 60, 20);
+	goldRender(hdc);
+	
+	ZORDER->UIAlphaFrameRender(IMAGE->findImage("·¹º§"), ZUIFIRST, 0, 394, 639, _level, 0, UIalpha);
+	//IMAGE->findImage("·¹º§")->alphaFrameRender(hdc, 394,639, _level,0, UIalpha);
+	for (int i = 0; i < _MaxHP / 2 + _MaxHP % 2; i++)
+	{
+		if (_MaxHP % 2 == 1 && i == 0) {
+			//IMAGE->findImage("ÀÛÀºÇÇÅë")->alphaFrameRender(hdc, 436,614, 0, 0, UIalpha);
+			ZORDER->UIAlphaFrameRender(IMAGE->findImage("ÀÛÀºÇÇÅë"), ZUIFIRST, 0, 436, 614, 0, 0, UIalpha);
+			continue;
+		}
+		ZORDER->UIAlphaFrameRender(IMAGE->findImage("ÇÇÅë"), ZUIFIRST, 0, 429 - i * IMAGE->findImage("ÇÇÅë")->getFrameWidth(), 606, 0, 0, UIalpha);
+		//IMAGE->findImage("ÇÇÅë")->alphaFrameRender(hdc, 429 - i * IMAGE->findImage("ÇÇÅë")->getFrameWidth(), 606, 0, 0, UIalpha);
+		if (i == _MaxHP / 2 + _MaxHP % 2 - 1)
+			_heartstartX = 429 - i * IMAGE->findImage("ÇÇÅë")->getFrameWidth();
+	}
+	for (int i = 0; i < _presentHP/2+_presentHP%2; i++)
+	{
+		if (_presentHP % 2 == 1 && i == _presentHP / 2 + _presentHP % 2-1) {
+			ZORDER->UIAlphaFrameRender(IMAGE->findImage("ÀÛÀºÇÇÅë"), ZUISECOND, 0, _heartstartX + i * IMAGE->findImage("ÇÇÅë")->getFrameWidth() + 7, 614, 1, 0, UIalpha);
+			//IMAGE->findImage("ÀÛÀºÇÇÅë")->alphaFrameRender(hdc, _heartstartX + i * IMAGE->findImage("ÇÇÅë")->getFrameWidth()+7, 614, 1, 0, UIalpha);
+			continue;
+		}
+		ZORDER->UIAlphaFrameRender(IMAGE->findImage("ÇÇÅë"), ZUISECOND, 0, _heartstartX + i * IMAGE->findImage("ÇÇÅë")->getFrameWidth(), 606, 1, 0, UIalpha);
+		//IMAGE->findImage("ÇÇÅë")->alphaFrameRender(hdc, _heartstartX + i * IMAGE->findImage("ÇÇÅë")->getFrameWidth(), 606, 1, 0, UIalpha);
+	}
 
+	for (int i = 0; i < _MaxMP; i++)
+	{
+		ZORDER->UIAlphaFrameRender(IMAGE->findImage("¸¶³ªÅë"), ZUIFIRST, 0, 551 + i * IMAGE->findImage("¸¶³ªÅë")->getFrameWidth(), 606, 0, 0, UIalpha);
+		//IMAGE->findImage("¸¶³ªÅë")->alphaFrameRender(hdc, 551 + i * IMAGE->findImage("¸¶³ªÅë")->getFrameWidth(), 606, 0, 0, UIalpha);
+	}
+	for (int i = 0; i < _presentMP; i++)
+	{
+		ZORDER->UIAlphaFrameRender(IMAGE->findImage("¸¶³ªÅë"), ZUISECOND, 0, 551 + i * IMAGE->findImage("¸¶³ªÅë")->getFrameWidth(), 606, 1, 0, UIalpha);
+		//IMAGE->findImage("¸¶³ªÅë")->alphaFrameRender(hdc, 551 + i * IMAGE->findImage("¸¶³ªÅë")->getFrameWidth(), 606 , 1, 0, UIalpha);
+	}
+=======
+	this->renderUI(hdc);
+>>>>>>> ìƒˆë¡œíƒœì–´ë‚˜ìë¸Œëœì¹˜
 
 	char str[256];
 	//SetTextColor(hdc, RGB(0, 0, 255));
 	if (_isDebug)
 	{
+<<<<<<< HEAD
 		//sprintf_s(str, "ÃÖ´ë¸¶³ªÅë? %d",_MaxMP );
 		//TextOut(hdc, 0, WINSIZEY - 120, str, strlen(str));
-
+		
 		//Ä«¸Ş¶ó¿µÇâÀ» ¹ŞÁö ¾Ê´Â »óÅÂÈ®ÀÎ.
-
+=======
+//		Ä«¸Ş¶ó¿µÇâÀ» ¹ŞÁö ¾Ê´Â »óÅÂÈ®ÀÎ.
+>>>>>>> ìƒˆë¡œíƒœì–´ë‚˜ìë¸Œëœì¹˜
 		wsprintf(str, "¸Ê»ó¸¶¿ì½ºÀ§Ä¡x,y? : %d, %d", (int)CAMMOUSEX, (int)CAMMOUSEY);
 		ZORDER->UITextOut(str, ZUITHIRD, 0, WINSIZEY - 100, RGB(0, 0, 255));
 		//TextOut(hdc, 0, WINSIZEY-100, str, lstrlen(str));
@@ -224,20 +271,21 @@ void CplayerData::renderUI(HDC hdc)
 {
 	_StaminaBar->render();
 	_EXPBar->render();
-	ZORDER->UIRender(_layout_image, ZUIFIRST, 0, WINSIZEX / 2 - _layout_image->getWidth() / 2, 583);
-	ZORDER->UIRender(_gold_G, ZUIFIRST, 0, WINSIZEX - 60, 20);
+	_layout_image->render(hdc, WINSIZEX / 2 - _layout_image->getWidth() / 2, 583);
+	_gold_G->render(hdc, WINSIZEX - 60, 20);
 	goldRender(hdc);
-	ZORDER->UIAlphaFrameRender(IMAGE->findImage("·¹º§"), ZUIFIRST, 0, 394, 639, _level, 0, UIalpha);
+
+	IMAGE->findImage("·¹º§")->alphaFrameRender(hdc, 394, 639, _level, 0, UIalpha);
 
 	for (int i = 0; i < _MaxHP / 2 + _MaxHP % 2; i++)
 	{
 		if (_MaxHP % 2 == 1 && i == 0) {
-			ZORDER->UIAlphaFrameRender(IMAGE->findImage("ÀÛÀºÇÇÅë"), ZUIFIRST, 0, 436, 614, 0, 0, UIalpha);
+			IMAGE->findImage("ÀÛÀºÇÇÅë")->alphaFrameRender(hdc, 436, 614, 0, 0, UIalpha);
 			continue;
 		}
-		ZORDER->UIAlphaFrameRender(IMAGE->findImage("ÇÇÅë"), ZUIFIRST, 0,
-			429 - (i % 10) * IMAGE->findImage("ÇÇÅë")->getFrameWidth(),
-			606 - (i / 10) * IMAGE->findImage("ÇÇÅë")->getFrameHeight(), 0, 0, UIalpha);
+		IMAGE->findImage("ÇÇÅë")->alphaFrameRender(hdc, 
+			429 - (i%10)* IMAGE->findImage("ÇÇÅë")->getFrameWidth(),
+			606-(i/10)*IMAGE->findImage("ÇÇÅë")->getFrameHeight(), 0, 0, UIalpha);
 		if (i == _MaxHP / 2 + _MaxHP % 2 - 1) {
 			_heartstartX = 429 - (i % 10) * IMAGE->findImage("ÇÇÅë")->getFrameWidth();
 			_heartstartY = 606 - (i / 10) * IMAGE->findImage("ÇÇÅë")->getFrameHeight();
@@ -245,26 +293,26 @@ void CplayerData::renderUI(HDC hdc)
 	}
 	for (int i = 0; i < _presentHP / 2 + _presentHP % 2; i++)
 	{
+		
 		if (_presentHP % 2 == 1 && i == _presentHP / 2 + _presentHP % 2 - 1) {
-			ZORDER->UIAlphaFrameRender(IMAGE->findImage("ÀÛÀºÇÇÅë"), ZUISECOND, 0, _heartstartX + i * IMAGE->findImage("ÇÇÅë")->getFrameWidth() + 7, _heartstartY + 8, 1, 0, UIalpha);
+			IMAGE->findImage("ÀÛÀºÇÇÅë")->alphaFrameRender(hdc, _heartstartX + i * IMAGE->findImage("ÇÇÅë")->getFrameWidth() + 7, _heartstartY+8, 1, 0, UIalpha);
 			continue;
 		}
-		ZORDER->UIAlphaFrameRender(IMAGE->findImage("ÇÇÅë"), ZUISECOND, 0, _heartstartX + i * IMAGE->findImage("ÇÇÅë")->getFrameWidth(), _heartstartY, 1, 0, UIalpha);
-		if ((_MaxHP / 2 + _MaxHP % 2) % 10 == (i + 1) % 10) {
+		IMAGE->findImage("ÇÇÅë")->alphaFrameRender(hdc, _heartstartX + i * IMAGE->findImage("ÇÇÅë")->getFrameWidth(), _heartstartY, 1, 0, UIalpha);
+		if ((_MaxHP / 2 + _MaxHP % 2 )%10==(i+1)%10) {
 			_heartstartX -= 10 * IMAGE->findImage("ÇÇÅë")->getFrameWidth();
 			_heartstartY += IMAGE->findImage("ÇÇÅë")->getFrameHeight();
 		}
 	}
-
 	for (int i = 0; i < _MaxMP; i++)
 	{
-		ZORDER->UIAlphaFrameRender(IMAGE->findImage("¸¶³ªÅë"), ZUIFIRST, 0, 551 + (i % 10) * IMAGE->findImage("¸¶³ªÅë")->getFrameWidth(),
-			606 - (i / 10) * IMAGE->findImage("¸¶³ªÅë")->getFrameHeight(), 0, 0, UIalpha);
+		IMAGE->findImage("¸¶³ªÅë")->alphaFrameRender(hdc, 551 + (i % 10) * IMAGE->findImage("¸¶³ªÅë")->getFrameWidth(),
+			606- (i / 10) * IMAGE->findImage("¸¶³ªÅë")->getFrameHeight(), 0, 0, UIalpha);
 	}
 	for (int i = 0; i < _presentMP; i++)
 	{
-		ZORDER->UIAlphaFrameRender(IMAGE->findImage("¸¶³ªÅë"), ZUISECOND, 0, 551 + (i % 10) * IMAGE->findImage("¸¶³ªÅë")->getFrameWidth(),
-			606 - (i / 10) * IMAGE->findImage("¸¶³ªÅë")->getFrameHeight(), 1, 0, UIalpha);
+		IMAGE->findImage("¸¶³ªÅë")->alphaFrameRender(hdc, 551 + (i % 10) * IMAGE->findImage("¸¶³ªÅë")->getFrameWidth(), 
+			606 - (i/10) * IMAGE->findImage("¸¶³ªÅë")->getFrameHeight(), 1, 0, UIalpha);
 	}
 }
 

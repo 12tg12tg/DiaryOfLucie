@@ -141,9 +141,9 @@ void fountain::playerCollision()
 
 void fountain::afterHit()
 {
-	if (PLAYERDATA->useMana(1, true))
+	if (PLAYERDATA->costMP(1, true))
 	{
-		PLAYERDATA->useMana(1);
+		PLAYERDATA->costMP(1);
 		/*µ¿ÀüÅõÃ´*/
 		PLAYERDATA->changeGold(+100, false);
 	}

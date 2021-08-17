@@ -229,19 +229,19 @@ void statue::afterHit()
 		if (_isHit) {
 			_isHit2 = true;
 			if (RND->getInt(2)) {
-				PLAYERDATA->hitPlayer(2);
+				PLAYERDATA->changeHP(-2);
 			}
 			else {
-				PLAYERDATA->healPlayer(2);
+				PLAYERDATA->changeHP(2);
 			}
 		}
 		if (_isHit2) {
 			_isHit = true;
 			if (RND->getInt(2)) {
-				PLAYERDATA->useMana(2);
+				PLAYERDATA->changeMP(-2);
 			}
 			else {
-				PLAYERDATA->recoveryMana(2);
+				PLAYERDATA->changeMP(2);
 			}
 		}
 	}
