@@ -32,59 +32,87 @@ HRESULT camera::init(float pivotX, float pivotY, float maxX, float maxY, float m
 	_absDistanceX = disX;
 	_absDistanceY = disY;
 
-	_cameraRect = RectMake(_pivotX - disX, _pivotY - disY, WINSIZEX, WINSIZEY);
+	_cameraSizeX = WINSIZEX;
+	_cameraSizeY = WINSIZEY;
+
+	_cameraRect = RectMake(_pivotX - disX, _pivotY - disY, _cameraSizeX, _cameraSizeY);
 
 	_state = CAMERASTATE::FOLLOWPIVOT;
 
 	return S_OK;
 }
 
-void camera::update(float pivotX, float pivotY)
+HRESULT camera::init(float pivotX, float pivotY, float maxX, float maxY, float minX, float minY, float disX, float disY, float sizeX, float sizeY)
 {
-	float angle;
-	float _x;
-	float _y;
+	_maxX = maxX;
+	_maxY = maxY;
+	_minX = minX;
+	_minY = minY;
+	_pivotX = pivotX;
+	_pivotY = pivotY;
+	_distanceX = disX;
+	_distanceY = disY;
+	_absDistanceX = disX;
+	_absDistanceY = disY;
 
+	_cameraSizeX = sizeX;
+	_cameraSizeY = sizeY;
+
+	_cameraRect = RectMake(_pivotX - disX, _pivotY - disY, _cameraSizeX, _cameraSizeY);
+
+	_state = CAMERASTATE::FOLLOWPIVOT;
+
+	return S_OK;
+}
+
+void camera::update()
+{
 	switch (_state)
 	{
 	case CAMERASTATE::FOLLOWPIVOT:
+		//moveToPivot을 통해 갱신 받은 좌표로 사각형을 일단 재구성.
 		_pivotX = _moveToPivot.x;
 		_pivotY = _moveToPivot.y;
-		_cameraRect = RectMake(_pivotX - _absDistanceX, _pivotY - _absDistanceY, WINSIZEX, WINSIZEY);
+		_cameraRect = RectMake(_pivotX - _absDistanceX, _pivotY - _absDistanceY, _cameraSizeX, _cameraSizeY);
 		_distanceX = _absDistanceX;
 		_distanceY = _absDistanceY;
 		_savePivot.x = _pivotX;
 		_savePivot.y = _pivotY;
 
+		//카메라가 공간의 최대값이나 최소값을 넘어섰을경우엔, 사각형 변 재설정.
 		if (_cameraRect.left <= _minX)
 		{
 			_cameraRect.left = _minX;
-			_cameraRect.right = _minX + WINSIZEX;
+			_cameraRect.right = _minX + _cameraSizeX;
 			_distanceX = _pivotX - _cameraRect.left;
 		}
 		if (_cameraRect.right >= _maxX)
 		{
 			_cameraRect.right = _maxX;
-			_cameraRect.left = _maxX - WINSIZEX;
+			_cameraRect.left = _maxX - _cameraSizeX;
 			_distanceX = _pivotX - _cameraRect.left;
 		}
 		if (_cameraRect.top <= _minY)
 		{
 			_cameraRect.top = _minY;
-			_cameraRect.bottom = _minY + WINSIZEY;
+			_cameraRect.bottom = _minY + _cameraSizeY;
 			_distanceY = _pivotY - _cameraRect.top;
 
 		}
 		if (_cameraRect.bottom >= _maxY)
 		{
 			_cameraRect.bottom = _maxY;
-			_cameraRect.top = _maxY - WINSIZEY;
+			_cameraRect.top = _maxY - _cameraSizeY;
 			_distanceY = _pivotY - _cameraRect.top;
 		}
 		break;
 
 
 	case CAMERASTATE::CHANGEPIVOT:
+		float angle;
+		float _x;
+		float _y;
+
 		angle = UTIL::getAngle(_pivotX, _pivotY, _changePivotX, _changePivotY);
 		if (_pivotX == _changePivotX && _pivotY == _changePivotY)
 		{
@@ -97,7 +125,7 @@ void camera::update(float pivotX, float pivotY)
 		_savePivot.y = _pivotY;
 		_x += cosf(angle) * _changeSpeed;
 		_y -= sinf(angle) * _changeSpeed;
-		_cameraRect = RectMake(_x - _distanceX, _y - _distanceY, WINSIZEX, WINSIZEY);
+		_cameraRect = RectMake(_x - _distanceX, _y - _distanceY, _cameraSizeX, _cameraSizeY);
 
 		_pivotX = _x;
 		_pivotY = _y;
@@ -107,13 +135,15 @@ void camera::update(float pivotX, float pivotY)
 		{
 			_pivotX = _changePivotX;
 			_pivotY = _changePivotY;
-			pivotX = _pivotX;
-			pivotY = _pivotY;
+			//pivotX = _pivotX;
+			//pivotY = _pivotY;
 			_savePivot.x = _pivotX;
 			_savePivot.y = _pivotY;
 			_state = CAMERASTATE::FOLLOWPIVOT;
 		}
 		break;
+
+
 	case CAMERASTATE::SHAKE:
 		break;
 	}
@@ -125,147 +155,193 @@ void camera::update(float pivotX, float pivotY)
 		if (_shakeTime.current > _shakeTime.max)
 		{
 			_isShake = false;
-			_cameraRect = RectMake(_savePivot.x - _distanceX, _savePivot.y - _distanceY, WINSIZEX, WINSIZEY);
+			_cameraRect = RectMake(_savePivot.x - _distanceX, _savePivot.y - _distanceY, _cameraSizeX, _cameraSizeY);
 		}
 		if (_shakeTime.current % _shakeTime.cool == 0)
 		{
 			_shakePivot.x = RND->getFromInTo(_savePivot.x - _shakePower, _savePivot.x + _shakePower);
 			_shakePivot.y = RND->getFromInTo(_savePivot.y - _shakePower, _savePivot.y + _shakePower);
-			_cameraRect = RectMake(_shakePivot.x - _distanceX, _shakePivot.y - _distanceY, WINSIZEX, WINSIZEY);
+			_cameraRect = RectMake(_shakePivot.x - _distanceX, _shakePivot.y - _distanceY, _cameraSizeX, _cameraSizeY);
 		}
 	}
 }
-
 void camera::release()
 {
 }
 
-void camera::Rectangle(HDC hdc, RECT rc)
-{
-}
+//RECT camera::RelativeRectMake(float x, float y, int width, int height)
+//{
+//	return RECT();
+//}
 
-void camera::Rectangle(HDC hdc, int left, int top, int width, int height)
-{
-}
+//void camera::release()
+//{
+//}
 
-void camera::FrameRect(HDC hdc, RECT rc, COLORREF color)
-{
-}
+//void camera::RelativeRectangle(HDC hdc, RECT rc)
+//{
+//}
 
-void camera::LineMake(HDC hdc, int startX, int startY, int endX, int endY)
-{
-}
+//void camera::RelativeRectangle(HDC hdc, int left, int top, int width, int height)
+//{
+//}
 
-RECT camera::RectMake(float x, float y, int width, int height)
-{
-    return RECT();
-}
+//void camera::RelativeFrameRect(HDC hdc, RECT rc, COLORREF color)
+//{
+//}
 
-void camera::Render(HDC hdc, image* ig, int destX, int destY)
-{
-	ig->render(hdc, getRelativeX(destX), getRelativeY(destY));
-}
+//void camera::RelativeLineMake(HDC hdc, int startX, int startY, int endX, int endY)
+//{
+//}
 
-void camera::Render(HDC hdc, image* ig, int destX, int destY, int sourX, int sourY, int sourWid, int sourHei)
-{
-}
+//void camera::RelativeRender(HDC hdc, image * ig, int destX, int destY)
+//{
+//}
 
-void camera::FrameRender(HDC hdc, image* ig, int destX, int destY, int frameX, int frameY)
-{
-}
+//void camera::RelativeRender(HDC hdc, image * ig, int destX, int destY, int sourX, int sourY, int sourWid, int sourHei)
+//{
+//}
 
-void camera::StretchRender(HDC hdc, image* ig, int destX, int destY, float size)
-{
-}
+//void camera::RelativeFrameRender(HDC hdc, image * ig, int destX, int destY, int frameX, int frameY)
+//{
+//}
 
-void camera::StretchRender(HDC hdc, image* ig, int destX, int destY, float scaleX, float scaleY)
-{
-}
+//void camera::RelativeStretchRender(HDC hdc, image * ig, int destX, int destY, float size)
+//{
+//}
 
-void camera::StretchFrameRender(HDC hdc, image* ig, int destX, int destY, int frameX, int frameY, float size)
-{
-}
+//void camera::RelativeStretchRender(HDC hdc, image * ig, int destX, int destY, float scaleX, float scaleY)
+//{
+//}
 
-void camera::StretchFrameRender(HDC hdc, image* ig, int destX, int destY, int frameX, int frameY, float scaleX, float scaleY)
-{
-}
+//void camera::RelativeStretchFrameRender(HDC hdc, image * ig, int destX, int destY, int frameX, int frameY, float size)
+//{
+//}
 
-void camera::AlphaRender(HDC hdc, image* ig, int destX, int destY, BYTE alpha)
-{
-}
+//void camera::RelativeStretchFrameRender(HDC hdc, image * ig, int destX, int destY, int frameX, int frameY, float scaleX, float scaleY)
+//{
+//}
 
-void camera::AlphaRender(HDC hdc, image* ig, int destX, int destY, int sourX, int sourY, int sourWid, int sourHei, BYTE alpha)
-{
-}
+//void camera::RelativeAlphaRender(HDC hdc, image * ig, int destX, int destY, BYTE alpha)
+//{
+//}
 
-void camera::AlphaFrameRender(HDC hdc, image* ig, int destX, int destY, int frameX, int frameY, BYTE alpha)
-{
-}
+//void camera::RelativeAlphaRender(HDC hdc, image * ig, int destX, int destY, int sourX, int sourY, int sourWid, int sourHei, BYTE alpha)
+//{
+//}
 
-void camera::RotateRender(HDC hdc, image* img, int centerX, int centerY, float angle)
-{
-}
+//void camera::RelativeAlphaFrameRender(HDC hdc, image * ig, int destX, int destY, int frameX, int frameY, BYTE alpha)
+//{
+//}
 
-void camera::RotateFrameRender(HDC hdc, image* img, int centerX, int centerY, float angle, int frameX, int frameY)
-{
-}
+//void camera::RelativeRotateRender(HDC hdc, image * img, int centerX, int centerY, float angle)
+//{
+//}
 
-void camera::RotateAlphaRender(HDC hdc, image* img, int centerX, int centerY, float angle, BYTE alpha)
-{
-}
+//void camera::RelativeRotateFrameRender(HDC hdc, image * img, int centerX, int centerY, float angle, int frameX, int frameY)
+//{
+//}
 
-void camera::RotateAlphaFrameRender(HDC hdc, image* img, int centerX, int centerY, float angle, int frameX, int frameY, BYTE alpha)
-{
-}
+//void camera::RelativeRotateAlphaRender(HDC hdc, image * img, int centerX, int centerY, float angle, BYTE alpha)
+//{
+//}
 
-void camera::FadeInit(int time, FADEKIND fadeKind)
-{
-}
-
-void camera::FadeStart()
-{
-}
-
-void camera::FadeUpdate()
-{
-}
-
-void camera::FadeRender(HDC hdc)
-{
-}
+//void camera::RelativeRotateAlphaFrameRender(HDC hdc, image * img, int centerX, int centerY, float angle, int frameX, int frameY, BYTE alpha)
+//{
+//}
 
 void camera::textOut(HDC hdc, int x, int y, const char* text, COLORREF color)
 {
 }
 
+void camera::FadeInit(int time, FADEKIND fadeKind)
+{
+	IMAGE->addImage("fadeImg", WINSIZEX, WINSIZEY);
+	_fadeInfo.minus = 255 / time;
+	_fadeInfo.fadeKind = fadeKind;
+	_fadeInfo.alpha = (fadeKind == FADE_IN) ? 255 : 0;
+	_fadeInfo.isStart = false;
+}
+
+void camera::FadeStart()
+{
+	_fadeInfo.isStart = true;
+	_fadeInfo.alpha = (_fadeInfo.fadeKind == FADE_IN) ? 255 : 0;
+}
+
+void camera::FadeUpdate()
+{
+	if (_fadeInfo.fadeKind == FADE_IN)
+	{
+		_fadeInfo.alpha -= _fadeInfo.minus;
+		if (_fadeInfo.alpha <= 0) _fadeInfo.isStart = false;
+	}
+	else
+	{
+		_fadeInfo.alpha += _fadeInfo.minus;
+		if (_fadeInfo.alpha >= 255) _fadeInfo.isStart = false;
+	}
+}
+
+void camera::FadeRender(HDC hdc)
+{
+	if (_fadeInfo.isStart)
+		ZORDER->UIAlphaRender(IMAGE->findImage("fadeImg"), ZUIFADE, 0, 0, 0, _fadeInfo.alpha);
+}
+
 void camera::movePivot(float x, float y)
 {
+	_moveToPivot.x = x;
+	_moveToPivot.y = y;
 }
 
 void camera::ChangePivot(float x, float y, float speed)
 {
+	_state = CAMERASTATE::CHANGEPIVOT;
+	_changePivotX = x;
+	_changePivotY = y;
+	_changeSpeed = speed;
 }
 
 void camera::setShake(float power, int time, int cool)
 {
+	_isShake = true;
+	_shakePower = power;
+	_shakeTime.current = 0;
+	_shakeTime.max = time;
+	_shakeTime.cool = cool;
 }
 
 int camera::getRelativeX(float x)
 {
-    return 0;
+	return x - _cameraRect.left;
 }
 
 int camera::getRelativeY(float y)
 {
-    return 0;
+	return y - _cameraRect.top;
 }
 
-POINT camera::getRelativeMouse(POINT ptMouse)
+POINT camera::getRelativePoint(POINT pt)
 {
-    return POINT();
+	pt.x = pt.x + _cameraRect.left;
+	pt.y = pt.y + _cameraRect.top;
+	return pt;
+}
+
+POINT camera::getRelativeMouse()
+{
+	POINT ptM;
+	ptM.x = m_ptMouse.x + _cameraRect.left;
+	ptM.y = m_ptMouse.y + _cameraRect.top;
+	return ptM;
 }
 
 RECT camera::getRelativeRect(RECT rc)
 {
-    return RECT();
+	rc.left = rc.left - _cameraRect.left;
+	rc.right = rc.right - _cameraRect.right;
+	rc.top = rc.top - _cameraRect.top;
+	rc.bottom = rc.bottom - _cameraRect.bottom;
+	return rc;
 }

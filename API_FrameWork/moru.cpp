@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "moru.h"
 #include "bulletManager.h"
+#define ADJUSTMORU	42
 moru::moru()
 {
 	IMAGE->addFrameImage("모루", "images/object/moru.bmp", 288, 384, 2, 4, true);
@@ -11,8 +12,8 @@ moru::moru()
 	IMAGE->addImage("모루멘트2", "images/object/morument2.bmp", 614, 160, true);
 	IMAGE->addImage("모루멘트3", "images/object/morument3.bmp", 614, 160, true);
 	IMAGE->addImage("모루멘트4", "images/object/morument4.bmp", 614, 160, true);
-	but1 = BUTTON->addButton("모루-수리한다", 225, 475, 222, 35);
-	but2 = BUTTON->addButton("모루-무시한다", 225, 516, 222, 35);
+	but1 = BUTTON->addButton("모루-수리한다", 225, 475 + ADJUSTMORU, 222, 35);
+	but2 = BUTTON->addButton("모루-무시한다", 225, 516 + ADJUSTMORU, 222, 35);
 	mouseoverImg = new image;
 	mouseoverImg->init(222, 35, RGB(85, 115, 226));
 }
@@ -41,6 +42,11 @@ HRESULT moru::add(float centerx, float centery)
 	isConversation2 = false;
 	isConversation3 = false;
 	isConversation4 = false;
+
+	talkRc = RectMake(WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
+		WINSIZEY * 3 / 5,
+		IMAGE->findImage("모루대화상자")->getWidth(),
+		IMAGE->findImage("모루대화상자")->getHeight());
 
 	boxAlpha = 200;
 	return S_OK;
@@ -73,35 +79,41 @@ void moru::render()
 	//할배 네임태그
 	if (isConversation1 || isConversation2 || isConversation3 || isConversation4)
 	{
-		IMAGE->findImage("이름상자")->alphaRender(getMemDC(), 188, 360, 200);
-		IMAGE->findImage("모루이름")->render(getMemDC(), 200, 365);
-		IMAGE->findImage("모루대화상자")->alphaRender(getMemDC(), WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
-			420, 200);
+		//ZORDER->UIAlphaRender(IMAGE->findImage("이름상자"), ZUISECOND, 0, 188, 360, boxAlpha);
+		//ZORDER->UIAlphaRender(IMAGE->findImage("모루대화상자"), ZUISECOND, 0, WINSIZEX / 2 - IMAGE->findImage("모루대화상자")->getWidth() / 2,
+		//	420, boxAlpha);
+
+		//항상ON 대화상자
+		ZORDER->UIRender(IMAGE->findImage("모루이름"), ZUITHIRD, 0, 200, 365 + ADJUSTMORU);
+		ZORDER->UIAlphaRender(IMAGE->findImage("이름상자"), ZUISECOND, 0, 188, talkRc.top - 5 - IMAGE->findImage("이름상자")->getHeight(), boxAlpha);
+		ZORDER->UIAlphaRender(IMAGE->findImage("모루대화상자"), ZUISECOND, 0, talkRc.left, talkRc.top, boxAlpha);
+
 	}
 	//대화상자 출력
 	if (isConversation1)
 	{
 		//수리를 할거냐는 문구와 버튼 두개가 뜸.
 		if (BUTTON->isMouseOver("모루-수리한다")) {
-			mouseoverImg->alphaRender(getMemDC(), 225, 475, 100);
+			ZORDER->UIAlphaRender(mouseoverImg, ZUITHIRD, 0, 225, 475+ ADJUSTMORU, 100);
 		}										
 		if (BUTTON->isMouseOver("모루-무시한다")) {
-			mouseoverImg->alphaRender(getMemDC(), 225, 516, 100);
+			ZORDER->UIAlphaRender(mouseoverImg, ZUITHIRD, 0, 225, 516 + ADJUSTMORU, 100);
 		}
-		IMAGE->findImage("모루멘트1")->render(getMemDC(), 190, 410);
+		ZORDER->UIRender(IMAGE->findImage("모루멘트1"), ZUITHIRD, 1, 190, 410 + ADJUSTMORU);
 	}
 	else if (isConversation2)
 	{
-		IMAGE->findImage("모루멘트2")->render(getMemDC(), 190, 410);
+		ZORDER->UIRender(IMAGE->findImage("모루멘트2"), ZUITHIRD, 1, 190, 410 + ADJUSTMORU);
 	}
 	else if (isConversation3)
 	{
-		IMAGE->findImage("모루멘트3")->render(getMemDC(), 190, 410);
+		ZORDER->UIRender(IMAGE->findImage("모루멘트3"), ZUITHIRD, 1, 190, 410 + ADJUSTMORU);
 	}
 	else if (isConversation4)
 	{
-		IMAGE->findImage("모루멘트4")->render(getMemDC(), 190, 410);
+		ZORDER->UIRender(IMAGE->findImage("모루멘트4"), ZUITHIRD, 1, 190, 410 + ADJUSTMORU);
 	}
+
 }
 
 void moru::afterHit()
@@ -243,9 +255,9 @@ void moru::checkRepair()
 			BUTTON->buttonOff("모루-수리한다");
 			BUTTON->buttonOff("모루-무시한다");
 			isConversation1 = false;
-			if (true)/*돈 비교 구문*/
+			if (PLAYERDATA->changeGold(-30, true))//돈 비교. 차감 구문
 			{
-				/*돈차감구문.*/
+				PLAYERDATA->changeGold(-30, false);
 				if (RND->getInt(2))
 				{
 					_speakCount = 0;

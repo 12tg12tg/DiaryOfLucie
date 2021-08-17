@@ -14,8 +14,8 @@
 #include <memory.h>
 #include <tchar.h>
 
-
 using namespace std;
+
 
 //=======================//
 //			STL			//
@@ -42,6 +42,7 @@ using namespace std;
 #include"OBBCollision.h"
 #include"Zorder.h"
 #include"button.h"
+#include"camera.h"
 
 #include"Cplayer.h"
 #include"CplayerData.h"
@@ -62,9 +63,12 @@ using namespace std;
 #define OBB				OBBCollision::getSingleton()
 #define ZORDER			Zorder::getSingleton()
 #define BUTTON			Cbutton::getSingleton()
+#define CAMERA			camera::getSingleton()
 
 #define PLAYER			Cplayer::getSingleton()
 #define PLAYERDATA		CplayerData::getSingleton()
+
+
 //===================//
 //	매크로 설정부분	//
 //=================//
@@ -76,9 +80,16 @@ using namespace std;
 //#define WINSIZEX		640
 #define WINSIZEX		1024
 #define WINSIZEY		768
+#define GAMESIZEX		960
+#define GAMESIZEY		540
 //#define WINSIZEY		640
 #define WINSTYLE		WS_CAPTION | WS_SYSMENU
 
+#define GAMEDCRATIO 1.5
+#define CAMERASIZEX WINSIZEX/GAMEDCRATIO
+#define CAMERASIZEY WINSIZEY/GAMEDCRATIO
+#define CAMMOUSEX		(m_ptMouse.x / GAMEDCRATIO) + CAMERA->getRect().left
+#define CAMMOUSEY		(m_ptMouse.y / GAMEDCRATIO) + CAMERA->getRect().top
 
 //===========================//
 //	메인게임 릴리즈에서 사용	//

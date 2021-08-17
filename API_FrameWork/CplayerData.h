@@ -2,36 +2,48 @@
 #include "singleton.h"
 
 class progressBar;
+/////////////////////////
+
+struct DATA 
+{
+	float walkspeed;
+	float equipspeed;
+	float presentSpeed;
+
+	int Critical;
+
+	int defaultAtk;
+	int equipAtk;
+	int presentAtk;
+
+	int defaultSkillPower;
+	int equipSkillPower;
+	int presentSkillPower;
+
+	int AtkSpeed;
+
+	int equipSkillCoolTime;
+};
+
+////////////////////////////////
 
 class CplayerData: public Singleton<CplayerData>
 {
-	//공격력 마법력 공속 경험치
-	//스킬쿨감수치
-	//이속
-
 private:
 	bool _isDebug;
 
-private:
-	int _Critical;
-	int _defaultAtk;
-
-	//UI
+	DATA _Data;
+//UI
 	int _level;
 
-	int _lastHP;
 	int _lastMaxHP;
-	int _defaultHP;
 	int _defaultMaxHP;
-	int _equipHP;
 	int	_equipMaxHP;
 	int _presentHP;
 	int _MaxHP;
 
 
-	int _defaultMP;
 	int _defaultMaxMP;
-	int _equipMP;
 	int _equipMaxMP;
 	int _presentMP;
 	int _MaxMP;
@@ -54,6 +66,7 @@ private:
 	image* _layout_image;
 	image* _gold_G;
 	int _heartstartX;
+	int _heartstartY;
 
 public:
 	HRESULT init();
@@ -61,21 +74,31 @@ public:
 	void update();
 	void render(HDC hdc);
 
+private:
 	void imageInit();
 
-	void hitPlayer(int damage);
-	void healPlayer(int recovery);
-	bool useMana(int manaCost, bool Check=false);
-	void recoveryMana(int recovery);
+public:
+	void changeHP(int HP);
+	int costHP(int cost, bool check=false);
+	void changeMP(int MP);
+	int costMP(int cost, bool check=false);
 	bool useStamina(int costStamina, bool check=false);
-	void recoveryStamina();
 	void recoveryStamina(int recovery);
+private:
+	void recoveryStamina();
 	
 	void goldRender(HDC hdc);
+	void renderUI(HDC hdc);
+public:
 	bool changeGold(int difference,bool check=false);
 
 	void expUP(int exp);
 
-	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+	DATA& getData() { return _Data; }
 	int getPresentHP() { return _presentHP; }
+	int getDamage();
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+
+	void setEquip(int equipHP=0,int equipMaxHP=0,int equipMP=0,int equipMaxMP=0,float equipSpeed = 0,int equipAtk = 0,int equipAtkSpeed = 0,int equipCritical = 0,int equipSkillPower = 0,int equipSkillCollTime = 0);
+	void takeOffEquip(int& equipHP,int equipMaxHP,int& equipMP,int equipMaxMP,float equipSpeed = 0,int equipAtk = 0,int equipAtkSpeed = 0,int equipCritical = 0,int equipSkillPower = 0,int equipSkillCollTime = 0);
 };

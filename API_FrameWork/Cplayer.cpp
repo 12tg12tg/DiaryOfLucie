@@ -1,7 +1,6 @@
 #include "framework.h"
 #include "Cplayer.h"
 #include "bulletmanager.h"
-
 //이곳의 주목적
 //키입력에따른 프레임 랜더와 이동
 
@@ -17,7 +16,6 @@ HRESULT Cplayer::init()
 
 	_direction = DIRECTION::DOWN;
 	_moveDirection = _direction;
-	_walkspeed = 1.5;
 
 	_isAutoRun = false;
 	_frameswitching = true;
@@ -75,7 +73,6 @@ void Cplayer::render(HDC hdc)
 		ZORDER->ZorderFrameRender(IMAGE->findImage("걷기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection);
 	else if (_state == STATE::DIE)
 	{
-		//IMAGE->findImage("죽기")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 0, 0, _dieAlpha);
 		ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("죽기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 0, 0, _dieAlpha);
 
 		if (_dieAlpha > 50) 
@@ -89,23 +86,18 @@ void Cplayer::render(HDC hdc)
 			ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("걷기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection, 100);
 			break;
 		case STATE::WALK:
-			//IMAGE->findImage("걷기")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _walk_img->getFrameX(), _moveDirection, 100);
 			ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("걷기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _walk_img->getFrameX(), _moveDirection, 100);
 			break;
 		case STATE::RUN:
-			//IMAGE->findImage("달리기")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _run_img->getFrameX(), _moveDirection, 100);
 			ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("달리기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _run_img->getFrameX(), _moveDirection, 100);
 			break;
 		case STATE::DASH:
-			//IMAGE->findImage("대쉬")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _dash_img->getFrameX(), _moveDirection, 100);
 			ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("대쉬"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _dash_img->getFrameX(), _moveDirection, 100);
 			break;
 		case STATE::ATTSTAFF:
-			//IMAGE->findImage("기본공격")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _attStaff_img->getFrameX(), _moveDirection, 100);
 			ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("기본공격"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _attStaff_img->getFrameX(), _moveDirection, 100);
 			break;
 		case STATE::KNOCKBACK:
-			//IMAGE->findImage("넉백")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _knockBack_img->getFrameX(), _moveDirection, 100);
 			ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("넉백"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _knockBack_img->getFrameX(), _moveDirection, 100);
 			break;
 		}
@@ -118,23 +110,18 @@ void Cplayer::render(HDC hdc)
 			ZORDER->ZorderFrameRender(IMAGE->findImage("걷기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection);
 			break;
 		case STATE::WALK:
-			//IMAGE->frameRender("걷기", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _walk_img->getFrameX(), _moveDirection);
 			ZORDER->ZorderFrameRender(IMAGE->findImage("걷기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _walk_img->getFrameX(), _moveDirection);
 			break;
 		case STATE::RUN:
-			//IMAGE->frameRender("달리기", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _run_img->getFrameX(), _moveDirection);
 			ZORDER->ZorderFrameRender(IMAGE->findImage("달리기"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _run_img->getFrameX(), _moveDirection);
 			break;
 		case STATE::DASH:
-			//IMAGE->frameRender("대쉬", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _dash_img->getFrameX(), _moveDirection);
 			ZORDER->ZorderFrameRender(IMAGE->findImage("대쉬"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _dash_img->getFrameX(), _moveDirection);
 			break;
 		case STATE::ATTSTAFF:
-			//IMAGE->frameRender("기본공격", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _attStaff_img->getFrameX(), _moveDirection);
 			ZORDER->ZorderFrameRender(IMAGE->findImage("기본공격"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _attStaff_img->getFrameX(), _moveDirection);
 			break;
 		case STATE::KNOCKBACK:
-			//IMAGE->frameRender("넉백", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _knockBack_img->getFrameX(), _moveDirection);
 			ZORDER->ZorderFrameRender(IMAGE->findImage("넉백"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _knockBack_img->getFrameX(), _moveDirection);
 			break;
 		}
@@ -154,7 +141,7 @@ void Cplayer::imageInit()
 void Cplayer::inputCheck()
 {
 	if (INPUT->isStayKeyDown('R')) {
-		PLAYERDATA->healPlayer(6);
+		PLAYERDATA->changeHP(6);
 		PLAYERDATA->recoveryStamina(100);
 		_state = STATE::IDLE;
 		_dieAlpha = 255;
@@ -236,24 +223,28 @@ void Cplayer::stateCheck()
 				{
 					_moveDirection = _direction;
 					_state = STATE::RUN;
+					_speed = PLAYERDATA->getData().presentSpeed*3;
+
 				}
 				else
 				{
 					_moveDirection = _direction;
 					_state = STATE::WALK;
+					_speed = PLAYERDATA->getData().presentSpeed;
 				}
 			}
 			else if (_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft) {
 				_moveDirection = _direction;
 				_state = STATE::WALK;
+				_speed = PLAYERDATA->getData().presentSpeed;
 			}
 			if (INPUT->isOnceKeyDown(VK_LBUTTON)&&PLAYERDATA->useStamina(5,1))
 			{
 				if (_player.weapon == WEAPONTYPE::EMPTY || _player.weapon == WEAPONTYPE::STAFF)
 					_state = STATE::ATTSTAFF;
-				_attAngle = UTIL::getAngle(_player.x, _player.y - 20, m_ptMouse.x, m_ptMouse.y);
+				_attAngle = UTIL::getAngle(_player.x, _player.y - shootingCorrection, CAMMOUSEX, CAMMOUSEY);
 				_attAngle = _attAngle - 0.03 +0.00003* RND->getFromInTo(0,2000);
-				_Cbullet->getMgcBulInstance()->fire(_player.x, _player.y - 20, _attAngle, 20);
+				_Cbullet->getMgcBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 20);
 				this->angleCheckDirection(_attAngle);
 				PLAYERDATA->useStamina(5);
 			}
@@ -296,7 +287,7 @@ void Cplayer::stateCheck()
 			}
 			else
 			{
-				_dashAngle = UTIL::getAngle(_player.x, _player.y, m_ptMouse.x, m_ptMouse.y);
+				_dashAngle = UTIL::getAngle(_player.x, _player.y, CAMMOUSEX, CAMMOUSEY);
 				this->angleCheckDirection(_dashAngle);
 			}
 		}
@@ -305,47 +296,45 @@ void Cplayer::stateCheck()
 
 void Cplayer::movePlayer()
 {
-	float speed = _walkspeed;
 	switch (_state)
 	{
 	case STATE::RUN:
-		speed = _walkspeed * 2;
 	case STATE::WALK:
 		switch (_moveDirection)
 		{
 		case UPLEFT:
-			_player.x += cosf(UPLEFTANGLE) * speed;
-			_player.y -= sinf(UPLEFTANGLE) * speed;
+			_player.x += cosf(UPLEFTANGLE) * _speed;
+			_player.y -= sinf(UPLEFTANGLE) * _speed;
 			break;
 		case UPRIGHT:
-			_player.x += cosf(UPRIGHTANGLE) * speed;
-			_player.y -= sinf(UPRIGHTANGLE) * speed;
+			_player.x += cosf(UPRIGHTANGLE) * _speed;
+			_player.y -= sinf(UPRIGHTANGLE) * _speed;
 			break;
 		case DOWNRIGHT:
-			_player.x += cosf(DOWNRIGHTANGLE) * speed;
-			_player.y -= sinf(DOWNRIGHTANGLE) * speed;
+			_player.x += cosf(DOWNRIGHTANGLE) * _speed;
+			_player.y -= sinf(DOWNRIGHTANGLE) * _speed;
 			break;
 		case DOWNLEFT:
-			_player.x += cosf(DOWNLEFTANGLE) * speed;
-			_player.y -= sinf(DOWNLEFTANGLE) * speed;
+			_player.x += cosf(DOWNLEFTANGLE) * _speed;
+			_player.y -= sinf(DOWNLEFTANGLE) * _speed;
 			break;
 		case UP:
-			_player.y -= speed;
+			_player.y -= _speed;
 			break;
 		case DOWN:
-			_player.y += speed;
+			_player.y += _speed;
 			break;
 		case LEFT:
-			_player.x -= speed;
+			_player.x -= _speed;
 			break;
 		case RIGHT:
-			_player.x += speed;
+			_player.x += _speed;
 			break;
 		}
 		break;
 	case STATE::DASH:
-		_player.x += cosf(_dashAngle) * _walkspeed * 3;
-		_player.y -= sinf(_dashAngle) * _walkspeed * 3;
+		_player.x += cosf(_dashAngle) * PLAYERDATA->getData().presentSpeed * 3;
+		_player.y -= sinf(_dashAngle) * PLAYERDATA->getData().presentSpeed * 3;
 		break;
 	case STATE::ATTSTAFF:
 		_player.x += cosf(_attAngle);
@@ -496,7 +485,7 @@ void Cplayer::hitPlayer(int bulletX, int bulletY)
 {
 	if (_state != STATE::STOP) {
 	_player.isHit = true;
-		PLAYERDATA->hitPlayer(1);
+		PLAYERDATA->changeHP(-1);
 		_knockBackAngle = UTIL::getAngle(bulletX, bulletY, _player.x, _player.y);
 	}
 }
@@ -506,7 +495,7 @@ void Cplayer::hitDash()
 	if (_player.isDashHit != true) 
 	{
 		_player.isDashHit = true;
-		PLAYERDATA->recoveryMana(1);
+		PLAYERDATA->changeMP(1);
 	}
 }
 

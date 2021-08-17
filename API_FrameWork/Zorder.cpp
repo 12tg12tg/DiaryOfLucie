@@ -202,7 +202,7 @@ void Zorder::ZorderRectangleRotate(RECT rc, float z, float angle)
 	tagZorder _zo(OBJ_RECTROTATE, nullptr, z, 0, 0);
 
 	int min = RotateRectBottom(rc, angle);
-	
+
 	_zo.bottom = min;
 	_zo.rc = rc;
 	_zo.angle = angle;
@@ -212,7 +212,7 @@ void Zorder::ZorderRectangleRotate(RECT rc, float z, float angle)
 void Zorder::ZorderTextOut(string txt, float z, int destX, int destY, COLORREF color)
 {
 	tagZorder _zo(TXT_TEXTOUT, nullptr, z, destX, destY);
-	_zo.bottom = destY+20;
+	_zo.bottom = destY + 20;
 	_zo.txt = txt;
 	_zo.txtColor = color;
 	_vZorder.push_back(_zo);
@@ -230,9 +230,241 @@ void Zorder::ZorderDrawText(string txt, float z, RECT txtRC, HFONT font, COLORRE
 	_vZorder.push_back(_zo);
 }
 
+//여기서부터 Ui
+void Zorder::UIRender(image* img, float z, float bottom, int destX, int destY)
+{
+	tagZorder _zo(IMG_NOMAL, img, z, destX, destY);
+	_zo.bottom = bottom;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIRender(image* img, float z, float bottom, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight)
+{
+	tagZorder _zo(IMG_NOMAL_SOUR, img, z, destX, destY);
+	_zo.bottom = bottom;
+	_zo.sourX = sourX;
+	_zo.sourY = sourY;
+	_zo.sourWidth = sourWidth;
+	_zo.sourHeight = sourHeight;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIFrameRender(image* img, float z, float bottom, int destX, int destY, int frameX, int frameY)
+{
+	tagZorder _zo(IMG_FRAME, img, z, destX, destY);
+	_zo.bottom = bottom;
+	_zo.frameX = frameX;
+	_zo.frameY = frameY;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIAlphaRender(image* img, float z, float bottom, int destX, int destY, BYTE alpha)
+{
+	tagZorder _zo(IMG_ALPHA, img, z, destX, destY);
+	_zo.bottom = bottom;
+	_zo.alpha = alpha;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIAlphaRender(image* img, float z, float bottom, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha)
+{
+	tagZorder _zo(IMG_ALPHA_SOUR, img, z, destX, destY);
+	_zo.bottom = bottom;
+	_zo.sourX = sourX;
+	_zo.sourY = sourY;
+	_zo.sourWidth = sourWidth;
+	_zo.sourHeight = sourHeight;
+	_zo.alpha = alpha;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIAlphaFrameRender(image* img, float z, float bottom, int destX, int destY, int frameX, int frameY, BYTE alpha)
+{
+	tagZorder _zo(IMG_ALPHA_FRAME, img, z, destX, destY);
+	_zo.bottom = bottom;
+	_zo.frameX = frameX;
+	_zo.frameY = frameY;
+	_zo.alpha = alpha;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIRotateRender(image* img, float z, float bottom, int centerX, int centerY, float angle)
+{
+	tagZorder _zo(IMG_ROTATE, img, z, centerX, centerY);
+	_zo.bottom = bottom;
+	_zo.angle = angle;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIRotateFrameRender(image* img, float z, float bottom, int centerX, int centerY, float angle, int frameX, int frameY)
+{
+	tagZorder _zo(IMG_ROTATE_FRAME, img, z, centerX, centerY);
+	_zo.bottom = bottom;
+	_zo.frameX = frameX;
+	_zo.frameY = frameY;
+	_zo.angle = angle;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIRotateAlphaRender(image* img, float z, float bottom, int centerX, int centerY, float angle, BYTE alpha)
+{
+	tagZorder _zo(IMG_ROTATE_ALPHA, img, z, centerX, centerY);
+	_zo.bottom = bottom;
+	_zo.alpha = alpha;
+	_zo.angle = angle;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIRotateAlphaFrameRender(image* img, float z, float bottom, int centerX, int centerY, float angle, int frameX, int frameY, BYTE alpha)
+{
+	tagZorder _zo(IMG_ROTATE_ALPHAFRAME, img, z, centerX, centerY);
+	_zo.bottom = bottom;
+	_zo.frameX = frameX;
+	_zo.frameY = frameY;
+	_zo.alpha = alpha;
+	_zo.angle = angle;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIStretchRender(image* img, float z, float bottom, int centerX, int centerY, float ratio)
+{
+	tagZorder _zo(IMG_STRETCH, img, z, centerX, centerY);
+	_zo.bottom = bottom;
+	_zo.ratio = ratio;
+	_zo.stretchKind = STRETCH_WHOLE_RATIO;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIStretchRender(image* img, float z, float bottom, int centerX, int centerY, float newWidth, float newHeight)
+{
+	tagZorder _zo(IMG_STRETCH, img, z, centerX, centerY);
+	_zo.bottom = bottom;
+	_zo.newWidth = newWidth;
+	_zo.newHeight = newHeight;
+	_zo.stretchKind = STRETCH_EACH_SCALE;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIStretchFrameRender(image* img, float z, float bottom, int centerX, int centerY, int frameX, int frameY, float ratio)
+{
+	tagZorder _zo(IMG_STRETCH_FRAME, img, z, centerX, centerY);
+	_zo.bottom = bottom;
+	_zo.frameX = frameX;
+	_zo.frameY = frameY;
+	_zo.ratio = ratio;
+	_zo.stretchKind = STRETCH_WHOLE_RATIO;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIStretchFrameRender(image* img, float z, float bottom, int centerX, int centerY, int frameX, int frameY, float newWidth, float newHeight)
+{
+	tagZorder _zo(IMG_STRETCH_FRAME, img, z, centerX, centerY);
+	_zo.bottom = bottom;
+	_zo.frameX = frameX;
+	_zo.frameY = frameY;
+	_zo.newWidth = newWidth;
+	_zo.newHeight = newHeight;
+	_zo.stretchKind = STRETCH_EACH_SCALE;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIRotateStretchRender(image* img, float z, float bottom, int centerX, int centerY, float angle, float ratio)
+{
+	tagZorder _zo(IMG_ROTATESTRETCH, img, z, centerX, centerY);
+	_zo.bottom = bottom;
+	_zo.angle = angle;
+	_zo.ratio = ratio;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIRotateStretchFrameRender(image* img, float z, float bottom, int centerX, int centerY, int frameX, int frameY, float angle, float ratio)
+{
+	tagZorder _zo(IMG_ROTATESTRETCHFRAME, img, z, centerX, centerY);
+	_zo.bottom = bottom;
+	_zo.frameX = frameX;
+	_zo.frameY = frameY;
+	_zo.angle = angle;
+	_zo.ratio = ratio;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIAniRender(image* img, float z, float bottom, int destX, int destY, animation* ani)
+{
+	tagZorder _zo(IMG_ANI, img, z, destX, destY);
+	_zo.bottom = bottom;
+	_zo.ani = ani;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIAniAlphaRender(image* img, float z, float bottom, int destX, int destY, animation* ani, BYTE alpha)
+{
+	tagZorder _zo(IMG_ANIALPHA, img, z, destX, destY);
+	_zo.bottom = bottom;
+	_zo.ani = ani;
+	_zo.alpha = alpha;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIRectangle(RECT rc, float z)
+{
+	tagZorder _zo(OBJ_RECT, nullptr, z, 0, 0);
+	_zo.bottom = rc.bottom;
+	_zo.rc = rc;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIRectangleColor(RECT rc, float z, COLORREF color)
+{
+	tagZorder _zo(OBJ_COLORRECT, nullptr, z, 0, 0);
+	_zo.bottom = rc.bottom;
+	_zo.rc = rc;
+	_zo.rectColor = color;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIRectangleRotate(RECT rc, float z, float angle)
+{
+	tagZorder _zo(OBJ_RECTROTATE, nullptr, z, 0, 0);
+
+	int min = RotateRectBottom(rc, angle);
+
+	_zo.bottom = min;
+	_zo.rc = rc;
+	_zo.angle = angle;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UITextOut(string txt, float z, int destX, int destY, COLORREF color)
+{
+	tagZorder _zo(TXT_TEXTOUT, nullptr, z, destX, destY);
+	_zo.bottom = destY + 20;
+	_zo.txt = txt;
+	_zo.txtColor = color;
+	_vUiZorder.push_back(_zo);
+}
+
+void Zorder::UIDrawText(string txt, float z, RECT txtRC, HFONT font, COLORREF color, UINT format)
+{
+	tagZorder _zo(TXT_DRAWTEXT, nullptr, z, 0, 0);
+	_zo.bottom = txtRC.bottom;
+	_zo.txt = txt;
+	_zo.txtRC = txtRC;
+	_zo.font = font;
+	_zo.txtColor = color;
+	_zo.format = format;
+	_vUiZorder.push_back(_zo);
+}
+
+//여기부터 정렬
+
 inline void Zorder::ZorderSort()
 {
 	stable_sort(_vZorder.begin(), _vZorder.end(), ZordorCompare);
+}
+
+inline void Zorder::UiZorderSort()
+{
+	stable_sort(_vUiZorder.begin(), _vUiZorder.end(), ZordorCompare);
 }
 
 void Zorder::Sort(int i, int j)
@@ -388,4 +620,115 @@ void Zorder::ZorderTotalRender(HDC hdc)
 	}
 	//벡터초기화
 	_vZorder.clear();
+}
+
+void Zorder::ZorderUITotalRender(HDC hdc)
+{
+	this->UiZorderSort();
+
+	for (int i = 0; i < _vUiZorder.size(); i++)
+	{
+		switch (_vUiZorder[i].kind)
+		{
+		case IMG_NOMAL:
+			_vUiZorder[i].img->render(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY);
+			break;
+		case IMG_NOMAL_SOUR:
+			_vUiZorder[i].img->render(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].sourX, _vUiZorder[i].sourY, _vUiZorder[i].sourWidth, _vUiZorder[i].sourHeight);
+			break;
+		case IMG_FRAME:
+			_vUiZorder[i].img->frameRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].frameX, _vUiZorder[i].frameY);
+			break;
+		case IMG_ALPHA:
+			_vUiZorder[i].img->alphaRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].alpha);
+			break;
+		case IMG_ALPHA_SOUR:
+			_vUiZorder[i].img->alphaRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].sourX, _vUiZorder[i].sourY, _vUiZorder[i].sourWidth, _vUiZorder[i].sourHeight, _vUiZorder[i].alpha);
+			break;
+		case IMG_ALPHA_FRAME:
+			_vUiZorder[i].img->alphaFrameRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].frameX, _vUiZorder[i].frameY, _vUiZorder[i].alpha);
+			break;
+		case IMG_ROTATE:
+			_vUiZorder[i].img->rotateRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].angle);
+			break;
+		case IMG_ROTATE_FRAME:
+			_vUiZorder[i].img->rotateFrameRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].angle, _vUiZorder[i].frameX, _vUiZorder[i].frameY);
+			break;
+		case IMG_ROTATE_ALPHA:
+			_vUiZorder[i].img->rotateAlphaRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].angle, _vUiZorder[i].alpha);
+			break;
+		case IMG_ROTATE_ALPHAFRAME:
+			_vUiZorder[i].img->rotateAlphaFrameRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].angle, _vUiZorder[i].frameX, _vUiZorder[i].frameY, _vUiZorder[i].alpha);
+			break;
+		case IMG_STRETCH:
+			if (_vUiZorder[i].stretchKind == STRETCH_WHOLE_RATIO)
+				_vUiZorder[i].img->stretchRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].ratio);
+			if (_vUiZorder[i].stretchKind == STRETCH_EACH_SCALE)
+				_vUiZorder[i].img->stretchRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].newWidth, _vUiZorder[i].newHeight);
+			break;
+		case IMG_STRETCH_FRAME:
+			if (_vUiZorder[i].stretchKind == STRETCH_WHOLE_RATIO)
+				_vUiZorder[i].img->stretchFrameRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].frameX, _vUiZorder[i].frameY, _vUiZorder[i].ratio);
+			if (_vUiZorder[i].stretchKind == STRETCH_EACH_SCALE)
+				_vUiZorder[i].img->stretchFrameRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].frameX, _vUiZorder[i].frameY, _vUiZorder[i].newWidth, _vUiZorder[i].newHeight);
+			break;
+		case IMG_ROTATESTRETCH:
+			_vUiZorder[i].img->rotateStretchRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].angle, _vUiZorder[i].ratio);
+			break;
+		case IMG_ROTATESTRETCHFRAME:
+			_vUiZorder[i].img->rotateStretchFrameRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].frameX, _vUiZorder[i].frameY, _vUiZorder[i].angle, _vUiZorder[i].ratio);
+			break;
+		case IMG_ANI:
+			_vUiZorder[i].img->aniRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].ani);
+			break;
+		case IMG_ANIALPHA:
+			_vUiZorder[i].img->aniAlphaRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].ani, _vUiZorder[i].alpha);
+			break;
+		case OBJ_RECT:
+			RectangleMake(hdc, _vUiZorder[i].rc);
+			break;
+		case OBJ_RECTROTATE:
+			RectangleMakeRotateCenter(hdc, _vUiZorder[i].rc, _vUiZorder[i].angle);
+			break;
+		case OBJ_COLORRECT:
+		{
+			HBRUSH brush = CreateSolidBrush(_vUiZorder[i].rectColor);
+			HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
+			RectangleMake(hdc, _vUiZorder[i].rc);
+			SelectObject(hdc, oldBrush);
+			DeleteObject(brush);
+		}
+		break;
+		case TXT_TEXTOUT:
+		{
+			HFONT font = _vUiZorder[i].font;
+			HFONT oFont = (HFONT)SelectObject(hdc, font);
+			SetTextColor(hdc, _vUiZorder[i].txtColor);
+			TextOut(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].txt.c_str(), _vUiZorder[i].txt.size());
+			SelectObject(hdc, oFont);
+			DeleteObject(font);
+			SetTextColor(hdc, RGB(255, 255, 255));
+		}
+		break;
+		case TXT_DRAWTEXT:
+		{
+			HFONT font = _vUiZorder[i].font;
+			//HFONT font = CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+			//	0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕"));
+			HFONT oFont = (HFONT)SelectObject(hdc, font);
+			SetTextColor(hdc, _vUiZorder[i].txtColor);
+			DrawText(hdc, _vUiZorder[i].txt.c_str(), -1, &_vUiZorder[i].txtRC, _vUiZorder[i].format);
+			SelectObject(hdc, oFont);
+			DeleteObject(font);
+			SetTextColor(hdc, RGB(255, 255, 255));
+		}
+		break;
+		}
+	}
+	//벡터초기화
+	for (int i = 0; i < _vUiZorder.size(); i++)
+	{
+		if (_vUiZorder[i].font) DeleteObject(_vUiZorder[i].font);
+	}
+	_vUiZorder.clear();
 }

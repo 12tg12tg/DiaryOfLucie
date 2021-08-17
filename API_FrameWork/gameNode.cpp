@@ -122,12 +122,12 @@ LRESULT gameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 		m_ptMouse.y = HIWORD(lParam);
 		break;
 	case WM_KEYDOWN:
-		switch (wParam)
-		{
-		case VK_ESCAPE: //ESC
-			PostQuitMessage(0);
-			break;
-		}
+		//switch (wParam)
+		//{
+		//case VK_ESCAPE: //ESC
+		//	PostQuitMessage(0);
+		//	break;
+		//}
 		break;
 
 	case WM_DESTROY:

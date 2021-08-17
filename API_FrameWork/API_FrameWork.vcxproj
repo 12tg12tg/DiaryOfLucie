@@ -158,6 +158,7 @@
     <ClInclude Include="Cplayer.h" />
     <ClInclude Include="Cmonsters.h" />
     <ClInclude Include="CplayerData.h" />
+    <ClInclude Include="DOL_Title.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="fountain.h" />
@@ -166,6 +167,8 @@
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="loading.h" />
     <ClInclude Include="mainDOL.h" />
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="mapManager.h" />
@@ -180,6 +183,7 @@
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="sceneManager.h" />
+    <ClInclude Include="shop.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="statue.h" />
@@ -204,6 +208,7 @@
     <ClCompile Include="Cplayer.cpp" />
     <ClCompile Include="Cmonsters.cpp" />
     <ClCompile Include="CplayerData.cpp" />
+    <ClCompile Include="DOL_Title.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="fountain.cpp" />
@@ -211,6 +216,8 @@
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="loading.cpp" />
     <ClCompile Include="mainDOL.cpp" />
     <ClCompile Include="mainGame.cpp" />
     <ClCompile Include="mapManager.cpp" />
@@ -223,6 +230,7 @@
     <ClCompile Include="object.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="sceneManager.cpp" />
+    <ClCompile Include="shop.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="statue.cpp" />
     <ClCompile Include="timeManager.cpp" />
@@ -237,6 +245,9 @@
   <ItemGroup>
     <Image Include="API_FrameWork.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\UI\icon2.cur" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

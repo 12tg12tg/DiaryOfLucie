@@ -76,9 +76,9 @@ void fountain::bulletCollision(bulletManager* bm)
 					_x + _img->getFrameWidth() / 2, _y + _img->getFrameHeight() / 2);
 				_x += cosf(angle) * 5;
 				_y -= sinf(angle) * 5;
+				afterHit();
 			}
 			bm->getMgcBulInstance()->removeBullet(i);
-			afterHit();
 		}
 	}
 	//2. 플레이어 화살
@@ -92,9 +92,9 @@ void fountain::bulletCollision(bulletManager* bm)
 					_x + _img->getFrameWidth() / 2, _y + _img->getFrameHeight() / 2);
 				_x += cosf(angle) * 5;
 				_y -= sinf(angle) * 5;
+				afterHit();
 			}
 			bm->getArwBulInstance()->removeBullet(i);
-			afterHit();
 		}
 	}
 	//3. 검
@@ -141,7 +141,12 @@ void fountain::playerCollision()
 
 void fountain::afterHit()
 {
-	/*동전 투척*/
+	if (PLAYERDATA->costMP(1, true))
+	{
+		PLAYERDATA->costMP(1);
+		/*동전투척*/
+		PLAYERDATA->changeGold(+100, false);
+	}
 	_hp--;
 }
 

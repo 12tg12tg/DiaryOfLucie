@@ -1,7 +1,6 @@
 #pragma once
 #include "gameNode.h"
 #include "Cmonsters.h"
-
 class Cplayer;
 class bulletManager;
 class monsterManager : public gameNode
@@ -74,6 +73,8 @@ public:
 		_mushmam_mushroom_B->setIsDebug(_isDebug);
 		_yggdrasil->setIsDebug(_isDebug);
 		_yggdrasil_bomb->setIsDebug(_isDebug);
+
+
 	}
 };
 
