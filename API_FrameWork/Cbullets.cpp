@@ -1438,7 +1438,7 @@ void CmFBoss1Bullet::move()
 		{
 			_viBullet->count = 0;
 		}
-		if (_viBullet->count >= 0 && !(_viBullet->iscollison))
+		if (_viBullet->count >= 0 )
 		{
 			
 			_viBullet->x += cosf(_viBullet->angle += _viBullet->omega) * _viBullet->speed;
@@ -1449,11 +1449,11 @@ void CmFBoss1Bullet::move()
 			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
 				_viBullet->bulletImage->getWidth(),
 				_viBullet->bulletImage->getHeight());
-			if (_viBullet->count % 15 == 0 && !((_viBullet->iscollison)))
+			if (_viBullet->count % 15 == 0 )
 			{
 				fire2(_viBullet->fireX, _viBullet->fireY,0);
 			}
-			else if ( _viBullet->count ==149)
+			if ( _viBullet->count ==149)
 			{
 				_viBullet = _vBullet.erase(_viBullet);
 			}
