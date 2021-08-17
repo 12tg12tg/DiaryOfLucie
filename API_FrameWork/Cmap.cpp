@@ -91,7 +91,7 @@ Cmap2::Cmap2()
 
 	monpos[0] = { 507,192 };
 	monpos[1] = { 620,237 };
-	monpos[2] = { 746,383 };
+	monpos[2] = { 446,383 };
 	monpos[3] = { 369,401 };
 }
 
@@ -479,7 +479,7 @@ Cmap7::Cmap7()
 	_door[3].Door = RectMake(427, 650, 160, 25); //bottom
 	monpos[0] = { 507,192 };
 	monpos[1] = { 620,237 };
-	monpos[2] = { 746,383 };
+	monpos[2] = { 406,383 };
 	monpos[3] = { 369,401 };
 }
 
@@ -1274,4 +1274,50 @@ void fountainMap::render()
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 530, _portal);
 	}
 	_fountain->render();
+}
+
+before_Boss::before_Boss()
+{
+	IMAGE->addImage("보스전배경", "images/map/ground102.bmp", 1008, 960, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("보스전픽셀", "images/map/!mground102.bmp", 1008, 960, true, RGB(255, 0, 255));
+	IMAGE->addImage("보스전가림", "images/map/Par102.bmp", 1008, 960, true, RGB(255, 0, 255));
+	_portalImage = IMAGE->addFrameImage("포탈", "images/map/portal2.bmp", 960, 768, 5, 4, true, RGB(255, 0, 255));
+	_door[1].Door = RectMake(433, 0, 140, 25); //top
+}
+
+before_Boss::~before_Boss()
+{
+}
+
+HRESULT before_Boss::init()
+{
+	return S_OK;
+}
+
+void before_Boss::release()
+{
+}
+
+void before_Boss::update()
+{
+	aniCount++;
+	if (aniCount == 1)
+	{
+		_portal = ANIMATION->addNoneKeyAnimation("포탈", 5, false, false);
+	}
+	else if (aniCount == 53)
+	{
+		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
+	}
+}
+
+void before_Boss::render()
+{
+	ZORDER->ZorderRender(IMAGE->findImage("보스전배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("보스전가림"), ZABOVEMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("보스전픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
+	
+		if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
+		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 410, -120, _portal);
+	
 }

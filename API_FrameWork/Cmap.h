@@ -251,6 +251,21 @@ public:
 
 };
 
+class before_Boss : public motherMap
+{
+private:
+
+public:
+	before_Boss();
+	~before_Boss();
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+};
+
+
 
 
 
