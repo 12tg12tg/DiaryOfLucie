@@ -1076,7 +1076,7 @@ HRESULT stage1_Boss::init()
 {
 	if (isClear == false)
 	{
-		summonBoss(2);
+		//summonBoss(2);
 	}
 	return S_OK;
 }

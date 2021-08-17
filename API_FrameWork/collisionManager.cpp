@@ -985,7 +985,7 @@ void collisionManager::bulletToMap()
 		i++;
 	}
 	//FbossV1
-	for (int i = 0; i < bm->getHomBulInstance()->getVBullet().size(); )
+	for (int i = 0; i < bm->getFlwBos1Bullnstance()->getVBullet().size(); )
 	{
 		for (int k = bm->getFlwBos1Bullnstance()->getVBullet()[i].x - 1; k < bm->getFlwBos1Bullnstance()->getVBullet()[i].x + 1; k++)
 		{

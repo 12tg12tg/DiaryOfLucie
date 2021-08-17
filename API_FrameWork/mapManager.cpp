@@ -120,14 +120,14 @@ HRESULT mapManager::init()
 		}
 	}
 	/*stage++;*/
-
+	goNextStage = false;
 	
 	return S_OK;
 }
 
 void mapManager::release()
 {
-	SCENE->release();
+	SCENE->releaseLight();
 }
 
 void mapManager::update()
@@ -216,6 +216,10 @@ void mapManager::update()
 	}
 	if (checkMagicDoor)
 	{
+		checkMagicDoor = false;
+		goNextStage = true;
+		SCENE->changeScene("·Îµù");
+	
 	}
 	SCENE->update();
 }
@@ -736,7 +740,7 @@ void mapManager::makeclear() {
 	remainNextStage = 1;
 	stage1[(MAXSIZE - 1) / 2][(MAXSIZE - 1) / 2] = { _Cmap10,"_Cmap10",START};
 	remainRoom--;
-	SCENE->release();
+	SCENE->releaseLight();
 }
 
 image* mapManager::getCurrentColMap()

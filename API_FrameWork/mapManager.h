@@ -68,7 +68,7 @@ private:
 	bool bottomdoor_open;
 	bool rightdoor_open;
 	bool leftdoor_open;
-
+	bool goNextStage;
 	bool checkright;
 	bool checkleft;
 	bool checktop;
@@ -119,7 +119,7 @@ public:
 	void UseableDoor();
 	void makestage1(int i, int k);
 	void makeclear();
-	
+	bool getGoNextStage() {return goNextStage;}
 
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }

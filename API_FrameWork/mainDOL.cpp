@@ -43,6 +43,10 @@ void mainDOL::update()
 	if (_loading->getIsLodingDone()) {
 		canUpdate = true;
 	}
+	if (_mapm->getGoNextStage())
+	{
+		canUpdate = false;
+	}
 	//타이틀과 게임시작화면 & 로딩
 	if (!canUpdate) {
 		SCENE->update();
