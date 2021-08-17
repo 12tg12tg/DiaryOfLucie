@@ -12,13 +12,13 @@ private:
 	image* _progressBarFront;
 	image* _progressBarBack;
 
-
+	bool _isUi;				//20210817 - 팀프에 머리위 게이지위해서 추가!
 public:
 
 	progressBar();
 	~progressBar();
 
-	HRESULT init(char* frontImage, char* backImage, float x, float y, int width, int height);
+	HRESULT init(char* frontImage, char* backImage, float x, float y, int width, int height, bool isUi = true);
 	void release();
 	void update();
 	void render();

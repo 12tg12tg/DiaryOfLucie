@@ -107,6 +107,7 @@ LRESULT gameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 {
 	PAINTSTRUCT ps;
 	HDC hdc;
+	RECT rt;
 	switch (iMessage)
 	{
 	//case WM_TIMER:
@@ -128,6 +129,14 @@ LRESULT gameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 		//	PostQuitMessage(0);
 		//	break;
 		//}
+		break;
+
+	case WM_SIZE:
+		//GetClientRect(hWnd, &rt);
+		//InvalidateRect(hWnd, NULL, TRUE);
+		//GetClientRect(hWnd, &rt);        // Window의 top, left, bottom, right 값을 얻기
+		//MoveWindow(hWnd, rt.left, rt.top, rt.right, rt.bottom, TRUE);    // listbox의 size를 change
+
 		break;
 
 	case WM_DESTROY:
