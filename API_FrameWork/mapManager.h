@@ -54,12 +54,12 @@ private:
 	image* _back;
 
 	string currentMap;
-	DungeonDoor _dgDoor;
+	
 	POINT currentIndex;
 	monsterManager* mm;
 	bulletManager* bm;
 	int currentMonNum =0;
-
+	int stage = 1;
 	int remainRoom = 12;
 	int mapSize;
 	int remainNextStage = 1;
@@ -72,11 +72,11 @@ private:
 	bool checkleft;
 	bool checktop;
 	bool checkbottom;
-
+	bool checkMagicDoor;
 
 
 	MAP stage1[MAXSIZE][MAXSIZE];
-	MAP stage2[MAXSIZE][MAXSIZE];
+
 
 	map<string,motherMap*> _mStage1;
 	map<string, motherMap*>::iterator _imStage1;
@@ -100,8 +100,9 @@ public:
 	image* getCurrentColMap();
 	
 	DungeonDoor* getCurrentDoor();
-	
-public:
+	MagicDoor* getMagicDoor();
+	mapManager();
+	~mapManager();
 	void setrightdoor_state(bool rightdoor_open) { this->rightdoor_open = rightdoor_open; }
 	void setleftdoor_state(bool leftdoor_open) { this->leftdoor_open = leftdoor_open; }
 	void settopdoor_state(bool topdoor_open) { this->topdoor_open = topdoor_open; }
@@ -111,6 +112,7 @@ public:
 	void checkleftdoorcollison(bool checkleftdoorcollison) { checkleft = checkleftdoorcollison; }
 	void checktopdoorcollison(bool checktopdoorcollison) { checktop = checktopdoorcollison; }
 	void checkdowndoorcollison(bool checkdowndoorcollison) { checkbottom = checkdowndoorcollison; }
+	void checkMagicDoorCollison(bool magicDoorCollison) { checkMagicDoor = magicDoorCollison; }
 
 	void doorstate(monster* monster);
 	void UseableDoor();

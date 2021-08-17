@@ -9,6 +9,7 @@ struct tagBullet
 	image* bulletImage;
 	image* bulletImage2;
 	image* bulletImage3;
+	animation* bulletAni;
 	RECT rc;
 	float x,y ;
 	float fireX, fireY;
@@ -26,6 +27,7 @@ struct tagBullet
 	bool isPlayerBullet;
 	bool iscollison;
 	int alpha;
+	bool colPoison;
 };
 
 class CpMagicBullet : public gameNode
@@ -557,3 +559,191 @@ public:
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
+
+
+class CpSword : public gameNode
+{
+private:
+
+	vector<tagBullet> _vBullet;
+	vector<tagBullet>::iterator _viBullet;
+
+	vector<tagBullet> _vBullet2;
+	vector<tagBullet>::iterator _viBullet2;
+
+	vector<tagBullet> _vBullet3;
+	vector<tagBullet>::iterator _viBullet3;
+private:
+	bool _isDebug;
+public:
+	CpSword();
+	~CpSword();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+	void fire(float x, float y, float angle, int plussize);
+	void fire2(float x, float y, float angle,  int plussize);
+	void fire3(float x, float y, float angle, int plussize);
+	void move();
+	void move2();
+	void move3();
+	void removeBullet(int arrNum);
+	void removeBullet2(int arrNum);
+	void removeBullet3(int arrNum);
+
+	vector<tagBullet>& getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator& getVIBullet() { return _viBullet; }
+
+	vector<tagBullet>& getVBullet2() { return _vBullet2; }
+	vector<tagBullet>::iterator& getVIBullet2() { return _viBullet2; }
+
+	vector<tagBullet>& getVBullet3() { return _vBullet3; }
+	vector<tagBullet>::iterator& getVIBullet3() { return _viBullet3; }
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+};
+
+class CpSkil_LuckyStar : public gameNode
+{
+private:
+
+	vector<tagBullet> _vBullet;
+	vector<tagBullet>::iterator _viBullet;
+
+
+private:
+	bool _isDebug;
+public:
+	CpSkil_LuckyStar();
+	~CpSkil_LuckyStar();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+	void fire(float x, float y, float angle, int plussize);
+	void move();
+
+	void removeBullet(int arrNum);
+
+	vector<tagBullet>& getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator& getVIBullet() { return _viBullet; }
+
+
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+};
+
+class CpSkil_Ice_spear : public gameNode
+{
+private:
+
+	vector<tagBullet> _vBullet;
+	vector<tagBullet>::iterator _viBullet;
+	vector<tagBullet> _vBullet2;
+	vector<tagBullet>::iterator _viBullet2;
+
+
+
+
+private:
+	bool _isDebug;
+public:
+	CpSkil_Ice_spear();
+	~CpSkil_Ice_spear();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+	void fire(float x, float y, float angle, int plussize);
+	void fire2(float x, float y, float angle, int plussize);
+	void move();
+	void move2();
+
+	void removeBullet(int arrNum);
+	void removeBullet2(int arrNum);
+
+	vector<tagBullet>& getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator& getVIBullet() { return _viBullet; }
+	vector<tagBullet>& getVBullet2() { return _vBullet2; }
+	vector<tagBullet>::iterator& getVIBullet2() { return _viBullet2; }
+
+
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+};
+
+class CpSkil_Haste : public gameNode
+{
+private:
+
+	vector<tagBullet> _vBullet;
+	vector<tagBullet>::iterator _viBullet;
+
+
+private:
+	bool _isDebug;
+public:
+	CpSkil_Haste();
+	~CpSkil_Haste();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+	void fire(float x, float y, float angle, int plussize);
+	void move();
+
+	void removeBullet(int arrNum);
+	
+	vector<tagBullet>& getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator& getVIBullet() { return _viBullet; }
+
+
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+};
+
+class CpSkil_Charge : public gameNode
+{
+private:
+
+	vector<tagBullet> _vBullet;
+	vector<tagBullet>::iterator _viBullet;
+
+
+private:
+	bool _isDebug;
+	float _range;
+public:
+	CpSkil_Charge();
+	~CpSkil_Charge();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+	void fire(float x, float y, float angle, int plussize);
+	void move();
+
+	void removeBullet(int arrNum);
+
+	vector<tagBullet>& getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator& getVIBullet() { return _viBullet; }
+
+
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+};
+
+
+
+
+
+
+
+
+

@@ -57,3 +57,21 @@ void motherMap::summonMon(int x)
 		
 	}
 }
+
+void motherMap::summonBoss(int x)
+{
+	chooseMon = RND->getFromInTo(0, x);
+	if (chooseMon == BOSS::SLIME_B)
+	{
+		mm->getBoss_Slime()->addMonster(552,480);
+	}
+	if (chooseMon == BOSS::FLIME_B)
+	{
+		mm->getBoss_Flime()->addMonster(552, 480);
+	}
+	if (chooseMon == BOSS::MUSHMOM_B)
+	{
+		mm->getBoss_Mushmam()->addMonster(552, 480);
+	}
+	
+}
