@@ -31,6 +31,7 @@ HRESULT bulletManager::init()
 	_CpSword = new CpSword;
 	_CpSkil_LuckyStar = new CpSkil_LuckyStar;
 	_CpSkil_Ice_spear = new CpSkil_Ice_spear;
+	_CpSkil_Haste = new CpSkil_Haste;
 	return S_OK;
 }
 
@@ -56,6 +57,7 @@ void bulletManager::release()
 	SAFE_DELETE(_CpSword);
 	SAFE_DELETE(_CpSkil_LuckyStar);
 	SAFE_DELETE(_CpSkil_Ice_spear);
+	SAFE_DELETE(_CpSkil_Haste);
 }
 
 void bulletManager::update()
@@ -80,6 +82,7 @@ void bulletManager::update()
 	_CpSword->update();
 	_CpSkil_LuckyStar->update();
 	_CpSkil_Ice_spear->update();
+	_CpSkil_Haste->update();
 } 
 
 void bulletManager::render()
@@ -104,4 +107,5 @@ void bulletManager::render()
 	_CpSword->render();
 	_CpSkil_LuckyStar->render();
 	_CpSkil_Ice_spear->render();
+	_CpSkil_Haste->render();
 }

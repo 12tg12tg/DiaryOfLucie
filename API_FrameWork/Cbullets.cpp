@@ -2641,6 +2641,7 @@ void CpSkil_LuckyStar::release()
 
 void CpSkil_LuckyStar::update()
 {
+	move();
 }
 
 void CpSkil_LuckyStar::render()
@@ -2662,7 +2663,7 @@ void CpSkil_LuckyStar::fire(float x, float y, float angle, int plussize)
 	{
 		ZeroMemory(&bullet, sizeof(tagBullet));
 		bullet.bulletImage = new  image;
-		bullet.bulletImage = IMAGE->addImage("별총알", "images/bullet_bmp/skill_ms_star.bmp",24, 24, true);
+		bullet.bulletImage = IMAGE->addImage("별총알", "images/bullet_bmp/skill_ms_star.bmp",12,12, true);
 		bullet.plussize = 1 + (double)plussize / bullet.bulletImage->getWidth();
 		bullet.angle = angle - 0.4 + 0.2 * i;
 		bullet.speed = 5.0f;
@@ -2739,7 +2740,7 @@ void CpSkil_Ice_spear::render()
 	for (_viBullet2; _viBullet2 != _vBullet2.end(); ++_viBullet2)
 	{
 		if (_isDebug) ZORDER->ZorderRectangle(_viBullet2->rc, ZCOL1);
-		ZORDER->ZorderAniRender(_viBullet2->bulletImage2, ZUNIT, _viBullet->rc.bottom, RecCenX(_viBullet->rc), RecCenY(_viBullet->rc), _viBullet->bulletAni);
+		ZORDER->ZorderAniRender(_viBullet2->bulletImage2, ZUNIT, _viBullet2->rc.bottom,_viBullet2->rc.left, _viBullet2->rc.top, _viBullet2->bulletAni);
 	}
 }
 
@@ -2752,7 +2753,7 @@ void CpSkil_Ice_spear::fire(float x, float y, float angle, int plussize)
 	bullet.bulletImage = IMAGE->addImage("얼음화살", "images/bullet_bmp/ice.bmp", 61, 21, true);
 	bullet.angle2 = angle;
 	bullet.angle = angle;
-	bullet.speed = 2.0f;
+	bullet.speed = 4.0f;
 	bullet.x = bullet.fireX = x;
 	bullet.y = bullet.fireY = y;
 	bullet.iscollison = false;
@@ -2777,9 +2778,9 @@ void CpSkil_Ice_spear::fire2(float x, float y, float angle, int plussize)
 		bullet2.alpha = 255;
 		bullet2.x = bullet2.fireX = x;
 		bullet2.y = bullet2.fireY = y;
-		bullet2.rc = RectMakeCenter(bullet2.x, bullet2.y,
+		bullet2.rc = RectMake(bullet2.x, bullet2.y,
 			bullet2.bulletImage2->getFrameWidth(),
-			bullet2.bulletImage2->getFrameHeight());
+			bullet2.bulletImage2->getFrameHeight()-20);
 		bullet2.iscollison = false;
 		bullet2.count = 100;
 
@@ -2801,8 +2802,8 @@ void CpSkil_Ice_spear::move()
 			_viBullet->y -= sinf(_viBullet->angle2) * _viBullet->speed;
 
 			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
-				_viBullet->bulletImage->getFrameWidth(),
-				_viBullet->bulletImage->getFrameHeight());
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
 
 			_viBullet->fireX = _viBullet->x;
 			_viBullet->fireY = _viBullet->y;
@@ -2827,18 +2828,17 @@ void CpSkil_Ice_spear::move2()
 	{
 		_viBullet2->count++;
 
-		if ((_viBullet2->count >= 0) && _viBullet2->count < 250 && !(_viBullet2->iscollison))
+		if ((_viBullet2->count >= 0) && _viBullet2->count < 250 )
 		{
-			_viBullet->x += cosf(_viBullet->angle2) * 0;
-			_viBullet->y -= sinf(_viBullet->angle2) * 0;
+			_viBullet2->x += cosf(_viBullet2->angle2) * 0;
+			_viBullet2->y -= sinf(_viBullet2->angle2) * 0;
 
-			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
-				_viBullet->bulletImage->getWidth(),
-				_viBullet->bulletImage->getHeight());
+			_viBullet2->rc = RectMakeCenter(_viBullet2->x, _viBullet2->y,
+				_viBullet2->bulletImage2->getFrameWidth(),
+				_viBullet2->bulletImage2->getFrameHeight() - 20);
 		}
-		else if (_viBullet2->count >= 250 || _viBullet2->iscollison)
+		else if (_viBullet2->count >= 250)
 		{
-
 			_viBullet2 = _vBullet2.erase(_viBullet2);
 			continue;
 		}
@@ -2853,3 +2853,88 @@ void CpSkil_Ice_spear::removeBullet2(int arrNum)
 {
 	_vBullet2.erase(_vBullet2.begin() + arrNum);
 }
+
+CpSkil_Haste::CpSkil_Haste()
+{
+}
+
+CpSkil_Haste::~CpSkil_Haste()
+{
+}
+
+HRESULT CpSkil_Haste::init()
+{
+	return S_OK;
+}
+
+void CpSkil_Haste::release()
+{
+}
+
+void CpSkil_Haste::update()
+{
+	move();
+}
+
+void CpSkil_Haste::render()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderAniRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom, _viBullet->rc.left, _viBullet->rc.top, _viBullet->bulletAni);
+	}
+}
+
+void CpSkil_Haste::fire(float x, float y, float angle, int plussize)
+{
+	tagBullet bullet;
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addFrameImage("헤이스트", "images/bullet_bmp/sk_haste.bmp", 960,1536, 5, 8, true, RGB(255, 0, 255));
+	bullet.bulletAni = new animation;
+	bullet.bulletAni = ANIMATION->addNoneKeyAnimation("헤이스트", 50, false, true);
+	bullet.angle = angle;
+	bullet.x = bullet.fireX = x;
+	bullet.y = bullet.fireY = y;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y-40,
+		bullet.bulletImage->getFrameWidth(),
+		bullet.bulletImage->getFrameHeight());
+	bullet.iscollison = false;
+	bullet.count = 100;
+
+	_vBullet.push_back(bullet);
+}
+
+
+void CpSkil_Haste::move()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end();)
+	{
+		_viBullet->count++;
+
+		if ((_viBullet->count >= 0) && _viBullet->count < 150)
+		{
+			_viBullet->x += cosf(_viBullet->angle) * 0;
+			_viBullet->y -= sinf(_viBullet->angle) * 0;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y - 40,
+				_viBullet->bulletImage->getFrameWidth(),
+				_viBullet->bulletImage->getFrameHeight() - 20);
+		}
+		else if (_viBullet->count >=150)
+		{
+			_viBullet = _vBullet.erase(_viBullet);
+			continue;
+		}
+		++_viBullet;
+	}
+}
+
+
+void CpSkil_Haste::removeBullet(int arrNum)
+{
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}
+
