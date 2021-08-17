@@ -23,6 +23,9 @@ Cmap::~Cmap()
 
 HRESULT Cmap::init()
 {
+
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	if (!(getClear()))
 	{
 		summonMon(4);
@@ -102,6 +105,8 @@ Cmap2::~Cmap2()
 HRESULT Cmap2::init()
 {
 
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	if (!(getClear()))
 	{
 		summonMon(4);
@@ -182,6 +187,8 @@ Cmap3::~Cmap3()
 HRESULT Cmap3::init()
 {
 
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 768, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	if (!(getClear()))
 	{
 		summonMon(4);
@@ -261,6 +268,8 @@ Cmap4::~Cmap4()
 HRESULT Cmap4::init()
 {
 
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 768, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	if (!(getClear()))
 	{
 		summonMon(4);
@@ -337,6 +346,9 @@ Cmap5::~Cmap5()
 
 HRESULT Cmap5::init()
 {
+
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	if (!(getClear()))
 	{
 		summonMon(4);
@@ -414,6 +426,9 @@ Cmap6::~Cmap6()
 
 HRESULT Cmap6::init()
 {
+
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 768, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	if (!(getClear()))
 	{
 		summonMon(4);
@@ -489,6 +504,9 @@ Cmap7::~Cmap7()
 
 HRESULT Cmap7::init()
 {
+
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	if (!(getClear()))
 	{
 		summonMon(4);
@@ -564,6 +582,9 @@ Cmap8::~Cmap8()
 
 HRESULT Cmap8::init()
 {
+
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 768, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	if (!(getClear()))
 	{
 		summonMon(4);
@@ -640,6 +661,9 @@ Cmap9::~Cmap9()
 
 HRESULT Cmap9::init()
 {
+
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	if (!(getClear()))
 	{
 		summonMon(4);
@@ -712,6 +736,8 @@ Cmap10::~Cmap10()
 HRESULT Cmap10::init()
 {
 
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 
 	return S_OK;
 }
@@ -785,6 +811,8 @@ chestMap::~chestMap()
 HRESULT chestMap::init()
 {
 
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	return S_OK;
 }
 
@@ -860,6 +888,9 @@ shopMap::~shopMap()
 
 HRESULT shopMap::init()
 {
+
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		960, 576, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	return S_OK;
 }
 
@@ -930,6 +961,8 @@ statueMap::~statueMap()
 HRESULT statueMap::init()
 {
 
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	return S_OK;
 }
 
@@ -1004,6 +1037,8 @@ moruMap::~moruMap()
 HRESULT moruMap::init()
 {
 
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	return S_OK;
 }
 
@@ -1074,6 +1109,9 @@ stage1_Boss::~stage1_Boss()
 
 HRESULT stage1_Boss::init()
 {
+
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1104, 960, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	if (isClear == false)
 	{
 		//summonBoss(2);
@@ -1147,6 +1185,9 @@ nextStage::~nextStage()
 
 HRESULT nextStage::init()
 {
+
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	return S_OK;
 }
 
@@ -1226,6 +1267,8 @@ fountainMap::~fountainMap()
 HRESULT fountainMap::init()
 {
 
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	return S_OK;
 }
 
@@ -1279,10 +1322,10 @@ void fountainMap::render()
 before_Boss::before_Boss()
 {
 	IMAGE->addImage("보스전배경", "images/map/ground102.bmp", 1008, 960, true, RGB(255, 0, 255));
-	_collisionMap = IMAGE->addImage("보스전픽셀", "images/map/!mground102.bmp", 1008, 960, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("보스전픽셀", "images/map/!m102.bmp", 1008, 960, true, RGB(255, 0, 255));
 	IMAGE->addImage("보스전가림", "images/map/Par102.bmp", 1008, 960, true, RGB(255, 0, 255));
 	_portalImage = IMAGE->addFrameImage("포탈", "images/map/portal2.bmp", 960, 768, 5, 4, true, RGB(255, 0, 255));
-	_door[1].Door = RectMake(433, 0, 140, 25); //top
+	_door[1].Door = RectMake(504,169,140,25); //top
 }
 
 before_Boss::~before_Boss()
@@ -1291,6 +1334,9 @@ before_Boss::~before_Boss()
 
 HRESULT before_Boss::init()
 {
+
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 960, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	return S_OK;
 }
 
@@ -1316,8 +1362,44 @@ void before_Boss::render()
 	ZORDER->ZorderRender(IMAGE->findImage("보스전배경"), ZFLOORMAP, WINSIZEX, 0, 0);
 	ZORDER->ZorderRender(IMAGE->findImage("보스전가림"), ZABOVEMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("보스전픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
+		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 504, 169, -120, _portal);
 	
-		if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
-		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 410, -120, _portal);
-	
+}
+
+last_Boss::last_Boss()
+{
+	IMAGE->addImage("라보배경", "images/map/Ground55.bmp", 1344, 1200, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("라보픽셀", "images/map/!m55.bmp", 1344, 1200, true, RGB(255, 0, 255));
+	IMAGE->addImage("라보가림", "images/map/Par55.bmp", 1344, 1200, true, RGB(255, 0, 255));
+	_door[3].Door = RectMake(636, 1100, 160, 25); //bottom
+}
+
+last_Boss::~last_Boss()
+{
+}
+
+HRESULT last_Boss::init()
+{
+
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1344, 1200, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
+	return S_OK;
+}
+
+void last_Boss::release()
+{
+}
+
+void last_Boss::update()
+{
+}
+
+void last_Boss::render()
+{
+	ZORDER->ZorderRender(IMAGE->findImage("라보배경"), ZFLOORMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("라보픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("라보가림"), ZABOVEMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
+
 }
