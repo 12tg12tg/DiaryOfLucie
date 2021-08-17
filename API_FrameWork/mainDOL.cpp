@@ -78,6 +78,7 @@ void mainDOL::render()
 	if (!canUpdate) {
 		//씬
 		SCENE->render();
+		BUTTON->render(getMemDC());
 	}
 	else {
 		//아래로 쭉 Zorder에 저장
