@@ -229,13 +229,13 @@ void statue::afterHit()
 		if (_isHit) {
 			_isHit2 = true;
 			if (RND->getInt(2)) {
-				PLAYERDATA->changeHP(-2);
+				PLAYERDATA->costHP(2);
 			}
 			else {
 				PLAYERDATA->changeHP(2);
 			}
 		}
-		if (_isHit2) {
+		else if (_isHit2) {
 			_isHit = true;
 			if (RND->getInt(2)) {
 				PLAYERDATA->changeMP(-2);
