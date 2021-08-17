@@ -6,8 +6,6 @@ Cmap::Cmap()
 	IMAGE->addImage("211¹è°æ", "images/map/ground211.bmp", 1008,672, true, RGB(255, 0, 255));
 	_collisionMap =IMAGE->addImage("211ÇÈ¼¿", "images/map/!m211.bmp", 1008, 672, true, RGB(255, 0, 255));
 	IMAGE->addImage("211°¡¸²", "images/map/Par211.bmp", 1008, 672, true, RGB(255, 0, 255));
-	_portalImage = IMAGE->addFrameImage("Æ÷Å»", "images/map/portal13.bmp", 480,480, 5, 5, true, RGB(255, 0, 255));
-	_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 5, false, true);
 	_door[0].Door = RectMake(0, 355, 25, 120);//left
 	_door[1].Door = RectMake(433, 0, 140, 25); //top
 	_door[2].Door = RectMake(990, 355, 25, 120);//right
@@ -46,10 +44,7 @@ void Cmap::render()
 
 	ZORDER->ZorderRender(IMAGE->findImage("211¹è°æ"), ZFLOORMAP, WINSIZEX, 0, 0);
 	ZORDER->ZorderRender(IMAGE->findImage("211°¡¸²"), ZABOVEMAP, WINSIZEX, 0, 0);
-	ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 0, 455, _portal);
-	ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 482, 0, _portal);
-	ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 1085, 450, _portal);
-	ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 476, 940, _portal);
+	
 	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("211ÇÈ¼¿"), ZCOLMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[0].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
@@ -460,8 +455,8 @@ Cmap10::Cmap10()
 	IMAGE->addImage("114¹è°æ", "images/map/ground114.bmp", 1108,672, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("114ÇÈ¼¿", "images/map/!m114.bmp", 1108, 672, true, RGB(255, 0, 255));
 	IMAGE->addImage("114°¡¸²", "images/map/Par114.bmp", 1108, 672, true, RGB(255, 0, 255));
-	_portalImage = IMAGE->addFrameImage("Æ÷Å»", "images/map/portal11.bmp",240,240, 5, 5, true, RGB(255, 0, 255));
-	_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 5, false, true);
+	_portalImage = IMAGE->addFrameImage("Æ÷Å»", "images/map/portal2.bmp", 960, 768, 5, 4, true, RGB(255, 0, 255));
+
 	_door[0].Door = RectMakeCenter(0, 426, 50, 100);//left
 	_door[1].Door = RectMake(474, 0, 170, 25); //top
 	_door[2].Door = RectMake(1005, 424, 25, 100);//right
@@ -485,10 +480,21 @@ void Cmap10::release()
 
 void Cmap10::update()
 {
+	aniCount++;
+	if (aniCount == 1)
+	{
+		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 5, false, false);
+	}
+	else if(aniCount ==53)
+	{
+		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
+	}
+	
 }
 
 void Cmap10::render()
 {
+
 	ZORDER->ZorderRender(IMAGE->findImage("114¹è°æ"), ZFLOORMAP, WINSIZEX, 0, 0);
 	ZORDER->ZorderRender(IMAGE->findImage("114°¡¸²"), ZABOVEMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("114ÇÈ¼¿"), ZCOLMAP, WINSIZEX, 0, 0);
@@ -496,8 +502,8 @@ void Cmap10::render()
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[2].Door, ZEFFECT1);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
-	ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 0, 426, _portal);
-	ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 482, 0, _portal);
+	ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, -90, 300, _portal);
+	ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 450, -120, _portal);
 	ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 1085, 450, _portal);
 	ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 476, 940, _portal);
 }

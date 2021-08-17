@@ -44,6 +44,7 @@ protected:
 	animation* _portal;
 	monsterManager* mm;
 	bulletManager* bm;
+	int aniCount = 0;
 	int chooseMon;
 public:
 	motherMap();
