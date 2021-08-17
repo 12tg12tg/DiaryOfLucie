@@ -14,12 +14,15 @@ protected:
 	BYTE boxAlpha;
 
 	RECT interRc[4];
+	RECT talkRc;
 
 	bool isConversation1;	
 	bool isConversation2;	
 	bool isConversation3;	
 	bool isConversation4;	
 
+	int currentItemIndex;
+	Button* usableBt;
 public:
 	shop();
 	~shop();

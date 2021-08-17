@@ -4,6 +4,7 @@
 #include "collisionManager.h"
 #include "monsterManager.h"
 #include "mapManager.h"
+#include "DOL_Title.h"
 
 #include "shop.h"
 
@@ -24,8 +25,8 @@ private:
 
 	shop* _sp;
 
-
-
+	DOL_Title* _DOLtitle;
+	bool gameStart;
 
 
 //-----------------------------
@@ -42,17 +43,24 @@ public:
 	void update();
 	void render();
 
+	void gameInit();
+
 	void setIsdebug(bool isDebug) {
 		_isDebug = isDebug;
-		_bm->setIsDebug(_isDebug);
-		_cm->setIsDebug(_isDebug);
-		_mm->setIsDebug(_isDebug);
-		_mapm->setIsDebug(_isDebug);
-		BUTTON->setIsDebug(_isDebug);	
-		PLAYER->setIsDebug(_isDebug);
-		PLAYERDATA->setIsDebug(_isDebug);
+		if (!gameStart) {
+			BUTTON->setIsDebug(_isDebug);
+		}
+		if (gameStart) {
+			_bm->setIsDebug(_isDebug);
+			_cm->setIsDebug(_isDebug);
+			_mm->setIsDebug(_isDebug);
+			_mapm->setIsDebug(_isDebug);
+			BUTTON->setIsDebug(_isDebug);
+			PLAYER->setIsDebug(_isDebug);
+			PLAYERDATA->setIsDebug(_isDebug);
 
-		_sp->setIsDebug(_isDebug);
+			_sp->setIsDebug(_isDebug);
+		}
 	}
 };
 

@@ -158,6 +158,7 @@
     <ClInclude Include="Cplayer.h" />
     <ClInclude Include="Cmonsters.h" />
     <ClInclude Include="CplayerData.h" />
+    <ClInclude Include="DOL_Title.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="fountain.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="Cplayer.cpp" />
     <ClCompile Include="Cmonsters.cpp" />
     <ClCompile Include="CplayerData.cpp" />
+    <ClCompile Include="DOL_Title.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="fountain.cpp" />
