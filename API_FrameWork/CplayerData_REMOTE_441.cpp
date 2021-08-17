@@ -81,8 +81,11 @@ void CplayerData::render(HDC hdc)
 	//SetTextColor(hdc, RGB(0, 0, 255));
 	if (_isDebug)
 	{
-		SetBkMode(hdc, OPAQUE);
-//		카메라영향을 받지 않는 상태확인.
+		//sprintf_s(str, "최대마나통? %d",_MaxMP );
+		//TextOut(hdc, 0, WINSIZEY - 120, str, strlen(str));
+
+		//카메라영향을 받지 않는 상태확인.
+
 		wsprintf(str, "맵상마우스위치x,y? : %d, %d", (int)CAMMOUSEX, (int)CAMMOUSEY);
 		ZORDER->UITextOut(str, ZUITHIRD, 0, WINSIZEY - 100, RGB(0, 0, 255));
 		//TextOut(hdc, 0, WINSIZEY-100, str, lstrlen(str));
@@ -92,9 +95,6 @@ void CplayerData::render(HDC hdc)
 		sprintf_s(str, "화면상마우스위치x,y? %d , %d", m_ptMouse.x, m_ptMouse.y);
 		ZORDER->UITextOut(str, ZUITHIRD, 0, WINSIZEY - 60, RGB(0, 0, 255));
 		//TextOut(hdc, 0, WINSIZEY - 60, str, strlen(str));
-		wsprintf(str, "챠지카운트? : %d", (int)PLAYER->getcharge());
-		ZORDER->UITextOut(str, ZUITHIRD, 0, WINSIZEY - 120, RGB(0, 0, 255));
-
 	}
 }
 

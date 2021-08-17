@@ -2,6 +2,7 @@
 #include "singleton.h"
 
 class bulletManager;
+class progressBar;
 
 //////////////////////////////////////////////////
 
@@ -21,6 +22,9 @@ enum class STATE {
 	RUN,
 	DASH,
 	ATTSTAFF,
+	ATTSWORD,
+	ATTBOWIDLE,
+	ATTBOWWALK,
 	STAFFCHARGE,
 	KNOCKBACK,
 	DIE,
@@ -104,6 +108,7 @@ private:
 	int _attCount;
 	int _attIndex;
 	float _attAngle;
+	int _chargeShotCount;
 
 	int shootingCorrection;
 
@@ -120,6 +125,9 @@ private:
 	float _dieAlpha;
 	vector<DashEffect> _vectDashEffect;
 	vector<DashEffect>::iterator _iterDashEffect;
+	
+	progressBar* _chargeshotBar;
+
 
 private:
 	bulletManager* _Cbullet;
@@ -158,6 +166,8 @@ public:
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	void setBulletManagerMemoryLink(bulletManager* BM) { _Cbullet = BM; }
+	int getcharge() { return _chargeShotCount; }
+	WEAPONTYPE getweapone() { return _player.weapon; }
 	Player& getPlayerAddress() { return _player; }
 	STATE& getSTATEAddress() { return _state; }
 };
