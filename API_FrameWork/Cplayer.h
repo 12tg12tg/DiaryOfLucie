@@ -2,6 +2,7 @@
 #include "singleton.h"
 
 class bulletManager;
+class progressBar;
 
 //////////////////////////////////////////////////
 
@@ -22,6 +23,9 @@ enum class STATE {
 	DASH,
 	ATTSTAFF,
 	STAFFCHARGE,
+	ATTSWORD,
+	ATTBOWIDLE,
+	ATTBOWWALK,
 	KNOCKBACK,
 	DIE,
 	STOP
@@ -85,6 +89,7 @@ private:
 	tagInputDirection _inputDirection;
 	DIRECTION _direction;
 	DIRECTION _moveDirection;
+	DIRECTION _bowDirection;
 	
 	float _speed;
 
@@ -104,22 +109,30 @@ private:
 	int _attCount;
 	int _attIndex;
 	float _attAngle;
+	int _chargeShotCount;
+	int _bowCount;
 
 	int shootingCorrection;
 
 private:
 	int imageLeftCorrection;
 	int imageTopCorrection;
+	int _alpha;
 
 	image* _walk_img;
 	image* _run_img;
 	image* _dash_img;
 	image* _attStaff_img;
+	image* _chargeAtt_img;
 	image* _knockBack_img;
+	image* _bowWalk_img;
 	image* _die_img;
 	float _dieAlpha;
 	vector<DashEffect> _vectDashEffect;
 	vector<DashEffect>::iterator _iterDashEffect;
+	
+	progressBar* _chargeshotBar;
+
 
 private:
 	bulletManager* _Cbullet;
@@ -143,7 +156,7 @@ private:
 	void setPlayerFrame();
 
 private:
-	void angleCheckDirection(float angle);
+	void angleCheckDirection(float angle, bool inputdirection = false);
 
 private:
 	void pushbackDashEffect(int x,int y, int FrameX,DIRECTION direction);
@@ -158,6 +171,8 @@ public:
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	void setBulletManagerMemoryLink(bulletManager* BM) { _Cbullet = BM; }
+	int getcharge() { return _chargeShotCount; }
+	WEAPONTYPE getweapone() { return _player.weapon; }
 	Player& getPlayerAddress() { return _player; }
 	STATE& getSTATEAddress() { return _state; }
 };

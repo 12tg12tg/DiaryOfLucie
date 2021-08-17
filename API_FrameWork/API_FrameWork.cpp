@@ -30,7 +30,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	wndClass.cbClsExtra = 0;
 	wndClass.cbWndExtra = 0;
-	wndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
+	wndClass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);	//20210817수정 - 원래 WHITE_BRUSH
 
 
 	wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);

@@ -1,7 +1,7 @@
 #pragma once
 #include "image.h"
 static image* _backBuffer = IMAGE->addImage("backBuffer", WINSIZEX, WINSIZEY);
-static image* _DOLBuffer = IMAGE->addImage("DOLBuffer", WINSIZEX*2, WINSIZEY*2);	//팀프용 DC
+static image* _DOLBuffer = IMAGE->addImage("DOLBuffer", WINSIZEX*3, WINSIZEY*3);	//팀프용 DC
 class gameNode
 {
 private:
@@ -10,7 +10,7 @@ private:
 	//void setBackBuffer();//백버프셋팅
 	HDC _hdc;
 	bool _managerInit;
-	
+	RECT _rt;
 public:
 	gameNode();
 	virtual ~gameNode();
@@ -30,5 +30,6 @@ public:
 
 	LRESULT MainProc(HWND hWnd, UINT imessage, WPARAM wParam, LPARAM lParam);
 
+	RECT getClRect() { return _rt; }
 };
 

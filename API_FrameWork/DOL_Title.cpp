@@ -1,13 +1,13 @@
 #include "framework.h"
 #include "DOL_Title.h"
-
+#define ADJUSTTITLE 15
 DOL_Title::DOL_Title()
 {
-	bg = IMAGE->addImage("타이틀배경", "images/title/titlebg2.bmp", 960, 540);
-	title = IMAGE->addImage("타이틀제목", "images/title/title.bmp", 960, 540, true, RGB(20, 26, 28));
-	startimg = IMAGE->addFrameImage("시작", "images/title/startimg2.bmp", 130, 60, 1, 2, true, RGB(15, 17, 18));
-	optiontimg = IMAGE->addFrameImage("옵션", "images/title/optionimg.bmp", 130, 60, 1, 2, true, RGB(15, 17, 18));
-	exitimg = IMAGE->addFrameImage("종료", "images/title/exitimg.bmp", 130, 60, 1, 2, true, RGB(15, 17, 18));
+	bg = IMAGE->addImage("타이틀배경", "images/title/titlebg2.bmp", WINSIZEX, WINSIZEY);
+	title = IMAGE->addImage("타이틀제목", "images/title/title.bmp", WINSIZEX, WINSIZEY, true, RGB(20, 26, 28));
+	startimg = IMAGE->addFrameImage("시작", "images/title/startimg2.bmp", 130*1.4, 60 * 1.4, 1, 2, true, RGB(15, 17, 18));
+	optiontimg = IMAGE->addFrameImage("옵션", "images/title/optionimg.bmp", 130 * 1.4, 60 * 1.4, 1, 2, true, RGB(15, 17, 18));
+	exitimg = IMAGE->addFrameImage("종료", "images/title/exitimg.bmp", 130 * 1.4, 60 * 1.4, 1, 2, true, RGB(15, 17, 18));
 	startimg->setFrameY(1);
 	optiontimg->setFrameY(1);
 	exitimg->setFrameY(1);
@@ -24,10 +24,10 @@ DOL_Title::~DOL_Title()
 
 HRESULT DOL_Title::init()
 {
-	start = BUTTON->addButton("start", 410, 270, 130, 30);
-	option = BUTTON->addButton("option", 410, 270 + 40, 130, 30);
-	maker = BUTTON->addButton("maker", 410, 270 + 80, 130, 30);
-	exit = BUTTON->addButton("exit", 410, 270 + 120, 130, 30);
+	start = BUTTON->addButton("start", 586, 514 - 54 * 3, 182, 42);
+	option = BUTTON->addButton("option", 586, 514 - 54 * 2, 182, 42);
+	maker = BUTTON->addButton("maker", 586, 514 - 54, 182, 42);
+	exit = BUTTON->addButton("exit", 586, 514, 182, 42);
 	BUTTON->buttonOn("start");
 	BUTTON->buttonOn("option");
 	BUTTON->buttonOn("maker");
@@ -88,7 +88,7 @@ void DOL_Title::render()
 
 	//파티클 출력
 	if (_particleCount % 60 == 0) {
-		EFFECT->addParticle("메인화면파티클1", ZEFFECT1, RND->getInt(GAMESIZEX), GAMESIZEY-50-RND->getInt(100), DEGREE(90), 200, true, 150);
+		EFFECT->addParticle("메인화면파티클1", ZEFFECT1, RND->getInt(WINSIZEX), WINSIZEY-100-RND->getInt(100), DEGREE(90), 300, true, 150);
 	}
 
 	////테스트
@@ -104,4 +104,9 @@ void DOL_Title::render()
 
 	//페이드랜더
 	CAMERA->FadeRender(getMemDC());
+
+	//테스트
+	//TCHAR str[128];
+	//wsprintf(str, "마우스좌표 : %d, %d", m_ptMouse.x, m_ptMouse.y);
+	//ZORDER->UITextOut(str, ZMAXLAYER, 0, 60, MINT);
 }
