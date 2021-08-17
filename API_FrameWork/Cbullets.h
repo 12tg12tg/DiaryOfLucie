@@ -27,6 +27,7 @@ struct tagBullet
 	bool isPlayerBullet;
 	bool iscollison;
 	int alpha;
+	bool colPoison;
 };
 
 class CpMagicBullet : public gameNode

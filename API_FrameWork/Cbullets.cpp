@@ -77,6 +77,7 @@ void CpMagicBullet::fire(float x, float y, float angle,int plussize)
 		bullet.bulletImage->getHeight());
 	bullet.iscollison = false;
 	bullet.isPlayerBullet = true;
+	bullet.colPoison = false;
 	_vBullet.push_back(bullet);
 }
 void CpMagicBullet::move()
@@ -91,7 +92,7 @@ void CpMagicBullet::move()
 			_viBullet->bulletImage->getWidth(),
 			_viBullet->bulletImage->getHeight());
 
-		if (_viBullet->iscollison)
+		if (_viBullet->iscollison || _viBullet->colPoison)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 		}
@@ -156,6 +157,7 @@ void CpArrowBullet::fire(float x, float y, float angle, int plussize)
 		bullet.bulletImage->getHeight());
 	bullet.iscollison = false;
 	bullet.isPlayerBullet = true;
+	bullet.colPoison = false;
 	_vBullet.push_back(bullet);
 }
 
@@ -171,7 +173,7 @@ void CpArrowBullet::move()
 			_viBullet->bulletImage->getWidth(),
 			_viBullet->bulletImage->getHeight());
 
-		if (_viBullet->iscollison)
+		if (_viBullet->iscollison || _viBullet->colPoison)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 		}
@@ -2945,26 +2947,44 @@ void CpSkil_Charge::fire(float x, float y, float angle, int plussize)
 		bullet.bulletImage->getHeight());
 	bullet.iscollison = false;
 	bullet.isPlayerBullet = true;
+	bullet.colPoison = false;
 	_vBullet.push_back(bullet);
 }
 
 void CpSkil_Charge::move()
 {
-	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end();)
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end();)
 	{
-		_viBullet->x += cosf(_viBullet->angle) * _viBullet->speed;
-		_viBullet->y -= sinf(_viBullet->angle) * _viBullet->speed;
+		_viBullet->count++;
+		if (_vBullet.size() == 0)
+		{
+			_viBullet->count = 0;
+		}
+		if (_viBullet->count < 250)
+		{
+			_viBullet->x += cosf(_viBullet->angle) * _viBullet->speed;
+			_viBullet->y -= sinf(_viBullet->angle) * _viBullet->speed;
 
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
 
-		_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
-			_viBullet->bulletImage->getWidth(),
-			_viBullet->bulletImage->getHeight());
-
-		if (_viBullet->iscollison)
+			if (_viBullet->colPoison)
+			{
+				_viBullet->speed = 0;
+			}
+			if (_viBullet->iscollison )
+			{
+				_viBullet->count = 249;
+			}
+		}
+		else if (_viBullet->count == 250)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
+			continue;
 		}
-		else ++_viBullet;
+		++_viBullet;
 	}
 }
 
