@@ -71,9 +71,7 @@ public:
 	virtual void setrightDoor(bool isrightRoom) { this->isrightRoom = isrightRoom; }
 	virtual void setbotDoor(bool isbotRoom) { this->isbotRoom = isbotRoom; }
 	virtual void settopDoor(bool istopRoom) { this->istopRoom = istopRoom; }
-	/*virtual POINT getPoint() { return _current_point; }
-	virtual void setPoint(POINT _current_point) { this->_current_point = _current_point; }
-	virtual void setMapArea() { this->_current_point = _current_point; }*/
+
 
 };
 

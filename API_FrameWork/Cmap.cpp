@@ -1114,7 +1114,7 @@ HRESULT stage1_Boss::init()
 		1104, 960, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	if (isClear == false)
 	{
-		//summonBoss(2);
+		summonBoss(2);
 	}
 	return S_OK;
 }
@@ -1381,7 +1381,10 @@ last_Boss::~last_Boss()
 
 HRESULT last_Boss::init()
 {
-
+	if (!(getClear()))
+	{
+		summonBoss(4);
+	}
 	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
 		1344, 1200, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	return S_OK;

@@ -620,7 +620,7 @@ void collisionManager::mapTomon()
 	checkMonLeft(mm->getBoss_Mushroom_P());
 	checkMonLeft(mm->getBoss_Mushroom_B());
 	checkMonLeft(mm->getYggdrasil_Bomb());
-	checkMonLeft(mm->getYggdrasil());
+	//checkMonLeft(mm->getYggdrasil());
 
 	checkMonRight(mm->getSnaby());
 	checkMonRight(mm->getSlime());
@@ -636,7 +636,7 @@ void collisionManager::mapTomon()
 	checkMonRight(mm->getBoss_Mushroom_P());
 	checkMonRight(mm->getBoss_Mushroom_B());
 	checkMonRight(mm->getYggdrasil_Bomb());
-	checkMonRight(mm->getYggdrasil());
+	//checkMonRight(mm->getYggdrasil());
 
 	checkMonUp(mm->getSnaby());
 	checkMonUp(mm->getSlime());
@@ -652,7 +652,7 @@ void collisionManager::mapTomon()
 	checkMonUp(mm->getBoss_Mushroom_P());
 	checkMonUp(mm->getBoss_Mushroom_B());
 	checkMonUp(mm->getYggdrasil_Bomb());
-	checkMonUp(mm->getYggdrasil());
+	//checkMonUp(mm->getYggdrasil());
 
 	checkMonDown(mm->getSnaby());
 	checkMonDown(mm->getSlime());
@@ -668,7 +668,7 @@ void collisionManager::mapTomon()
 	checkMonDown(mm->getBoss_Mushroom_P());
 	checkMonDown(mm->getBoss_Mushroom_B());
 	checkMonDown(mm->getYggdrasil_Bomb());
-	checkMonDown(mm->getYggdrasil());
+	//checkMonDown(mm->getYggdrasil());
 
 }
 
