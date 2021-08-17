@@ -19,9 +19,6 @@ HRESULT mainDOL::init()
 	SCENE->changeScene("Å¸ÀÌÆ²");
 
 
-
-
-
 	return S_OK;
 }
 
@@ -33,14 +30,10 @@ void mainDOL::release()
 	_mapm->release();
 
 
-
-
-
 	SAFE_DELETE(_bm);
 	SAFE_DELETE(_cm);
 	SAFE_DELETE(_mm);
 	SAFE_DELETE(_mapm);
-
 
 }
 
@@ -151,6 +144,5 @@ void mainDOL::gameInit()
 	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
 		1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	CAMERA->FadeStart();
-
 
 }
