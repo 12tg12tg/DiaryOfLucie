@@ -127,7 +127,10 @@ HRESULT mapManager::init()
 	{
 		_before_boss = dynamic_cast<before_Boss*>(SCENE->addScene("_before_Boss", new before_Boss));
 		_before_boss->setMonstermemoryLink(mm);
-		stage4[0][1] = { _before_boss,"_before_Boss",NORMAL };
+		MAP stage4[2][1] = { {{ _before_boss,"_before_Boss",NORMAL }},
+							{{ nullptr,"",NONE }}
+						   };
+		SCENE->changeScene("_before_boss");
 	}
 	goNextStage = false;
 	

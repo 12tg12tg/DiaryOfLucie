@@ -79,7 +79,7 @@ private:
 
 
 	MAP stage1[MAXSIZE][MAXSIZE];
-	MAP stage4[1][2];
+	MAP stage4[2][1];
 
 	map<string,motherMap*> _mStage1;
 	map<string, motherMap*>::iterator _imStage1;
