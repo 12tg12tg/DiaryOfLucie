@@ -136,7 +136,7 @@ void CpArrowBullet::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		if (_isDebug) ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		if (_isDebug) ZORDER->ZorderRectangleRotate(_viBullet->rc, ZCOL1, _viBullet->rotateangle);
 		ZORDER->ZorderRotateRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
 			RecCenX(_viBullet->rc), RecCenY(_viBullet->rc), _viBullet->rotateangle);
 	}
@@ -149,7 +149,7 @@ void CpArrowBullet::fire(float x, float y, float angle, int plussize)
 	bullet.bulletImage = new  image;
 	bullet.bulletImage = IMAGE->addImage("화살", "images/bullet_bmp/PBullet_arrow.bmp", 26  , 8  , true);
 	bullet.angle = angle;
-	bullet.rotateangle = angle + PI/2;
+	bullet.rotateangle = angle ;
 	bullet.speed = 5.0f;
 	bullet.x = bullet.fireX = x;
 	bullet.y = bullet.fireY = y;
@@ -2928,7 +2928,7 @@ void CpSkil_Charge::render()
 	{
 		if (_isDebug)
 			ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
-		ZORDER->ZorderRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+		ZORDER->ZorderRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom-50,
 			_viBullet->rc.left, _viBullet->rc.top);
 	}
 }
@@ -2938,7 +2938,7 @@ void CpSkil_Charge::fire(float x, float y, float angle, int plussize)
 	tagBullet bullet;
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new  image;
-	bullet.bulletImage = IMAGE->addImage("충전총알", "images/bullet_bmp/PBullet_Charge.bmp", 50, 50, true);
+	bullet.bulletImage = IMAGE->addImage("충전총알", "images/bullet_bmp/PBullet_Charge.bmp", 26+ plussize, 26+ plussize, true);
 	bullet.angle = angle;
 	bullet.speed = 5.0f;
 	bullet.x = bullet.fireX = x;

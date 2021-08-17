@@ -32,6 +32,7 @@ HRESULT Cplayer::init()
 	_attCount = 0;
 	_attIndex = 0;
 	_chargeShotCount = 0;
+	_bowCount = 0;
 
 	_dashCount = 0;
 	_dashIndex = 0;
@@ -61,9 +62,14 @@ void Cplayer::update()
 		_player.playerRect = RectMakeCenter(_player.x, _player.y, 10, 10);
 		this->setPlayerFrame();
 	}
-	_chargeshotBar->setGauge(_chargeShotCount - 40, 100);
-	_chargeshotBar->setX(_player.x);
-	_chargeshotBar->setY(_player.y);
+	if (_player.weapon == WEAPONTYPE::STAFF) {
+		_chargeshotBar->setGauge(_chargeShotCount - 40, 100);
+		_chargeshotBar->setX(_player.x);
+		_chargeshotBar->setY(_player.y);
+	}
+	else if(_player.weapon == WEAPONTYPE::BOW) {
+		_bowCount++;
+	}
 }
 
 void Cplayer::render(HDC hdc)
@@ -77,6 +83,7 @@ void Cplayer::render(HDC hdc)
 	}
 
 	this->renderDashEffecct(hdc);
+
 	if (_state == STATE::STOP)
 		ZORDER->ZorderFrameRender(_walk_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection);
 	else if (_state == STATE::DIE)
@@ -86,55 +93,70 @@ void Cplayer::render(HDC hdc)
 		if (_dieAlpha > 50)
 			_dieAlpha--;
 	}
-	else if (_player.isHit && _hitCount % 10 >= 5)
+	else {
+		if (_player.isHit && _hitCount % 10 >= 5)  _alpha = 255 / 2;
+		else _alpha = 255;
 		switch (_state)
 		{
+		case STATE::ATTBOWIDLE:
+			ZORDER->ZorderAlphaFrameRender(_chargeAtt_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection,2, _moveDirection, _alpha);
+			break;
 		case STATE::IDLE:
 			//IMAGE->findImage("°È±â")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection, 100);
-			ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("°È±â"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection, 100);
+			ZORDER->ZorderAlphaFrameRender(IMAGE->findImage("°È±â"), ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection, _alpha);
 			break;
 		case STATE::WALK:
-			ZORDER->ZorderAlphaFrameRender(_walk_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _walk_img->getFrameX(), _moveDirection, 100);
+			ZORDER->ZorderAlphaFrameRender(_walk_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _walk_img->getFrameX(), _moveDirection, _alpha);
+			break;
+		case STATE::ATTBOWWALK:
+			ZORDER->ZorderAlphaFrameRender(_bowWalk_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _bowWalk_img->getFrameX(), _bowDirection, _alpha);
 			break;
 		case STATE::RUN:
-			ZORDER->ZorderAlphaFrameRender(_run_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _run_img->getFrameX(), _moveDirection, 100);
+			ZORDER->ZorderAlphaFrameRender(_run_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _run_img->getFrameX(), _moveDirection, _alpha);
 			break;
 		case STATE::DASH:
-			ZORDER->ZorderAlphaFrameRender(_dash_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _dash_img->getFrameX(), _moveDirection, 100);
+			ZORDER->ZorderAlphaFrameRender(_dash_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _dash_img->getFrameX(), _moveDirection, _alpha);
 			break;
 		case STATE::ATTSTAFF:
-			ZORDER->ZorderAlphaFrameRender(_attStaff_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _attStaff_img->getFrameX(), _moveDirection, 100);
+			ZORDER->ZorderAlphaFrameRender(_attStaff_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _attStaff_img->getFrameX(), _moveDirection, _alpha);
 			break;
 		case STATE::KNOCKBACK:
-			ZORDER->ZorderAlphaFrameRender(_knockBack_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _knockBack_img->getFrameX(), _moveDirection, 100);
+			ZORDER->ZorderAlphaFrameRender(_knockBack_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _knockBack_img->getFrameX(), _moveDirection, _alpha);
 			break;
-		}
-	else
-	{
-		switch (_state)
-		{
-		case STATE::IDLE:
-			//IMAGE->frameRender("°È±â", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection);
-			ZORDER->ZorderFrameRender(_walk_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection);
-			break;
-		case STATE::WALK:
-			ZORDER->ZorderFrameRender(_walk_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _walk_img->getFrameX(), _moveDirection);
-			break;
-		case STATE::RUN:
-			ZORDER->ZorderFrameRender(_run_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _run_img->getFrameX(), _moveDirection);
-			break;
-		case STATE::DASH:
-			ZORDER->ZorderFrameRender(_dash_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _dash_img->getFrameX(), _moveDirection);
-			break;
-		case STATE::ATTSTAFF:
-			ZORDER->ZorderFrameRender(_attStaff_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _attStaff_img->getFrameX(), _moveDirection);
-			break;
-		case STATE::KNOCKBACK:
-			ZORDER->ZorderFrameRender(_knockBack_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _knockBack_img->getFrameX(), _moveDirection);
+		case STATE::STAFFCHARGE:
+			ZORDER->ZorderAlphaFrameRender(_chargeAtt_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _chargeAtt_img->getFrameX(), _moveDirection, _alpha);
 			break;
 		}
 	}
-	if (_chargeShotCount > 40) 
+
+	/*ÀÌ°Å¹ö¸²*/
+	//else
+	//{
+	//	switch (_state)
+	//	{
+	//	case STATE::IDLE:
+	//		//IMAGE->frameRender("°È±â", hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection);
+	//		ZORDER->ZorderFrameRender(_walk_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection);
+	//		break;
+	//	case STATE::WALK:
+	//		ZORDER->ZorderFrameRender(_walk_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _walk_img->getFrameX(), _moveDirection);
+	//		break;
+	//	case STATE::RUN:
+	//		ZORDER->ZorderFrameRender(_run_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _run_img->getFrameX(), _moveDirection);
+	//		break;
+	//	case STATE::DASH:
+	//		ZORDER->ZorderFrameRender(_dash_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _dash_img->getFrameX(), _moveDirection);
+	//		break;
+	//	case STATE::ATTSTAFF:
+	//		ZORDER->ZorderFrameRender(_attStaff_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _attStaff_img->getFrameX(), _moveDirection);
+	//		break;
+	//	case STATE::KNOCKBACK:
+	//		ZORDER->ZorderFrameRender(_knockBack_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _knockBack_img->getFrameX(), _moveDirection);
+	//		break;
+	//	}
+	//}
+
+	if (_chargeShotCount > 40)
 	{
 		_chargeshotBar->render();
 	}
@@ -142,16 +164,18 @@ void Cplayer::render(HDC hdc)
 
 void Cplayer::imageInit()
 {
+	_alpha = 255;
 	_walk_img = IMAGE->addFrameImage("°È±â", "images/Player/°È±â¼ø¼­¼öÁ¤.bmp", 300, 800, 3, 8, true, RGB(255, 0, 255));
+	_bowWalk_img = IMAGE->addFrameImage("È°°È±â", "images/Player/È°.bmp", 300, 800, 3, 8, true, RGB(255, 0, 255));
 	_run_img = IMAGE->addFrameImage("´Þ¸®±â", "images/Player/´Þ¸®±â¼öÁ¤¿Þ¹ß¸ÕÀú.bmp", 400, 800, 4, 8, true, RGB(255, 0, 255));
 	_dash_img = IMAGE->addFrameImage("´ë½¬", "images/Player/´ë½¬¼öÁ¤.bmp", 600, 800, 6, 8, true, RGB(255, 0, 255));
 	IMAGE->addFrameImage("´ë½¬ÀÌÆåÆ®", "images/Player/´ë½¬¼öÁ¤.bmp", 600, 800, 6, 8, true, RGB(255, 0, 255));
 	_attStaff_img = IMAGE->addFrameImage("±âº»°ø°Ý", "images/Player/±âº»°ø°Ý.bmp", 600, 800, 6, 8, true, RGB(255, 0, 255));
 	_knockBack_img = IMAGE->addFrameImage("³Ë¹é", "images/Player/ÇÇ°Ý¼öÁ¤.bmp", 300, 800, 3, 8, true, RGB(255, 0, 255));
 	_die_img = IMAGE->addFrameImage("Á×±â", "images/Player/»ç¸Á.bmp", 100, 100, 1, 1, true, RGB(255, 0, 255));
-
+	_chargeAtt_img = IMAGE->addFrameImage("Ã­Áö¼¦", "images/Player/½ºÅÂÇÁ_Ã­Áö¼¦¼öÁ¤.bmp", 300, 800, 3, 8, true);
 	_chargeshotBar = new progressBar;
-	_chargeshotBar->init("images/Player/Ã­Áö¼¦¹ÙÇÁ·ÐÆ®.bmp", "images/Player/Ã­Áö¼¦¹Ù¹é.bmp", _player.x, _player.y, 69 * 3, 8 *3);
+	_chargeshotBar->init("images/Player/Ã­Áö¼¦¹Ù¹é.bmp", "images/Player/Ã­Áö¼¦¹ÙÇÁ·ÐÆ®.bmp", _player.x, _player.y, 69 * 3, 8 * 3);
 }
 
 void Cplayer::inputCheck()
@@ -166,12 +190,12 @@ void Cplayer::inputCheck()
 		_player.weapon = WEAPONTYPE::EMPTY;
 	if (INPUT->isOnceKeyDown('2'))
 		_player.weapon = WEAPONTYPE::STAFF;
-
 	if (INPUT->isOnceKeyDown('3'))
 		_player.weapon = WEAPONTYPE::SWORD;
+	//ÄÞº¸
 	if (INPUT->isOnceKeyDown('4'))
 		_player.weapon = WEAPONTYPE::BOW;
-
+	//³¡
 	if (INPUT->isOnceKeyDown('P'))
 		this->playerStop();
 	if (INPUT->isStayKeyDown('W'))
@@ -194,6 +218,9 @@ void Cplayer::inputCheck()
 			_chargeShotCount++;
 			if (_chargeShotCount > 140) {
 				_chargeShotCount = 140;
+			}
+			if (_chargeShotCount == 40) {
+				PLAYERDATA->useStamina(10);
 			}
 		}
 	}
@@ -250,25 +277,51 @@ void Cplayer::stateCheck()
 	}
 	else if (_state != STATE::DASH)
 	{
-		if (_state != STATE::ATTSTAFF && _state != STATE::ATTSWORD)
+		if (_state != STATE::ATTSTAFF && _state != STATE::ATTSWORD && _state != STATE::STAFFCHARGE)
 		{
-			if (!(_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft))
-				_state = STATE::IDLE;
-			else if ((!_isAutoRun && INPUT->isStayKeyDown(VK_LSHIFT) || _isAutoRun && !INPUT->isStayKeyDown(VK_LSHIFT) )&& PLAYERDATA->useStamina(2, 1))
+			if (!(_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft)) {
+				if ((_player.weapon == WEAPONTYPE::BOW && !INPUT->isStayKeyDown(VK_LBUTTON)) || _player.weapon != WEAPONTYPE::BOW)
+					_state = STATE::IDLE;
+				else if (INPUT->isStayKeyDown(VK_LBUTTON) && _player.weapon == WEAPONTYPE::BOW && PLAYERDATA->useStamina(5, 1)) {
+					_state = STATE::ATTBOWIDLE;
+					_attAngle = UTIL::getAngle(_player.x, _player.y - shootingCorrection, CAMMOUSEX, CAMMOUSEY);
+					_attAngle = _attAngle - 0.03 + 0.00003 * RND->getFromInTo(0, 2000);
+					this->angleCheckDirection(_attAngle);
+					if (_bowCount > 5 * 5 - (PLAYERDATA->getData().AtkSpeed / 10)) {
+						_Cbullet->getArwBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 20);
+						_bowCount = 0;
+						PLAYERDATA->useStamina(5);
+					}
+				}
+			}
+			if ((_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft))
 			{
-				if ((_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft))
+				if(INPUT->isStayKeyDown(VK_LBUTTON) && _player.weapon == WEAPONTYPE::BOW && PLAYERDATA->useStamina(5, 1)) {
+					_speed = PLAYERDATA->getData().presentSpeed;
+					_moveDirection = _direction;
+					_state = STATE::ATTBOWWALK;
+					_attAngle = UTIL::getAngle(_player.x, _player.y - shootingCorrection, CAMMOUSEX, CAMMOUSEY);
+					this->angleCheckDirection(_attAngle,1);
+					if (_bowCount > 5 * 5 - (PLAYERDATA->getData().AtkSpeed / 10)) {
+					_attAngle = _attAngle - 0.03 + 0.00003 * RND->getFromInTo(0, 2000);
+						_Cbullet->getArwBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 20);
+						_bowCount = 0;
+						PLAYERDATA->useStamina(5);
+					}
+				}
+				else if ((!_isAutoRun && INPUT->isStayKeyDown(VK_LSHIFT) || _isAutoRun && !INPUT->isStayKeyDown(VK_LSHIFT)) && PLAYERDATA->useStamina(2, 1))
 				{
 					_moveDirection = _direction;
 					_state = STATE::RUN;
 					_speed = PLAYERDATA->getData().presentSpeed * 2;
-
+				}
+				else  {
+					_moveDirection = _direction;
+					_state = STATE::WALK;
+					_speed = PLAYERDATA->getData().presentSpeed;
 				}
 			}
-			else if (_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft) {
-				_moveDirection = _direction;
-				_state = STATE::WALK;
-				_speed = PLAYERDATA->getData().presentSpeed;
-			}
+
 			if (INPUT->isOnceKeyDown(VK_LBUTTON) && PLAYERDATA->useStamina(5, 1))
 			{
 				_attAngle = UTIL::getAngle(_player.x, _player.y - shootingCorrection, CAMMOUSEX, CAMMOUSEY);
@@ -277,80 +330,75 @@ void Cplayer::stateCheck()
 					_state = STATE::ATTSTAFF;
 					_Cbullet->getMgcBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 20);
 				}
-				/*else if (_player.weapon == WEAPONTYPE::BOW) {
-					_state = STATE::ATTBOWIDLE;
-					_Cbullet->getArwBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 20);
-				}*/
 				else if (_player.weapon == WEAPONTYPE::SWORD) {
 					_state = STATE::ATTSWORD;
 				}
 				this->angleCheckDirection(_attAngle);
 				PLAYERDATA->useStamina(5);
 			}
-			if (!(INPUT->isStayKeyDown(VK_LBUTTON))  && _player.weapon == WEAPONTYPE::STAFF&&_state!=STATE::ATTSTAFF && _chargeShotCount > 40) {
-					_attAngle = UTIL::getAngle(_player.x, _player.y - shootingCorrection, CAMMOUSEX, CAMMOUSEY);
-					_attAngle = _attAngle - 0.03 + 0.00003 * RND->getFromInTo(0, 2000);
-				if (_chargeShotCount < 110) {
-					_Cbullet->getMgcBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 20 + _chargeShotCount - 40);
+			if (!(INPUT->isStayKeyDown(VK_LBUTTON)) && _player.weapon == WEAPONTYPE::STAFF && _state != STATE::ATTSTAFF && _chargeShotCount > 40)
+			{
+				_attAngle = UTIL::getAngle(_player.x, _player.y - shootingCorrection, CAMMOUSEX, CAMMOUSEY);
+				_attAngle = _attAngle - 0.03 + 0.00003 * RND->getFromInTo(0, 2000);
+				this->angleCheckDirection(_attAngle);
+
+				if (_chargeShotCount < 140) {
+					_Cbullet->getMgcBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 20 + _chargeShotCount / 2 - 20);
 					_state = STATE::ATTSTAFF;
 				}
 				else if (_chargeShotCount >= 140) {
-
-					//Ã­Áö¼¦³ÖÀ»°Å
+					_Cbullet->getChargeInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 20 + _chargeShotCount / 2 - 20);
+					_state = STATE::STAFFCHARGE;
 				}
-					_chargeShotCount = 0;
-					this->angleCheckDirection(_attAngle);
-					PLAYERDATA->useStamina(10);
-			}
-			else if(!(INPUT->isStayKeyDown(VK_LBUTTON)) && _player.weapon == WEAPONTYPE::STAFF && _chargeShotCount <40)
 				_chargeShotCount = 0;
-
-
-			if (INPUT->isOnceKeyDown(VK_SPACE))
+			}
+			else if (!(INPUT->isStayKeyDown(VK_LBUTTON)) && _player.weapon == WEAPONTYPE::STAFF && _chargeShotCount < 40)
+				_chargeShotCount = 0;
+		}
+		if (INPUT->isOnceKeyDown(VK_SPACE))
+		{
+			_state = STATE::DASH;
+			PLAYERDATA->useStamina(10);
+			if (_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft)
 			{
-				_state = STATE::DASH;
-				PLAYERDATA->useStamina(10);
-				if (_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft)
+				_moveDirection = _direction;
+				switch (_moveDirection)
 				{
-					_moveDirection = _direction;
-					switch (_moveDirection)
-					{
-					case UPLEFT:
-						_dashAngle = UPLEFTANGLE;
-						break;
-					case UP:
-						_dashAngle = UPANGLE;
-						break;
-					case UPRIGHT:
-						_dashAngle = UPRIGHTANGLE;
-						break;
-					case RIGHT:
-						_dashAngle = RIHGTANGLE;
-						break;
-					case DOWNRIGHT:
-						_dashAngle = DOWNRIGHTANGLE;
-						break;
-					case DOWN:
-						_dashAngle = DOWNANGLE;
-						break;
-					case DOWNLEFT:
-						_dashAngle = DOWNLEFTANGLE;
-						break;
-					case LEFT:
-						_dashAngle = LEFTANGLE;
-						break;
-					}
+				case UPLEFT:
+					_dashAngle = UPLEFTANGLE;
+					break;
+				case UP:
+					_dashAngle = UPANGLE;
+					break;
+				case UPRIGHT:
+					_dashAngle = UPRIGHTANGLE;
+					break;
+				case RIGHT:
+					_dashAngle = RIHGTANGLE;
+					break;
+				case DOWNRIGHT:
+					_dashAngle = DOWNRIGHTANGLE;
+					break;
+				case DOWN:
+					_dashAngle = DOWNANGLE;
+					break;
+				case DOWNLEFT:
+					_dashAngle = DOWNLEFTANGLE;
+					break;
+				case LEFT:
+					_dashAngle = LEFTANGLE;
+					break;
 				}
-				else
-				{
-					_dashAngle = UTIL::getAngle(_player.x, _player.y, CAMMOUSEX, CAMMOUSEY);
-					this->angleCheckDirection(_dashAngle);
-				}
+			}
+			else
+			{
+				_dashAngle = UTIL::getAngle(_player.x, _player.y, CAMMOUSEX, CAMMOUSEY);
+				this->angleCheckDirection(_dashAngle);
 			}
 		}
 	}
 	//´ë½¬¾îÅÃ ¸¸µé°Å¿¡¿©
-	else if(_state==STATE::DASH&&_player.weapon==WEAPONTYPE::SWORD){}
+	else if (_state == STATE::DASH && _player.weapon == WEAPONTYPE::SWORD) {}
 }
 
 void Cplayer::movePlayer()
@@ -359,6 +407,7 @@ void Cplayer::movePlayer()
 	{
 	case STATE::RUN:
 	case STATE::WALK:
+	case STATE::ATTBOWWALK:
 		switch (_moveDirection)
 		{
 		case UPLEFT:
@@ -399,8 +448,13 @@ void Cplayer::movePlayer()
 		_player.x += cosf(_attAngle);
 		_player.y -= sinf(_attAngle);
 		break;
+	case STATE::STAFFCHARGE:
+		this->angleCheckDirection(_attAngle);
+		_player.x += cosf(_attAngle + PI) * 1.5;
+		_player.y -= sinf(_attAngle + PI) * 1.5;
+		break;
 	case STATE::KNOCKBACK:
-			this->angleCheckDirection(_knockBackAngle + PI);
+		this->angleCheckDirection(_knockBackAngle + PI);
 		_player.x += cosf(_knockBackAngle) * 1.5;
 		_player.y -= sinf(_knockBackAngle) * 1.5;
 		break;
@@ -411,9 +465,34 @@ void Cplayer::setPlayerFrame()
 {
 	switch (_state)
 	{
+	case STATE::ATTBOWIDLE:
 	case STATE::IDLE:
 		_count = 0;
 		_index = 0;
+		break;
+	case STATE::ATTBOWWALK:
+		_count++;
+		if (_count > 12)
+		{
+			_count = 0;
+			if (_frameswitching)
+			{
+				_index++;
+				if (_index > _bowWalk_img->getMaxFrameX()) {
+					_index -= 2;
+					_frameswitching = false;
+				}
+			}
+			else if (!_frameswitching)
+			{
+				_index--;
+				if (_index < 0) {
+					_index += 2;
+					_frameswitching = true;
+				}
+			}
+		}
+		_bowWalk_img->setFrameX(_index);
 		break;
 
 	case STATE::WALK:
@@ -494,36 +573,72 @@ void Cplayer::setPlayerFrame()
 			_knockBack_img->setFrameX(_knockBackIndex);
 		}
 		break;
+	case STATE::STAFFCHARGE:
+		_attCount++;
+		if (_attCount > 5*2 - (PLAYERDATA->getData().AtkSpeed / 10))
+		{
+			_attCount = 0;
+			_attIndex++;
+			if (_attIndex > _chargeAtt_img->getMaxFrameX()-1) {
+				_state = STATE::IDLE;
+				_attCount = 0;
+				_attIndex = 0;
+			}
+			_chargeAtt_img->setFrameX(_attIndex);
+		}
+		break;
 	}
 }
 
-void Cplayer::angleCheckDirection(float angle)
+void Cplayer::angleCheckDirection(float angle,bool inputdirection)
 {
 	if (angle < 0) {
 		angle += PI2;
 	}
-	while (angle > PI2) 
+	while (angle > PI2)
 	{
-		angle-= PI2;
+		angle -= PI2;
 	}
-	if (DEGREE(22.5) < angle && angle < DEGREE(202.5))
-		if (angle > DEGREE(112.5))
-			if (angle > DEGREE(157.5))
-				_moveDirection = LEFT;
-			else _moveDirection = UPLEFT;
+	if (!inputdirection) {
+		if (DEGREE(22.5) < angle && angle < DEGREE(202.5))
+			if (angle > DEGREE(112.5))
+				if (angle > DEGREE(157.5))
+					_moveDirection = LEFT;
+				else _moveDirection = UPLEFT;
+			else
+				if (angle > DEGREE(67.5))
+					_moveDirection = UP;
+				else _moveDirection = UPRIGHT;
 		else
-			if (angle > DEGREE(67.5))
-				_moveDirection = UP;
-			else _moveDirection = UPRIGHT;
-	else
-		if (DEGREE(292.5) < angle || angle < DEGREE(22.5))
-			if (angle > DEGREE(337.5) || angle < DEGREE(22.5))
-				_moveDirection = RIGHT;
-			else _moveDirection = DOWNRIGHT;
+			if (DEGREE(292.5) < angle || angle < DEGREE(22.5))
+				if (angle > DEGREE(337.5) || angle < DEGREE(22.5))
+					_moveDirection = RIGHT;
+				else _moveDirection = DOWNRIGHT;
+			else
+				if (angle > DEGREE(247.5))
+					_moveDirection = DOWN;
+				else _moveDirection = DOWNLEFT;
+	}
+	else {
+		if (DEGREE(22.5) < angle && angle < DEGREE(202.5))
+			if (angle > DEGREE(112.5))
+				if (angle > DEGREE(157.5))
+					_bowDirection = LEFT;
+				else _bowDirection = UPLEFT;
+			else
+				if (angle > DEGREE(67.5))
+					_bowDirection = UP;
+				else _bowDirection = UPRIGHT;
 		else
-			if (angle > DEGREE(247.5))
-				_moveDirection = DOWN;
-			else _moveDirection = DOWNLEFT;
+			if (DEGREE(292.5) < angle || angle < DEGREE(22.5))
+				if (angle > DEGREE(337.5) || angle < DEGREE(22.5))
+					_bowDirection = RIGHT;
+				else _bowDirection = DOWNRIGHT;
+			else
+				if (angle > DEGREE(247.5))
+					_bowDirection = DOWN;
+				else _bowDirection = DOWNLEFT;
+	}
 }
 
 void Cplayer::pushbackDashEffect(int x, int y, int FrameX, DIRECTION direction)
