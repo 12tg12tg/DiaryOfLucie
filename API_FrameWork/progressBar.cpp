@@ -9,7 +9,7 @@ progressBar::~progressBar()
 {
 }
 
-HRESULT progressBar::init(char* frontImage, char* backImage, float x, float y, int width, int height, bool isUi = true, bool isAlpha = false, BYTE alpha = 255)
+HRESULT progressBar::init(char* frontImage, char* backImage, float x, float y, int width, int height, bool isUi , bool isAlpha , BYTE alpha )
 {
 	_x = x;
 	_y = y;

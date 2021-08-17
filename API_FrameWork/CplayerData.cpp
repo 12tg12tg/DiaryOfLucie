@@ -68,8 +68,8 @@ void CplayerData::update()
 	_MaxMP = _defaultMaxMP + _equipMaxMP;
 
 	this->recoveryStamina();
-	_StaminaBar->setGauge(_defaultStamina, 100);
-	_EXPBar->setGauge(_EXP, 100);
+	_StaminaBar->setGauge(_defaultStamina, 100,UIalpha);
+	_EXPBar->setGauge(_EXP, 100, UIalpha);
 }
 
 void CplayerData::render(HDC hdc)
@@ -110,9 +110,9 @@ void CplayerData::imageInit()
 	IMAGE->addFrameImage("골드숫자", "images/UI/골드숫자.bmp", 140 * 1.3, 20 * 1.3, 10, 1, true);
 
 	_EXPBar = new progressBar;
-	_EXPBar->init("images/UI/겸치통.bmp", "images/UI/겸치통백.bmp", 444 + correct, 650, 126 * 1.3, 7 * 1.3);
+	_EXPBar->init("images/UI/겸치통.bmp", "images/UI/겸치통백.bmp", 444 + correct, 650, 126 * 1.3, 7 * 1.3,1,1);
 	_StaminaBar = new progressBar;
-	_StaminaBar->init("images/UI/스테미너프론트.bmp", "images/UI/스테미너백.bmp", 398 + correct, 664, 166 * 1.3, 14 * 1.3);
+	_StaminaBar->init("images/UI/스테미너프론트.bmp", "images/UI/스테미너백.bmp", 398 + correct, 664, 166 * 1.3, 14 * 1.3,1,1);
 }
 
 void CplayerData::changeHP(int HP)
@@ -207,14 +207,14 @@ void CplayerData::goldRender(HDC hdc)
 {
 	if (_gold == 0)
 	{
-		ZORDER->UIFrameRender(IMAGE->findImage("골드숫자"), ZUIFIRST, 0, 947+170 + correct, 20, 0, 0);
+		ZORDER->UIFrameRender(IMAGE->findImage("골드숫자"), ZUIFIRST, 0, 947+170+20 + correct, 20, 0, 0);
 		//IMAGE->frameRender("골드숫자", hdc, 947, 20, 0, 0);
 		return;
 	}
 	int i = 1;
 	for (int j = 0; _gold / i >= 1; j++)
 	{
-		ZORDER->UIFrameRender(IMAGE->findImage("골드숫자"), ZUIFIRST, 0, 947 + 170 + correct - j * IMAGE->findImage("골드숫자")->getFrameWidth(), 20, (_gold / i) % 10, 0);
+		ZORDER->UIFrameRender(IMAGE->findImage("골드숫자"), ZUIFIRST, 0, 947 +20+ 170 + correct - j * IMAGE->findImage("골드숫자")->getFrameWidth(), 20, (_gold / i) % 10, 0);
 		//IMAGE->frameRender("골드숫자", hdc, 947 - j * IMAGE->findImage("골드숫자")->getFrameWidth() , 20,  (_gold/i)%10,0);
 		i *= 10;
 	}
@@ -240,7 +240,7 @@ void CplayerData::renderUI(HDC hdc)
 	_StaminaBar->render();
 	_EXPBar->render();
 	ZORDER->UIAlphaRender(_layout_image, ZUISECOND, 1, WINSIZEX / 2 - _layout_image->getWidth() / 2, 583, UIalpha);
-	ZORDER->UIRender(_gold_G, ZUIFIRST, 0, WINSIZEX - 60, 20);
+	ZORDER->UIRender(_gold_G, ZUIFIRST, 0, WINSIZEX - 40, 20);
 	goldRender(hdc);
 	ZORDER->UIAlphaFrameRender(IMAGE->findImage("레벨"), ZUIFIRST, 0, 394+ correct, 639, _level, 0, UIalpha);
 
