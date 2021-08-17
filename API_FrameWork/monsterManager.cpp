@@ -35,9 +35,9 @@ HRESULT monsterManager::init()
     _fairy->addMonster(50, 300);
     _flime->addMonster(WINSIZEX / 2, WINSIZEY / 2);
     _bossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
-    _semiBossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);
+    _semiBossSlime->addMonster(WINSIZEX/2, WINSIZEY/2);*/
     _bossflime->addMonster(WINSIZEX/2, WINSIZEY/2);
-    _bossMushmam->addMonster(WINSIZEX/2, WINSIZEY/2);
+    /*_bossMushmam->addMonster(WINSIZEX/2, WINSIZEY/2);
     _mushmam_mushroom_G->addMonster(100, 200);
     _mushmam_mushroom_P->addMonster(100, 300);
     _mushmam_mushroom_B->addMonster(100, 400);

@@ -4,7 +4,7 @@
 
 mapManager::mapManager()
 {
-	stage++;
+	
 }
 mapManager::~mapManager()
 {
@@ -12,28 +12,30 @@ mapManager::~mapManager()
 }
 HRESULT mapManager::init()
 {
-	
+	/*
+	if (stage == currentstage)
+	{*/
 	_Cmap10 = nullptr;
-    _chestMap  = nullptr;
-    _shopMap  = nullptr;
-    _statueMap 	 = nullptr;
-    _moruMap = nullptr;
-    _fountainMap = nullptr;
-    _stage1_Boss = nullptr;
-    _nextStage = nullptr;
+	_chestMap = nullptr;
+	_shopMap = nullptr;
+	_statueMap = nullptr;
+	_moruMap = nullptr;
+	_fountainMap = nullptr;
+	_stage1_Boss = nullptr;
+	_nextStage = nullptr;
 
-	_none =IMAGE->addImage("빈방", "images/minimap/minimap_none.bmp", 30, 30, true, RGB(255, 0, 255));
-	_start =IMAGE->addImage("시작방", "images/minimap/minimap_cellIcon_start.bmp", 30, 30, true, RGB(255, 0, 255));
-	_fight =IMAGE->addImage("전투방", "images/minimap/minimap_cell_on.bmp", 30, 30, true, RGB(255, 0, 255));
-	_chest =IMAGE->addImage("상자방", "images/minimap/minimap_cellIcon_chest.bmp", 30, 30, true, RGB(255, 0, 255));
-	_event =IMAGE->addImage("이벤트방", "images/minimap/minimap_cellIcon_event.bmp", 30, 30, true, RGB(255, 0, 255));
+	_none = IMAGE->addImage("빈방", "images/minimap/minimap_none.bmp", 30, 30, true, RGB(255, 0, 255));
+	_start = IMAGE->addImage("시작방", "images/minimap/minimap_cellIcon_start.bmp", 30, 30, true, RGB(255, 0, 255));
+	_fight = IMAGE->addImage("전투방", "images/minimap/minimap_cell_on.bmp", 30, 30, true, RGB(255, 0, 255));
+	_chest = IMAGE->addImage("상자방", "images/minimap/minimap_cellIcon_chest.bmp", 30, 30, true, RGB(255, 0, 255));
+	_event = IMAGE->addImage("이벤트방", "images/minimap/minimap_cellIcon_event.bmp", 30, 30, true, RGB(255, 0, 255));
 	_shop = IMAGE->addImage("상점방", "images/minimap/minimap_cellIcon_shop.bmp", 30, 30, true, RGB(255, 0, 255));
 	_boss = IMAGE->addImage("보스방", "images/minimap/minimap_cellIcon_boss.bmp", 30, 30, true, RGB(255, 0, 255));
 	_goal = IMAGE->addImage("다음층", "images/minimap/minimap_cellIcon_goal.bmp", 30, 30, true, RGB(255, 0, 255));
 	_back = IMAGE->addImage("바탕", "images/minimap/minimap_backSpriteL.bmp", 455, 317, true, RGB(255, 0, 255));
 
 
-	
+
 
 	while (remainRoom >= 1 || checkNextStage() == false)
 	{
@@ -49,26 +51,26 @@ HRESULT mapManager::init()
 		setfountainMap();
 		setNextRoom();
 	}
-		_Cmap10 = dynamic_cast<Cmap10*>(SCENE->addScene("_Cmap10", new Cmap10));
-		_chestMap = dynamic_cast<chestMap*>(SCENE->addScene("_chestMap", new chestMap));
-		_chestMap->setbulletmemoryLink(bm);
-		_shopMap = dynamic_cast<shopMap*>(SCENE->addScene("_shopMap", new shopMap));
-		_statueMap = dynamic_cast<statueMap*>(SCENE->addScene("_statueMap", new statueMap));
-		_statueMap->setbulletmemoryLink(bm);
-		_moruMap = dynamic_cast<moruMap*>(SCENE->addScene("_moruMap", new moruMap));
-		_moruMap->setbulletmemoryLink(bm);
-		_fountainMap = dynamic_cast<fountainMap*>(SCENE->addScene("_fountainMap", new fountainMap));
-		_fountainMap->setbulletmemoryLink(bm);
-		_stage1_Boss = dynamic_cast<stage1_Boss*>(SCENE->addScene("_stage1_Boss", new stage1_Boss));
-		_nextStage = dynamic_cast<nextStage*>(SCENE->addScene("_nextStage", new nextStage));
-		_Cmap10->setMonstermemoryLink(mm);
-		_chestMap->setMonstermemoryLink(mm);
-		_shopMap->setMonstermemoryLink(mm);
-		_statueMap->setMonstermemoryLink(mm);
-		_moruMap->setMonstermemoryLink(mm);
-		_stage1_Boss->setMonstermemoryLink(mm);
-		_nextStage->setMonstermemoryLink(mm);
-		_fountainMap->setMonstermemoryLink(mm);
+	_Cmap10 = dynamic_cast<Cmap10*>(SCENE->addScene("_Cmap10", new Cmap10));
+	_chestMap = dynamic_cast<chestMap*>(SCENE->addScene("_chestMap", new chestMap));
+	_chestMap->setbulletmemoryLink(bm);
+	_shopMap = dynamic_cast<shopMap*>(SCENE->addScene("_shopMap", new shopMap));
+	_statueMap = dynamic_cast<statueMap*>(SCENE->addScene("_statueMap", new statueMap));
+	_statueMap->setbulletmemoryLink(bm);
+	_moruMap = dynamic_cast<moruMap*>(SCENE->addScene("_moruMap", new moruMap));
+	_moruMap->setbulletmemoryLink(bm);
+	_fountainMap = dynamic_cast<fountainMap*>(SCENE->addScene("_fountainMap", new fountainMap));
+	_fountainMap->setbulletmemoryLink(bm);
+	_stage1_Boss = dynamic_cast<stage1_Boss*>(SCENE->addScene("_stage1_Boss", new stage1_Boss));
+	_nextStage = dynamic_cast<nextStage*>(SCENE->addScene("_nextStage", new nextStage));
+	_Cmap10->setMonstermemoryLink(mm);
+	_chestMap->setMonstermemoryLink(mm);
+	_shopMap->setMonstermemoryLink(mm);
+	_statueMap->setMonstermemoryLink(mm);
+	_moruMap->setMonstermemoryLink(mm);
+	_stage1_Boss->setMonstermemoryLink(mm);
+	_nextStage->setMonstermemoryLink(mm);
+	_fountainMap->setMonstermemoryLink(mm);
 
 
 	for (int i = 0; i < MAXSIZE; i++)
@@ -117,8 +119,9 @@ HRESULT mapManager::init()
 
 		}
 	}
+	/*stage++;*/
 
-
+	
 	return S_OK;
 }
 
@@ -213,8 +216,6 @@ void mapManager::update()
 	}
 	if (checkMagicDoor)
 	{
-		this->release();
-		this->init();
 	}
 	SCENE->update();
 }

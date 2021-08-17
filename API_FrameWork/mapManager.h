@@ -59,7 +59,8 @@ private:
 	monsterManager* mm;
 	bulletManager* bm;
 	int currentMonNum =0;
-	int stage = 1;
+	int stage = 0;
+	int currentstage = stage;
 	int remainRoom = 12;
 	int mapSize;
 	int remainNextStage = 1;
