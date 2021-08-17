@@ -2,7 +2,7 @@
 #include "singleton.h"
 
 class progressBar;
-/// //////////////////////
+/////////////////////////
 
 struct DATA 
 {
@@ -96,6 +96,7 @@ public:
 
 	DATA& getData() { return _Data; }
 	int getPresentHP() { return _presentHP; }
+	int getDamage();
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 
 	void setEquip(int equipHP=0,int equipMaxHP=0,int equipMP=0,int equipMaxMP=0,float equipSpeed = 0,int equipAtk = 0,int equipAtkSpeed = 0,int equipCritical = 0,int equipSkillPower = 0,int equipSkillCollTime = 0);

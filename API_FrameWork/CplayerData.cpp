@@ -283,6 +283,23 @@ void CplayerData::expUP(int exp)
 	}
 }
 
+int CplayerData::getDamage()
+{
+	int damage=_Data.presentAtk;
+	int critical = RND->getInt(100);
+	if (critical < _Data.Critical) {
+		damage *= 2;
+	}
+	else if (critical - _Data.Critical < (100 - _Data.Critical) / 2) {
+		damage *= 0.1*RND->getFromInTo(1,10);
+	}
+	else {
+		damage *= 1 + 0.1 * RND->getFromInTo(1, 10);
+	}
+
+	return damage;
+}
+
 void CplayerData::setEquip(int equipHP, int equipMaxHP, int equipMP, int equipMaxMP, float equipSpeed, int equipAtk, int equipAtkSpeed, int equipCritical, int equipSkillPower, int equipSkillCollTime)
 {
 	_presentHP += equipHP;

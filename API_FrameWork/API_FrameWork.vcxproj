@@ -166,6 +166,7 @@
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="mainDOL.h" />
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="mapManager.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="mainDOL.cpp" />
     <ClCompile Include="mainGame.cpp" />
     <ClCompile Include="mapManager.cpp" />

@@ -1069,8 +1069,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 						monster->knockback(iter,
 							bm->getMgcBulInstance()->getVBullet()[i].x,
 							bm->getMgcBulInstance()->getVBullet()[i].y,
-							//PLAYER->getPlayerAddress().damage,
-							10,     //데미지 부분 꼭 수정. 여기 한줄 지우고 윗줄 주석 해제할 것.
+							PLAYERDATA->getDamage(),
 							10, false);
 					}
 					bm->getMgcBulInstance()->removeBullet(i);
@@ -1086,8 +1085,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 						monster->knockback(iter,
 							bm->getMgcBulInstance()->getVBullet()[i].x,
 							bm->getMgcBulInstance()->getVBullet()[i].y,
-							//PLAYER->getPlayerAddress().damage,
-							10,     //데미지 부분 꼭 수정. 여기 한줄 지우고 윗줄 주석 해제할 것.
+							PLAYERDATA->getDamage(),
 							10, false);
 					}
 					bm->getMgcBulInstance()->removeBullet(i);
@@ -1106,8 +1104,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 						monster->knockback(iter,
 							bm->getArwBulInstance()->getVBullet()[i].x,
 							bm->getArwBulInstance()->getVBullet()[i].y,
-							//PLAYER->getPlayerAddress().damage,
-							10,     //데미지 부분 꼭 수정. 여기 한줄 지우고 윗줄 주석 해제할 것.
+							PLAYERDATA->getDamage(),
 							10, false);
 					}
 					bm->getArwBulInstance()->removeBullet(i);
@@ -1123,8 +1120,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 						monster->knockback(iter,
 							bm->getMgcBulInstance()->getVBullet()[i].x,
 							bm->getMgcBulInstance()->getVBullet()[i].y,
-							//PLAYER->getPlayerAddress().damage,
-							10,     //데미지 부분 꼭 수정. 여기 한줄 지우고 윗줄 주석 해제할 것.
+							PLAYERDATA->getDamage(),
 							10, false);
 					}
 					bm->getMgcBulInstance()->removeBullet(i);
