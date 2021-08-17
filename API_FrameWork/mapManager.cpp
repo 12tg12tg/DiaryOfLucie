@@ -169,6 +169,7 @@ void mapManager::update()
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.right + 20;
 			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.bottom - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.bottom - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.top) / 2;
 			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+
 		}
 	}
 	if (checkleft)
@@ -316,36 +317,46 @@ void mapManager::UseableDoor()
 	if (stage1[currentIndex.x - 1][currentIndex.y].mapkind != MAPKIND::NONE)
 	{
 		_mStage1.find(currentMap)->second->getDungeonDoor()[0].isOpen = true;
+		stage1[currentIndex.x][currentIndex.y]._motherMap->setleftDoor(true);
 	}
 	else
 	{
 		_mStage1.find(currentMap)->second->getDungeonDoor()[0].isOpen = false;
+		stage1[currentIndex.x][currentIndex.y]._motherMap->setleftDoor(false);
 	}
 
 	if (stage1[currentIndex.x][currentIndex.y - 1].mapkind != MAPKIND::NONE)
 	{
 		_mStage1.find(currentMap)->second->getDungeonDoor()[1].isOpen = true;
+		stage1[currentIndex.x][currentIndex.y]._motherMap->settopDoor(true);
 	}
 	else
 	{
 		_mStage1.find(currentMap)->second->getDungeonDoor()[1].isOpen = false;
+		stage1[currentIndex.x][currentIndex.y]._motherMap->settopDoor(false);
 	}
 	if (stage1[currentIndex.x + 1][currentIndex.y].mapkind != MAPKIND::NONE)
 	{
 		_mStage1.find(currentMap)->second->getDungeonDoor()[2].isOpen = true;
+		stage1[currentIndex.x][currentIndex.y]._motherMap->setrightDoor(true);
 	}
 	else
 	{
 		_mStage1.find(currentMap)->second->getDungeonDoor()[2].isOpen = false;
+		stage1[currentIndex.x][currentIndex.y]._motherMap->setrightDoor(false);
 	}
 	if (stage1[currentIndex.x][currentIndex.y + 1].mapkind != MAPKIND::NONE)
 	{
 
 		_mStage1.find(currentMap)->second->getDungeonDoor()[3].isOpen = true;
+		stage1[currentIndex.x][currentIndex.y]._motherMap->setbotDoor(true);
+
 	}
 	else
 	{
 		_mStage1.find(currentMap)->second->getDungeonDoor()[3].isOpen = false;
+		stage1[currentIndex.x][currentIndex.y]._motherMap->setbotDoor(false);
+
 	}
 
 }

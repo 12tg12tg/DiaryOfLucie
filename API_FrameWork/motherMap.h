@@ -35,6 +35,10 @@ protected:
 	bool _isDebug;
 	int monNum = RND->getFromInTo(2, 4);
 	bool isClear = false;
+	bool isrightRoom = false;
+	bool isleftRoom = false;
+	bool istopRoom = false;
+	bool isbotRoom = false;
 	POINT monpos[4];
 	POINT _current_point;
 	DungeonDoor _door[4];
@@ -63,6 +67,10 @@ public:
 	virtual void setbulletmemoryLink(bulletManager* bm) { this->bm = bm; }
 	virtual bool getClear() { return isClear; }
 	virtual void setClear(bool isClear) { this->isClear = isClear; }
+	virtual void setleftDoor(bool isleftRoom) { this->isleftRoom = isleftRoom; }
+	virtual void setrightDoor(bool isrightRoom) { this->isrightRoom = isrightRoom; }
+	virtual void setbotDoor(bool isbotRoom) { this->isbotRoom = isbotRoom; }
+	virtual void settopDoor(bool istopRoom) { this->istopRoom = istopRoom; }
 	/*virtual POINT getPoint() { return _current_point; }
 	virtual void setPoint(POINT _current_point) { this->_current_point = _current_point; }
 	virtual void setMapArea() { this->_current_point = _current_point; }*/
