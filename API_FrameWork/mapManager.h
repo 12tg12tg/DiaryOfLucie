@@ -43,6 +43,7 @@ private:
 	nextStage* _nextStage;
 	fountainMap* _fountainMap;
 	before_Boss* _before_boss;
+	last_Boss* _last_boss;
 
 	image* _none;
 	image* _start;
@@ -61,7 +62,7 @@ private:
 	monsterManager* mm;
 	bulletManager* bm;
 	int currentMonNum =0;
-	int stage =1;
+	int stage =4;
 	int currentstage = stage;
 	int remainRoom = 12;
 	int mapSize;
@@ -79,12 +80,11 @@ private:
 
 
 	MAP stage1[MAXSIZE][MAXSIZE];
-	MAP stage4[2][1];
+
 
 	map<string,motherMap*> _mStage1;
 	map<string, motherMap*>::iterator _imStage1;
-	map<string, motherMap*> _mStage4;
-	map<string, motherMap*>::iterator _imStage4;
+	
 
 	bool _isDebug;
 public:
@@ -95,6 +95,8 @@ public:
 
 	
 	Cmap10* getCmap10Instance() { return _Cmap10; }
+	before_Boss* getbefore_BossInstance() { return _before_boss; }
+	last_Boss* getlast_BossInstance() { return _last_boss; }
 	chestMap* getchestMapInstance() { return _chestMap; }
 	shopMap* getshopMapInstance() { return _shopMap; }
 	statueMap* getstatueMapInstance() { return _statueMap; }
@@ -121,7 +123,9 @@ public:
 	void doorstate(monster* monster);
 	void UseableDoor();
 	void makestage1(int i, int k);
+	void makestage4(int i, int k);
 	void makeclear();
+	void makeclear2();
 	bool getGoNextStage() {return goNextStage;}
 
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
@@ -138,14 +142,22 @@ public:
 				}
 			}
 		}
-				_Cmap10->setIsDebug(_isDebug);
-				_chestMap->setIsDebug(_isDebug);
-				_moruMap->setIsDebug(_isDebug);
-				_statueMap->setIsDebug(_isDebug);
-				_shopMap->setIsDebug(_isDebug);
-				_stage1_Boss->setIsDebug(_isDebug);
-				_nextStage->setIsDebug(_isDebug);
-				_fountainMap->setIsDebug(_isDebug);
+		if (stage < 4)
+		{
+			_Cmap10->setIsDebug(_isDebug);
+			_chestMap->setIsDebug(_isDebug);
+			_moruMap->setIsDebug(_isDebug);
+			_statueMap->setIsDebug(_isDebug);
+			_shopMap->setIsDebug(_isDebug);
+			_stage1_Boss->setIsDebug(_isDebug);
+			_nextStage->setIsDebug(_isDebug);
+			_fountainMap->setIsDebug(_isDebug);
+		}
+		else
+		{
+				_before_boss->setIsDebug(_isDebug);
+				_last_boss->setIsDebug(_isDebug);
+		}
 	}
 
 	bool setShopRoom();
@@ -153,6 +165,7 @@ public:
 	bool setstatueRoom();
 	bool setchestRoom();
 	bool setBossRoom();
+	bool setBossRoom2();
 	void setNextRoom();
 	bool setNormal();
 	bool setfountainMap();

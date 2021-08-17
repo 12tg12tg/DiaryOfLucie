@@ -12,6 +12,7 @@ private:
 
 	mapManager* mm;
 
+	int loadingTime;
 	bool _isLodingDone = false;
 public:
 	loading(mapManager* mm);

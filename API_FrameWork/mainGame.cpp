@@ -59,13 +59,11 @@ void mainGame::render(/*HDC hdc*/)	//그림그리는곳
 	//TextOut(getMemDC(), 0, 0, str, lstrlen(str));
 	//wsprintf(str, "윈렉트 %d, %d, %d, %d", wrc.left, wrc.top, wrc.right, wrc.bottom);
 	//TextOut(getMemDC(), 0, 20, str, lstrlen(str));
-
-
 	//========================================================
 	if (_showFPS) TIME->render(getMemDC());
 	//백퍼버의 내용을 HDC에 그린다. (건드리지 말것)
-	//RECT rc = checkGameSize();
-	this->getBackBuffer()->render(getHDC(), 0, 0);
+	RECT rc = checkGameSize();
+	this->getBackBuffer()->stretchRender(getHDC(), RecCenX(rc), RecCenY(rc), RecWidth(rc), RecHeight(rc));
 }
 
 RECT mainGame::checkGameSize()

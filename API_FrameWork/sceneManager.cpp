@@ -66,13 +66,13 @@ void SceneManager::update()
 void SceneManager::render()
 {
     if (_currentScene)_currentScene->render();
-    int i = 0;
-    isceneList iter = _sceneList.begin();
-    for (iter; iter != _sceneList.end(); ++iter){
+    //int i = 0;
+    //isceneList iter = _sceneList.begin();
+    //for (iter; iter != _sceneList.end(); ++iter){
 
-        ZORDER->UITextOut(iter->first, ZMAXLAYER, 100, 50 + 20 * i, RGB(255, 255, 255));
-        i++;
-    }
+    //    ZORDER->UITextOut(iter->first, ZMAXLAYER, 100, 50 + 20 * i, RGB(255, 255, 255));
+    //    i++;
+    //}
 }
 
 gameNode* SceneManager::addScene(string sceneName, gameNode* scene, bool islight)

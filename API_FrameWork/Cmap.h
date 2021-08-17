@@ -265,6 +265,20 @@ public:
 
 };
 
+class last_Boss : public motherMap
+{
+private:
+
+public:
+	last_Boss();
+	~last_Boss();
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+};
+
 
 
 

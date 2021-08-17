@@ -5,7 +5,7 @@
 loading::loading(mapManager* mm) : mm(mm)
 {
 	bg = IMAGE->addImage("로딩배경", WINSIZEX, WINSIZEY);
-	loadingbar = IMAGE->addFrameImage("로딩바", "images/title/loading.bmp", 300, 312, 1, 4, true);
+	loadingbar = IMAGE->addFrameImage("로딩바", "images/title/loading.bmp", 420, 437, 1, 4, true);
 	ANIMATION->addAnimation("로딩애니", "로딩바", 0, 3, 6, false, true);
 	ANIMATION->start("로딩애니");
 }
@@ -16,17 +16,16 @@ loading::~loading()
 
 HRESULT loading::init()
 {
-	barX = WINSIZEX - loadingbar->getFrameWidth() - 50;
-	barY = WINSIZEY - loadingbar->getFrameHeight() - 50;
+	barX = WINSIZEX - loadingbar->getFrameWidth() - 100;
+	barY = WINSIZEY - loadingbar->getFrameHeight() - 100;
 	loadingCount = 0;
 	_isLodingDone = false;
+	loadingTime = 450 + RND->getInt(50);
 	return S_OK;
 }
 
 void loading::release()
 {
-	static int i = 5;
-	i++;
 }
 
 void loading::update()
