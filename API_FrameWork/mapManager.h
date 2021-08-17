@@ -42,6 +42,7 @@ private:
 	stage1_Boss* _stage1_Boss;
 	nextStage* _nextStage;
 	fountainMap* _fountainMap;
+	before_Boss* _before_boss;
 
 	image* _none;
 	image* _start;
@@ -53,13 +54,15 @@ private:
 	image* _chest;
 	image* _back;
 
+
 	string currentMap;
 	
 	POINT currentIndex;
 	monsterManager* mm;
 	bulletManager* bm;
 	int currentMonNum =0;
-	int stage = 1;
+	int stage =1;
+	int currentstage = stage;
 	int remainRoom = 12;
 	int mapSize;
 	int remainNextStage = 1;
@@ -67,7 +70,7 @@ private:
 	bool bottomdoor_open;
 	bool rightdoor_open;
 	bool leftdoor_open;
-
+	bool goNextStage;
 	bool checkright;
 	bool checkleft;
 	bool checktop;
@@ -76,11 +79,12 @@ private:
 
 
 	MAP stage1[MAXSIZE][MAXSIZE];
-
+	MAP stage4[2][1];
 
 	map<string,motherMap*> _mStage1;
 	map<string, motherMap*>::iterator _imStage1;
-	
+	map<string, motherMap*> _mStage4;
+	map<string, motherMap*>::iterator _imStage4;
 
 	bool _isDebug;
 public:
@@ -118,7 +122,7 @@ public:
 	void UseableDoor();
 	void makestage1(int i, int k);
 	void makeclear();
-	
+	bool getGoNextStage() {return goNextStage;}
 
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }

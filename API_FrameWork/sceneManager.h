@@ -4,8 +4,14 @@ class gameNode;
 class SceneManager : public Singleton<SceneManager>
 {
 private:
-	typedef map<string, gameNode*> sceneList;
-	typedef map<string, gameNode*>::iterator isceneList;
+	struct weightgameNode
+	{
+		gameNode* gn;
+		bool islight;
+	};
+
+	typedef map<string, weightgameNode> sceneList;
+	typedef map<string, weightgameNode>::iterator isceneList;
 
 private:
 	static gameNode* _currentScene;
@@ -17,10 +23,11 @@ public:
 
 	HRESULT init();
 	void release();
+	void releaseLight();
 	void update(); //계산하는곳
 	void render(/*HDC hdc*/);
 
-	gameNode* addScene(string sceneName, gameNode* scene);
+	gameNode* addScene(string sceneName, gameNode* scene, bool islight = true);
 	HRESULT changeScene(string sceneName);
 };
 

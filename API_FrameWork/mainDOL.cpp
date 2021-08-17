@@ -14,8 +14,8 @@ mainDOL::~mainDOL(){}
 HRESULT mainDOL::init()
 {
 	gameInit();
-	_DOLtitle = dynamic_cast<DOL_Title*>(SCENE->addScene("타이틀", new DOL_Title));
-	_loading = dynamic_cast<loading*>(SCENE->addScene("로딩", new loading(_mapm)));
+	_DOLtitle = dynamic_cast<DOL_Title*>(SCENE->addScene("타이틀", new DOL_Title, false));
+	_loading = dynamic_cast<loading*>(SCENE->addScene("로딩", new loading(_mapm), false));
 	SCENE->changeScene("타이틀");
 
 
@@ -42,6 +42,10 @@ void mainDOL::update()
 	//로딩끝났는지확인
 	if (_loading->getIsLodingDone()) {
 		canUpdate = true;
+	}
+	if (_mapm->getGoNextStage())
+	{
+		canUpdate = false;
 	}
 	//타이틀과 게임시작화면 & 로딩
 	if (!canUpdate) {

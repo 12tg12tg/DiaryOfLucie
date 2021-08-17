@@ -1433,6 +1433,7 @@ void CmFBoss1Bullet::move()
 	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end();)
 	{
 		_viBullet->count++;
+		
 		if (_vBullet.size() == 0)
 		{
 			_viBullet->count = 0;
@@ -1448,11 +1449,11 @@ void CmFBoss1Bullet::move()
 			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
 				_viBullet->bulletImage->getWidth(),
 				_viBullet->bulletImage->getHeight());
-			if (_viBullet->count % 15 == 0)
+			if (_viBullet->count % 15 == 0 && !((_viBullet->iscollison)))
 			{
 				fire2(_viBullet->fireX, _viBullet->fireY,0);
 			}
-			if (_viBullet->iscollison)
+			else if ( _viBullet->count ==149)
 			{
 				_viBullet = _vBullet.erase(_viBullet);
 			}
@@ -1467,6 +1468,7 @@ void CmFBoss1Bullet::move2()
 	for (_viBullet2; _viBullet2 != _vBullet2.end();)
 	{
 		_viBullet2->count++;
+		_viBullet2->alpha += 5;
 		if (_vBullet2.size() == 0)
 		{
 			_viBullet2->count = 0;

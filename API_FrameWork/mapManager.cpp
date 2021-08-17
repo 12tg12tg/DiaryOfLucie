@@ -4,7 +4,7 @@
 
 mapManager::mapManager()
 {
-	stage++;
+	
 }
 mapManager::~mapManager()
 {
@@ -12,43 +12,46 @@ mapManager::~mapManager()
 }
 HRESULT mapManager::init()
 {
-	
+	/*
+	if (stage == currentstage)
+	{*/
 	_Cmap10 = nullptr;
-    _chestMap  = nullptr;
-    _shopMap  = nullptr;
-    _statueMap 	 = nullptr;
-    _moruMap = nullptr;
-    _fountainMap = nullptr;
-    _stage1_Boss = nullptr;
-    _nextStage = nullptr;
-
-	_none =IMAGE->addImage("빈방", "images/minimap/minimap_none.bmp", 30, 30, true, RGB(255, 0, 255));
-	_start =IMAGE->addImage("시작방", "images/minimap/minimap_cellIcon_start.bmp", 30, 30, true, RGB(255, 0, 255));
-	_fight =IMAGE->addImage("전투방", "images/minimap/minimap_cell_on.bmp", 30, 30, true, RGB(255, 0, 255));
-	_chest =IMAGE->addImage("상자방", "images/minimap/minimap_cellIcon_chest.bmp", 30, 30, true, RGB(255, 0, 255));
-	_event =IMAGE->addImage("이벤트방", "images/minimap/minimap_cellIcon_event.bmp", 30, 30, true, RGB(255, 0, 255));
+	_chestMap = nullptr;
+	_shopMap = nullptr;
+	_statueMap = nullptr;
+	_moruMap = nullptr;
+	_fountainMap = nullptr;
+	_stage1_Boss = nullptr;
+	_nextStage = nullptr;
+	_before_boss = nullptr;
+	_none = IMAGE->addImage("빈방", "images/minimap/minimap_none.bmp", 30, 30, true, RGB(255, 0, 255));
+	_start = IMAGE->addImage("시작방", "images/minimap/minimap_cellIcon_start.bmp", 30, 30, true, RGB(255, 0, 255));
+	_fight = IMAGE->addImage("전투방", "images/minimap/minimap_cell_on.bmp", 30, 30, true, RGB(255, 0, 255));
+	_chest = IMAGE->addImage("상자방", "images/minimap/minimap_cellIcon_chest.bmp", 30, 30, true, RGB(255, 0, 255));
+	_event = IMAGE->addImage("이벤트방", "images/minimap/minimap_cellIcon_event.bmp", 30, 30, true, RGB(255, 0, 255));
 	_shop = IMAGE->addImage("상점방", "images/minimap/minimap_cellIcon_shop.bmp", 30, 30, true, RGB(255, 0, 255));
 	_boss = IMAGE->addImage("보스방", "images/minimap/minimap_cellIcon_boss.bmp", 30, 30, true, RGB(255, 0, 255));
 	_goal = IMAGE->addImage("다음층", "images/minimap/minimap_cellIcon_goal.bmp", 30, 30, true, RGB(255, 0, 255));
 	_back = IMAGE->addImage("바탕", "images/minimap/minimap_backSpriteL.bmp", 455, 317, true, RGB(255, 0, 255));
-
-
 	
 
-	while (remainRoom >= 1 || checkNextStage() == false)
+
+	if (stage < 4)
 	{
-		makeclear();
-		makestage1((MAXSIZE - 1) / 2, (MAXSIZE + 1) / 2);
-		mapSize = 11 - remainRoom;
-		setNormal();
-		setBossRoom();
-		setstatueRoom();
-		setchestRoom();
-		setMORURoom();
-		setShopRoom();
-		setfountainMap();
-		setNextRoom();
-	}
+		while (remainRoom >= 1 || checkNextStage() == false)
+		{
+			makeclear();
+			makestage1((MAXSIZE - 1) / 2, (MAXSIZE + 1) / 2);
+			mapSize = 11 - remainRoom;
+			setNormal();
+			setBossRoom();
+			setstatueRoom();
+			setchestRoom();
+			setMORURoom();
+			setShopRoom();
+			setfountainMap();
+			setNextRoom();
+		}
 		_Cmap10 = dynamic_cast<Cmap10*>(SCENE->addScene("_Cmap10", new Cmap10));
 		_chestMap = dynamic_cast<chestMap*>(SCENE->addScene("_chestMap", new chestMap));
 		_chestMap->setbulletmemoryLink(bm);
@@ -61,6 +64,7 @@ HRESULT mapManager::init()
 		_fountainMap->setbulletmemoryLink(bm);
 		_stage1_Boss = dynamic_cast<stage1_Boss*>(SCENE->addScene("_stage1_Boss", new stage1_Boss));
 		_nextStage = dynamic_cast<nextStage*>(SCENE->addScene("_nextStage", new nextStage));
+			
 		_Cmap10->setMonstermemoryLink(mm);
 		_chestMap->setMonstermemoryLink(mm);
 		_shopMap->setMonstermemoryLink(mm);
@@ -71,60 +75,71 @@ HRESULT mapManager::init()
 		_fountainMap->setMonstermemoryLink(mm);
 
 
-	for (int i = 0; i < MAXSIZE; i++)
-	{
-		for (int k = 0; k < MAXSIZE; k++)
-		{
-			if (stage1[i][k].mapkind != MAPKIND::NONE)
-			{
-				switch (stage1[i][k].mapkind)
-				{
-				case START:
-					stage1[i][k]._motherMap = _Cmap10;
-					break;
-				case SHOP:
-					stage1[i][k]._motherMap = _shopMap;
-					break;
-				case MORUROOM:
-					stage1[i][k]._motherMap = _moruMap;
-					break;
-				case STATUEROOM:
-					stage1[i][k]._motherMap = _statueMap;
-					break;
-				case CHESTROOM:
-					stage1[i][k]._motherMap = _chestMap;
-					break;
-				case FOUNTAIN:
-					stage1[i][k]._motherMap = _fountainMap;
-					break;
-				case BOSSROOM:
-					stage1[i][k]._motherMap = _stage1_Boss;
-					break;
-				case NEXTSTAGE:
-					stage1[i][k]._motherMap = _nextStage;
-					break;
-				}
-				_mStage1.insert(pair<string, motherMap*>(stage1[i][k].sceneKey, stage1[i][k]._motherMap));
-				if (stage1[i][k].mapkind == MAPKIND::START)
-				{
-					//맵을 다시돌면서 값을 넣어줌
-					currentMap = stage1[i][k].sceneKey;
-					currentIndex.x = i;
-					currentIndex.y = k;
-					SCENE->changeScene(currentMap);
-				}
-			}
 
+		for (int i = 0; i < MAXSIZE; i++)
+		{
+			for (int k = 0; k < MAXSIZE; k++)
+			{
+				if (stage1[i][k].mapkind != MAPKIND::NONE)
+				{
+					switch (stage1[i][k].mapkind)
+					{
+					case START:
+						stage1[i][k]._motherMap = _Cmap10;
+						break;
+					case SHOP:
+						stage1[i][k]._motherMap = _shopMap;
+						break;
+					case MORUROOM:
+						stage1[i][k]._motherMap = _moruMap;
+						break;
+					case STATUEROOM:
+						stage1[i][k]._motherMap = _statueMap;
+						break;
+					case CHESTROOM:
+						stage1[i][k]._motherMap = _chestMap;
+						break;
+					case FOUNTAIN:
+						stage1[i][k]._motherMap = _fountainMap;
+						break;
+					case BOSSROOM:
+						stage1[i][k]._motherMap = _stage1_Boss;
+						break;
+					case NEXTSTAGE:
+						stage1[i][k]._motherMap = _nextStage;
+						break;
+					}
+					_mStage1.insert(pair<string, motherMap*>(stage1[i][k].sceneKey, stage1[i][k]._motherMap));
+					if (stage1[i][k].mapkind == MAPKIND::START)
+					{
+						//맵을 다시돌면서 값을 넣어줌
+						currentMap = stage1[i][k].sceneKey;
+						currentIndex.x = i;
+						currentIndex.y = k;
+						SCENE->changeScene(currentMap);
+					}
+				}
+
+			}
 		}
 	}
-
-
+	else
+	{
+		_before_boss = dynamic_cast<before_Boss*>(SCENE->addScene("_before_Boss", new before_Boss));
+		_before_boss->setMonstermemoryLink(mm);
+		MAP stage4[2][1] = { {{ _before_boss,"_before_Boss",NORMAL }},
+							{{ nullptr,"",NONE }}
+						   };
+		SCENE->changeScene("_before_boss");
+	}
+	goNextStage = false;
+	
 	return S_OK;
 }
 
 void mapManager::release()
 {
-	SCENE->release();
+	SCENE->releaseLight();
 }
 
 void mapManager::update()
@@ -213,8 +228,23 @@ void mapManager::update()
 	}
 	if (checkMagicDoor)
 	{
-		this->release();
-		this->init();
+		//if (stage < 4)
+		{
+			checkMagicDoor = false;
+			goNextStage = true;
+			remainRoom = 12;
+			stage++;
+			_mStage1.clear();
+			SCENE->changeScene("로딩");
+		}
+		/*else
+		{
+			checkMagicDoor = false;
+			goNextStage = true;
+			remainRoom = 12;
+			_mStage1.clear();
+			SCENE->changeScene("로딩");
+		}*/
 	}
 	SCENE->update();
 }
@@ -735,7 +765,7 @@ void mapManager::makeclear() {
 	remainNextStage = 1;
 	stage1[(MAXSIZE - 1) / 2][(MAXSIZE - 1) / 2] = { _Cmap10,"_Cmap10",START};
 	remainRoom--;
-	SCENE->release();
+	SCENE->releaseLight();
 }
 
 image* mapManager::getCurrentColMap()

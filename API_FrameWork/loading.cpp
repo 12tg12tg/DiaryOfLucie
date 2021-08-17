@@ -25,6 +25,8 @@ HRESULT loading::init()
 
 void loading::release()
 {
+	static int i = 5;
+	i++;
 }
 
 void loading::update()
