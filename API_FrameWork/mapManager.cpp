@@ -12,9 +12,7 @@ mapManager::~mapManager()
 }
 HRESULT mapManager::init()
 {
-	/*
-	if (stage == currentstage)
-	{*/
+	
 	_Cmap10 = nullptr;
 	_chestMap = nullptr;
 	_shopMap = nullptr;
@@ -24,6 +22,8 @@ HRESULT mapManager::init()
 	_stage1_Boss = nullptr;
 	_nextStage = nullptr;
 	_before_boss = nullptr;
+	_last_boss = nullptr;
+
 	_none = IMAGE->addImage("빈방", "images/minimap/minimap_none.bmp", 30, 30, true, RGB(255, 0, 255));
 	_start = IMAGE->addImage("시작방", "images/minimap/minimap_cellIcon_start.bmp", 30, 30, true, RGB(255, 0, 255));
 	_fight = IMAGE->addImage("전투방", "images/minimap/minimap_cell_on.bmp", 30, 30, true, RGB(255, 0, 255));
@@ -125,12 +125,48 @@ HRESULT mapManager::init()
 	}
 	else
 	{
-		_before_boss = dynamic_cast<before_Boss*>(SCENE->addScene("_before_Boss", new before_Boss));
+		remainRoom = 2;
+		while (remainRoom >= 1 )
+		{
+			makeclear2();
+			makestage4((MAXSIZE - 1) / 2, (MAXSIZE -3) / 2);
+			mapSize = 1 - remainRoom;
+			setNormal();
+			setBossRoom2();
+		}
+		_before_boss = dynamic_cast<before_Boss*>(SCENE->addScene("_before_boss", new before_Boss));
+		_last_boss = dynamic_cast<last_Boss*>(SCENE->addScene("_last_boss", new last_Boss));
 		_before_boss->setMonstermemoryLink(mm);
-		MAP stage4[2][1] = { {{ _before_boss,"_before_Boss",NORMAL }},
-							{{ nullptr,"",NONE }}
-						   };
-		SCENE->changeScene("_before_boss");
+		_last_boss->setMonstermemoryLink(mm);
+
+		for (int i = 0; i < MAXSIZE; i++)
+		{
+			for (int k = 0; k < MAXSIZE; k++)
+			{
+				if (stage1[i][k].mapkind != MAPKIND::NONE)
+				{
+					switch (stage1[i][k].mapkind)
+					{
+					case START:
+						stage1[i][k]._motherMap = _before_boss;
+						break;
+					case BOSSROOM:
+						stage1[i][k]._motherMap = _last_boss;
+						break;
+					}
+					_mStage1.insert(pair<string, motherMap*>(stage1[i][k].sceneKey, stage1[i][k]._motherMap));
+					if (stage1[i][k].mapkind == MAPKIND::START)
+					{
+						//맵을 다시돌면서 값을 넣어줌
+						currentMap = stage1[i][k].sceneKey;
+						currentIndex.x = i;
+						currentIndex.y = k;
+						SCENE->changeScene(currentMap);
+					}
+				}
+
+			}
+		}
 	}
 	goNextStage = false;
 	
@@ -202,7 +238,7 @@ void mapManager::update()
 	}
 	if (checkbottom)
 	{
-		if (currentIndex.y < 9)
+		if (currentIndex.y < 8)
 		{
 			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y + 1].sceneKey);
 			currentIndex.x = currentIndex.x;
@@ -215,7 +251,7 @@ void mapManager::update()
 	}
 	if (checktop)
 	{
-		if (currentIndex.y > 0)
+		if (currentIndex.y >= 0)
 		{
 			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y - 1].sceneKey);
 			currentIndex.x = currentIndex.x;
@@ -423,7 +459,19 @@ void mapManager::makestage1(int i, int k)
 	}
 
 }
+void mapManager::makestage4(int i, int k)
+{
+	if (remainRoom <= 0 ||
+		i < 0 ||
+		i >= MAXSIZE ||
+		k < 0 ||
+		k >= MAXSIZE ||
+		stage1[i][k].mapkind != MAPKIND::NONE)
+		return;
 
+	remainRoom--;
+	stage1[i][k].mapkind = MAPKIND::NORMAL;
+}
 bool mapManager::setstatueRoom()
 {
 	int setstatue = mapSize - 1;
@@ -530,7 +578,26 @@ bool mapManager::setBossRoom()
 	}
 	return false;
 }
-
+bool mapManager::setBossRoom2()
+{
+	int setBoss = mapSize;
+	for (int k = 0; k < MAXSIZE; k++)
+	{
+		for (int i = 0; i < MAXSIZE; i++)
+		{
+			if (stage1[i][k].mapkind == MAPKIND::NORMAL)
+			{
+				setBoss--;
+				if (setBoss == 0)
+				{
+					stage1[i][k] = { _last_boss,"_last_boss",BOSSROOM };
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
 void mapManager::setNextRoom()
 {
 	for (int i = 0; i < MAXSIZE; i++)
@@ -762,12 +829,25 @@ void mapManager::makeclear() {
 		}
 	}
 	remainRoom = 12;
-	remainNextStage = 1;
 	stage1[(MAXSIZE - 1) / 2][(MAXSIZE - 1) / 2] = { _Cmap10,"_Cmap10",START};
 	remainRoom--;
 	SCENE->releaseLight();
 }
-
+void mapManager::makeclear2() {
+	for (int i = 0; i < MAXSIZE; i++)
+	{
+		for (int k = 0; k < MAXSIZE; k++)
+		{
+			stage1[i][k].mapkind = NONE;
+			stage1[i][k].sceneKey = "";
+			stage1[i][k]._motherMap = nullptr;
+		}
+	}
+	remainRoom = 2;
+	stage1[(MAXSIZE - 1) / 2][(MAXSIZE - 1) / 2] = { _before_boss,"_before_boss",START };
+	remainRoom--;
+	SCENE->releaseLight();
+}
 image* mapManager::getCurrentColMap()
 {
 
