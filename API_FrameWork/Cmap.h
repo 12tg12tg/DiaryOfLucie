@@ -240,7 +240,7 @@ public:
 class nextStage : public motherMap
 {
 private:
-
+	
 public:
 	nextStage();
 	~nextStage();
@@ -248,7 +248,6 @@ public:
 	void release();
 	void update();
 	void render();
-
 
 };
 

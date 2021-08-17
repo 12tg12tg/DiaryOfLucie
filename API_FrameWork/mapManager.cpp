@@ -1,6 +1,15 @@
 #include "framework.h"
 #include "mapManager.h"
 #include"monsterManager.h"
+
+mapManager::mapManager()
+{
+	stage++;
+}
+mapManager::~mapManager()
+{
+	
+}
 HRESULT mapManager::init()
 {
 	
@@ -136,6 +145,7 @@ void mapManager::update()
 	doorstate(mm->getBoss_Mushroom_B());
 	doorstate(mm->getYggdrasil_Bomb());
 	doorstate(mm->getYggdrasil());
+
 	if (currentMonNum != 0)
 	{
 		checkright = false;
@@ -145,8 +155,9 @@ void mapManager::update()
 
 	}
 	else
-	{
+	{	
 		UseableDoor();
+		stage1[currentIndex.x][currentIndex.y]._motherMap->setClear(true);
 	}
 	if (checkright)
 	{
@@ -187,6 +198,11 @@ void mapManager::update()
 		PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.top - 20;
 
 		currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+	}
+	if (checkMagicDoor)
+	{
+		this->release();
+		this->init();
 	}
 	SCENE->update();
 }
@@ -269,6 +285,8 @@ void mapManager::render()
 	ZORDER->ZorderTextOut(str, ZMAXLAYER, WINSIZEX / 2, WINSIZEY / 2, RGB(0, 0, 0));
 	}
 }
+
+
 
 
 
@@ -418,6 +436,8 @@ bool mapManager::setMORURoom()
 	}
 	return false;
 }
+
+
 
 bool mapManager::setShopRoom()
 {
@@ -680,14 +700,6 @@ bool mapManager::setfountainMap()
 	return false;
 }
 
-
-
-
-
-
-
-
-
 void mapManager::makeclear() {
 	for (int i = 0; i < MAXSIZE; i++)
 	{
@@ -722,6 +734,17 @@ DungeonDoor* mapManager::getCurrentDoor()
 	if (_mStage1.find(currentMap) != _mStage1.end())
 	{
 		return	_mStage1.find(currentMap)->second->getDungeonDoor();
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+MagicDoor* mapManager::getMagicDoor()
+{
+	if (_mStage1.find(currentMap) != _mStage1.end())
+	{
+		return	_mStage1.find(currentMap)->second->getMagicNextStage();
 	}
 	else
 	{

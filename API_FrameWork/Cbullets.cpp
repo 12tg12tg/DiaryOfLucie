@@ -697,7 +697,7 @@ void CmHomingBullet::move()
 		{
 			_viBullet->count = 0;
 		}
-		if (_viBullet->count < 100& !(_viBullet->iscollison))
+		if ((_viBullet->count < 100) && !(_viBullet->iscollison))
 		{
 			_viBullet->x += cosf(_viBullet->angle) * 1;
 			_viBullet->y -= sinf(_viBullet->angle) * 1;
@@ -2349,40 +2349,16 @@ void CmTBoss3Bullet::move()
 		{
 			_viBullet->count = 0;
 		}
-		if (_viBullet->count < 100 && !(_viBullet->iscollison))
+		if (_viBullet->count < 100)
 		{
-
-			_viBullet->x += cosf(_viBullet->angle2) * 0.5;
-			_viBullet->y -= sinf(_viBullet->angle2) * 0.5;
+			_viBullet->x += cosf(_viBullet->angle2) *0;
+			_viBullet->y -= sinf(_viBullet->angle2) *0;
 
 			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
-				_viBullet->bulletImage->getWidth(),
-				_viBullet->bulletImage->getHeight());
+				_viBullet->bulletImage->getFrameWidth(),
+				_viBullet->bulletImage->getFrameHeight());
 			_viBullet->fireX = _viBullet->x;
 			_viBullet->fireY = _viBullet->y;
-
-		}
-		else if (_viBullet->count >= 100 && _viBullet->count < 110 && !(_viBullet->iscollison))
-		{
-			_viBullet->angle = UTIL::getAngle(_viBullet->fireX, _viBullet->fireY, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
-			_viBullet->x += cosf(_viBullet->angle) * 4;
-			_viBullet->y -= sinf(_viBullet->angle) * 4;
-			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
-				_viBullet->bulletImage->getWidth(),
-				_viBullet->bulletImage->getHeight());
-		}
-		else if (_viBullet->count >= 110 && !(_viBullet->iscollison))
-		{
-			_viBullet->x += cosf(_viBullet->angle) * 4;
-			_viBullet->y -= sinf(_viBullet->angle) * 4;
-			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
-				_viBullet->bulletImage->getWidth(),
-				_viBullet->bulletImage->getHeight());
-		}
-
-		if (_viBullet->iscollison)
-		{
-			_viBullet = _vBullet.erase(_viBullet);
 		}
 		else ++_viBullet;
 	}
@@ -2391,4 +2367,489 @@ void CmTBoss3Bullet::move()
 void CmTBoss3Bullet::removeBullet(int arrNum)
 {
 	_vBullet.erase(_vBullet.begin() + arrNum);
+}
+
+CpSword::CpSword()
+{
+}
+
+CpSword::~CpSword()
+{
+}
+
+HRESULT CpSword::init()
+{
+	return S_OK;
+}
+
+void CpSword::release()
+{
+}
+
+void CpSword::update()
+{
+	move();
+	move2();
+	move3();
+}
+
+void CpSword::render()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderRotateRender(_viBullet->bulletImage, ZMAXLAYER, 1200, RecCenX(_viBullet->rc), RecCenY(_viBullet->rc), _viBullet->angle-PI);
+	}
+	_viBullet2 = _vBullet2.begin();
+	for (_viBullet2; _viBullet2 != _vBullet2.end(); ++_viBullet2)
+	{
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet2->rc, ZCOL1);
+		ZORDER->ZorderRotateRender(_viBullet2->bulletImage2, ZMAXLAYER, 1200, RecCenX(_viBullet2->rc), RecCenY(_viBullet2->rc), _viBullet2->angle - PI/2);
+	}
+	_viBullet3 = _vBullet3.begin();
+	for (_viBullet3; _viBullet3 != _vBullet3.end(); ++_viBullet3)
+	{
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet3->rc, ZCOL1);
+		ZORDER->ZorderRotateRender(_viBullet3->bulletImage3, ZMAXLAYER, 1200, RecCenX(_viBullet3->rc), RecCenY(_viBullet3->rc), _viBullet3->angle - PI/2);
+	}
+}
+
+void CpSword::fire(float x, float y, float angle, int plussize)
+{
+	tagBullet bullet;
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("검1", "images/bullet_bmp/sword1.bmp", 192,192,true,RGB(255,0,255));
+	bullet.angle = angle;
+	bullet.rotateangle = angle + PI / 2;
+	bullet.speed = 5.0f;
+	bullet.x = bullet.fireX = x;
+	bullet.y = bullet.fireY = y;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
+	bullet.isPlayerBullet = true;
+	_vBullet.push_back(bullet);
+}
+
+void CpSword::fire2(float x, float y, float angle, int plussize)
+{
+	tagBullet bullet;
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage2 = new  image;
+	bullet.bulletImage2 = IMAGE->addImage("검2", "images/bullet_bmp/sword2.bmp", 192, 192, true, RGB(255, 0, 255));
+	bullet.angle = angle;
+	bullet.rotateangle = angle + PI / 2;
+	bullet.speed = 5.0f;
+	bullet.x = bullet.fireX = x;
+	bullet.y = bullet.fireY = y;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage2->getWidth(),
+		bullet.bulletImage2->getHeight());
+	bullet.iscollison = false;
+	bullet.isPlayerBullet = true;
+	_vBullet2.push_back(bullet);
+}
+
+void CpSword::fire3(float x, float y, float angle, int plussize)
+{
+	tagBullet bullet;
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage3 = new  image;
+	bullet.bulletImage3 = IMAGE->addImage("검3", "images/bullet_bmp/sword3.bmp", 192, 192,true, RGB(255, 0, 255));
+	bullet.angle = angle;
+	bullet.rotateangle = angle + PI / 2;
+	bullet.speed = 5.0f;
+	bullet.x = bullet.fireX = x;
+	bullet.y = bullet.fireY = y;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage3->getWidth(),
+		bullet.bulletImage3->getHeight());
+	bullet.iscollison = false;
+	bullet.isPlayerBullet = true;
+	_vBullet3.push_back(bullet);
+}
+
+void CpSword::move()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end();)
+	{
+		_viBullet->count++;
+		if (_vBullet.size() == 0)
+		{
+			_viBullet->count = 0;
+		}
+		if (_viBullet->count > 0 && _viBullet->count <50)
+		{
+			_viBullet->x += cosf(_viBullet->angle) * 0;
+			_viBullet->y -= sinf(_viBullet->angle) * 0;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+			_viBullet->fireX = _viBullet->x;
+			_viBullet->fireY = _viBullet->y;
+		}
+		else if (_viBullet->count > 50 && _viBullet->count < 100)
+		{
+			_viBullet->x += cosf(_viBullet->angle) * 0;
+			_viBullet->y -= sinf(_viBullet->angle) * 0;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+			_viBullet->fireX = _viBullet->x;
+			_viBullet->fireY = _viBullet->y;
+		}
+		else if (_viBullet->count > 100 && _viBullet->count < 150)
+		{
+			_viBullet->x += cosf(_viBullet->angle) * 0;
+			_viBullet->y -= sinf(_viBullet->angle) * 0;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+			_viBullet->fireX = _viBullet->x;
+			_viBullet->fireY = _viBullet->y;
+		}
+		else if (_viBullet->count > 150 && _viBullet->count <200)
+		{
+			_viBullet->x += cosf(_viBullet->angle) * 0;
+			_viBullet->y -= sinf(_viBullet->angle) * 0;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+			_viBullet->fireX = _viBullet->x;
+			_viBullet->fireY = _viBullet->y;
+		}
+		else if (_viBullet->count > 200 && _viBullet->count < 250)
+		{
+			_viBullet->x += cosf(_viBullet->angle) * 0;
+			_viBullet->y -= sinf(_viBullet->angle) * 0;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+			_viBullet->fireX = _viBullet->x;
+			_viBullet->fireY = _viBullet->y;
+		}
+		else if (_viBullet->count ==250)
+		{
+			_viBullet = _vBullet.erase(_viBullet);
+			continue;
+		}
+		++_viBullet;
+	}
+}
+
+void CpSword::move2()
+{
+	_viBullet2 = _vBullet2.begin();
+	for (_viBullet2; _viBullet2 != _vBullet2.end();)
+	{
+		_viBullet2->count++;
+		if (_vBullet2.size() == 0)
+		{
+			_viBullet2->count = 0;
+		}
+		if (_viBullet2->count > 5 && _viBullet2->count < 10)
+		{
+			_viBullet2->x += cosf(_viBullet2->angle) * 0;
+			_viBullet2->y -= sinf(_viBullet2->angle) * 0;
+
+			_viBullet2->rc = RectMakeCenter(_viBullet2->x, _viBullet2->y,
+				_viBullet2->bulletImage2->getWidth(),
+				_viBullet2->bulletImage2->getHeight());
+			_viBullet2->fireX = _viBullet2->x;
+			_viBullet2->fireY = _viBullet2->y;
+		}
+		else if (_viBullet2->count == 10)
+		{
+			_viBullet2 = _vBullet2.erase(_viBullet2);
+			continue;
+		}
+		++_viBullet2;
+	}
+}
+
+void CpSword::move3()
+{
+	_viBullet3 = _vBullet3.begin();
+	for (_viBullet3; _viBullet3 != _vBullet3.end();)
+	{
+		_viBullet3->count++;
+		if (_vBullet3.size() == 0)
+		{
+			_viBullet3->count = 0;
+		}
+		if (_viBullet3->count > 10 && _viBullet3->count < 15)
+		{
+			_viBullet3->x += cosf(_viBullet3->angle) * 0;
+			_viBullet3->y -= sinf(_viBullet3->angle) * 0;
+
+			_viBullet3->rc = RectMakeCenter(_viBullet3->x, _viBullet3->y,
+				_viBullet3->bulletImage3->getWidth(),
+				_viBullet3->bulletImage3->getHeight());
+			_viBullet3->fireX = _viBullet3->x;
+			_viBullet3->fireY = _viBullet3->y;
+		}
+		else if (_viBullet3->count == 15)
+		{
+			_viBullet3 = _vBullet3.erase(_viBullet3);
+			continue;
+		}
+		++_viBullet3;
+	}
+}
+
+void CpSword::removeBullet(int arrNum)
+{
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}
+
+void CpSword::removeBullet2(int arrNum)
+{
+	_vBullet2.erase(_vBullet2.begin() + arrNum);
+}
+
+void CpSword::removeBullet3(int arrNum)
+{
+	_vBullet3.erase(_vBullet3.begin() + arrNum);
+}
+
+CpSkil_LuckyStar::CpSkil_LuckyStar()
+{
+}
+
+CpSkil_LuckyStar::~CpSkil_LuckyStar()
+{
+}
+
+HRESULT CpSkil_LuckyStar::init()
+{
+
+	return S_OK;
+}
+
+void CpSkil_LuckyStar::release()
+{
+}
+
+void CpSkil_LuckyStar::update()
+{
+}
+
+void CpSkil_LuckyStar::render()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		if (_isDebug)
+			ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderStretchRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+			RecCenX(_viBullet->rc), RecCenY(_viBullet->rc), _viBullet->plussize);
+	}
+}
+
+void CpSkil_LuckyStar::fire(float x, float y, float angle, int plussize)
+{
+	tagBullet bullet;
+	for (int i = 0; i < 5; i++)
+	{
+		ZeroMemory(&bullet, sizeof(tagBullet));
+		bullet.bulletImage = new  image;
+		bullet.bulletImage = IMAGE->addImage("별총알", "images/bullet_bmp/skill_ms_star.bmp",24, 24, true);
+		bullet.plussize = 1 + (double)plussize / bullet.bulletImage->getWidth();
+		bullet.angle = angle - 0.4 + 0.2 * i;
+		bullet.speed = 5.0f;
+		bullet.x = bullet.fireX = x;
+		bullet.y = bullet.fireY = y;
+		bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+			bullet.bulletImage->getWidth() + plussize,
+			bullet.bulletImage->getHeight() + plussize);
+		bullet.iscollison = false;
+		bullet.isPlayerBullet = false;
+		_vBullet.push_back(bullet);
+	}
+}
+
+
+void CpSkil_LuckyStar::move()
+{
+	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end();)
+	{
+		_viBullet->x += cosf(_viBullet->angle) * _viBullet->speed;
+		_viBullet->y -= sinf(_viBullet->angle) * _viBullet->speed;
+
+		_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+			_viBullet->bulletImage->getWidth(),
+			_viBullet->bulletImage->getHeight());
+
+		if (_viBullet->iscollison)
+		{
+			_viBullet = _vBullet.erase(_viBullet);
+		}
+		else ++_viBullet;
+
+	}
+}
+
+void CpSkil_LuckyStar::removeBullet(int arrNum)
+{
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}
+
+CpSkil_Ice_spear::CpSkil_Ice_spear()
+{
+}
+
+CpSkil_Ice_spear::~CpSkil_Ice_spear()
+{
+}
+
+HRESULT CpSkil_Ice_spear::init()
+{
+	return S_OK;
+}
+
+void CpSkil_Ice_spear::release()
+{
+}
+
+void CpSkil_Ice_spear::update()
+{
+	move();
+	move2();
+}
+
+void CpSkil_Ice_spear::render()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderRotateRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+			RecCenX(_viBullet->rc), RecCenY(_viBullet->rc), _viBullet->angle);
+	}
+	_viBullet2 = _vBullet2.begin();
+	for (_viBullet2; _viBullet2 != _vBullet2.end(); ++_viBullet2)
+	{
+		if (_isDebug) ZORDER->ZorderRectangle(_viBullet2->rc, ZCOL1);
+		ZORDER->ZorderAniRender(_viBullet2->bulletImage2, ZUNIT, _viBullet->rc.bottom, RecCenX(_viBullet->rc), RecCenY(_viBullet->rc), _viBullet->bulletAni);
+	}
+}
+
+void CpSkil_Ice_spear::fire(float x, float y, float angle, int plussize)
+{
+	tagBullet bullet;
+
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("얼음화살", "images/bullet_bmp/ice.bmp", 61, 21, true);
+	bullet.angle2 = angle;
+	bullet.angle = angle;
+	bullet.speed = 2.0f;
+	bullet.x = bullet.fireX = x;
+	bullet.y = bullet.fireY = y;
+	bullet.iscollison = false;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.count = 0;
+	bullet.isPlayerBullet = false;
+	_vBullet.push_back(bullet);
+}
+void CpSkil_Ice_spear::fire2(float x, float y, float angle, int plussize)
+{
+	tagBullet bullet2;
+		ZeroMemory(&bullet2, sizeof(tagBullet));
+		bullet2.bulletImage2 = new  image;
+		bullet2.bulletImage2 = IMAGE->addFrameImage("얼음폭발", "images/bullet_bmp/sk_iceSpear.bmp",800, 640,5,4, true, RGB(255, 0, 255));
+		bullet2.bulletAni = new animation;
+		bullet2.bulletAni = ANIMATION->addNoneKeyAnimation("얼음폭발", 20, false, true);
+		bullet2.angle2 = 1.049;
+		bullet2.angle = 0;
+		bullet2.speed = 2.0f;
+		bullet2.alpha = 255;
+		bullet2.x = bullet2.fireX = x;
+		bullet2.y = bullet2.fireY = y;
+		bullet2.rc = RectMakeCenter(bullet2.x, bullet2.y,
+			bullet2.bulletImage2->getFrameWidth(),
+			bullet2.bulletImage2->getFrameHeight());
+		bullet2.iscollison = false;
+		bullet2.count = 100;
+
+		_vBullet2.push_back(bullet2);
+}
+void CpSkil_Ice_spear::move()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end();)
+	{
+		_viBullet->count++;
+		if (_vBullet.size() == 0)
+		{
+			_viBullet->count = 0;
+		}
+		if (_viBullet->count < 100)
+		{
+			_viBullet->x += cosf(_viBullet->angle2) * _viBullet->speed;
+			_viBullet->y -= sinf(_viBullet->angle2) * _viBullet->speed;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getFrameWidth(),
+				_viBullet->bulletImage->getFrameHeight());
+
+			_viBullet->fireX = _viBullet->x;
+			_viBullet->fireY = _viBullet->y;
+			if (_viBullet->iscollison)
+			{
+				_viBullet->count = 99;
+			}
+		}
+		else if (_viBullet->count == 100)
+		{
+			fire2(_viBullet->fireX, _viBullet->fireY, 0, 0);
+			_viBullet = _vBullet.erase(_viBullet);
+			continue;
+		}
+		++_viBullet;
+	}
+}
+void CpSkil_Ice_spear::move2()
+{
+	_viBullet2 = _vBullet2.begin();
+	for (_viBullet2; _viBullet2 != _vBullet2.end();)
+	{
+		_viBullet2->count++;
+
+		if ((_viBullet2->count >= 0) && _viBullet2->count < 250 && !(_viBullet2->iscollison))
+		{
+			_viBullet->x += cosf(_viBullet->angle2) * 0;
+			_viBullet->y -= sinf(_viBullet->angle2) * 0;
+
+			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+				_viBullet->bulletImage->getWidth(),
+				_viBullet->bulletImage->getHeight());
+		}
+		else if (_viBullet2->count >= 250 || _viBullet2->iscollison)
+		{
+
+			_viBullet2 = _vBullet2.erase(_viBullet2);
+			continue;
+		}
+		++_viBullet2;
+	}
+}
+void CpSkil_Ice_spear::removeBullet(int arrNum)
+{
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}
+void CpSkil_Ice_spear::removeBullet2(int arrNum)
+{
+	_vBullet2.erase(_vBullet2.begin() + arrNum);
 }

@@ -75,7 +75,6 @@ void mainDOL::update()
 void mainDOL::render()
 {
 
-	_mapm->render();
 	_bm->render();
 	_mm->render();
 	_cm->render();
@@ -87,4 +86,5 @@ void mainDOL::render()
 	ZORDER->ZorderTotalRender(getMemDC());
 
 	PLAYERDATA->render(getMemDC());
+	_mapm->render();
 }

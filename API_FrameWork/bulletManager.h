@@ -21,6 +21,9 @@ private:
 	CmTBoss1Bullet* _CmTBoss1Bullet;
 	CmTBoss2Bullet* _CmTBoss2Bullet;
 	CmTBoss3Bullet* _CmTBoss3Bullet;
+	CpSword* _CpSword;
+	CpSkil_LuckyStar* _CpSkil_LuckyStar;
+	CpSkil_Ice_spear* _CpSkil_Ice_spear;
 
 private:
 	bool _isDebug;
@@ -52,7 +55,9 @@ public:
 	CmTBoss1Bullet* getTreBos1Bullnstance() { return _CmTBoss1Bullet; }
 	CmTBoss2Bullet* getTreBos2Bullnstance() { return _CmTBoss2Bullet; }
 	CmTBoss3Bullet* getTreBos3Bullnstance() { return _CmTBoss3Bullet; }
-
+	CpSword* getSwordInstance() { return _CpSword; }
+	CpSkil_LuckyStar* getLucky_starInstance() { return _CpSkil_LuckyStar; }
+	CpSkil_Ice_spear* getIce_spearInstance() { return  _CpSkil_Ice_spear; }
 
 
 
@@ -75,6 +80,9 @@ public:
 		_CmTBoss1Bullet->setIsDebug(_isDebug);
 		_CmTBoss2Bullet->setIsDebug(_isDebug);
 		_CmTBoss3Bullet->setIsDebug(_isDebug);
+		_CpSword->setIsDebug(_isDebug);
+		_CpSkil_LuckyStar->setIsDebug(_isDebug);
+		_CpSkil_Ice_spear->setIsDebug(_isDebug);
 	}
 };
 
