@@ -64,8 +64,10 @@ void Cplayer::update()
 	}
 	if (_player.weapon == WEAPONTYPE::STAFF) {
 		_chargeshotBar->setGauge(_chargeShotCount - 40, 100);
-		_chargeshotBar->setX((PLAYER->getPlayerAddress().x - CAMERA->getRect().left) * GAMEDCRATIO);
-		_chargeshotBar->setY((PLAYER->getPlayerAddress().y - CAMERA->getRect().top) * GAMEDCRATIO);
+		_chargeshotBar->setX(PLAYER->getPlayerAddress().x);
+		_chargeshotBar->setY(PLAYER->getPlayerAddress().y);
+		_chargeshotBar->update();
+
 	}
 	else if(_player.weapon == WEAPONTYPE::BOW) {
 		_bowCount++;
@@ -175,7 +177,7 @@ void Cplayer::imageInit()
 	_die_img = IMAGE->addFrameImage("Á×±â", "images/Player/»ç¸Á.bmp", 100, 100, 1, 1, true, RGB(255, 0, 255));
 	_chargeAtt_img = IMAGE->addFrameImage("Ã­Áö¼¦", "images/Player/½ºÅÂÇÁ_Ã­Áö¼¦¼öÁ¤.bmp", 300, 800, 3, 8, true);
 	_chargeshotBar = new progressBar;
-	_chargeshotBar->init("images/Player/Ã­Áö¼¦¹Ù¹é.bmp", "images/Player/Ã­Áö¼¦¹ÙÇÁ·ĞÆ®.bmp", _player.x, _player.y, 69 * 3, 8 * 3,0);
+	_chargeshotBar->init("images/Player/Ã­Áö¼¦¹Ù¹é.bmp", "images/Player/Ã­Áö¼¦¹ÙÇÁ·ĞÆ®.bmp", _player.x, _player.y, 69 * 3, 8 * 3, false);
 }
 
 void Cplayer::inputCheck()
