@@ -76,16 +76,22 @@ using namespace std;
 #define WINNAME			(LPTSTR)(TEXT("루시의 일기"))
 #define WINSTARTX		50//시작점
 #define WINSTARTY		50
-//#define WINSIZEX		1500
-//#define WINSIZEX		640
-#define WINSIZEX		1024
+//#define WINSIZEX		1024
+//#define WINSIZEY		768
+#define WINSIZEX		1365		//DOL ver
 #define WINSIZEY		768
-#define GAMESIZEX		960
+//#define GAMESIZEX		960			//DOL title
+//#define GAMESIZEY		540
+//#define WINSIZEX		GAMESIZEX	
+//#define WINSIZEY		GAMESIZEY
+
+
+#define GAMESIZEX		960	
 #define GAMESIZEY		540
 //#define WINSIZEY		640
 #define WINSTYLE		WS_CAPTION | WS_SYSMENU
 
-#define GAMEDCRATIO 1.5
+#define GAMEDCRATIO 1.8
 #define CAMERASIZEX WINSIZEX/GAMEDCRATIO
 #define CAMERASIZEY WINSIZEY/GAMEDCRATIO
 #define CAMMOUSEX		(m_ptMouse.x / GAMEDCRATIO) + CAMERA->getRect().left

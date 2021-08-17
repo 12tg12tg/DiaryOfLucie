@@ -23,7 +23,7 @@ public:
 
 
 
-
+	RECT checkGameSize();
 	void setFPSprint() { if (InputManager->isOnceKeyDown(VK_F2)) _showFPS = !_showFPS; }
 	void setIsDebug() {
 		if (InputManager->isOnceKeyDown(VK_F1)) {
