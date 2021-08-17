@@ -218,8 +218,10 @@ void mapManager::update()
 	{
 		checkMagicDoor = false;
 		goNextStage = true;
+		remainRoom = 12;
+		_mStage1.clear();
 		SCENE->changeScene("·Îµù");
-	
+		
 	}
 	SCENE->update();
 }
