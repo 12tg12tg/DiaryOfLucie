@@ -5,8 +5,7 @@
 #include "monsterManager.h"
 #include "mapManager.h"
 #include "DOL_Title.h"
-
-#include "shop.h"
+#include "loading.h"
 
 class mainDOL : public gameNode
 {
@@ -19,15 +18,9 @@ private:
 //-----------------------------
 //각자의 브렌치 인스턴스
 private:
-	
-
-
-
-	shop* _sp;
-
 	DOL_Title* _DOLtitle;
-	bool gameStart;
-
+	loading* _loading;
+	bool canUpdate;
 
 //-----------------------------
 //디버그모드 관련
@@ -47,10 +40,10 @@ public:
 
 	void setIsdebug(bool isDebug) {
 		_isDebug = isDebug;
-		if (!gameStart) {
+		if (!canUpdate) {
 			BUTTON->setIsDebug(_isDebug);
 		}
-		if (gameStart) {
+		if (canUpdate) {
 			_bm->setIsDebug(_isDebug);
 			_cm->setIsDebug(_isDebug);
 			_mm->setIsDebug(_isDebug);
@@ -58,8 +51,6 @@ public:
 			BUTTON->setIsDebug(_isDebug);
 			PLAYER->setIsDebug(_isDebug);
 			PLAYERDATA->setIsDebug(_isDebug);
-
-			_sp->setIsDebug(_isDebug);
 		}
 	}
 };

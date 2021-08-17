@@ -67,69 +67,95 @@ void shop::render()
 			ZORDER->ZorderRectangle(interRc[i], ZCOL1);
 		}
 	}
-	//폰트설정
-	HFONT hFont = CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
-		0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕"));
-	HFONT oFont = (HFONT)SelectObject(getMemDC(), hFont);
-	SetBkMode(getMemDC(), TRANSPARENT);	//배경 투명
-	SetTextColor(getMemDC(), RGB(255, 255, 255));//글자 색
+
+	////폰트설정
+	//HFONT hFont = CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+	//	0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕"));
+	//HFONT oFont = (HFONT)SelectObject(getMemDC(), hFont);
+	//SetBkMode(getMemDC(), TRANSPARENT);	//배경 투명
+	//SetTextColor(getMemDC(), RGB(255, 255, 255));//글자 색
+
 	//항상 ON 대화상자
 	if (isConversation1 || isConversation2 || isConversation3 || isConversation4)
 	{
-		IMAGE->findImage("마리이름상자")->alphaRender(getMemDC(), 188, talkRc.top-5-IMAGE->findImage("마리이름상자")->getHeight(), 200);
-		IMAGE->findImage("상점대화상자")->alphaRender(getMemDC(), talkRc.left, talkRc.top, boxAlpha);
+		ZORDER->UIAlphaRender(IMAGE->findImage("마리이름상자"), ZUISECOND, 0, 188, talkRc.top - 5 - IMAGE->findImage("마리이름상자")->getHeight(), boxAlpha);
+		ZORDER->UIAlphaRender(IMAGE->findImage("상점대화상자"), ZUISECOND, 0, talkRc.left, talkRc.top, boxAlpha);
+
 		RECT txtRc = RectMake(WINSIZEX / 2 - IMAGE->findImage("상점대화상자")->getWidth() / 2,
 			420, IMAGE->findImage("상점대화상자")->getWidth(), IMAGE->findImage("상점대화상자")->getHeight());
 		string str = "마리";
-		DrawText(getMemDC(), str.c_str(), -1, &txtRc, DT_LEFT | DT_VCENTER);
+		ZORDER->UIDrawText(str, ZUITHIRD, txtRc, 
+			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
+			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 	}
 	if (isConversation1) {
 
 		RECT txtRc = RectMake(talkRc.left + 15, talkRc.top + 15, RecWidth(talkRc) - 30, RecHeight(talkRc) - 30);
 		string str = "그건 빵"; /*아이템 이름*/
-		DrawText(getMemDC(), str.c_str(), -1, &txtRc, DT_LEFT | DT_VCENTER);
+		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
+			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
+			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 
 		txtRc = RectMake(talkRc.left + 15, talkRc.top + 15 + 40, RecWidth(talkRc) - 30, RecHeight(talkRc) - 30 - 40);
 		str = "내가 아침에 먹고 남은거야."; /*아이템 설명*/
-		DrawText(getMemDC(), str.c_str(), -1, &txtRc, DT_LEFT | DT_VCENTER);
-
+		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
+			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
+			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 	}
 	if (isConversation2) {
 
 		RECT txtRc = RectMake(talkRc.left + 15, talkRc.top + 15, RecWidth(talkRc) - 30, RecHeight(talkRc) - 30);
 		string str = "가격은 " + to_string(100) + "골드인데, 살래?"; /*아이템 가격*/
-		DrawText(getMemDC(), str.c_str(), -1, &txtRc, DT_LEFT | DT_VCENTER);
+		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
+			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
+			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 
 		txtRc = RectMake(but1->rc.left + 5, but1->rc.top + 5, RecWidth(but1->rc) - 10, RecHeight(but1->rc) - 10);
 		str = "응";
-		DrawText(getMemDC(), str.c_str(), -1, &txtRc, DT_LEFT | DT_VCENTER);
+		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
+			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
+			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 
 		txtRc = RectMake(but2->rc.left + 5, but2->rc.top + 5, RecWidth(but2->rc) - 10, RecHeight(but2->rc) - 10);
 		str = "아니";
-		DrawText(getMemDC(), str.c_str(), -1, &txtRc, DT_LEFT | DT_VCENTER);
+		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
+			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
+			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 	}
 	if (isConversation3) {
 		RECT txtRc = RectMake(talkRc.left + 15, talkRc.top + 15, RecWidth(talkRc) - 30, RecHeight(talkRc) - 30);
 		string str = "고마워!";
-		DrawText(getMemDC(), str.c_str(), -1, &txtRc, DT_LEFT | DT_VCENTER);
+		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
+			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
+			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 	}
 	if (isConversation4) {
 		RECT txtRc = RectMake(talkRc.left + 15, talkRc.top + 15, RecWidth(talkRc) - 30, RecHeight(talkRc) - 30);
 		string str = "돈이 모자란것 같은데?";
-		DrawText(getMemDC(), str.c_str(), -1, &txtRc, DT_LEFT | DT_VCENTER);
+		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
+			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
+			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 	}
 
-	//폰트해제
-	SelectObject(getMemDC(), oFont);
-	DeleteObject(hFont);
-	SetTextColor(getMemDC(), RGB(255, 255, 255));
+	////폰트해제
+	//SelectObject(getMemDC(), oFont);
+	//DeleteObject(hFont);
+	//SetTextColor(getMemDC(), RGB(255, 255, 255));
 
 	//수리를 할거냐는 문구와 버튼 두개가 뜸.
 	if (BUTTON->isMouseOver("수락")) {
-		mouseoverImg->alphaRender(getMemDC(), 225, 516, 100);
+		ZORDER->UIAlphaRender(mouseoverImg, ZUISECOND, 1, 225, 516, 100);
 	}
 	if (BUTTON->isMouseOver("거절")) {
-		mouseoverImg->alphaRender(getMemDC(), 225, 557, 100);
+		ZORDER->UIAlphaRender(mouseoverImg, ZUISECOND, 1, 225, 557, 100);
 	}
 }
 

@@ -21,6 +21,8 @@ private:
 	Button* but1;
 	Button* but2;
 
+	RECT talkRc;
+
 	BYTE boxAlpha;
 
 

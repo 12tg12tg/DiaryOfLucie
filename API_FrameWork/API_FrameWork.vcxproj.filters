@@ -100,6 +100,9 @@
     <Filter Include="DOL\title">
       <UniqueIdentifier>{3a1f7863-c79b-45b2-a313-f68bd3c87dba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DOL\Loading">
+      <UniqueIdentifier>{3ce3393a-bb87-49ca-8883-7de88c25f035}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -243,6 +246,9 @@
     <ClInclude Include="DOL_Title.h">
       <Filter>DOL\title</Filter>
     </ClInclude>
+    <ClInclude Include="loading.h">
+      <Filter>DOL\Loading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -367,6 +373,9 @@
     </ClCompile>
     <ClCompile Include="DOL_Title.cpp">
       <Filter>DOL\title</Filter>
+    </ClCompile>
+    <ClCompile Include="loading.cpp">
+      <Filter>DOL\Loading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

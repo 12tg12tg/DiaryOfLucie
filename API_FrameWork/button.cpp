@@ -108,24 +108,16 @@ void Cbutton::render(HDC hdc)
 	{
 		if (_miButton->second->fixMode) {
 			TCHAR str[128];
-			HBRUSH brush = CreateSolidBrush(_miButton->second->butColor);
-			HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
-			RectangleMake(hdc, _miButton->second->rc);
-			SelectObject(hdc, oldBrush);
-			DeleteObject(brush);
+			ZORDER->UIRectangleColor(_miButton->second->rc, ZUIFIRST, _miButton->second->butColor);
 			wsprintf(str, "RectMake(%d, %d, %d, %d);", _miButton->second->rc.left, _miButton->second->rc.top, RecWidth(_miButton->second->rc), RecHeight(_miButton->second->rc));
-			TextOut(hdc, _miButton->second->rc.left, _miButton->second->rc.top - 20, str, lstrlen(str));
+			ZORDER->UITextOut(str, ZUIFIRST, _miButton->second->rc.left, _miButton->second->rc.top - 20, RGB(0, 0, 255));			
 		}
 	}
 	if (!_isDebug) return;
 	for (_miButton = _mButton.begin(); _miButton != _mButton.end(); ++_miButton)
 	{
 		if (!_miButton->second->buttonOn || _miButton->second->fixMode) continue;
-		HBRUSH brush = CreateSolidBrush(_miButton->second->butColor);
-		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
-		RectangleMake(hdc, _miButton->second->rc);
-		SelectObject(hdc, oldBrush);
-		DeleteObject(brush);
+		ZORDER->UIRectangleColor(_miButton->second->rc, ZUIFIRST, _miButton->second->butColor);
 	}
 }
 

@@ -1014,15 +1014,15 @@ void Cmushman::knockback(vector<tagMonster>::iterator iter, float x, float y, in
 	iter->isGraceperiod = true;
 	//데미지반영
 	iter->hp -= damage;
-	//총알이 나를 바라보던 방향으로 넉백
-	float centerx, centery;
-	centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
-	centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
-	float nbangle = UTIL::getAngle(x, y, centerx, centery);
-	iter->x += cosf(nbangle) * knockbackRange;
-	iter->y -= sinf(nbangle) * knockbackRange;
-	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y, iter->width, iter->height);
-	iter->footRc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y + iter->height * 2 / 3, iter->width, iter->height / 3);
+	//총알이 나를 바라보던 방향으로 넉백 - 버섯은 넉백안함.
+	//float centerx, centery;
+	//centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
+	//centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
+	//float nbangle = UTIL::getAngle(x, y, centerx, centery);
+	//iter->x += cosf(nbangle) * knockbackRange;
+	//iter->y -= sinf(nbangle) * knockbackRange;
+	//iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y, iter->width, iter->height);
+	//iter->footRc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y + iter->height * 2 / 3, iter->width, iter->height / 3);
 
 	if (stun) {
 		iter->isStun = stun;

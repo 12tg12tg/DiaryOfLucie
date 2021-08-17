@@ -77,7 +77,7 @@ void effectManager::update()
             _vParticle[i].angle = _vParticle[i].angle + DEGREE(RND->getInt(10) - 5);
         }
         if (_vParticle[i].count % 12 == 0) {
-            _vParticle[i].alpha = _vParticle[i].alpha - RND->getInt(10);
+            _vParticle[i].alpha = _vParticle[i].alpha - RND->getInt(6);
         }
         //명을 다하면 삭제.
         if (_vParticle[i].count <= 0)
@@ -183,7 +183,7 @@ HRESULT effectManager::addParticle(string key, float z, float x, float y, float 
     ptcle.isAlpha = isAlpha;
     ptcle.alpha = alpha;
     ptcle.count = RND->getFromInTo(count - 20, count + 20);
-    ptcle.speed = RND->getInt(100) / 100.0f;
+    ptcle.speed = 0.2+RND->getInt(100) / 100.0f;
     ptcle.isPlay = false;
     _vParticle.push_back(ptcle);
     return S_OK;

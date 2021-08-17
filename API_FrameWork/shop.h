@@ -23,6 +23,9 @@ protected:
 
 	int currentItemIndex;
 	Button* usableBt;
+
+	HFONT* hFont;
+	HFONT* oFont;
 public:
 	shop();
 	~shop();

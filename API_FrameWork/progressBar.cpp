@@ -41,8 +41,10 @@ void progressBar::update()
 
 void progressBar::render()
 {
-	_progressBarBack->render(getMemDC(), _rcProgress.left, _y, 0, 0, _progressBarBack->getWidth(), _progressBarBack->getHeight());
-	_progressBarFront->render(getMemDC(), _rcProgress.left, _y, 0, 0, _width, _progressBarBack->getHeight());
+	ZORDER->UIRender(_progressBarBack, ZUIFIRST, 0, _rcProgress.left, _y, 0, 0, _progressBarBack->getWidth(), _progressBarBack->getHeight());
+	ZORDER->UIRender(_progressBarFront, ZUISECOND, 0, _rcProgress.left, _y, 0, 0, _width, _progressBarBack->getHeight());	
+	//_progressBarBack->render(getMemDC(), _rcProgress.left, _y, 0, 0, _progressBarBack->getWidth(), _progressBarBack->getHeight());
+	//_progressBarFront->render(getMemDC(), _rcProgress.left, _y, 0, 0, _width, _progressBarBack->getHeight());
 }
 
 void progressBar::setGauge(float currentGauge, float maxGauge)

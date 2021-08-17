@@ -13,8 +13,9 @@ DOL_Title::DOL_Title()
 	exitimg->setFrameY(1);
 	_isStart = false;
 	_fadeOut = false;
-	CAMERA->FadeInit(80, FADE_OUT);
 	IMAGE->addImage("메인화면파티클1", "images/title/Particles8.bmp", 32, 32, true, RGB(15, 17, 18));
+	CAMERA->FadeInit(80, FADE_IN);
+	CAMERA->FadeStart();
 }
 
 DOL_Title::~DOL_Title()
@@ -56,6 +57,7 @@ void DOL_Title::update()
 		BUTTON->buttonOff("option");
 		BUTTON->buttonOff("maker");
 		BUTTON->buttonOff("exit");
+		CAMERA->FadeInit(80, FADE_OUT);
 		CAMERA->FadeStart();
 		_fadeOut = true;
 	}
@@ -66,27 +68,27 @@ void DOL_Title::update()
 
 	//페이드아웃끝나면 메인에서 gameinit() 시작하도록.
 	if(_fadeOut && !CAMERA->getFadeIsStart())
-		_isStart = true;
+		SCENE->changeScene("로딩");
 	//페이드업데이트
 	CAMERA->FadeUpdate();
 }
 
 void DOL_Title::render()
 {
-	bg->render(getMemDC());
+	ZORDER->ZorderRender(bg, ZFLOORMAP, 0, 0, 0);
 
 	//버튼랜더
-	ZORDER->ZorderFrameRender(startimg, ZUNIT, start->rc.bottom, start->rc.left, start->rc.top,
+	ZORDER->UIFrameRender(startimg, ZUIFIRST, start->rc.bottom, start->rc.left, start->rc.top,
 		startimg->getFrameX(), startimg->getFrameY());
-	ZORDER->ZorderFrameRender(optiontimg, ZUNIT, option->rc.bottom, option->rc.left, option->rc.top,
+	ZORDER->UIFrameRender(optiontimg, ZUIFIRST, option->rc.bottom, option->rc.left, option->rc.top,
 		optiontimg->getFrameX(), optiontimg->getFrameY());
-	ZORDER->ZorderFrameRender(exitimg, ZUNIT, exit->rc.bottom, exit->rc.left, exit->rc.top,
+	ZORDER->UIFrameRender(exitimg, ZUIFIRST, exit->rc.bottom, exit->rc.left, exit->rc.top,
 		exitimg->getFrameX(), exitimg->getFrameY());
 
 
 	//파티클 출력
-	if (_particleCount % 70 == 0) {
-		EFFECT->addParticle("메인화면파티클1", ZEFFECT1,RND->getInt(GAMESIZEX), GAMESIZEY-50-RND->getInt(200), DEGREE(90), 150, true, 150);
+	if (_particleCount % 60 == 0) {
+		EFFECT->addParticle("메인화면파티클1", ZEFFECT1, RND->getInt(GAMESIZEX), GAMESIZEY-50-RND->getInt(100), DEGREE(90), 200, true, 150);
 	}
 
 	////테스트
