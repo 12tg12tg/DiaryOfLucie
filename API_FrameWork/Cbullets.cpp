@@ -58,8 +58,8 @@ void CpMagicBullet::render()
 	{
 		if (_isDebug)
 			ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
-		ZORDER->ZorderRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
-			_viBullet->rc.left, _viBullet->rc.top);
+		ZORDER->ZorderStretchRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+			_viBullet->x, _viBullet->y,_viBullet->bulletImage->getWidth() + _viBullet->plussize,_viBullet->bulletImage->getHeight()+ _viBullet->plussize);
 	}
 }
 void CpMagicBullet::fire(float x, float y, float angle,int plussize)
@@ -69,12 +69,13 @@ void CpMagicBullet::fire(float x, float y, float angle,int plussize)
 	bullet.bulletImage = new  image;
 	bullet.bulletImage = IMAGE->addImage("¸¶¹ýÃÑ¾Ë", "images/bullet_bmp/PBullet_magic.bmp", 26 , 26  , true);
 	bullet.angle = angle;
+	bullet.plussize = plussize;
 	bullet.speed = 5.0f;
 	bullet.x = bullet.fireX = x;
 	bullet.y = bullet.fireY = y;
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
-		bullet.bulletImage->getWidth(),
-		bullet.bulletImage->getHeight());
+		bullet.bulletImage->getWidth()+plussize,
+		bullet.bulletImage->getHeight()+plussize);
 	bullet.iscollison = false;
 	bullet.isPlayerBullet = true;
 	bullet.colPoison = false;
@@ -89,8 +90,8 @@ void CpMagicBullet::move()
 
 
 		_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
-			_viBullet->bulletImage->getWidth(),
-			_viBullet->bulletImage->getHeight());
+			_viBullet->bulletImage->getWidth()+_viBullet->plussize,
+			_viBullet->bulletImage->getHeight()+_viBullet->plussize);
 
 		if (_viBullet->iscollison || _viBullet->colPoison)
 		{
