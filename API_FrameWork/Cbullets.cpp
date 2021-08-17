@@ -2670,6 +2670,7 @@ CpSkil_Ice_spear::~CpSkil_Ice_spear()
 
 HRESULT CpSkil_Ice_spear::init()
 {
+
 	return S_OK;
 }
 
@@ -2894,3 +2895,80 @@ void CpSkil_Haste::removeBullet(int arrNum)
 	_vBullet.erase(_vBullet.begin() + arrNum);
 }
 
+CpSkil_Charge::CpSkil_Charge()
+{
+}
+
+CpSkil_Charge::~CpSkil_Charge()
+{
+}
+
+HRESULT CpSkil_Charge::init()
+{
+	_range = 25.0f; //임시
+	return S_OK;
+}
+
+void CpSkil_Charge::release()
+{
+}
+
+void CpSkil_Charge::update()
+{
+	move();
+}
+
+void CpSkil_Charge::render()
+{
+	_viBullet = _vBullet.begin();
+	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		if (_isDebug)
+			ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
+		ZORDER->ZorderRender(_viBullet->bulletImage, ZUNIT, _viBullet->rc.bottom,
+			_viBullet->rc.left, _viBullet->rc.top);
+	}
+}
+
+void CpSkil_Charge::fire(float x, float y, float angle, int plussize)
+{
+	tagBullet bullet;
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.bulletImage = new  image;
+	bullet.bulletImage = IMAGE->addImage("충전총알", "images/bullet_bmp/PBullet_Charge.bmp", 50, 50, true);
+	bullet.angle = angle;
+	bullet.speed = 5.0f;
+	bullet.x = bullet.fireX = x;
+	bullet.y = bullet.fireY = y;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
+		bullet.bulletImage->getWidth(),
+		bullet.bulletImage->getHeight());
+	bullet.iscollison = false;
+	bullet.isPlayerBullet = true;
+	_vBullet.push_back(bullet);
+}
+
+void CpSkil_Charge::move()
+{
+	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end();)
+	{
+		_viBullet->x += cosf(_viBullet->angle) * _viBullet->speed;
+		_viBullet->y -= sinf(_viBullet->angle) * _viBullet->speed;
+
+
+		_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+			_viBullet->bulletImage->getWidth(),
+			_viBullet->bulletImage->getHeight());
+
+		if (_viBullet->iscollison)
+		{
+			_viBullet = _vBullet.erase(_viBullet);
+		}
+		else ++_viBullet;
+	}
+}
+
+void CpSkil_Charge::removeBullet(int arrNum)
+{
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}

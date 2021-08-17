@@ -706,14 +706,37 @@ public:
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
 
+class CpSkil_Charge : public gameNode
+{
+private:
+
+	vector<tagBullet> _vBullet;
+	vector<tagBullet>::iterator _viBullet;
 
 
+private:
+	bool _isDebug;
+	float _range;
+public:
+	CpSkil_Charge();
+	~CpSkil_Charge();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+	void fire(float x, float y, float angle, int plussize);
+	void move();
+
+	void removeBullet(int arrNum);
+
+	vector<tagBullet>& getVBullet() { return _vBullet; }
+	vector<tagBullet>::iterator& getVIBullet() { return _viBullet; }
 
 
-
-
-
-
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+};
 
 
 

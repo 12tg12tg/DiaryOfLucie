@@ -25,7 +25,7 @@ private:
 	CpSkil_LuckyStar* _CpSkil_LuckyStar;
 	CpSkil_Ice_spear* _CpSkil_Ice_spear;
 	CpSkil_Haste* _CpSkil_Haste;
-
+	CpSkil_Charge* _CpCharge;
 private:
 	bool _isDebug;
 public:
@@ -60,7 +60,7 @@ public:
 	CpSkil_LuckyStar* getLucky_starInstance() { return _CpSkil_LuckyStar; }
 	CpSkil_Ice_spear* getIce_spearInstance() { return  _CpSkil_Ice_spear; }
 	CpSkil_Haste* getHasteInstance() { return _CpSkil_Haste; }
-
+	CpSkil_Charge* getChargeInstance() { return _CpCharge; }
 
 	void setIsDebug(bool isDebug) {
 		_isDebug = isDebug;
@@ -85,6 +85,7 @@ public:
 		_CpSkil_LuckyStar->setIsDebug(_isDebug);
 		_CpSkil_Ice_spear->setIsDebug(_isDebug);
 		_CpSkil_Haste->setIsDebug(_isDebug);
+		_CpCharge->setIsDebug(isDebug);
 	}
 };
 

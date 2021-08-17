@@ -161,43 +161,54 @@ void mapManager::update()
 	}
 	if (checkright)
 	{
-		SCENE->changeScene(stage1[currentIndex.x + 1][currentIndex.y].sceneKey);
-		currentIndex.x = currentIndex.x + 1;
-		currentIndex.y = currentIndex.y;
-		PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.right + 20;
-		PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.bottom - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.bottom - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.top) / 2;
-		currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
-
+		if (currentIndex.x < 9)
+		{
+			SCENE->changeScene(stage1[currentIndex.x + 1][currentIndex.y].sceneKey);
+			currentIndex.x = currentIndex.x + 1;
+			currentIndex.y = currentIndex.y;
+			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.right + 20;
+			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.bottom - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.bottom - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.top) / 2;
+			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+		}
 	}
 	if (checkleft)
 	{
-		SCENE->changeScene(stage1[currentIndex.x - 1][currentIndex.y].sceneKey);
-		currentIndex.x = currentIndex.x - 1;
-		currentIndex.y = currentIndex.y;
-		PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.left - 20;
-		PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.bottom - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.bottom - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.top) / 2;
+		if (currentIndex.x > 0)
+		{
+			SCENE->changeScene(stage1[currentIndex.x - 1][currentIndex.y].sceneKey);
+			currentIndex.x = currentIndex.x - 1;
+			currentIndex.y = currentIndex.y;
+			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.left - 20;
+			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.bottom - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.bottom - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.top) / 2;
 
-		currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+		}
 	}
 	if (checkbottom)
 	{
-		SCENE->changeScene(stage1[currentIndex.x][currentIndex.y + 1].sceneKey);
-		currentIndex.x = currentIndex.x;
-		currentIndex.y = currentIndex.y + 1;
-		PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.right - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.right - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.left) / 2;
-		PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.bottom + 20;
+		if (currentIndex.y < 9)
+		{
+			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y + 1].sceneKey);
+			currentIndex.x = currentIndex.x;
+			currentIndex.y = currentIndex.y + 1;
+			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.right - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.right - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.left) / 2;
+			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.bottom + 20;
 
-		currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+		}
 	}
 	if (checktop)
 	{
-		SCENE->changeScene(stage1[currentIndex.x][currentIndex.y - 1].sceneKey);
-		currentIndex.x = currentIndex.x;
-		currentIndex.y = currentIndex.y - 1;
-		PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.right - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.right - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.left) / 2;
-		PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.top - 20;
+		if (currentIndex.y > 0)
+		{
+			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y - 1].sceneKey);
+			currentIndex.x = currentIndex.x;
+			currentIndex.y = currentIndex.y - 1;
+			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.right - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.right - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.left) / 2;
+			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.top - 20;
 
-		currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+		}
 	}
 	if (checkMagicDoor)
 	{
