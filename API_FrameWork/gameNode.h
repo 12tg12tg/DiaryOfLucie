@@ -1,7 +1,7 @@
 #pragma once
 #include "image.h"
 static image* _backBuffer = IMAGE->addImage("backBuffer", WINSIZEX, WINSIZEY);
-static image* _DOLBuffer = IMAGE->addImage("DOLBuffer", 1920, 1017);	//ÆÀÇÁ¿ë DC
+static image* _DOLBuffer = IMAGE->addImage("DOLBuffer", WINSIZEX*3, WINSIZEY*3);	//ÆÀÇÁ¿ë DC
 class gameNode
 {
 private:

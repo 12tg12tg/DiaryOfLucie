@@ -115,7 +115,7 @@ void mainDOL::render()
 	ZORDER->ZorderUITotalRender(getMemDC());
 	//페이드 효과 출력 - UI까지 덮어버리기.
 	CAMERA->FadeRender(getMemDC());
-	//커서 ZORDER에 담기 - 마우스는 최후반.
+	//커서 - 마우스는 최후반.
 	IMAGE->findImage("DOL_cursor")->render(getMemDC(), m_ptMouse.x, m_ptMouse.y);
 }
 
