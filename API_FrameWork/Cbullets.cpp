@@ -2482,7 +2482,7 @@ void CpSword::move()
 		{
 			_viBullet->count = 0;
 		}
-		if (_viBullet->count > 0 && _viBullet->count <50)
+		if (_viBullet->count > 0 && _viBullet->count <10)
 		{
 			_viBullet->x += cosf(_viBullet->angle) * 0;
 			_viBullet->y -= sinf(_viBullet->angle) * 0;
@@ -2493,51 +2493,7 @@ void CpSword::move()
 			_viBullet->fireX = _viBullet->x;
 			_viBullet->fireY = _viBullet->y;
 		}
-		else if (_viBullet->count > 50 && _viBullet->count < 100)
-		{
-			_viBullet->x += cosf(_viBullet->angle) * 0;
-			_viBullet->y -= sinf(_viBullet->angle) * 0;
-
-			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
-				_viBullet->bulletImage->getWidth(),
-				_viBullet->bulletImage->getHeight());
-			_viBullet->fireX = _viBullet->x;
-			_viBullet->fireY = _viBullet->y;
-		}
-		else if (_viBullet->count > 100 && _viBullet->count < 150)
-		{
-			_viBullet->x += cosf(_viBullet->angle) * 0;
-			_viBullet->y -= sinf(_viBullet->angle) * 0;
-
-			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
-				_viBullet->bulletImage->getWidth(),
-				_viBullet->bulletImage->getHeight());
-			_viBullet->fireX = _viBullet->x;
-			_viBullet->fireY = _viBullet->y;
-		}
-		else if (_viBullet->count > 150 && _viBullet->count <200)
-		{
-			_viBullet->x += cosf(_viBullet->angle) * 0;
-			_viBullet->y -= sinf(_viBullet->angle) * 0;
-
-			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
-				_viBullet->bulletImage->getWidth(),
-				_viBullet->bulletImage->getHeight());
-			_viBullet->fireX = _viBullet->x;
-			_viBullet->fireY = _viBullet->y;
-		}
-		else if (_viBullet->count > 200 && _viBullet->count < 250)
-		{
-			_viBullet->x += cosf(_viBullet->angle) * 0;
-			_viBullet->y -= sinf(_viBullet->angle) * 0;
-
-			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
-				_viBullet->bulletImage->getWidth(),
-				_viBullet->bulletImage->getHeight());
-			_viBullet->fireX = _viBullet->x;
-			_viBullet->fireY = _viBullet->y;
-		}
-		else if (_viBullet->count ==250)
+		else if (_viBullet->count ==10)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 			continue;
@@ -2556,7 +2512,7 @@ void CpSword::move2()
 		{
 			_viBullet2->count = 0;
 		}
-		if (_viBullet2->count > 5 && _viBullet2->count < 10)
+		if (_viBullet2->count > 0 && _viBullet2->count < 10)
 		{
 			_viBullet2->x += cosf(_viBullet2->angle) * 0;
 			_viBullet2->y -= sinf(_viBullet2->angle) * 0;
@@ -2586,7 +2542,7 @@ void CpSword::move3()
 		{
 			_viBullet3->count = 0;
 		}
-		if (_viBullet3->count > 10 && _viBullet3->count < 15)
+		if (_viBullet3->count > 0 && _viBullet3->count < 10)
 		{
 			_viBullet3->x += cosf(_viBullet3->angle) * 0;
 			_viBullet3->y -= sinf(_viBullet3->angle) * 0;
@@ -2597,7 +2553,7 @@ void CpSword::move3()
 			_viBullet3->fireX = _viBullet3->x;
 			_viBullet3->fireY = _viBullet3->y;
 		}
-		else if (_viBullet3->count == 15)
+		else if (_viBullet3->count == 10)
 		{
 			_viBullet3 = _vBullet3.erase(_viBullet3);
 			continue;
