@@ -76,20 +76,25 @@ void CplayerData::render(HDC hdc)
 {
 	this->renderUI(hdc);
 
+
 	char str[256];
-	SetTextColor(hdc, RGB(0, 0, 255));
+	//SetTextColor(hdc, RGB(0, 0, 255));
 	if (_isDebug)
 	{
 		SetBkMode(hdc, OPAQUE);
 //		카메라영향을 받지 않는 상태확인.
 		wsprintf(str, "맵상마우스위치x,y? : %d, %d", (int)CAMMOUSEX, (int)CAMMOUSEY);
-		TextOut(hdc, 0, WINSIZEY-100, str, lstrlen(str));
+		ZORDER->UITextOut(str, ZUITHIRD, 0, WINSIZEY - 100, RGB(0, 0, 255));
+		//TextOut(hdc, 0, WINSIZEY-100, str, lstrlen(str));
 		sprintf_s(str, "플레이어 x,y? %d , %d", (int)PLAYER->getPlayerAddress().x, (int)PLAYER->getPlayerAddress().y);
-		TextOut(hdc, 0, WINSIZEY - 80, str, strlen(str));
+		ZORDER->UITextOut(str, ZUITHIRD, 0, WINSIZEY - 80, RGB(0, 0, 255));
+		//TextOut(hdc, 0, WINSIZEY - 80, str, strlen(str));
 		sprintf_s(str, "화면상마우스위치x,y? %d , %d", m_ptMouse.x, m_ptMouse.y);
-		TextOut(hdc, 0, WINSIZEY - 60, str, strlen(str));
+		ZORDER->UITextOut(str, ZUITHIRD, 0, WINSIZEY - 60, RGB(0, 0, 255));
+		//TextOut(hdc, 0, WINSIZEY - 60, str, strlen(str));
 		wsprintf(str, "챠지카운트? : %d", (int)PLAYER->getcharge());
-		TextOut(hdc, 0, WINSIZEY - 120, str, lstrlen(str));
+		ZORDER->UITextOut(str, ZUITHIRD, 0, WINSIZEY - 120, RGB(0, 0, 255));
+
 	}
 }
 
@@ -202,13 +207,15 @@ void CplayerData::goldRender(HDC hdc)
 {
 	if (_gold == 0)
 	{
-		IMAGE->frameRender("골드숫자", hdc, 947, 20, 0, 0);
+		ZORDER->UIFrameRender(IMAGE->findImage("골드숫자"), ZUIFIRST, 0,  947, 20, 0, 0);
+		//IMAGE->frameRender("골드숫자", hdc, 947, 20, 0, 0);
 		return;
 	}
 	int i = 1;
 	for (int j=0; _gold/i>=1; j++)
 	{
-		IMAGE->frameRender("골드숫자", hdc, 947 - j * IMAGE->findImage("골드숫자")->getFrameWidth() , 20,  (_gold/i)%10,0);
+		ZORDER->UIFrameRender(IMAGE->findImage("골드숫자"), ZUIFIRST, 0, 947 - j * IMAGE->findImage("골드숫자")->getFrameWidth(), 20, (_gold / i) % 10, 0);
+		//IMAGE->frameRender("골드숫자", hdc, 947 - j * IMAGE->findImage("골드숫자")->getFrameWidth() , 20,  (_gold/i)%10,0);
 		i *= 10;																						
 	}
 }
@@ -217,21 +224,20 @@ void CplayerData::renderUI(HDC hdc)
 {
 	_StaminaBar->render();
 	_EXPBar->render();
-	_layout_image->render(hdc, WINSIZEX / 2 - _layout_image->getWidth() / 2, 583);
-	_gold_G->render(hdc, WINSIZEX - 60, 20);
+	ZORDER->UIRender(_layout_image, ZUIFIRST, 0, WINSIZEX / 2 - _layout_image->getWidth() / 2, 583);
+	ZORDER->UIRender(_gold_G, ZUIFIRST, 0, WINSIZEX - 60, 20);
 	goldRender(hdc);
-
-	IMAGE->findImage("레벨")->alphaFrameRender(hdc, 394, 639, _level, 0, UIalpha);
+	ZORDER->UIAlphaFrameRender(IMAGE->findImage("레벨"), ZUIFIRST, 0, 394, 639, _level, 0, UIalpha);
 
 	for (int i = 0; i < _MaxHP / 2 + _MaxHP % 2; i++)
 	{
 		if (_MaxHP % 2 == 1 && i == 0) {
-			IMAGE->findImage("작은피통")->alphaFrameRender(hdc, 436, 614, 0, 0, UIalpha);
+			ZORDER->UIAlphaFrameRender(IMAGE->findImage("작은피통"), ZUIFIRST, 0, 436, 614, 0, 0, UIalpha);
 			continue;
 		}
-		IMAGE->findImage("피통")->alphaFrameRender(hdc, 
-			429 - (i%10)* IMAGE->findImage("피통")->getFrameWidth(),
-			606-(i/10)*IMAGE->findImage("피통")->getFrameHeight(), 0, 0, UIalpha);
+		ZORDER->UIAlphaFrameRender(IMAGE->findImage("피통"), ZUIFIRST, 0,
+			429 - (i % 10) * IMAGE->findImage("피통")->getFrameWidth(),
+			606 - (i / 10) * IMAGE->findImage("피통")->getFrameHeight(), 0, 0, UIalpha);
 		if (i == _MaxHP / 2 + _MaxHP % 2 - 1) {
 			_heartstartX = 429 - (i % 10) * IMAGE->findImage("피통")->getFrameWidth();
 			_heartstartY = 606 - (i / 10) * IMAGE->findImage("피통")->getFrameHeight();
@@ -239,26 +245,26 @@ void CplayerData::renderUI(HDC hdc)
 	}
 	for (int i = 0; i < _presentHP / 2 + _presentHP % 2; i++)
 	{
-		
 		if (_presentHP % 2 == 1 && i == _presentHP / 2 + _presentHP % 2 - 1) {
-			IMAGE->findImage("작은피통")->alphaFrameRender(hdc, _heartstartX + i * IMAGE->findImage("피통")->getFrameWidth() + 7, _heartstartY+8, 1, 0, UIalpha);
+			ZORDER->UIAlphaFrameRender(IMAGE->findImage("작은피통"), ZUISECOND, 0, _heartstartX + i * IMAGE->findImage("피통")->getFrameWidth() + 7, _heartstartY + 8, 1, 0, UIalpha);
 			continue;
 		}
-		IMAGE->findImage("피통")->alphaFrameRender(hdc, _heartstartX + i * IMAGE->findImage("피통")->getFrameWidth(), _heartstartY, 1, 0, UIalpha);
-		if ((_MaxHP / 2 + _MaxHP % 2 )%10==(i+1)%10) {
+		ZORDER->UIAlphaFrameRender(IMAGE->findImage("피통"), ZUISECOND, 0, _heartstartX + i * IMAGE->findImage("피통")->getFrameWidth(), _heartstartY, 1, 0, UIalpha);
+		if ((_MaxHP / 2 + _MaxHP % 2) % 10 == (i + 1) % 10) {
 			_heartstartX -= 10 * IMAGE->findImage("피통")->getFrameWidth();
 			_heartstartY += IMAGE->findImage("피통")->getFrameHeight();
 		}
 	}
+
 	for (int i = 0; i < _MaxMP; i++)
 	{
-		IMAGE->findImage("마나통")->alphaFrameRender(hdc, 551 + (i % 10) * IMAGE->findImage("마나통")->getFrameWidth(),
-			606- (i / 10) * IMAGE->findImage("마나통")->getFrameHeight(), 0, 0, UIalpha);
+		ZORDER->UIAlphaFrameRender(IMAGE->findImage("마나통"), ZUIFIRST, 0, 551 + (i % 10) * IMAGE->findImage("마나통")->getFrameWidth(),
+			606 - (i / 10) * IMAGE->findImage("마나통")->getFrameHeight(), 0, 0, UIalpha);
 	}
 	for (int i = 0; i < _presentMP; i++)
 	{
-		IMAGE->findImage("마나통")->alphaFrameRender(hdc, 551 + (i % 10) * IMAGE->findImage("마나통")->getFrameWidth(), 
-			606 - (i/10) * IMAGE->findImage("마나통")->getFrameHeight(), 1, 0, UIalpha);
+		ZORDER->UIAlphaFrameRender(IMAGE->findImage("마나통"), ZUISECOND, 0, 551 + (i % 10) * IMAGE->findImage("마나통")->getFrameWidth(),
+			606 - (i / 10) * IMAGE->findImage("마나통")->getFrameHeight(), 1, 0, UIalpha);
 	}
 }
 

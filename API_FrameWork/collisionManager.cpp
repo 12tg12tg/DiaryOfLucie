@@ -508,6 +508,7 @@ void collisionManager::checkDown()
 	}
 }
 
+
 void collisionManager::checkMonUp(monster* monster)
 {
 	vector<tagMonster>& vMonster = monster->getVMonster();
@@ -706,6 +707,14 @@ void collisionManager::playerToDoor()
 	else
 	{
 		mapm->checkdowndoorcollison(false);
+	}
+	if (IntersectRect(&temprc, &mapm->getMagicDoor()[0].Door, &PLAYER->getPlayerAddress().playerRect))
+	{
+		mapm->checkMagicDoorCollison(true);
+	}
+	else
+	{
+		mapm->checkMagicDoorCollison(false);
 	}
 }
 

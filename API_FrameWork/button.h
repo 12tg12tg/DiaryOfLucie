@@ -9,6 +9,11 @@ typedef struct tagButton
 	bool isDrag; 
 	COLORREF butColor;
 	bool buttonOn;
+	bool fixMode;
+	bool ismoving;
+	RECT smallRect;
+	RECT bigRect;
+
 } Button;
 
 class Cbutton : public Singleton<Cbutton>
@@ -19,6 +24,7 @@ private:
 
 	int _tempX, _tempY;
 
+	int differ = 5;
 	bool _isDebug;
 public:
 	HRESULT init();
@@ -28,6 +34,7 @@ public:
 
 	Button* addButton(string buttonkey, const int x, const int y, const int width, const int height, COLORREF color = RGB(255, 234, 38));
 	Button* addButtonCenter(string buttonkey, const int centerx, const int centery, const int width, const int height, COLORREF color = RGB(255, 234, 38));
+	Button* addFixableRect(string buttonkey, COLORREF color = RGB(255, 234, 38));
 
 	Button* findButton(string buttonkey);
 
@@ -43,6 +50,8 @@ public:
 
 	int getClickSpotX() { return _tempX; }
 	int getClickSpotY() { return _tempY; }
+	
+	//void RectFixModeON(bool fixMode) { _fixMode = fixMode; }
 
 	void setIsDebug(bool isDebug);
 };

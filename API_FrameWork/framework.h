@@ -80,6 +80,8 @@ using namespace std;
 //#define WINSIZEX		640
 #define WINSIZEX		1024
 #define WINSIZEY		768
+#define GAMESIZEX		960
+#define GAMESIZEY		540
 //#define WINSIZEY		640
 #define WINSTYLE		WS_CAPTION | WS_SYSMENU
 

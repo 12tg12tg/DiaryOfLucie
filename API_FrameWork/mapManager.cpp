@@ -1,6 +1,15 @@
 #include "framework.h"
 #include "mapManager.h"
 #include"monsterManager.h"
+
+mapManager::mapManager()
+{
+	stage++;
+}
+mapManager::~mapManager()
+{
+	
+}
 HRESULT mapManager::init()
 {
 	
@@ -136,6 +145,7 @@ void mapManager::update()
 	doorstate(mm->getBoss_Mushroom_B());
 	doorstate(mm->getYggdrasil_Bomb());
 	doorstate(mm->getYggdrasil());
+
 	if (currentMonNum != 0)
 	{
 		checkright = false;
@@ -145,48 +155,65 @@ void mapManager::update()
 
 	}
 	else
-	{
+	{	
 		UseableDoor();
+		stage1[currentIndex.x][currentIndex.y]._motherMap->setClear(true);
 	}
 	if (checkright)
 	{
-		SCENE->changeScene(stage1[currentIndex.x + 1][currentIndex.y].sceneKey);
-		currentIndex.x = currentIndex.x + 1;
-		currentIndex.y = currentIndex.y;
-		PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.right + 20;
-		PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.bottom - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.bottom - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.top) / 2;
-		currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
-
+		if (currentIndex.x < 9)
+		{
+			SCENE->changeScene(stage1[currentIndex.x + 1][currentIndex.y].sceneKey);
+			currentIndex.x = currentIndex.x + 1;
+			currentIndex.y = currentIndex.y;
+			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.right + 20;
+			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.bottom - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.bottom - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.top) / 2;
+			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+		}
 	}
 	if (checkleft)
 	{
-		SCENE->changeScene(stage1[currentIndex.x - 1][currentIndex.y].sceneKey);
-		currentIndex.x = currentIndex.x - 1;
-		currentIndex.y = currentIndex.y;
-		PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.left - 20;
-		PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.bottom - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.bottom - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.top) / 2;
+		if (currentIndex.x > 0)
+		{
+			SCENE->changeScene(stage1[currentIndex.x - 1][currentIndex.y].sceneKey);
+			currentIndex.x = currentIndex.x - 1;
+			currentIndex.y = currentIndex.y;
+			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.left - 20;
+			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.bottom - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.bottom - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.top) / 2;
 
-		currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+		}
 	}
 	if (checkbottom)
 	{
-		SCENE->changeScene(stage1[currentIndex.x][currentIndex.y + 1].sceneKey);
-		currentIndex.x = currentIndex.x;
-		currentIndex.y = currentIndex.y + 1;
-		PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.right - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.right - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.left) / 2;
-		PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.bottom + 20;
+		if (currentIndex.y < 9)
+		{
+			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y + 1].sceneKey);
+			currentIndex.x = currentIndex.x;
+			currentIndex.y = currentIndex.y + 1;
+			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.right - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.right - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.left) / 2;
+			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.bottom + 20;
 
-		currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+		}
 	}
 	if (checktop)
 	{
-		SCENE->changeScene(stage1[currentIndex.x][currentIndex.y - 1].sceneKey);
-		currentIndex.x = currentIndex.x;
-		currentIndex.y = currentIndex.y - 1;
-		PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.right - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.right - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.left) / 2;
-		PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.top - 20;
+		if (currentIndex.y > 0)
+		{
+			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y - 1].sceneKey);
+			currentIndex.x = currentIndex.x;
+			currentIndex.y = currentIndex.y - 1;
+			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.right - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.right - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.left) / 2;
+			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.top - 20;
 
-		currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+		}
+	}
+	if (checkMagicDoor)
+	{
+		this->release();
+		this->init();
 	}
 	SCENE->update();
 }
@@ -197,78 +224,79 @@ void mapManager::render()
 	SCENE->render();
 	if (InputManager->isToggleKey(VK_TAB))
 	{
-			ZORDER->ZorderAlphaRender(_back, 10, 500, 300,180,170);
-	for (size_t i = 0; i < MAXSIZE; i++)
-	{
-		for (size_t j = 0; j < MAXSIZE; j++)
+		ZORDER->UIAlphaRender(_back, ZUIFIRTH, 500, 300,180,170);
+		for (size_t i = 0; i < MAXSIZE; i++)
 		{
-			if (stage1[i][j].mapkind == MAPKIND::START)
+			for (size_t j = 0; j < MAXSIZE; j++)
 			{
-				ZORDER->ZorderAlphaRender(_start, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (stage1[i][j].mapkind == MAPKIND::NORMAL)
-			{
-				ZORDER->ZorderAlphaRender(_fight, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (stage1[i][j].mapkind == MAPKIND::BOSSROOM)
-			{
-				ZORDER->ZorderAlphaRender(_boss, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (stage1[i][j].mapkind == MAPKIND::NEXTSTAGE)
-			{
-				ZORDER->ZorderAlphaRender(_goal, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (stage1[i][j].mapkind == MAPKIND::CHESTROOM)
-			{
-				ZORDER->ZorderAlphaRender(_chest, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (stage1[i][j].mapkind == MAPKIND::FOUNTAIN)
-			{
-				ZORDER->ZorderAlphaRender(_event, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (stage1[i][j].mapkind == MAPKIND::MORUROOM)
-			{
-				ZORDER->ZorderAlphaRender(_event, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (stage1[i][j].mapkind == MAPKIND::SHOP)
-			{
-				ZORDER->ZorderAlphaRender(_shop, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (stage1[i][j].mapkind == MAPKIND::STATUEROOM)
-			{
-				ZORDER->ZorderAlphaRender(_event, 10, 501, 400 + i * 30, 200 + j * 30, 170);
-			}
-			if (currentIndex.x == i && currentIndex.y == j)
-			{
-				int alpha = 170;
-				ZORDER->ZorderAlphaRender(_none, 10, 501, 400 + currentIndex.x * 30, 200 + currentIndex.y * 30, alpha);
-				alpha += 50;
+				if (stage1[i][j].mapkind == MAPKIND::START)
+				{
+					ZORDER->UIAlphaRender(_start, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (stage1[i][j].mapkind == MAPKIND::NORMAL)
+				{
+					ZORDER->UIAlphaRender(_fight, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (stage1[i][j].mapkind == MAPKIND::BOSSROOM)
+				{
+					ZORDER->UIAlphaRender(_boss, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (stage1[i][j].mapkind == MAPKIND::NEXTSTAGE)
+				{
+					ZORDER->UIAlphaRender(_goal, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (stage1[i][j].mapkind == MAPKIND::CHESTROOM)
+				{
+					ZORDER->UIAlphaRender(_chest, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (stage1[i][j].mapkind == MAPKIND::FOUNTAIN)
+				{
+					ZORDER->UIAlphaRender(_event, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (stage1[i][j].mapkind == MAPKIND::MORUROOM)
+				{
+					ZORDER->UIAlphaRender(_event, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (stage1[i][j].mapkind == MAPKIND::SHOP)
+				{
+					ZORDER->UIAlphaRender(_shop, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (stage1[i][j].mapkind == MAPKIND::STATUEROOM)
+				{
+					ZORDER->UIAlphaRender(_event, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+				}
+				if (currentIndex.x == i && currentIndex.y == j)
+				{
+					int alpha = 170;
+					ZORDER->UIAlphaRender(_none, ZUIFIRTH, 501, 400 + currentIndex.x * 30, 200 + currentIndex.y * 30, alpha);
+					alpha += 50;
+				}
 			}
 		}
-	}
-	for (size_t i = 0; i < MAXSIZE; i++)
-	{
-		for (size_t j = 0; j < MAXSIZE; j++)
-		{
-			string str;
-			//str = to_string((int)stage1[i][j].mapkind);
-			//ZORDER->ZorderTextOut(str, ZMAXLAYER, 100 + 20 * i, 100 + 20 * j, RGB(0, 0, 0));
+		//for (size_t i = 0; i < MAXSIZE; i++)
+		//{
+		//	for (size_t j = 0; j < MAXSIZE; j++)
+		//	{
+		//		string str;
+		//		//str = to_string((int)stage1[i][j].mapkind);
+		//		//ZORDER->ZorderTextOut(str, ZMAXLAYER, 100 + 20 * i, 100 + 20 * j, RGB(0, 0, 0));
+		//		str = stage1[i][j].sceneKey;
+		//		ZORDER->UITextOut(str, ZUIFIRST, 300 + 70 * i, 100 + 20 * j, RGB(0, 0, 0));
+		//	}
+		//}
 
-			str = stage1[i][j].sceneKey;
-			ZORDER->ZorderTextOut(str, ZMAXLAYER, 300 + 70 * i, 100 + 20 * j, RGB(0, 0, 0));
-		}
-	}
-
-		string str;
-		str = to_string((int)currentIndex.x);
-		ZORDER->ZorderTextOut(str, ZMAXLAYER, 100 + 20, 300, RGB(0, 0, 0));
-		string str2;
-		str2 = to_string((int)currentIndex.y);
-		ZORDER->ZorderTextOut(str2, ZMAXLAYER, 100 + 40, 300, RGB(0, 0, 0));
-	str = currentMap;
-	ZORDER->ZorderTextOut(str, ZMAXLAYER, WINSIZEX / 2, WINSIZEY / 2, RGB(0, 0, 0));
+		//string str;
+		//str = to_string((int)currentIndex.x);
+		//ZORDER->UITextOut(str, ZMAXLAYER, 100 + 20, 300, RGB(0, 0, 0));
+		//string str2;
+		//str2 = to_string((int)currentIndex.y);
+		//ZORDER->UITextOut(str2, ZMAXLAYER, 100 + 40, 300, RGB(0, 0, 0));
+		//str = currentMap;
+		//ZORDER->UITextOut(str, ZMAXLAYER, WINSIZEX / 2, WINSIZEY / 2, RGB(0, 0, 0));
 	}
 }
+
+
 
 
 
@@ -418,6 +446,8 @@ bool mapManager::setMORURoom()
 	}
 	return false;
 }
+
+
 
 bool mapManager::setShopRoom()
 {
@@ -680,14 +710,6 @@ bool mapManager::setfountainMap()
 	return false;
 }
 
-
-
-
-
-
-
-
-
 void mapManager::makeclear() {
 	for (int i = 0; i < MAXSIZE; i++)
 	{
@@ -722,6 +744,17 @@ DungeonDoor* mapManager::getCurrentDoor()
 	if (_mStage1.find(currentMap) != _mStage1.end())
 	{
 		return	_mStage1.find(currentMap)->second->getDungeonDoor();
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+MagicDoor* mapManager::getMagicDoor()
+{
+	if (_mStage1.find(currentMap) != _mStage1.end())
+	{
+		return	_mStage1.find(currentMap)->second->getMagicNextStage();
 	}
 	else
 	{

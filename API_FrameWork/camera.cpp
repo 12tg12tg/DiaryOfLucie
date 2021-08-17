@@ -286,7 +286,7 @@ void camera::FadeUpdate()
 void camera::FadeRender(HDC hdc)
 {
 	if (_fadeInfo.isStart)
-		IMAGE->findImage("fadeImg")->alphaRender(hdc, 0, 0, _fadeInfo.alpha);
+		ZORDER->UIAlphaRender(IMAGE->findImage("fadeImg"), ZUIFADE, 0, 0, 0, _fadeInfo.alpha);
 }
 
 void camera::movePivot(float x, float y)

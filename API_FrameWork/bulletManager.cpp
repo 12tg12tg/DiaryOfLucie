@@ -28,6 +28,11 @@ HRESULT bulletManager::init()
 	_CmTBoss1Bullet = new CmTBoss1Bullet;
 	_CmTBoss2Bullet = new CmTBoss2Bullet;
 	_CmTBoss3Bullet = new CmTBoss3Bullet;
+	_CpSword = new CpSword;
+	_CpSkil_LuckyStar = new CpSkil_LuckyStar;
+	_CpSkil_Ice_spear = new CpSkil_Ice_spear;
+	_CpSkil_Haste = new CpSkil_Haste;
+	_CpCharge = new CpSkil_Charge;
 	return S_OK;
 }
 
@@ -50,6 +55,11 @@ void bulletManager::release()
 	SAFE_DELETE(_CmTBoss1Bullet);
 	SAFE_DELETE(_CmTBoss2Bullet);
 	SAFE_DELETE(_CmTBoss3Bullet);
+	SAFE_DELETE(_CpSword);
+	SAFE_DELETE(_CpSkil_LuckyStar);
+	SAFE_DELETE(_CpSkil_Ice_spear);
+	SAFE_DELETE(_CpSkil_Haste);
+	SAFE_DELETE(_CpCharge);
 }
 
 void bulletManager::update()
@@ -71,6 +81,11 @@ void bulletManager::update()
 	_CmTBoss1Bullet->update();
 	_CmTBoss2Bullet->update();
 	_CmTBoss3Bullet->update();
+	_CpSword->update();
+	_CpSkil_LuckyStar->update();
+	_CpSkil_Ice_spear->update();
+	_CpSkil_Haste->update();
+	_CpCharge->update();
 } 
 
 void bulletManager::render()
@@ -92,4 +107,9 @@ void bulletManager::render()
 	_CmTBoss1Bullet->render();
 	_CmTBoss2Bullet->render();
 	_CmTBoss3Bullet->render();
+	_CpSword->render();
+	_CpSkil_LuckyStar->render();
+	_CpSkil_Ice_spear->render();
+	_CpSkil_Haste->render();
+	_CpCharge->render();
 }
