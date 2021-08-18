@@ -26,14 +26,15 @@ enum class PLACE {
 
 enum class STATE {
 	IDLE,
+	ATTBOWIDLE,
 	WALK,
+	ATTBOWWALK,
 	RUN,
 	DASH,
+	DASHATT,
 	ATTSTAFF,
 	STAFFCHARGE,
 	ATTSWORD,
-	ATTBOWIDLE,
-	ATTBOWWALK,
 	KNOCKBACK,
 	DIE,
 	STOP
@@ -114,6 +115,7 @@ private:
 	int _dashCount;
 	int _dashIndex;
 	float _dashAngle;
+	bool _dashAtkChance;
 
 	int _attCount;
 	int _attIndex;
@@ -196,4 +198,5 @@ public:
 	WEAPONTYPE getweapone() { return _player.weapon; }
 	Player& getPlayerAddress() { return _player; }
 	STATE& getSTATEAddress() { return _state; }
+	DIRECTION& getDIRECTIONAddress() { return _direction; }
 };
