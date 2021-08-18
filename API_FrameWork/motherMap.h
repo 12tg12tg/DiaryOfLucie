@@ -65,7 +65,6 @@ public:
 	virtual void render();
 	virtual void summonMon(int x);
 	virtual void summonBoss(int x);
-	virtual void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	virtual DungeonDoor* getDungeonDoor() { return _door; }
 	virtual MagicDoor* getMagicNextStage() { return goNextStage; }
 	virtual image* getcolMap() { return _collisionMap; }
@@ -78,6 +77,16 @@ public:
 	virtual void setbotDoor(bool isbotRoom) { this->isbotRoom = isbotRoom; }
 	virtual void settopDoor(bool istopRoom) { this->istopRoom = istopRoom; }
 	virtual void dropCoin(int x, int y);
+	virtual goldCoin* getGoldCoinInstance() { return _gold_coin; }
+	virtual silverCoin* getSilverCoinInstance() { return _silver_coin; }
+	virtual bronzeCoin* getBronzeCoinInstance() { return _bronze_coin; }
+	virtual void setIsDebug(bool isDebug) { 
+		_isDebug = isDebug;
+		_gold_coin->setIsDebug(_isDebug);
+		_silver_coin->setIsDebug(_isDebug);
+		_bronze_coin->setIsDebug(_isDebug);
+
+	}
 
 };
 

@@ -13,9 +13,7 @@ private:
 	monsterManager* mm;
 	OBBCollision* obb;
 	mapManager* mapm;
-	goldCoin* gcoin;
-	silverCoin* scoin;
-	bronzeCoin* bcoin;
+
 
 	float _x;
 	float _y;

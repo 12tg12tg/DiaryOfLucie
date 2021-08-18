@@ -1180,25 +1180,25 @@ void collisionManager::bulletTobullet()
 
 void collisionManager::playerToCoin()
 {
-	for (int i = 0; i < gcoin->getVCoin().size(); i++)
+	for (int i = 0; i < dynamic_cast<motherMap*>(SCENE->curScene())->getGoldCoinInstance()->getVCoin().size(); i++)
 	{
-		if (IntersectRect(&temprc, &PLAYER->getPlayerAddress().playerRect, &gcoin->getVCoin()[i].rc))
+		if (IntersectRect(&temprc, &PLAYER->getPlayerAddress().playerRect, &dynamic_cast<motherMap*>(SCENE->curScene())->getGoldCoinInstance()->getVCoin()[i].rc))
 		{
-			gcoin->removecoin(i);
+			dynamic_cast<motherMap*>(SCENE->curScene())->getGoldCoinInstance()->removecoin(i);
 		}
 	}
-	for (int i = 0; i < scoin->getVCoin().size(); i++)
+	for (int i = 0; i < dynamic_cast<motherMap*>(SCENE->curScene())->getSilverCoinInstance()->getVCoin().size(); i++)
 	{
-		if (IntersectRect(&temprc, &PLAYER->getPlayerAddress().playerRect, &scoin->getVCoin()[i].rc))
+		if (IntersectRect(&temprc, &PLAYER->getPlayerAddress().playerRect, &dynamic_cast<motherMap*>(SCENE->curScene())->getSilverCoinInstance()->getVCoin()[i].rc))
 		{
-			scoin->removecoin(i);
+			dynamic_cast<motherMap*>(SCENE->curScene())->getSilverCoinInstance()->removecoin(i);
 		}
 	}
-	for (int i = 0; i < bcoin->getVCoin().size(); i++)
+	for (int i = 0; i < dynamic_cast<motherMap*>(SCENE->curScene())->getBronzeCoinInstance()->getVCoin().size(); i++)
 	{
-		if (IntersectRect(&temprc, &PLAYER->getPlayerAddress().playerRect, &bcoin->getVCoin()[i].rc))
+		if (IntersectRect(&temprc, &PLAYER->getPlayerAddress().playerRect, &dynamic_cast<motherMap*>(SCENE->curScene())->getBronzeCoinInstance()->getVCoin()[i].rc))
 		{
-			bcoin->removecoin(i);
+			dynamic_cast<motherMap*>(SCENE->curScene())->getBronzeCoinInstance()->removecoin(i);
 		}
 	}
 }

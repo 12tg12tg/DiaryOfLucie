@@ -15,9 +15,7 @@ private:
 	collisionManager*	_cm;
 	monsterManager*		_mm;
 	mapManager*			_mapm;
-	goldCoin*			_gcoin;
-	silverCoin*			_scoin;
-	bronzeCoin*			_bcoin;
+
 //-----------------------------
 //각자의 브렌치 인스턴스
 private:
@@ -51,9 +49,6 @@ public:
 			_cm->setIsDebug(_isDebug);
 			_mm->setIsDebug(_isDebug);
 			_mapm->setIsDebug(_isDebug);
-			_gcoin->setIsDebug(_isDebug);
-			_scoin->setIsDebug(_isDebug);
-			_bcoin->setIsDebug(_isDebug);
 			BUTTON->setIsDebug(_isDebug);
 			PLAYER->setIsDebug(_isDebug);
 			PLAYERDATA->setIsDebug(_isDebug);

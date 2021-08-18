@@ -128,9 +128,6 @@ void mainDOL::gameInit()
 	_cm->setBulletManagerMemoryLink(_bm);		//충돌에서 불릿링크
 	_cm->setMonsterManagerMemoryLink(_mm);		//충돌에서 몬스터링크
 	_cm->setmapManagerMemoryLink(_mapm);		//충돌에서 맵링크
-	_cm->setGoldCoinMemoryLink(_gcoin);
-	_cm->setSilverCoinMemoryLink(_scoin);
-	_cm->setBronzeCoinMemoryLink(_bcoin);
 	_mapm->setMonsterManagerMemoryLink(_mm);	//맵에서 몬스터링크
 	_mapm->setBulletManagerMemoryLink(_bm);		//맵에서 불릿링크
 	PLAYER->setBulletManagerMemoryLink(_bm);
