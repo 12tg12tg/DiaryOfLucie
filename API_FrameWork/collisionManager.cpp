@@ -50,7 +50,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit || PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}
@@ -71,7 +71,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit || PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}
@@ -89,7 +89,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit || PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}
@@ -109,7 +109,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit || PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}
@@ -131,7 +131,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit || PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}
@@ -154,7 +154,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit || PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}
@@ -172,7 +172,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit || PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}
@@ -192,7 +192,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit || PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}
@@ -212,7 +212,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit || PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}
@@ -234,7 +234,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit || PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}
@@ -253,7 +253,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit || PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}
@@ -277,7 +277,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit || PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}
@@ -297,7 +297,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit || PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}
@@ -319,7 +319,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit || PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}
@@ -341,7 +341,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit|| PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}
@@ -363,7 +363,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit || PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}
@@ -386,7 +386,7 @@ void collisionManager::bulletToplayer()
 				PLAYER->hitDash();
 				break;
 			}
-			else if (PLAYER->getPlayerAddress().isHit) {
+			else if (PLAYER->getPlayerAddress().isHit || PLAYER->getSTATEAddress() == STATE::DASHATT) {
 				break;
 			}
 		}

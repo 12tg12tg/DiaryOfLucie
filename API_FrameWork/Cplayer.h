@@ -79,6 +79,14 @@ struct DashEffect {
 	DIRECTION direction;
 	int dashAlpha;
 };
+struct afterImage {
+	image* afterImage;
+	int x, y;
+	int FrameX;
+	DIRECTION direction;
+	int Alpha;
+};
+
 
 /////////////////////////////////////////////////////////
 
@@ -150,6 +158,8 @@ private:
 
 	vector<DashEffect> _vectDashEffect;
 	vector<DashEffect>::iterator _iterDashEffect;
+	vector<afterImage> _vectAfterImage;
+	vector<afterImage>::iterator _iterAfterImage;
 	vector<swordEffect> _vectSwordEffect;
 	vector<swordEffect>::iterator _iterSwordEffect;
 	
@@ -182,6 +192,8 @@ private:
 private:
 	void pushbackDashEffect(int x,int y, int FrameX,DIRECTION direction);
 	void renderDashEffecct(HDC hdc);
+	void pushbackAfterImage(int x,int y, int FrameX,DIRECTION direction,image* image);
+	void renderAfterImage(HDC hdc);
 	void pushbackSwordEffect(float angle,int frameY);
 	void renderSwordEffecct(HDC hdc);
 
@@ -198,5 +210,5 @@ public:
 	WEAPONTYPE getweapone() { return _player.weapon; }
 	Player& getPlayerAddress() { return _player; }
 	STATE& getSTATEAddress() { return _state; }
-	DIRECTION& getDIRECTIONAddress() { return _direction; }
+	DIRECTION& getDIRECTIONAddress() { return _moveDirection; }
 };
