@@ -547,13 +547,13 @@ void Zorder::ZorderTotalRender(HDC hdc)
 			_vZorder[i].img->rotateRender(hdc, _vZorder[i].destX, _vZorder[i].destY, _vZorder[i].angle);
 			break;
 		case IMG_ROTATE_FRAME:
-			_vZorder[i].img->rotateFrameRender(hdc, _vZorder[i].destX, _vZorder[i].destY, _vZorder[i].frameX, _vZorder[i].frameY, _vZorder[i].angle);
+			_vZorder[i].img->rotateFrameRender(hdc, _vZorder[i].destX, _vZorder[i].destY, _vZorder[i].frameX, _vZorder[i].frameY, _vZorder[i].angle );
 			break;
 		case IMG_ROTATE_ALPHA:
 			_vZorder[i].img->rotateAlphaRender(hdc, _vZorder[i].destX, _vZorder[i].destY, _vZorder[i].angle, _vZorder[i].alpha);
 			break;
 		case IMG_ROTATE_ALPHAFRAME:
-			_vZorder[i].img->rotateAlphaFrameRender(hdc, _vZorder[i].destX, _vZorder[i].destY, _vZorder[i].frameX, _vZorder[i].frameY, _vZorder[i].angle, _vZorder[i].alpha);
+			_vZorder[i].img->rotateAlphaFrameRender(hdc, _vZorder[i].destX, _vZorder[i].destY, _vZorder[i].angle, _vZorder[i].frameX, _vZorder[i].frameY, _vZorder[i].alpha);
 			break;
 		case IMG_STRETCH:
 			if (_vZorder[i].stretchKind == STRETCH_WHOLE_RATIO)
@@ -652,13 +652,13 @@ void Zorder::ZorderUITotalRender(HDC hdc)
 			_vUiZorder[i].img->rotateRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].angle);
 			break;
 		case IMG_ROTATE_FRAME:
-			_vUiZorder[i].img->rotateFrameRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].frameX, _vUiZorder[i].frameY, _vUiZorder[i].angle);
+			_vUiZorder[i].img->rotateFrameRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].angle, _vUiZorder[i].frameX, _vUiZorder[i].frameY);
 			break;
 		case IMG_ROTATE_ALPHA:
 			_vUiZorder[i].img->rotateAlphaRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].angle, _vUiZorder[i].alpha);
 			break;
 		case IMG_ROTATE_ALPHAFRAME:
-			_vUiZorder[i].img->rotateAlphaFrameRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].frameX, _vUiZorder[i].frameY, _vUiZorder[i].angle, _vUiZorder[i].alpha);
+			_vUiZorder[i].img->rotateAlphaFrameRender(hdc, _vUiZorder[i].destX, _vUiZorder[i].destY, _vUiZorder[i].angle, _vUiZorder[i].frameX, _vUiZorder[i].frameY, _vUiZorder[i].alpha);
 			break;
 		case IMG_STRETCH:
 			if (_vUiZorder[i].stretchKind == STRETCH_WHOLE_RATIO)

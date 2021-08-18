@@ -91,7 +91,9 @@ using namespace std;
 //#define WINSIZEY		640
 #define WINSTYLE		WS_CAPTION | WS_SYSMENU
 
-#define GAMEDCRATIO 1.8
+static float gameRatio = 1.5;
+
+#define GAMEDCRATIO gameRatio
 #define CAMERASIZEX WINSIZEX/GAMEDCRATIO
 #define CAMERASIZEY WINSIZEY/GAMEDCRATIO
 #define CAMMOUSEX		(m_ptMouse.x / GAMEDCRATIO) + CAMERA->getRect().left

@@ -547,7 +547,11 @@ void Zorder::ZorderTotalRender(HDC hdc)
 			_vZorder[i].img->rotateRender(hdc, _vZorder[i].destX, _vZorder[i].destY, _vZorder[i].angle);
 			break;
 		case IMG_ROTATE_FRAME:
+<<<<<<< HEAD
+			_vZorder[i].img->rotateFrameRender(hdc, _vZorder[i].destX, _vZorder[i].destY, _vZorder[i].frameX, _vZorder[i].frameY, _vZorder[i].angle );
+=======
 			_vZorder[i].img->rotateFrameRender(hdc, _vZorder[i].destX, _vZorder[i].destY, _vZorder[i].frameX, _vZorder[i].frameY, _vZorder[i].angle);
+>>>>>>> 81292fed916919f00acbc6eeadf6e57dd5116bb4
 			break;
 		case IMG_ROTATE_ALPHA:
 			_vZorder[i].img->rotateAlphaRender(hdc, _vZorder[i].destX, _vZorder[i].destY, _vZorder[i].angle, _vZorder[i].alpha);

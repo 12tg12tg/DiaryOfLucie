@@ -6,7 +6,7 @@ mainDOL::mainDOL()
 	IMAGE->addImage("SCORPDC", WINSIZEX * 3, WINSIZEY * 3);
 	IMAGE->addImage("DOL_cursor", "images/UI/cursor.bmp", 32, 32, true);
 	ShowCursor(false);					//커서숨김
-	SetBkMode(getMemDC(), TRANSPARENT);	//배경 투명
+	SetBkMode(getMemDC(), TRANSPARENT);	//글자배경 투명
 }
 
 mainDOL::~mainDOL(){}
@@ -102,13 +102,6 @@ void mainDOL::render()
 		//3. SCORPDC를 확대하여 memDC에 출력.
 		IMAGE->findImage("SCORPDC")->stretchRenderXY(getMemDC(), 0, 0, GAMEDCRATIO);
 		//--------------------------------------------------------------------------------------
-
-		//테스트
-		//TCHAR str[128];
-		//wsprintf(str, "마우스좌표 : %d, %d", (int)CAMMOUSEX, (int)CAMMOUSEY);
-		//TextOut(getMemDC(), 0, 60, str, lstrlen(str));
-		//wsprintf(str, "플레이어좌표 : %d, %d", (int)PLAYER->getPlayerAddress().x, (int)PLAYER->getPlayerAddress().y);
-		//TextOut(getMemDC(), 0, 80, str, lstrlen(str));
 	}
 
 	//실제 UI 출력
