@@ -33,9 +33,6 @@ HRESULT Cplayer::init()
 	_attIndex = 0;
 	_chargeShotCount = 0;
 	_bowCount = 0;
-	_bowStack = 0;
-	_bowStackIndex = 0;
-	_bowStackCount = 0;
 	_combo = 0;
 	_comboCount = 0;
 	_comboCoolTime = 0;
@@ -176,31 +173,9 @@ void Cplayer::render(HDC hdc)
 	//		break;
 	//	}
 	//}
-<<<<<<< HEAD
 	if (_player.weapon == WEAPONTYPE::SWORD)
 		renderSwordEffecct(hdc);
 	else if (_chargeShotCount > 40 && _player.weapon == WEAPONTYPE::STAFF)
-=======
-	if (_player.weapon == WEAPONTYPE::BOW && _bowStack > 0)
-	{
-		_bowStackCount++;
-		if (_bowStackCount > 10) 
-		{
-			_bowStackCount = 0;
-			_bowStackIndex++;
-			if (_bowStackIndex > _bowStack_img->getMaxFrameX()) {
-				_bowStackCount = 0;
-				_bowStackIndex = 0;
-			}
-
-		}
-		ZORDER->ZorderFrameRender(_bowStack_img, ZUNIT, 0, _player.x-96,_player.y-107, _bowStackIndex, _bowStack - 1);
-	}
-
-	if(_player.weapon==WEAPONTYPE::SWORD)
-	renderSwordEffecct(hdc);
-	else if (_chargeShotCount > 40&& _player.weapon == WEAPONTYPE::STAFF)
->>>>>>> origin/?àÎ°ú?úÏñ¥?òÏûêÎ∏åÎûúÏπ?
 	{
 		_chargeshotBar->render();
 	}
@@ -221,12 +196,7 @@ void Cplayer::imageInit()
 	_attSword_img = IMAGE->addFrameImage("∫£±‚", "images/Player/∫£±‚ºˆ¡§.bmp", 900, 800, 9, 8, true);
 	_swordeffect = IMAGE->addFrameImage("∫£±‚¿Ã∆Â∆Æ", "images/Player/ƒÆ¿Ã∆Â∆Æ.bmp", 2304, 576, 12, 3, true);
 	_chargeshotBar = new progressBar;
-<<<<<<< HEAD
 	_chargeshotBar->init("images/Player/√≠¡ˆº¶πŸπÈ.bmp", "images/Player/√≠¡ˆº¶πŸ«¡∑–∆Æ.bmp", 0, 0, 69, 8, false);
-=======
-	_chargeshotBar->init("images/Player/√≠¡ˆº¶πŸπÈ.bmp", "images/Player/√≠¡ˆº¶πŸ«¡∑–∆Æ.bmp", 0, 0, 69 , 8, false);
-	_bowStack_img = IMAGE->addFrameImage("»≠ªÏΩ∫≈√", "images/Player/»≠ªÏΩ∫≈√.bmp", 768, 960, 4, 5, 1);
->>>>>>> origin/?àÎ°ú?úÏñ¥?òÏûêÎ∏åÎûúÏπ?
 }
 
 void Cplayer::inputCheck()
@@ -369,10 +339,6 @@ void Cplayer::stateCheck()
 						if (_bowCount > 5 * 5 - (PLAYERDATA->getData().AtkSpeed / 10)) {
 							_attAngle = _attAngle - 0.03 + 0.00003 * RND->getFromInTo(0, 2000);
 							_Cbullet->getArwBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 20);
-							if (_bowStack >= 5) {
-								_Cbullet->getArwBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle-PI_16, 20);
-								_Cbullet->getArwBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle + PI_16, 20);
-							}
 							_bowCount = 0;
 							PLAYERDATA->useStamina(2);
 						}
@@ -908,7 +874,6 @@ void Cplayer::hitPlayer(int bulletX, int bulletY)
 		_player.isHit = true;
 		PLAYERDATA->changeHP(-1);
 		_knockBackAngle = UTIL::getAngle(bulletX, bulletY, _player.x, _player.y);
-		_bowStack = 0;
 	}
 }
 
@@ -919,8 +884,7 @@ void Cplayer::hitDash()
 		_player.isDashHit = true;
 		PLAYERDATA->changeMP(1);
 		_dashAtkChance = true;
-		if (_player.weapon == WEAPONTYPE::BOW&& _bowStack<5)
-			_bowStack++;
+		//if(_player.weapon==WEAPONTYPE::)
 	}
 }
 

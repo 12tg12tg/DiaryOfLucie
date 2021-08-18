@@ -200,7 +200,7 @@ void Cplayer::render(HDC hdc)
 	if(_player.weapon==WEAPONTYPE::SWORD)
 	renderSwordEffecct(hdc);
 	else if (_chargeShotCount > 40&& _player.weapon == WEAPONTYPE::STAFF)
->>>>>>> origin/?ˆë¡œ?œì–´?˜ìë¸Œëœì¹?
+>>>>>>> origin/ìƒˆë¡œíƒœì–´ë‚˜ìë¸Œëœì¹˜
 	{
 		_chargeshotBar->render();
 	}
@@ -226,7 +226,7 @@ void Cplayer::imageInit()
 =======
 	_chargeshotBar->init("images/Player/Ã­Áö¼¦¹Ù¹é.bmp", "images/Player/Ã­Áö¼¦¹ÙÇÁ·ĞÆ®.bmp", 0, 0, 69 , 8, false);
 	_bowStack_img = IMAGE->addFrameImage("È­»ì½ºÅÃ", "images/Player/È­»ì½ºÅÃ.bmp", 768, 960, 4, 5, 1);
->>>>>>> origin/?ˆë¡œ?œì–´?˜ìë¸Œëœì¹?
+>>>>>>> origin/ìƒˆë¡œíƒœì–´ë‚˜ìë¸Œëœì¹˜
 }
 
 void Cplayer::inputCheck()

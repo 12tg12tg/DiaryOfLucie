@@ -1232,7 +1232,7 @@ void collisionManager::checkMonsterRectPlayer(monster* monster)
 			min = (min >= fromright) ? fromright : min;
 			if (min == fromtop && min <= 50)
 			{
-				if (PLAYER->getSTATEAddress() != STATE::DASH)
+				if (PLAYER->getSTATEAddress() != STATE::DASH&& PLAYER->getSTATEAddress() != STATE::DASHATT)
 				{
 					PLAYER->getPlayerAddress().y = rc2->top - (PLAYER->getPlayerAddress().playerRect.bottom - PLAYER->getPlayerAddress().playerRect.top) / 2;
 				}
@@ -1244,7 +1244,7 @@ void collisionManager::checkMonsterRectPlayer(monster* monster)
 			}
 			else if (min == frombottom)
 			{
-				if (PLAYER->getSTATEAddress() != STATE::DASH)
+				if (PLAYER->getSTATEAddress() != STATE::DASH && PLAYER->getSTATEAddress() != STATE::DASHATT)
 				{
 					PLAYER->getPlayerAddress().y = rc2->bottom + (PLAYER->getPlayerAddress().playerRect.bottom - PLAYER->getPlayerAddress().playerRect.top) / 2;
 				}
@@ -1255,7 +1255,7 @@ void collisionManager::checkMonsterRectPlayer(monster* monster)
 			}
 			else if (min == fromleft)
 			{
-				if (PLAYER->getSTATEAddress() != STATE::DASH)
+				if (PLAYER->getSTATEAddress() != STATE::DASH && PLAYER->getSTATEAddress() != STATE::DASHATT)
 				{
 					PLAYER->getPlayerAddress().x = rc2->left - (PLAYER->getPlayerAddress().playerRect.right - PLAYER->getPlayerAddress().playerRect.left) / 2;
 				}
@@ -1266,7 +1266,7 @@ void collisionManager::checkMonsterRectPlayer(monster* monster)
 			}
 			else if (min == fromright)
 			{
-				if (PLAYER->getSTATEAddress() != STATE::DASH)
+				if (PLAYER->getSTATEAddress() != STATE::DASH && PLAYER->getSTATEAddress() != STATE::DASHATT)
 				{
 					PLAYER->getPlayerAddress().x = rc2->right + (PLAYER->getPlayerAddress().playerRect.right - PLAYER->getPlayerAddress().playerRect.left) / 2;
 				}
