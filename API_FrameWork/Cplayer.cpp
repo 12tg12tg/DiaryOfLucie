@@ -40,6 +40,7 @@ HRESULT Cplayer::init()
 	_swordIndex = 0;
 	_dashCount = 0;
 	_dashIndex = 0;
+	_dashAtkChance = false;
 
 	imageLeftCorrection = 50 - (_player.playerRect.right - _player.playerRect.left) / 2;
 	imageTopCorrection = 70 - (_player.playerRect.bottom - _player.playerRect.top) / 2;
@@ -135,6 +136,9 @@ void Cplayer::render(HDC hdc)
 			ZORDER->ZorderAlphaFrameRender(_chargeAtt_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _chargeAtt_img->getFrameX(), _moveDirection, _alpha);
 			break;
 		case STATE::ATTSWORD:
+			ZORDER->ZorderAlphaFrameRender(_attSword_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _attSword_img->getFrameX(), _moveDirection, _alpha);
+			break;
+		case STATE::DASHATT:
 			ZORDER->ZorderAlphaFrameRender(_attSword_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, _attSword_img->getFrameX(), _moveDirection, _alpha);
 			break;
 		}
@@ -302,7 +306,7 @@ void Cplayer::stateCheck()
 	{
 		_state = STATE::KNOCKBACK;
 	}
-	else if (_state != STATE::DASH)
+	else if (_state != STATE::DASH&& _state != STATE::DASHATT)
 	{
 		if (_state != STATE::ATTSTAFF && _state != STATE::ATTSWORD && _state != STATE::STAFFCHARGE)
 		{
@@ -389,7 +393,7 @@ void Cplayer::stateCheck()
 				_comboCount = 0;
 				_attAngle = UTIL::getAngle(_player.x, _player.y - shootingCorrection, CAMMOUSEX, CAMMOUSEY);
 				this->angleCheckDirection(_attAngle);
-				//_attAngle = _attAngle - 0.03 + 0.00003 * RND->getFromInTo(0, 2000);
+				_attAngle = _attAngle - 0.03 + 0.00003 * RND->getFromInTo(0, 2000);
 				_Cbullet->getMgcBulInstance()->fire(_player.x +cosf(_attAngle)*_swordCorrent,
 					_player.y - shootingCorrection -sinf(_attAngle)*_swordCorrent , _attAngle,0);
 				PLAYERDATA->useStamina(2);
@@ -443,8 +447,23 @@ void Cplayer::stateCheck()
 			}
 		}
 	}
-	//대쉬어택 만들거에여
-	else if (_state == STATE::DASH && _player.weapon == WEAPONTYPE::SWORD && _player.isDashHit) {
+	else if (_state == STATE::DASH && _player.weapon == WEAPONTYPE::SWORD && _player.isDashHit)
+	{
+		if (_dashAtkChance&& INPUT->isOnceKeyDown(VK_LBUTTON))
+		{
+			_attIndex = 6;
+			_state = STATE::DASHATT;
+			_attAngle = UTIL::getAngle(_player.x, _player.y - shootingCorrection, CAMMOUSEX, CAMMOUSEY);
+			this->angleCheckDirection(_attAngle);
+			_Cbullet->getMgcBulInstance()->fire(_player.x + cosf(_attAngle) * _swordCorrent,
+				_player.y - shootingCorrection - sinf(_attAngle) * _swordCorrent, _attAngle, 0);
+			pushbackSwordEffect(_attAngle, 2);//나는 병신
+			_dashAtkChance = false;
+			_player.isDashHit = false;
+			_dashCount = 0;
+			_dashIndex = 0;
+
+		}
 	}
 }
 
@@ -490,6 +509,10 @@ void Cplayer::movePlayer()
 	case STATE::DASH:
 		_player.x += cosf(_dashAngle) * PLAYERDATA->getData().presentSpeed * 3;
 		_player.y -= sinf(_dashAngle) * PLAYERDATA->getData().presentSpeed * 3;
+		break;
+	case STATE::DASHATT:
+		_player.x += cosf(_attAngle) * PLAYERDATA->getData().presentSpeed * 4;
+		_player.y -= sinf(_attAngle) * PLAYERDATA->getData().presentSpeed * 4;
 		break;
 	case STATE::ATTSWORD:
 	case STATE::ATTSTAFF:
@@ -592,6 +615,7 @@ void Cplayer::setPlayerFrame()
 				_state = STATE::IDLE;
 				_dashCount = 0;
 				_dashIndex = 0;
+				_dashAtkChance = false;
 				_player.isDashHit = false;
 			}
 			_dash_img->setFrameX(_dashIndex);
@@ -646,6 +670,20 @@ void Cplayer::setPlayerFrame()
 				}
 			}
 			_attSword_img->setFrameX(_swordIndex);
+		}
+		break;
+	case STATE::DASHATT:
+		_attCount++;
+		if (_attCount > 8 )
+		{
+			_attCount = 0;
+			_attIndex++;
+			if (_attIndex > _attSword_img->getMaxFrameX()) {
+				_state = STATE::IDLE;
+				_attCount = 0;
+				_attIndex = 0;
+			}
+			_attSword_img->setFrameX(_attIndex);
 		}
 		break;
 	case STATE::KNOCKBACK:
@@ -796,6 +834,7 @@ void Cplayer::hitDash()
 	{
 		_player.isDashHit = true;
 		PLAYERDATA->changeMP(1);
+		_dashAtkChance = true;
 	}
 }
 
