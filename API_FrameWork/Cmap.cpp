@@ -1090,8 +1090,9 @@ void moruMap::render()
 	_moru->render();
 }
 
-stage1_Boss::stage1_Boss()
+stage1_Boss::stage1_Boss(int currentboss)
 {
+	stage = currentboss;
 	IMAGE->addImage("보스방배경", "images/map/stage1_boss.bmp", 1104, 960, true, RGB(255, 0, 255));
 	_collisionMap = IMAGE->addImage("보스방픽셀", "images/map/!mstage1_boss.bmp", 1104, 960, true, RGB(255, 0, 255));
 	IMAGE->addImage("보스방가림", "images/map/Parstage1_boss.bmp", 1104, 960, true, RGB(255, 0, 255));
@@ -1100,7 +1101,7 @@ stage1_Boss::stage1_Boss()
 	_door[1].Door = RectMake(482, 0, 140, 25); //top
 	_door[2].Door = RectMake(1085, 450, 25, 150);//right
 	_door[3].Door = RectMake(476, 940, 140, 25); //bottom
-
+	
 }
 
 stage1_Boss::~stage1_Boss()
@@ -1114,7 +1115,9 @@ HRESULT stage1_Boss::init()
 		1104, 960, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	if (isClear == false)
 	{
-		summonBoss(2);
+		summonBoss(stage);
+		stage++;
+
 	}
 	return S_OK;
 }
