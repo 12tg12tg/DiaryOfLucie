@@ -33,8 +33,6 @@ HRESULT mapManager::init()
 	_boss = IMAGE->addImage("∫∏Ω∫πÊ", "images/minimap/minimap_cellIcon_boss.bmp", 30, 30, true, RGB(255, 0, 255));
 	_goal = IMAGE->addImage("¥Ÿ¿Ω√˛", "images/minimap/minimap_cellIcon_goal.bmp", 30, 30, true, RGB(255, 0, 255));
 	_back = IMAGE->addImage("πŸ≈¡", "images/minimap/minimap_backSpriteL.bmp", 455, 317, true, RGB(255, 0, 255));
-	
-
 
 	if (_curstage < 4)
 	{
