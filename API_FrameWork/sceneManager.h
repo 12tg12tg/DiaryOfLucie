@@ -26,7 +26,7 @@ public:
 	void releaseLight();
 	void update(); //계산하는곳
 	void render(/*HDC hdc*/);
-
+	gameNode* curScene();
 	gameNode* addScene(string sceneName, gameNode* scene, bool islight = true);
 	HRESULT changeScene(string sceneName);
 };

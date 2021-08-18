@@ -2,6 +2,7 @@
 #include "mapManager.h"
 #include"monsterManager.h"
 
+
 mapManager::mapManager()
 {
 	_curstage = 1;

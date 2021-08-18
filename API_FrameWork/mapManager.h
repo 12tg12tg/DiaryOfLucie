@@ -103,7 +103,6 @@ public:
 	stage1_Boss* getstage1_BossInstance() {return _stage1_Boss;}
 	nextStage* getnextStageInstance() { return _nextStage; }
 	image* getCurrentColMap();
-	
 	DungeonDoor* getCurrentDoor();
 	MagicDoor* getMagicDoor();
 	mapManager();
@@ -127,6 +126,17 @@ public:
 	void makeclear2();
 	bool getGoNextStage() {return goNextStage;}
 	void clearbullet();
+
+	bool setShopRoom();
+	bool setMORURoom();
+	bool setstatueRoom();
+	bool setchestRoom();
+	bool setBossRoom();
+	bool setBossRoom2();
+	void setNextRoom();
+	bool setNormal();
+	bool setfountainMap();
+	bool checkNextStage();
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }
 	void setIsDebug(bool isDebug) {
@@ -159,14 +169,6 @@ public:
 		}
 	}
 
-	bool setShopRoom();
-	bool setMORURoom();
-	bool setstatueRoom();
-	bool setchestRoom();
-	bool setBossRoom();
-	bool setBossRoom2();
-	void setNextRoom();
-	bool setNormal();
-	bool setfountainMap();
-	bool checkNextStage();
+
+
 };

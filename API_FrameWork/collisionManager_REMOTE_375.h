@@ -55,6 +55,9 @@ public:
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
 	void setmapManagerMemoryLink(mapManager* mapManager) { mapm = mapManager; }
+	void setGoldCoinMemoryLink(goldCoin* goldCoin) { gcoin = goldCoin; }
+	void setSilverCoinMemoryLink(silverCoin* silverCoin) { scoin = silverCoin; }
+	void setBronzeCoinMemoryLink(bronzeCoin* bronzeCoin) { bcoin = bronzeCoin; }
 	//void setMonsterManagerMemoryLink(mapManager* mapManager) { mapm = mapManager; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
