@@ -834,8 +834,12 @@ void Cplayer::renderSwordEffecct(HDC hdc)
 	}
 	for (_iterSwordEffect = _vectSwordEffect.begin(); _iterSwordEffect != _vectSwordEffect.end(); ++_iterSwordEffect)
 	{
-		//testrect=_iterSwordEffect->swordEffect->getBoundingBox(_iterSwordEffect->x- _iterSwordEffect->swordEffect->getFrameWidth()/2, _iterSwordEffect->y - _iterSwordEffect->swordEffect->getFrameHeight()/2);
-		//ZORDER->ZorderRectangleRotate(testrect, ZCOL1, _iterSwordEffect->angle);
+		testrect=_iterSwordEffect->swordEffect->getBoundingBox( _player.x + cosf(_attAngle) * _swordCorrent-_iterSwordEffect->swordEffect->getFrameWidth()/2,
+		_player.y - shootingCorrection - sinf(_attAngle) * _swordCorrent - _iterSwordEffect->swordEffect->getFrameHeight() / 2);
+		if(_isDebug)
+		{
+		ZORDER->ZorderRectangleRotate(testrect, ZCOL1, _iterSwordEffect->angle);
+		}
 		ZORDER->ZorderRotateFrameRender(_iterSwordEffect->swordEffect, ZUNIT, _player.y - shootingCorrection - sinf(_attAngle) * _swordCorrent, _player.x + cosf(_attAngle) * _swordCorrent,
 			_player.y - shootingCorrection - sinf(_attAngle) * _swordCorrent, _iterSwordEffect->angle, _iterSwordEffect->frameX, _iterSwordEffect->frameY);
 	}
