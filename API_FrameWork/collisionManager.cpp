@@ -31,6 +31,7 @@ void collisionManager::update()
 	mapToplayer();
 	playerToDoor();
 	mapTomon();
+	bulletTobullet();
 }
 
 void collisionManager::bulletToplayer()
@@ -983,6 +984,196 @@ void collisionManager::bulletToMap()
 		}
 		i++;
 	}
+
+	for (int i = 0; i < bm->getMgcBulInstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getMgcBulInstance()->getVBullet()[i].x - 1; k < bm->getMgcBulInstance()->getVBullet()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getMgcBulInstance()->getVBullet()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getMgcBulInstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+	for (int i = 0; i < bm->getArwBulInstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getArwBulInstance()->getVBullet()[i].x - 1; k < bm->getArwBulInstance()->getVBullet()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getArwBulInstance()->getVBullet()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getArwBulInstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+	for (int i = 0; i < bm->getChargeInstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getChargeInstance()->getVBullet()[i].x - 1; k < bm->getChargeInstance()->getVBullet()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getChargeInstance()->getVBullet()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getChargeInstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+	for (int i = 0; i < bm->getIce_spearInstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getIce_spearInstance()->getVBullet()[i].x - 1; k < bm->getIce_spearInstance()->getVBullet()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getIce_spearInstance()->getVBullet()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getIce_spearInstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+
+	for (int i = 0; i < bm->getLucky_starInstance()->getVBullet().size(); )
+	{
+		for (int k = bm->getLucky_starInstance()->getVBullet()[i].x - 1; k < bm->getLucky_starInstance()->getVBullet()[i].x + 1; k++)
+		{
+			COLORREF  color = GetPixel(mapm->getCurrentColMap()->getMemDC(), k, bm->getLucky_starInstance()->getVBullet()[i].y);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+
+			if (!(r == 255 && g == 0 && b == 255))
+			{
+				bm->getLucky_starInstance()->getVBullet()[i].iscollison = true;
+			}
+		}
+		i++;
+	}
+}
+
+void collisionManager::bulletTobullet()
+{
+	for (int i = 0; i < bm->getMgcBulInstance()->getVBullet().size(); i++) {
+		for (int k = 0; k < bm->getPsnBulInstance()->getVBullet().size(); k++) {
+
+			if (IntersectRect(&temprc, &bm->getMgcBulInstance()->getVBullet()[i].rc, &bm->getPsnBulInstance()->getVBullet()[k].rc))
+			{
+				bm->getMgcBulInstance()->getVBullet()[i].colPoison = true;
+			}
+		}
+
+	}
+	for (int i = 0; i < bm->getMgcBulInstance()->getVBullet().size(); i++) {
+		for (int k = 0; k < bm->getLPsnBulInstance()->getVBullet().size(); k++) {
+
+			if (IntersectRect(&temprc, &bm->getMgcBulInstance()->getVBullet()[i].rc, &bm->getLPsnBulInstance()->getVBullet()[k].rc))
+			{
+				bm->getMgcBulInstance()->getVBullet()[i].colPoison = true;
+			}
+		}
+	}
+
+	for (int i = 0; i < bm->getArwBulInstance()->getVBullet().size(); i++) {
+		for (int k = 0; k < bm->getPsnBulInstance()->getVBullet().size(); k++) {
+
+			if (IntersectRect(&temprc, &bm->getArwBulInstance()->getVBullet()[i].rc, &bm->getPsnBulInstance()->getVBullet()[k].rc))
+			{
+				bm->getArwBulInstance()->getVBullet()[i].colPoison = true;
+			}
+		}
+
+	}
+	for (int i = 0; i < bm->getArwBulInstance()->getVBullet().size(); i++) {
+		for (int k = 0; k < bm->getLPsnBulInstance()->getVBullet().size(); k++) {
+
+			if (IntersectRect(&temprc, &bm->getArwBulInstance()->getVBullet()[i].rc, &bm->getLPsnBulInstance()->getVBullet()[k].rc))
+			{
+				bm->getArwBulInstance()->getVBullet()[i].colPoison = true;
+			}
+		}
+	}
+
+	for (int i = 0; i < bm->getChargeInstance()->getVBullet().size(); i++) {
+		for (int k = 0; k < bm->getPsnBulInstance()->getVBullet().size(); k++) {
+
+			if (IntersectRect(&temprc, &bm->getChargeInstance()->getVBullet()[i].rc, &bm->getPsnBulInstance()->getVBullet()[k].rc))
+			{
+				bm->getChargeInstance()->getVBullet()[i].colPoison = true;
+			}
+		}
+
+	}
+	for (int i = 0; i < bm->getChargeInstance()->getVBullet().size(); i++) {
+		for (int k = 0; k < bm->getLPsnBulInstance()->getVBullet().size(); k++) {
+
+			if (IntersectRect(&temprc, &bm->getChargeInstance()->getVBullet()[i].rc, &bm->getLPsnBulInstance()->getVBullet()[k].rc))
+			{
+				bm->getChargeInstance()->getVBullet()[i].colPoison = true;
+			}
+		}
+	}
+
+	for (int i = 0; i < bm->getLucky_starInstance()->getVBullet().size(); i++) {
+		for (int k = 0; k < bm->getPsnBulInstance()->getVBullet().size(); k++) {
+
+			if (IntersectRect(&temprc, &bm->getLucky_starInstance()->getVBullet()[i].rc, &bm->getPsnBulInstance()->getVBullet()[k].rc))
+			{
+				bm->getLucky_starInstance()->getVBullet()[i].colPoison = true;
+			}
+		}
+
+	}
+	for (int i = 0; i < bm->getLucky_starInstance()->getVBullet().size(); i++) {
+		for (int k = 0; k < bm->getLPsnBulInstance()->getVBullet().size(); k++) {
+
+			if (IntersectRect(&temprc, &bm->getLucky_starInstance()->getVBullet()[i].rc, &bm->getLPsnBulInstance()->getVBullet()[k].rc))
+			{
+				bm->getLucky_starInstance()->getVBullet()[i].colPoison = true;
+			}
+		}
+	}
+
+	for (int i = 0; i < bm->getIce_spearInstance()->getVBullet().size(); i++) {
+		for (int k = 0; k < bm->getPsnBulInstance()->getVBullet().size(); k++) {
+
+			if (IntersectRect(&temprc, &bm->getIce_spearInstance()->getVBullet()[i].rc, &bm->getPsnBulInstance()->getVBullet()[k].rc))
+			{
+				bm->getIce_spearInstance()->getVBullet()[i].colPoison = true;
+			}
+		}
+
+	}
+	for (int i = 0; i < bm->getIce_spearInstance()->getVBullet().size(); i++) {
+		for (int k = 0; k < bm->getLPsnBulInstance()->getVBullet().size(); k++) {
+
+			if (IntersectRect(&temprc, &bm->getIce_spearInstance()->getVBullet()[i].rc, &bm->getLPsnBulInstance()->getVBullet()[k].rc))
+			{
+				bm->getIce_spearInstance()->getVBullet()[i].colPoison = true;
+			}
+		}
+	}
 }
 
 void collisionManager::checkMonsterRectPlayer(monster* monster)
@@ -1120,8 +1311,10 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 			//보스의경우 RECT가 두개이므로 따로진행
 			else {
 				if (iter->activestate != MONSTERACTIVE::DEATH &&
-					(IntersectRect(&temprc, &bm->getMgcBulInstance()->getVBullet()[i].rc, &iter->bossRc[0]) ||
-						IntersectRect(&temprc, &bm->getMgcBulInstance()->getVBullet()[i].rc, &iter->bossRc[1])))
+					(OBB->isOBBCollision(bm->getArwBulInstance()->getVBullet()[i].rc, bm->getArwBulInstance()->getVBullet()[i].angle,
+						 iter->bossRc[0],0)) ||
+					(OBB->isOBBCollision(bm->getArwBulInstance()->getVBullet()[i].rc, bm->getArwBulInstance()->getVBullet()[i].angle,
+						iter->bossRc[1],0)))
 				{
 					if (!iter->isGraceperiod) {
 						monster->knockback(iter,
@@ -1135,8 +1328,139 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 			}
 		}
 
-		//3. 
+		//3. 아이스스피어
+		for (int i = 0; i < bm->getIce_spearInstance()->getVBullet().size(); i++)
+		{
+			if (!isBoss) {
+				if (iter->activestate != MONSTERACTIVE::DEATH &&
+					IntersectRect(&temprc, &bm->getIce_spearInstance()->getVBullet()[i].rc, &iter->rc))
+				{
+					if (!iter->isGraceperiod) {
+						monster->knockback(iter,
+							bm->getIce_spearInstance()->getVBullet()[i].x,
+							bm->getIce_spearInstance()->getVBullet()[i].y,
+							PLAYERDATA->getDamage(),
+							10, false);
+					}
+					
+				}
+			}
+			//보스의경우 RECT가 두개이므로 따로진행
+			else {
+				if (iter->activestate != MONSTERACTIVE::DEATH &&
+					(IntersectRect(&temprc, &bm->getIce_spearInstance()->getVBullet()[i].rc, &iter->bossRc[0]) ||
+						IntersectRect(&temprc, &bm->getIce_spearInstance()->getVBullet()[i].rc, &iter->bossRc[1])))
+				{
+					if (!iter->isGraceperiod) {
+						monster->knockback(iter,
+							bm->getIce_spearInstance()->getVBullet()[i].x,
+							bm->getIce_spearInstance()->getVBullet()[i].y,
+							PLAYERDATA->getDamage(),
+							10, false);
+					}
+				}
+			}
+		}
+		for (int i = 0; i < bm->getIce_spearInstance()->getVBullet2().size(); i++)
+		{
+			if (!isBoss) {
+				if (iter->activestate != MONSTERACTIVE::DEATH &&
+					IntersectRect(&temprc, &bm->getIce_spearInstance()->getVBullet2()[i].rc, &iter->rc))
+				{
+					if (!iter->isGraceperiod) {
+						monster->knockback(iter,
+							bm->getIce_spearInstance()->getVBullet2()[i].x,
+							bm->getIce_spearInstance()->getVBullet2()[i].y,
+							PLAYERDATA->getDamage(),
+							10, false);
+						
+					}
+				}
+			}
+			//보스의경우 RECT가 두개이므로 따로진행
+			else {
+				if (iter->activestate != MONSTERACTIVE::DEATH &&
+					(IntersectRect(&temprc, &bm->getIce_spearInstance()->getVBullet2()[i].rc, &iter->bossRc[0]) ||
+						IntersectRect(&temprc, &bm->getIce_spearInstance()->getVBullet2()[i].rc, &iter->bossRc[1])))
+				{
+					if (!iter->isGraceperiod) {
+						monster->knockback(iter,
+							bm->getIce_spearInstance()->getVBullet2()[i].x,
+							bm->getIce_spearInstance()->getVBullet2()[i].y,
+							PLAYERDATA->getDamage(),
+							10, false);
+					}
 
-
+				}
+			}
+		}
+		//4. 럭키스타
+		for (int i = 0; i < bm->getLucky_starInstance()->getVBullet().size(); i++)
+		{
+			if (!isBoss) {
+				if (iter->activestate != MONSTERACTIVE::DEATH &&
+					IntersectRect(&temprc, &bm->getLucky_starInstance()->getVBullet()[i].rc, &iter->rc))
+				{
+					if (!iter->isGraceperiod) {
+						monster->knockback(iter,
+							bm->getLucky_starInstance()->getVBullet()[i].x,
+							bm->getLucky_starInstance()->getVBullet()[i].y,
+							PLAYERDATA->getDamage(),
+							10, false);
+					}
+					bm->getLucky_starInstance()->removeBullet(i);
+				}
+			}
+			//보스의경우 RECT가 두개이므로 따로진행
+			else {
+				if (iter->activestate != MONSTERACTIVE::DEATH &&
+					(IntersectRect(&temprc, &bm->getLucky_starInstance()->getVBullet()[i].rc, &iter->bossRc[0]) ||
+						IntersectRect(&temprc, &bm->getLucky_starInstance()->getVBullet()[i].rc, &iter->bossRc[1])))
+				{
+					if (!iter->isGraceperiod) {
+						monster->knockback(iter,
+							bm->getLucky_starInstance()->getVBullet()[i].x,
+							bm->getLucky_starInstance()->getVBullet()[i].y,
+							PLAYERDATA->getDamage(),
+							10, false);
+					}
+					bm->getLucky_starInstance()->removeBullet(i);
+				}
+			}
+		}
+		//5. 차지샷
+		for (int i = 0; i < bm->getChargeInstance()->getVBullet().size(); i++)
+		{
+			if (!isBoss) {
+				if (iter->activestate != MONSTERACTIVE::DEATH &&
+					IntersectRect(&temprc, &bm->getChargeInstance()->getVBullet()[i].rc, &iter->rc))
+				{
+					if (!iter->isGraceperiod) {
+						monster->knockback(iter,
+							bm->getChargeInstance()->getVBullet()[i].x,
+							bm->getChargeInstance()->getVBullet()[i].y,
+							PLAYERDATA->getDamage(),
+							10, false);
+					}
+					bm->getChargeInstance()->removeBullet(i);
+				}
+			}
+			//보스의경우 RECT가 두개이므로 따로진행
+			else {
+				if (iter->activestate != MONSTERACTIVE::DEATH &&
+					(IntersectRect(&temprc, &bm->getChargeInstance()->getVBullet()[i].rc, &iter->bossRc[0]) ||
+						IntersectRect(&temprc, &bm->getChargeInstance()->getVBullet()[i].rc, &iter->bossRc[1])))
+				{
+					if (!iter->isGraceperiod) {
+						monster->knockback(iter,
+							bm->getChargeInstance()->getVBullet()[i].x,
+							bm->getChargeInstance()->getVBullet()[i].y,
+							PLAYERDATA->getDamage(),
+							10, false);
+					}
+					bm->getChargeInstance()->removeBullet(i);
+				}
+			}
+		}
 	}
 }

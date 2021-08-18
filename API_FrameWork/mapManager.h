@@ -126,7 +126,7 @@ public:
 	void makeclear();
 	void makeclear2();
 	bool getGoNextStage() {return goNextStage;}
-
+	void clearbullet();
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }
 	void setIsDebug(bool isDebug) {
