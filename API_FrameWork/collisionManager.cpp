@@ -1096,7 +1096,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 							bm->getMgcBulInstance()->getVBullet()[i].x,
 							bm->getMgcBulInstance()->getVBullet()[i].y,
 							PLAYERDATA->getDamage(),
-							10, false);
+							5, false);
 					}
 					bm->getMgcBulInstance()->removeBullet(i);
 				}
@@ -1112,7 +1112,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 							bm->getMgcBulInstance()->getVBullet()[i].x,
 							bm->getMgcBulInstance()->getVBullet()[i].y,
 							PLAYERDATA->getDamage(),
-							10, false);
+							5, false);
 					}
 					bm->getMgcBulInstance()->removeBullet(i);
 				}
@@ -1131,7 +1131,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 							bm->getArwBulInstance()->getVBullet()[i].x,
 							bm->getArwBulInstance()->getVBullet()[i].y,
 							PLAYERDATA->getDamage(),
-							10, false);
+							5, false);
 					}
 					bm->getArwBulInstance()->removeBullet(i);
 				}
@@ -1147,7 +1147,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 							bm->getMgcBulInstance()->getVBullet()[i].x,
 							bm->getMgcBulInstance()->getVBullet()[i].y,
 							PLAYERDATA->getDamage(),
-							10, false);
+							5, false);
 					}
 					bm->getMgcBulInstance()->removeBullet(i);
 				}
