@@ -282,19 +282,32 @@ HRESULT image::init(const char* fileName, const float x, const float y, const in
 HRESULT image::initForRotate()
 {
 	HDC hdc = GetDC(m_hWnd);
-
-	int size;
-	size = sqrt((_imageInfo->width) * (_imageInfo->width) + (_imageInfo->height) * (_imageInfo->height));
 	
-	_rotateImage = new IMAGE_INFO;
-	_imageInfo->loadType = static_cast<BYTE>(IMAGE_LOAD_KIND::LOAD_FILE);
-	_imageInfo->resID = 0;
-	_rotateImage->hMemDC = CreateCompatibleDC(hdc);
-	_rotateImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, size, size);
-	_rotateImage->hOBit = (HBITMAP)SelectObject(_rotateImage->hMemDC, _rotateImage->hBit);
-	_rotateImage->width = size;
-	_rotateImage->height = size;
+	int size;
+	if (_imageInfo->maxFrameX == 0 && _imageInfo->maxFrameY == 0) {
+		size = sqrt((_imageInfo->width) * (_imageInfo->width) + (_imageInfo->height) * (_imageInfo->height));
 
+		_rotateImage = new IMAGE_INFO;
+		_imageInfo->loadType = static_cast<BYTE>(IMAGE_LOAD_KIND::LOAD_FILE);
+		_imageInfo->resID = 0;
+		_rotateImage->hMemDC = CreateCompatibleDC(hdc);
+		_rotateImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, size, size);
+		_rotateImage->hOBit = (HBITMAP)SelectObject(_rotateImage->hMemDC, _rotateImage->hBit);
+		_rotateImage->width = size;
+		_rotateImage->height = size;
+	}
+	else {
+		size = sqrt((_imageInfo->frameWidth) * (_imageInfo->frameWidth) + (_imageInfo->frameHeight) * (_imageInfo->frameHeight));
+
+		_rotateImage = new IMAGE_INFO;
+		_imageInfo->loadType = static_cast<BYTE>(IMAGE_LOAD_KIND::LOAD_FILE);
+		_imageInfo->resID = 0;
+		_rotateImage->hMemDC = CreateCompatibleDC(hdc);
+		_rotateImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, size, size);
+		_rotateImage->hOBit = (HBITMAP)SelectObject(_rotateImage->hMemDC, _rotateImage->hBit);
+		_rotateImage->width = size;
+		_rotateImage->height = size;
+	}
 	ReleaseDC(m_hWnd, hdc);
 
 	return S_OK;
@@ -304,24 +317,44 @@ HRESULT image::initForAlphaBlend()
 {
 	HDC hdc = GetDC(m_hWnd);
 	int size;
-	size = sqrt((_imageInfo->width) * (_imageInfo->width) + (_imageInfo->height) * (_imageInfo->height));
+	if (_imageInfo->maxFrameX == 0 && _imageInfo->maxFrameY == 0) {
+		size = sqrt((_imageInfo->width) * (_imageInfo->width) + (_imageInfo->height) * (_imageInfo->height));
 
-	//알파 블렌드 옵션
-	_blendFunc.BlendFlags = 0;
-	_blendFunc.AlphaFormat = 0;
-	_blendFunc.BlendOp = AC_SRC_OVER; //블렌딩 연산자
+		//알파 블렌드 옵션
+		_blendFunc.BlendFlags = 0;
+		_blendFunc.AlphaFormat = 0;
+		_blendFunc.BlendOp = AC_SRC_OVER; //블렌딩 연산자
 
 
-	//알파 블렌드 사용하기 위한 이미지 초기화
-	_blendImage = new IMAGE_INFO;
-	_blendImage->loadType = static_cast<BYTE>(IMAGE_LOAD_KIND::LOAD_EMPTY);
-	_blendImage->resID = 0;
-	_blendImage->hMemDC = CreateCompatibleDC(hdc);
-	_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, size, size);
-	_blendImage->hOBit = (HBITMAP)SelectObject(_blendImage->hMemDC, _blendImage->hBit);
-	_blendImage->width = size;
-	_blendImage->height = size;
+		//알파 블렌드 사용하기 위한 이미지 초기화
+		_blendImage = new IMAGE_INFO;
+		_blendImage->loadType = static_cast<BYTE>(IMAGE_LOAD_KIND::LOAD_EMPTY);
+		_blendImage->resID = 0;
+		_blendImage->hMemDC = CreateCompatibleDC(hdc);
+		_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, size, size);
+		_blendImage->hOBit = (HBITMAP)SelectObject(_blendImage->hMemDC, _blendImage->hBit);
+		_blendImage->width = size;
+		_blendImage->height = size;
+	}
+	else {
+		size = sqrt((_imageInfo->frameWidth) * (_imageInfo->frameWidth) + (_imageInfo->frameHeight) * (_imageInfo->frameHeight));
 
+		//알파 블렌드 옵션
+		_blendFunc.BlendFlags = 0;
+		_blendFunc.AlphaFormat = 0;
+		_blendFunc.BlendOp = AC_SRC_OVER; //블렌딩 연산자
+
+
+		//알파 블렌드 사용하기 위한 이미지 초기화
+		_blendImage = new IMAGE_INFO;
+		_blendImage->loadType = static_cast<BYTE>(IMAGE_LOAD_KIND::LOAD_EMPTY);
+		_blendImage->resID = 0;
+		_blendImage->hMemDC = CreateCompatibleDC(hdc);
+		_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, size, size);
+		_blendImage->hOBit = (HBITMAP)SelectObject(_blendImage->hMemDC, _blendImage->hBit);
+		_blendImage->width = size;
+		_blendImage->height = size;
+	}
 	ReleaseDC(m_hWnd, hdc);
 
 	return S_OK;
