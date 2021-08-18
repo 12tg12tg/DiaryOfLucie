@@ -1225,13 +1225,13 @@ void stage1_Boss::update()
 		if (!isShake && changePivot && CAMERA->getCMState() == CAMERASTATE::FOLLOWPIVOT)
 		{
 			CAMERA->movePivot(552, 480 - 50);			//잠시 보스가 카메라중심. 흔들기.
-			CAMERA->setShake(20, 150, 10);
+			CAMERA->setShake(10, 200, 15);
 			isShake = true;
 			changePivot = false;
 		}
 		if (isShake) {
 			shaketime++;
-			if (shaketime > 150) {
+			if (shaketime > 200) {
 				isShake = false;						//150카운트동안 흔들기
 				PLAYER->playerStop();
 			}
@@ -1563,7 +1563,8 @@ HRESULT last_Boss::init()
 	
 	//보스초기hp설정
 	totalhp = mm->getYggdrasil()->getHp();
-
+	//이미지카운트
+	imgCount = 0;
 	return S_OK;
 
 }
@@ -1584,7 +1585,7 @@ void last_Boss::update()
 		count++;
 		if (!isWait && count == 100) {
 			PLAYER->playerStop();
-			CAMERA->ChangePivot(650, 349 + 110, 2);		//보스쪽으로 카메라이동
+			CAMERA->ChangePivot(650, 349 + 110 + 15, 2);		//보스쪽으로 카메라이동
 			changePivot = true;
 		}
 		if (!isWait && !isShake && changePivot && CAMERA->getCMState() == CAMERASTATE::FOLLOWPIVOT)
@@ -1604,17 +1605,20 @@ void last_Boss::update()
 		}
 		if (isShake) {
 			shaketime++;
-			//gameRatio-=0.1f;
-			//if (gameRatio < 1) gameRatio = 1;
 			if (shaketime > 200) {
 				isShake = false;						//150카운트동안 흔들기
 				PLAYER->playerStop();
-				//gameRatio = 1;
 			}
 		}
 	}
 	if (!isWait && !isShake && !changePivot) {	//특정조건이 아닐때는 무조건 플레이어가 카메라의 중심.
-		CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+		float bossX = 650;
+		float bossY = 349 + 110;
+		POINT relativePivot;
+		relativePivot.x = (bossX + PLAYER->getPlayerAddress().x * 2) / 3;
+		relativePivot.y = (bossY + PLAYER->getPlayerAddress().y * 2) / 3;
+
+		CAMERA->movePivot(relativePivot.x, relativePivot.y);
 	}
 	////보스들정지풀기
 	//if (count == 450) {
@@ -1627,9 +1631,24 @@ void last_Boss::update()
 
 void last_Boss::render()
 {
+	imgCount++;
 	ZORDER->ZorderRender(IMAGE->findImage("라보배경"), ZFLOORMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("라보픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
 	ZORDER->ZorderRender(IMAGE->findImage("라보가림"), ZABOVEMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 
+	//hp프레임 & hp바
+	if (imgCount > 200 && currenthp != 0) {
+		ZORDER->UIRender(IMAGE->findImage("보스hp_프레임"), ZUIFIRTH, 0, WINSIZEX / 2 - IMAGE->findImage("보스hp_프레임")->getWidth() / 2,
+			50 - 5);
+		hpbar->render();
+	}
+
+	//보스등장씬 출력
+	if (!isClear && imgCount > 200 && imgCount < 500) {
+		if (imgCount > 400) {
+			alpha -= 2;
+		}
+		ZORDER->UIAlphaRender(IMAGE->findImage("타이틀_이그드라실"), ZUIFIRTH, 150, 0, 0, alpha);
+	}
 }

@@ -1345,12 +1345,12 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 				{
 					if (!iter->isGraceperiod) {
 						monster->knockback(iter,
-							bm->getMgcBulInstance()->getVBullet()[i].x,
-							bm->getMgcBulInstance()->getVBullet()[i].y,
+							bm->getArwBulInstance()->getVBullet()[i].x,
+							bm->getArwBulInstance()->getVBullet()[i].y,
 							PLAYERDATA->getDamage(),
 							5, false);
 					}
-					bm->getMgcBulInstance()->removeBullet(i);
+					bm->getArwBulInstance()->removeBullet(i);
 				}
 			}
 		}

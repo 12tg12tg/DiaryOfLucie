@@ -2302,6 +2302,7 @@ void Cboss_slime::move(bulletManager* bm, Csemiboss_slime* ss)
 			}
 			_viMonster->rc = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 4, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 3, _viMonster->width, _viMonster->height);
 			if (_viMonster->patternCount % 100 == 0) {
+				CAMERA->setShake(6, 15, 4);
 				bm->getSlmBos1Bullnstance()->fire(
 					RecCenX(_viMonster->rc),
 					RecCenY(_viMonster->rc),
@@ -2681,6 +2682,7 @@ void Csemiboss_slime::move(bulletManager* bm, Cslime* slm)
 				_viMonster->targetY = PLAYER->getPlayerAddress().y;
 				_viMonster->angle = UTIL::getAngle(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2,
 					_viMonster->rc.top + (_viMonster->rc.bottom - _viMonster->rc.top) / 2, _viMonster->targetX, _viMonster->targetY);
+				CAMERA->setShake(6, 15, 4);
 				bm->getCirBulInstance()->fire(
 					RecCenX(_viMonster->rc),
 					RecCenY(_viMonster->rc),
@@ -4499,6 +4501,7 @@ void Cyggdrasil::move(bulletManager* bm, Cyggdrasil_bomb* bomb)
 			//가시 빠르게 7개
 			if (_viMonster->isNextPhase) {
 				if (_viMonster->patternCount % 28 == 0) {
+					CAMERA->setShake(10, 20, 5);
 					bm->getnidBulInstance()->fire(PLAYER->getPlayerAddress().x,
 						PLAYER->getPlayerAddress().y,
 						_viMonster->angle, 0);

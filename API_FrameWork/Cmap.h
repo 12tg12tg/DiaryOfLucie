@@ -296,6 +296,7 @@ class last_Boss : public motherMap
 {
 private:
 	int count;
+	int imgCount;
 	BYTE alpha;
 	int totalhp;
 	int currenthp;

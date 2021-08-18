@@ -376,6 +376,7 @@ void Cplayer::stateCheck()
 					_state = STATE::ATTSTAFF;
 				}
 				else if (_chargeShotCount >= 140) {
+					CAMERA->setShake(6, 15, 4);
 					_Cbullet->getChargeInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 20 + _chargeShotCount / 2 - 20);
 					_state = STATE::STAFFCHARGE;
 				}

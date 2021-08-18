@@ -97,7 +97,7 @@ void mainDOL::render()
 		_DOLBuffer->render(IMAGE->findImage("SCORPDC")->getMemDC(), 0, 0, CAMERA->getRect().left, CAMERA->getRect().top,
 			RecWidth(CAMERA->getRect()), RecHeight(CAMERA->getRect()));
 		//3. SCORPDC를 확대하여 memDC에 출력.
-		IMAGE->findImage("SCORPDC")->stretchRenderXY(getMemDC(), 0, 0, StretchRatio);
+		IMAGE->findImage("SCORPDC")->stretchRenderXY(getMemDC(), 0, 0, GAMEDCRATIO);
 		//--------------------------------------------------------------------------------------
 	}
 
