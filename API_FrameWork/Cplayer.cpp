@@ -33,6 +33,9 @@ HRESULT Cplayer::init()
 	_attIndex = 0;
 	_chargeShotCount = 0;
 	_bowCount = 0;
+	_bowStack = 0;
+	_bowStackIndex = 0;
+	_bowStackCount = 0;
 	_combo = 0;
 	_comboCount = 0;
 	_comboCoolTime = 0; 
@@ -108,7 +111,7 @@ void Cplayer::render(HDC hdc)
 		switch (_state)
 		{
 		case STATE::ATTBOWIDLE:
-			ZORDER->ZorderAlphaFrameRender(_chargeAtt_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection,2, _moveDirection, _alpha);
+			ZORDER->ZorderAlphaFrameRender(_chargeAtt_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 2, _moveDirection, _alpha);
 			break;
 		case STATE::IDLE:
 			//IMAGE->findImage("°È±â")->alphaFrameRender(hdc, _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection, 100);
@@ -143,10 +146,10 @@ void Cplayer::render(HDC hdc)
 			break;
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	/*ÀÌ°Å¹ö¸²*/
 	//else
 	//{
@@ -173,6 +176,22 @@ void Cplayer::render(HDC hdc)
 	//		break;
 	//	}
 	//}
+	if (_player.weapon == WEAPONTYPE::BOW && _bowStack > 0)
+	{
+		_bowStackCount++;
+		if (_bowStackCount > 10) 
+		{
+			_bowStackCount = 0;
+			_bowStackIndex++;
+			if (_bowStackIndex > _bowStack_img->getMaxFrameX()) {
+				_bowStackCount = 0;
+				_bowStackIndex = 0;
+			}
+
+		}
+		ZORDER->ZorderFrameRender(_bowStack_img, ZUNIT, 0, _player.x-96,_player.y-107, _bowStackIndex, _bowStack - 1);
+	}
+
 	if(_player.weapon==WEAPONTYPE::SWORD)
 	renderSwordEffecct(hdc);
 	else if (_chargeShotCount > 40&& _player.weapon == WEAPONTYPE::STAFF)
@@ -197,6 +216,7 @@ void Cplayer::imageInit()
 	_swordeffect=IMAGE->addFrameImage("º£±âÀÌÆåÆ®", "images/Player/Ä®ÀÌÆåÆ®.bmp", 2304, 576, 12, 3, true);
 	_chargeshotBar = new progressBar;
 	_chargeshotBar->init("images/Player/Ã­Áö¼¦¹Ù¹é.bmp", "images/Player/Ã­Áö¼¦¹ÙÇÁ·ÐÆ®.bmp", 0, 0, 69 , 8, false);
+	_bowStack_img = IMAGE->addFrameImage("È­»ì½ºÅÃ", "images/Player/È­»ì½ºÅÃ.bmp", 768, 960, 4, 5, 1);
 }
 
 void Cplayer::inputCheck()
@@ -339,6 +359,10 @@ void Cplayer::stateCheck()
 						if (_bowCount > 5 * 5 - (PLAYERDATA->getData().AtkSpeed / 10)) {
 							_attAngle = _attAngle - 0.03 + 0.00003 * RND->getFromInTo(0, 2000);
 							_Cbullet->getArwBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 20);
+							if (_bowStack >= 5) {
+								_Cbullet->getArwBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle-PI_16, 20);
+								_Cbullet->getArwBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle + PI_16, 20);
+							}
 							_bowCount = 0;
 							PLAYERDATA->useStamina(2);
 						}
@@ -851,6 +875,7 @@ void Cplayer::hitPlayer(int bulletX, int bulletY)
 		_player.isHit = true;
 		PLAYERDATA->changeHP(-1);
 		_knockBackAngle = UTIL::getAngle(bulletX, bulletY, _player.x, _player.y);
+		_bowStack = 0;
 	}
 }
 
@@ -861,7 +886,8 @@ void Cplayer::hitDash()
 		_player.isDashHit = true;
 		PLAYERDATA->changeMP(1);
 		_dashAtkChance = true;
-		//if(_player.weapon==WEAPONTYPE::)
+		if (_player.weapon == WEAPONTYPE::BOW&& _bowStack<5)
+			_bowStack++;
 	}
 }
 

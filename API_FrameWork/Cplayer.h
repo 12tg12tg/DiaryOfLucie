@@ -132,6 +132,9 @@ private:
 	float _attAngle;
 	int _chargeShotCount;
 	int _bowCount;
+	int _bowStack;
+	int _bowStackIndex;
+	int _bowStackCount;
 	int _combo;
 	int _comboCount;
 	int _comboCoolTime;
@@ -154,6 +157,7 @@ private:
 	image* _bowWalk_img;
 	image* _die_img;
 	image* _swordeffect;
+	image* _bowStack_img;
 	float _dieAlpha;
 
 	vector<DashEffect> _vectDashEffect;
