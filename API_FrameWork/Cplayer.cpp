@@ -77,6 +77,7 @@ void Cplayer::update()
 	else if(_player.weapon == WEAPONTYPE::BOW) {
 		_bowCount++;
 	}
+	
 }
 
 void Cplayer::render(HDC hdc)
@@ -138,7 +139,10 @@ void Cplayer::render(HDC hdc)
 			break;
 		}
 	}
-
+	
+	
+	
+	
 	/*ÀÌ°Å¹ö¸²*/
 	//else
 	//{
@@ -165,8 +169,9 @@ void Cplayer::render(HDC hdc)
 	//		break;
 	//	}
 	//}
-
-	if (_chargeShotCount > 40)
+	if(_player.weapon==WEAPONTYPE::SWORD)
+	renderSwordEffecct(hdc);
+	else if (_chargeShotCount > 40&& _player.weapon == WEAPONTYPE::STAFF)
 	{
 		_chargeshotBar->render();
 	}
@@ -185,6 +190,7 @@ void Cplayer::imageInit()
 	_die_img = IMAGE->addFrameImage("Á×±â", "images/Player/»ç¸Á.bmp", 100, 100, 1, 1, true, RGB(255, 0, 255));
 	_chargeAtt_img = IMAGE->addFrameImage("Ã­Áö¼¦", "images/Player/½ºÅÂÇÁ_Ã­Áö¼¦¼öÁ¤.bmp", 300, 800, 3, 8, true);
 	_attSword_img = IMAGE->addFrameImage("º£±â", "images/Player/º£±â¼öÁ¤.bmp", 900, 800, 9, 8, true);
+	_swordeffect=IMAGE->addFrameImage("º£±âÀÌÆåÆ®", "images/Player/Ä®ÀÌÆåÆ®.bmp", 2304, 576, 12, 3, true);
 	_chargeshotBar = new progressBar;
 	_chargeshotBar->init("images/Player/Ã­Áö¼¦¹Ù¹é.bmp", "images/Player/Ã­Áö¼¦¹ÙÇÁ·ÐÆ®.bmp", 0, 0, 69 , 8, false);
 }
@@ -232,13 +238,13 @@ void Cplayer::inputCheck()
 			if (_comboCount > 0)  _comboCount--;
 			if (_comboCoolTime > 0)_comboCoolTime--;
 		}
-		else if (_state != STATE::ATTSTAFF&&_player.weapon == WEAPONTYPE::STAFF && PLAYERDATA->useStamina(10, 1) && INPUT->isStayKeyDown(VK_LBUTTON)) {
+		else if (_state != STATE::ATTSTAFF&&_player.weapon == WEAPONTYPE::STAFF && PLAYERDATA->useStamina(5, 1) && INPUT->isStayKeyDown(VK_LBUTTON)) {
 			_chargeShotCount++;
 			if (_chargeShotCount > 140) {
 				_chargeShotCount = 140;
 			}
 			if (_chargeShotCount == 40) {
-				PLAYERDATA->useStamina(10);
+				PLAYERDATA->useStamina(5);
 			}
 		}
 	}
@@ -307,12 +313,12 @@ void Cplayer::stateCheck()
 					_state = STATE::ATTBOWIDLE;
 					_attAngle = UTIL::getAngle(_player.x, _player.y - shootingCorrection, CAMMOUSEX, CAMMOUSEY);
 					this->angleCheckDirection(_attAngle);
-					if (PLAYERDATA->useStamina(5, 1)) {
+					if (PLAYERDATA->useStamina(2, 1)) {
 						if (_bowCount > 5 * 5 - (PLAYERDATA->getData().AtkSpeed / 10)) {
 							_attAngle = _attAngle - 0.03 + 0.00003 * RND->getFromInTo(0, 2000);
 							_Cbullet->getArwBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 20);
 							_bowCount = 0;
-							PLAYERDATA->useStamina(5);
+							PLAYERDATA->useStamina(2);
 						}
 					}
 				}
@@ -325,12 +331,12 @@ void Cplayer::stateCheck()
 					_state = STATE::ATTBOWWALK;
 					_attAngle = UTIL::getAngle(_player.x, _player.y - shootingCorrection, CAMMOUSEX, CAMMOUSEY);
 					this->angleCheckDirection(_attAngle, 1);
-					if (PLAYERDATA->useStamina(5, 1)) {
+					if (PLAYERDATA->useStamina(2, 1)) {
 						if (_bowCount > 5 * 5 - (PLAYERDATA->getData().AtkSpeed / 10)) {
 							_attAngle = _attAngle - 0.03 + 0.00003 * RND->getFromInTo(0, 2000);
 							_Cbullet->getArwBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 20);
 							_bowCount = 0;
-							PLAYERDATA->useStamina(5);
+							PLAYERDATA->useStamina(2);
 						}
 					}
 				}
@@ -347,7 +353,7 @@ void Cplayer::stateCheck()
 				}
 			}
 
-			if (INPUT->isOnceKeyDown(VK_LBUTTON) && PLAYERDATA->useStamina(5, 1) && (_player.weapon == WEAPONTYPE::EMPTY || _player.weapon == WEAPONTYPE::STAFF))
+			if (INPUT->isOnceKeyDown(VK_LBUTTON) && PLAYERDATA->useStamina(2, 1) && (_player.weapon == WEAPONTYPE::EMPTY || _player.weapon == WEAPONTYPE::STAFF))
 			{
 				_attAngle = UTIL::getAngle(_player.x, _player.y - shootingCorrection, CAMMOUSEX, CAMMOUSEY);
 				this->angleCheckDirection(_attAngle);
@@ -355,7 +361,7 @@ void Cplayer::stateCheck()
 				_attAngle = _attAngle - 0.03 + 0.00003 * RND->getFromInTo(0, 2000);
 				_Cbullet->getMgcBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 0);
 
-				PLAYERDATA->useStamina(5);
+				PLAYERDATA->useStamina(2);
 			}
 
 			else if (!(INPUT->isStayKeyDown(VK_LBUTTON)) && _player.weapon == WEAPONTYPE::STAFF && _state != STATE::ATTSTAFF && _chargeShotCount > 40)
@@ -377,22 +383,28 @@ void Cplayer::stateCheck()
 			else if (!(INPUT->isStayKeyDown(VK_LBUTTON)) && _player.weapon == WEAPONTYPE::STAFF && _chargeShotCount < 40)
 				_chargeShotCount = 0;
 			else if (_comboCount < 1) { _combo = 0; _swordIndex = 0; _swordCount = 0;			}
-			if (INPUT->isStayKeyDown(VK_LBUTTON) && _player.weapon == WEAPONTYPE::SWORD && (_combo == 0 || _comboCount > 0)&&_comboCoolTime<1 && PLAYERDATA->useStamina(5, 1)) {
+			if (INPUT->isStayKeyDown(VK_LBUTTON) && _player.weapon == WEAPONTYPE::SWORD && (_combo == 0 || _comboCount > 0)&&_comboCoolTime<1 && PLAYERDATA->useStamina(2, 1)) {
 				_state = STATE::ATTSWORD;
 				_combo++;
 				_comboCount = 0;
 				_attAngle = UTIL::getAngle(_player.x, _player.y - shootingCorrection, CAMMOUSEX, CAMMOUSEY);
 				this->angleCheckDirection(_attAngle);
-				_attAngle = _attAngle - 0.03 + 0.00003 * RND->getFromInTo(0, 2000);
+				//_attAngle = _attAngle - 0.03 + 0.00003 * RND->getFromInTo(0, 2000);
 				_Cbullet->getMgcBulInstance()->fire(_player.x +cosf(_attAngle)*_swordCorrent,
 					_player.y - shootingCorrection -sinf(_attAngle)*_swordCorrent , _attAngle,0);
-				PLAYERDATA->useStamina(5);
+				PLAYERDATA->useStamina(2);
+				if(_combo==1||_combo==3)
+				pushbackSwordEffect(_attAngle,  0);
+				else if(_combo==2||_combo==4)
+				pushbackSwordEffect(_attAngle,  1);
+				else if(_combo>=5)
+				pushbackSwordEffect(_attAngle , 2);
 			}
 		}
 		if (INPUT->isOnceKeyDown(VK_SPACE))
 		{
 			_state = STATE::DASH;
-			PLAYERDATA->useStamina(10);
+			PLAYERDATA->useStamina(5);
 			if (_inputDirection.isUp || _inputDirection.isRight || _inputDirection.isDown || _inputDirection.isLeft)
 			{
 				_moveDirection = _direction;
@@ -730,6 +742,42 @@ void Cplayer::renderDashEffecct(HDC hdc)
 
 		if (_iterDashEffect->dashAlpha < 0) _iterDashEffect = _vectDashEffect.erase(_iterDashEffect);
 		else ++_iterDashEffect;
+	}
+}
+
+void Cplayer::pushbackSwordEffect(float angle, int frameY)
+{
+	while (angle-PI_2-PI_16 < 0) {
+		angle += PI2;
+	}
+	swordEffect temp = { _swordeffect, 0,angle-PI_2 - PI_16 ,0,frameY };
+	_vectSwordEffect.push_back(temp);
+}
+
+void Cplayer::renderSwordEffecct(HDC hdc)
+{
+	// ZORDER->ZorderRotateFrameRender(ÀÌ¹ÌÁö, z, ¹ÙÅÒ±âÁØ°ª, ¼¾ÅÍx, ¼¾ÅÍy, °¢µµ, ÇÁ·¹ÀÓx, ÇÁ·¹ÀÓy);
+	
+	for (_iterSwordEffect = _vectSwordEffect.begin(); _iterSwordEffect != _vectSwordEffect.end();) {
+		_iterSwordEffect->count++;
+		if (_iterSwordEffect->count>2) 
+		{
+
+			_iterSwordEffect->count = 0;
+			_iterSwordEffect->frameX++;
+			
+		}
+		if (_iterSwordEffect->frameX > _iterSwordEffect->swordEffect->getMaxFrameX()) {
+			_iterSwordEffect = _vectSwordEffect.erase(_iterSwordEffect);
+		}
+		else ++_iterSwordEffect;
+	}
+	for (_iterSwordEffect = _vectSwordEffect.begin(); _iterSwordEffect != _vectSwordEffect.end(); ++_iterSwordEffect)
+	{
+		//testrect=_iterSwordEffect->swordEffect->getBoundingBox(_iterSwordEffect->x- _iterSwordEffect->swordEffect->getFrameWidth()/2, _iterSwordEffect->y - _iterSwordEffect->swordEffect->getFrameHeight()/2);
+		//ZORDER->ZorderRectangleRotate(testrect, ZCOL1, _iterSwordEffect->angle);
+		ZORDER->ZorderRotateFrameRender(_iterSwordEffect->swordEffect, ZUNIT, _player.y - shootingCorrection - sinf(_attAngle) * _swordCorrent, _player.x + cosf(_attAngle) * _swordCorrent,
+			_player.y - shootingCorrection - sinf(_attAngle) * _swordCorrent, _iterSwordEffect->angle, _iterSwordEffect->frameX, _iterSwordEffect->frameY);
 	}
 }
 

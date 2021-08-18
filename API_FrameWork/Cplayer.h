@@ -6,6 +6,14 @@ class progressBar;
 
 //////////////////////////////////////////////////
 
+struct swordEffect {
+	image* swordEffect;
+	int count;
+	float angle;
+	int frameX;
+	int frameY;
+};
+
 struct tagDamegeFont {
 	int damage;
 	bool isActivate;
@@ -79,6 +87,7 @@ private:
 	bool _isDebug;
 	bool _isAutoRun;
 	bool _frameswitching;
+	RECT testrect;
 
 private:
 	vector<tagDamegeFont*> _damageFont;
@@ -134,10 +143,13 @@ private:
 	image* _knockBack_img;
 	image* _bowWalk_img;
 	image* _die_img;
+	image* _swordeffect;
 	float _dieAlpha;
 
 	vector<DashEffect> _vectDashEffect;
 	vector<DashEffect>::iterator _iterDashEffect;
+	vector<swordEffect> _vectSwordEffect;
+	vector<swordEffect>::iterator _iterSwordEffect;
 	
 	progressBar* _chargeshotBar;
 
@@ -168,6 +180,8 @@ private:
 private:
 	void pushbackDashEffect(int x,int y, int FrameX,DIRECTION direction);
 	void renderDashEffecct(HDC hdc);
+	void pushbackSwordEffect(float angle,int frameY);
+	void renderSwordEffecct(HDC hdc);
 
 	void hitStateCheck();
 public:
