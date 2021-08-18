@@ -41,6 +41,7 @@ public:
 	void mapTomon();
 	void playerToDoor();
 	void bulletToMap();
+	void bulletTobullet();
 	//보조함수
 	void checkMonsterRectColl(monster* monster, bool isBoss);
 	void checkMonsterRectPlayer(monster* monster);
@@ -48,7 +49,7 @@ public:
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
 	void setmapManagerMemoryLink(mapManager* mapManager) { mapm = mapManager; }
-	void setMonsterManagerMemoryLink(mapManager* mapManager) { mapm = mapManager; }
+	//void setMonsterManagerMemoryLink(mapManager* mapManager) { mapm = mapManager; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };

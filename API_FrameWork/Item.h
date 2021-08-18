@@ -3,10 +3,18 @@
 enum ITEMTYPE {
 	equip,
 	weapon,
-	usefule
+	usefule,
+	accesory
 };
 struct ITEMDATA 
 {
+	image* item_image;
+	RECT item_colbox;
+	string item_name;
+	string item_info;
+	string item_shopInfo;
+	int price = 0;
+
 	ITEMTYPE itemType;
 	int equipHP = 0;
 	int equipMaxHP =0;
@@ -21,5 +29,25 @@ struct ITEMDATA
 };
 class Item
 {
+private:
+
+	vector<ITEMDATA> _vItem;
+	vector<ITEMDATA>::iterator _viItem;
+private:
+	bool _isDebug;
+public:
+	Item();
+	~Item();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+	void removeitem(int arrNum);
+
+	vector<ITEMDATA>& getV_Item() { return _vItem; }
+	vector<ITEMDATA>::iterator& getVI_Item() { return _viItem; }
+
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
 

@@ -211,7 +211,7 @@ void mapManager::update()
 	}
 	if (checkright)
 	{
-		if (currentIndex.x < 9)
+		if (currentIndex.x < 8)
 		{
 			SCENE->changeScene(stage1[currentIndex.x + 1][currentIndex.y].sceneKey);
 			currentIndex.x = currentIndex.x + 1;
@@ -219,6 +219,7 @@ void mapManager::update()
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.right + 20;
 			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.bottom - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.bottom - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.top) / 2;
 			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+			clearbullet();
 
 		}
 	}
@@ -233,11 +234,12 @@ void mapManager::update()
 			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.bottom - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.bottom - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.top) / 2;
 
 			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+			clearbullet();
 		}
 	}
 	if (checkbottom)
 	{
-		if (currentIndex.y < 8)
+		if (currentIndex.y <8)
 		{
 			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y + 1].sceneKey);
 			currentIndex.x = currentIndex.x;
@@ -246,6 +248,7 @@ void mapManager::update()
 			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.bottom + 20;
 
 			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+			clearbullet();
 		}
 	}
 	if (checktop)
@@ -259,6 +262,7 @@ void mapManager::update()
 			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.top - 20;
 
 			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
+			clearbullet();
 		}
 	}
 	if (checkMagicDoor)
@@ -847,6 +851,7 @@ void mapManager::makeclear2() {
 	remainRoom--;
 	SCENE->releaseLight();
 }
+
 image* mapManager::getCurrentColMap()
 {
 
@@ -880,4 +885,30 @@ MagicDoor* mapManager::getMagicDoor()
 	{
 		return nullptr;
 	}
+}
+
+void mapManager::clearbullet()
+{
+	bm->getArwBulInstance()->getVBullet().clear();
+	bm->getChargeInstance()->getVBullet().clear();
+	bm->getCirBulInstance()->getVBullet().clear();
+	bm->getFlwBos1Bullnstance()->getVBullet().clear();
+	bm->getFlwBos2Bullnstance()->getVBullet().clear();
+	bm->getFlwBos3Bullnstance()->getVBullet().clear();
+	bm->getHasteInstance()->getVBullet().clear();
+	bm->getHomBulInstance()->getVBullet().clear();
+	bm->getIce_spearInstance()->getVBullet().clear();
+	bm->getLPsnBulInstance()->getVBullet().clear();
+	bm->getLucky_starInstance()->getVBullet().clear();
+	bm->getMgcBulInstance()->getVBullet().clear();
+	bm->getnidBulInstance()->getVBullet().clear();
+	bm->getPsnBulInstance()->getVBullet().clear();
+	bm->getRtnBulInstance()->getVBullet().clear();
+	bm->getSlmBos1Bullnstance()->getVBullet().clear();
+	bm->getTreBos1Bullnstance()->getVBullet().clear();
+	bm->getTreBos2Bullnstance()->getVBullet().clear();
+	bm->getTreBos3Bullnstance()->getVBullet().clear();
+	bm->getTriBulInstance()->getVBullet().clear();
+	bm->getWidBulInstance()->getVBullet().clear();
+
 }
