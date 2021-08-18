@@ -108,11 +108,17 @@ private:
 
 	int _attCount;
 	int _attIndex;
+	int _swordCount;
+	int _swordIndex;
 	float _attAngle;
 	int _chargeShotCount;
 	int _bowCount;
+	int _combo;
+	int _comboCount;
+	int _comboCoolTime;
 
 	int shootingCorrection;
+	int _swordCorrent;
 
 private:
 	int imageLeftCorrection;
@@ -123,16 +129,17 @@ private:
 	image* _run_img;
 	image* _dash_img;
 	image* _attStaff_img;
+	image* _attSword_img;
 	image* _chargeAtt_img;
 	image* _knockBack_img;
 	image* _bowWalk_img;
 	image* _die_img;
 	float _dieAlpha;
+
 	vector<DashEffect> _vectDashEffect;
 	vector<DashEffect>::iterator _iterDashEffect;
 	
 	progressBar* _chargeshotBar;
-
 
 private:
 	bulletManager* _Cbullet;
