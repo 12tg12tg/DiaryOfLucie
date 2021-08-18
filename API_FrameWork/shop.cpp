@@ -1,6 +1,6 @@
 #include "framework.h"
 #include "shop.h"
-
+#define ADJUSTSHOPX	74
 shop::shop()
 {
 	mouseoverImg = new image;
@@ -8,8 +8,8 @@ shop::shop()
 	IMAGE->addImage("상점", "images/object/shop_shop.bmp", 352, 192, true);
 	IMAGE->addImage("마리이름상자", "images/object/moruNamebox.bmp", 250, 52, false);
 	IMAGE->addImage("상점대화상자", "images/object/interactionBox.bmp", WINSIZEX * 3 / 5, 150, false);
-	but1 = BUTTON->addButton("수락", 225, 516, 222, 35);
-	but2 = BUTTON->addButton("거절", 225, 557, 222, 35);
+	but1 = BUTTON->addButton("수락", 225+ ADJUSTSHOPX, 516, 222, 35);
+	but2 = BUTTON->addButton("거절", 225+ ADJUSTSHOPX, 557, 222, 35);
 }
 
 shop::~shop()
@@ -60,7 +60,7 @@ void shop::update(bulletManager* bm)
 
 void shop::render()
 {
-	ZORDER->ZorderRender(_img, ZUNIT, _y + _img->getHeight() / 2, _x, _y);
+	ZORDER->ZorderRender(_img, ZUNIT, _y + _img->getHeight() / 2 + 10, _x, _y);
 	if (_isDebug) {
 		for (size_t i = 0; i < 4; i++)
 		{
@@ -68,20 +68,13 @@ void shop::render()
 		}
 	}
 
-	////폰트설정
-	//HFONT hFont = CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
-	//	0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕"));
-	//HFONT oFont = (HFONT)SelectObject(getMemDC(), hFont);
-	//SetBkMode(getMemDC(), TRANSPARENT);	//배경 투명
-	//SetTextColor(getMemDC(), RGB(255, 255, 255));//글자 색
-
 	//항상 ON 대화상자
 	if (isConversation1 || isConversation2 || isConversation3 || isConversation4)
 	{
-		ZORDER->UIAlphaRender(IMAGE->findImage("마리이름상자"), ZUISECOND, 0, 188, talkRc.top - 5 - IMAGE->findImage("마리이름상자")->getHeight(), boxAlpha);
+		ZORDER->UIAlphaRender(IMAGE->findImage("마리이름상자"), ZUISECOND, 0, 188 + ADJUSTSHOPX, talkRc.top - 5 - IMAGE->findImage("마리이름상자")->getHeight(), boxAlpha);
 		ZORDER->UIAlphaRender(IMAGE->findImage("상점대화상자"), ZUISECOND, 0, talkRc.left, talkRc.top, boxAlpha);
 
-		RECT txtRc = RectMake(WINSIZEX / 2 - IMAGE->findImage("상점대화상자")->getWidth() / 2,
+		RECT txtRc = RectMake(188 + ADJUSTSHOPX+20,
 			420, IMAGE->findImage("상점대화상자")->getWidth(), IMAGE->findImage("상점대화상자")->getHeight());
 		string str = "마리";
 		ZORDER->UIDrawText(str, ZUITHIRD, txtRc, 
@@ -145,17 +138,12 @@ void shop::render()
 			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 	}
 
-	////폰트해제
-	//SelectObject(getMemDC(), oFont);
-	//DeleteObject(hFont);
-	//SetTextColor(getMemDC(), RGB(255, 255, 255));
-
 	//수리를 할거냐는 문구와 버튼 두개가 뜸.
 	if (BUTTON->isMouseOver("수락")) {
-		ZORDER->UIAlphaRender(mouseoverImg, ZUISECOND, 1, 225, 516, 100);
+		ZORDER->UIAlphaRender(mouseoverImg, ZUISECOND, 1, 225+ ADJUSTSHOPX, 516, 100);
 	}
 	if (BUTTON->isMouseOver("거절")) {
-		ZORDER->UIAlphaRender(mouseoverImg, ZUISECOND, 1, 225, 557, 100);
+		ZORDER->UIAlphaRender(mouseoverImg, ZUISECOND, 1, 225+ ADJUSTSHOPX, 557, 100);
 	}
 }
 
@@ -223,7 +211,7 @@ void shop::soldItem()
 	}
 	if (isConversation3 || isConversation4)
 	{
-		if (_speakCount > 80) {
+		if (_speakCount > 140) {
 			_speakCount = 0;
 			isConversation3 = false;
 			isConversation4 = false;

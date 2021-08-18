@@ -1,7 +1,8 @@
 #include "framework.h"
 #include "moru.h"
 #include "bulletManager.h"
-#define ADJUSTMORU	42
+#define ADJUSTMORUY	42
+#define ADJUSTMORUX	84
 moru::moru()
 {
 	IMAGE->addFrameImage("모루", "images/object/moru.bmp", 288, 384, 2, 4, true);
@@ -12,8 +13,8 @@ moru::moru()
 	IMAGE->addImage("모루멘트2", "images/object/morument2.bmp", 614, 160, true);
 	IMAGE->addImage("모루멘트3", "images/object/morument3.bmp", 614, 160, true);
 	IMAGE->addImage("모루멘트4", "images/object/morument4.bmp", 614, 160, true);
-	but1 = BUTTON->addButton("모루-수리한다", 225, 475 + ADJUSTMORU, 222, 35);
-	but2 = BUTTON->addButton("모루-무시한다", 225, 516 + ADJUSTMORU, 222, 35);
+	but1 = BUTTON->addButton("모루-수리한다", 225 + ADJUSTMORUX, 475 + ADJUSTMORUY, 222, 35);
+	but2 = BUTTON->addButton("모루-무시한다", 225 + ADJUSTMORUX, 516 + ADJUSTMORUY, 222, 35);
 	mouseoverImg = new image;
 	mouseoverImg->init(222, 35, RGB(85, 115, 226));
 }
@@ -30,10 +31,10 @@ HRESULT moru::add(float centerx, float centery)
 	_hitRc = RectMake(_x + _img->getFrameWidth() / 9, _y + _img->getFrameHeight() / 4, 
 		_img->getFrameWidth()*7/9, _img->getFrameHeight()*3/4);
 	_footRc = RectMake(_hitRc.left, _hitRc.top + RecHeight(_hitRc) / 3, RecWidth(_hitRc), RecHeight(_hitRc) * 2 / 3);
-	_interRc = RectMake(_footRc.left - 1,//RecWidth(PLAYER->getPlayerAddress().playerRect),
-		_footRc.top - 1,//RecHeight(PLAYER->getPlayerAddress().playerRect),
-		RecWidth(_footRc) + 2,//RecWidth(PLAYER->getPlayerAddress().playerRect)*2,
-		RecHeight(_footRc) + 2);//RecHeight(PLAYER->getPlayerAddress().playerRect)*2);
+	_interRc = RectMake(_footRc.left - 1,
+		_footRc.top - 1,
+		RecWidth(_footRc) + 2,
+		RecHeight(_footRc) + 2);
 	_state = MORUSTATE::NONE;
 	int arr[] = { 0 };
 	_ani = ANIMATION->addNoneKeyAnimation("모루", arr, sizeof(arr)/sizeof(int), 5, true);
@@ -84,9 +85,9 @@ void moru::render()
 		//	420, boxAlpha);
 
 		//항상ON 대화상자
-		ZORDER->UIRender(IMAGE->findImage("모루이름"), ZUITHIRD, 0, 200, 365 + ADJUSTMORU);
-		ZORDER->UIAlphaRender(IMAGE->findImage("이름상자"), ZUISECOND, 0, 188, talkRc.top - 5 - IMAGE->findImage("이름상자")->getHeight(), boxAlpha);
-		ZORDER->UIAlphaRender(IMAGE->findImage("모루대화상자"), ZUISECOND, 0, talkRc.left, talkRc.top, boxAlpha);
+		ZORDER->UIRender(IMAGE->findImage("모루이름"), ZUIFIRTH, 0, 200+ ADJUSTMORUX, 365 + ADJUSTMORUY);
+		ZORDER->UIAlphaRender(IMAGE->findImage("이름상자"), ZUITHIRD, 0, 188+ ADJUSTMORUX, talkRc.top - 5 - IMAGE->findImage("이름상자")->getHeight(), boxAlpha);
+		ZORDER->UIAlphaRender(IMAGE->findImage("모루대화상자"), ZUITHIRD, 0, talkRc.left, talkRc.top, boxAlpha);
 
 	}
 	//대화상자 출력
@@ -94,24 +95,24 @@ void moru::render()
 	{
 		//수리를 할거냐는 문구와 버튼 두개가 뜸.
 		if (BUTTON->isMouseOver("모루-수리한다")) {
-			ZORDER->UIAlphaRender(mouseoverImg, ZUITHIRD, 0, 225, 475+ ADJUSTMORU, 100);
+			ZORDER->UIAlphaRender(mouseoverImg, ZUIFIRTH, 0, 225+ ADJUSTMORUX, 475+ ADJUSTMORUY, 100);
 		}										
 		if (BUTTON->isMouseOver("모루-무시한다")) {
-			ZORDER->UIAlphaRender(mouseoverImg, ZUITHIRD, 0, 225, 516 + ADJUSTMORU, 100);
+			ZORDER->UIAlphaRender(mouseoverImg, ZUIFIRTH, 0, 225+ ADJUSTMORUX, 516 + ADJUSTMORUY, 100);
 		}
-		ZORDER->UIRender(IMAGE->findImage("모루멘트1"), ZUITHIRD, 1, 190, 410 + ADJUSTMORU);
+		ZORDER->UIRender(IMAGE->findImage("모루멘트1"), ZUIFIRTH, 1, 190+ ADJUSTMORUX, 410 + ADJUSTMORUY);
 	}
 	else if (isConversation2)
 	{
-		ZORDER->UIRender(IMAGE->findImage("모루멘트2"), ZUITHIRD, 1, 190, 410 + ADJUSTMORU);
+		ZORDER->UIRender(IMAGE->findImage("모루멘트2"), ZUIFIRTH, 1, 190+ ADJUSTMORUX, 410 + ADJUSTMORUY);
 	}
 	else if (isConversation3)
 	{
-		ZORDER->UIRender(IMAGE->findImage("모루멘트3"), ZUITHIRD, 1, 190, 410 + ADJUSTMORU);
+		ZORDER->UIRender(IMAGE->findImage("모루멘트3"), ZUIFIRTH, 1, 190+ ADJUSTMORUX, 410 + ADJUSTMORUY);
 	}
 	else if (isConversation4)
 	{
-		ZORDER->UIRender(IMAGE->findImage("모루멘트4"), ZUITHIRD, 1, 190, 410 + ADJUSTMORU);
+		ZORDER->UIRender(IMAGE->findImage("모루멘트4"), ZUIFIRTH, 1, 190+ ADJUSTMORUX, 410 + ADJUSTMORUY);
 	}
 
 }
@@ -136,7 +137,7 @@ void moru::giveFrame()
 			int arr[] = { 0, 1 };
 			ANIMATION->changeNonKeyAnimation(_ani, "모루", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
-		else if (_speakCount == 100) {
+		else if (_speakCount == 120) {
 			int arr[] = { 0 };
 			ANIMATION->changeNonKeyAnimation(_ani, "모루", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
@@ -146,7 +147,7 @@ void moru::giveFrame()
 			int arr[] = { 6, 3 };
 			ANIMATION->changeNonKeyAnimation(_ani, "모루", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
-		else if (_speakCount == 120) {
+		else if (_speakCount == 140) {
 			int arr[] = { 0 };
 			ANIMATION->changeNonKeyAnimation(_ani, "모루", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
@@ -156,7 +157,7 @@ void moru::giveFrame()
 			int arr[] = { 0, 4 };
 			ANIMATION->changeNonKeyAnimation(_ani, "모루", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
-		else if (_speakCount == 100) {
+		else if (_speakCount == 120) {
 			int arr[] = { 0 };
 			ANIMATION->changeNonKeyAnimation(_ani, "모루", arr, sizeof(arr) / sizeof(int), 6, true);
 		}
@@ -286,13 +287,13 @@ void moru::checkRepair()
 			PLAYER->playerStop();
 		}
 	}
-	if ((isConversation2 || isConversation4) && (_speakCount > 100))
+	if ((isConversation2 || isConversation4) && (_speakCount > 120))
 	{
 		isConversation2 = false;
 		isConversation4 = false;
 		PLAYER->playerStop();
 	}
-	if (isConversation3 && _speakCount > 120)
+	if (isConversation3 && _speakCount > 140)
 	{
 		isConversation3 = false;
 		PLAYER->playerStop();

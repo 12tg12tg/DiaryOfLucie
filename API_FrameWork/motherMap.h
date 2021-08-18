@@ -6,6 +6,7 @@
 #include"fountain.h"
 #include"moru.h"
 #include"statue.h"
+#include"shop.h"
 enum MONKIND
 {
 	SNABY,

@@ -878,8 +878,8 @@ shopMap::shopMap()
 
 	_door[3].Door = RectMake(436, 560, 140, 25); //bottom
 
-
-
+	_shop = new shop;
+	_shop->add(534-14, 64+8 - 3);
 }
 
 shopMap::~shopMap()
@@ -896,6 +896,7 @@ HRESULT shopMap::init()
 
 void shopMap::release()
 {
+	SAFE_DELETE(_shop);
 }
 
 void shopMap::update()
@@ -909,6 +910,7 @@ void shopMap::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
+	_shop->update(bm);
 }
 
 void shopMap::render()
@@ -936,6 +938,7 @@ void shopMap::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 405, 430, _portal);
 	}
+	_shop->render();
 }
 
 statueMap::statueMap()
