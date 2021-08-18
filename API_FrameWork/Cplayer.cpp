@@ -40,6 +40,7 @@ HRESULT Cplayer::init()
 	_swordIndex = 0;
 	_dashCount = 0;
 	_dashIndex = 0;
+	_dashAtkChance = false;
 
 	imageLeftCorrection = 50 - (_player.playerRect.right - _player.playerRect.left) / 2;
 	imageTopCorrection = 70 - (_player.playerRect.bottom - _player.playerRect.top) / 2;
@@ -444,7 +445,13 @@ void Cplayer::stateCheck()
 		}
 	}
 	//대쉬어택 만들거에여
-	else if (_state == STATE::DASH && _player.weapon == WEAPONTYPE::SWORD && _player.isDashHit) {
+	else if (_state == STATE::DASH && _player.weapon == WEAPONTYPE::SWORD && _player.isDashHit)
+	{
+		if (_dashAtkChance&& INPUT->isOnceKeyDown(VK_LBUTTON))
+		{
+			_state = STATE::DASHATT;
+
+		}
 	}
 }
 
@@ -796,6 +803,7 @@ void Cplayer::hitDash()
 	{
 		_player.isDashHit = true;
 		PLAYERDATA->changeMP(1);
+		_dashAtkChance = true;
 	}
 }
 
