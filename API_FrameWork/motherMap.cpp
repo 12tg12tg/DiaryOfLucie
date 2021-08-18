@@ -3,6 +3,9 @@
 
 motherMap::motherMap()
 {
+	_gold_coin = new goldCoin;
+	_sliver_coin = new sliverCoin;
+	_bronze_coin = new bronzeCoin;
 }
 
 motherMap::~motherMap()
@@ -12,7 +15,6 @@ motherMap::~motherMap()
 HRESULT motherMap::init()
 {
 	
-	mm->init();
 	return S_OK;
 }
 
@@ -81,4 +83,11 @@ void motherMap::summonBoss(int x)
 	{
 		mm->getYggdrasil()->addMonster(650, 349);
 	}
+}
+
+void motherMap::dropCoin(int x , int y)
+{
+	_gold_coin->drop(x,y);
+	_sliver_coin->drop(x,y);
+	_bronze_coin->drop(x,y);
 }

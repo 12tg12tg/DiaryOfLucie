@@ -49,7 +49,7 @@ public:
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
 	void setmapManagerMemoryLink(mapManager* mapManager) { mapm = mapManager; }
-	void setMonsterManagerMemoryLink(mapManager* mapManager) { mapm = mapManager; }
+	//void setMonsterManagerMemoryLink(mapManager* mapManager) { mapm = mapManager; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };

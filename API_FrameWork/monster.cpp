@@ -2,6 +2,7 @@
 #include "monster.h"
 #include "Cplayer.h"
 #include "bulletmanager.h"
+#include"motherMap.h"
 monster::monster()
 {
 }
@@ -12,6 +13,7 @@ monster::~monster()
 
 HRESULT monster::init()
 {
+
 	return S_OK;
 }
 
@@ -21,6 +23,7 @@ void monster::release()
 
 void monster::update(Cplayer* py, bulletManager* bm)
 {
+	
 }
 
 void monster::render()
@@ -69,12 +72,14 @@ void monster::giveFrame()
 
 void monster::deathCheck()
 {
+   	_motherm = dynamic_cast<motherMap*>(SCENE->curScene());
 	if (_viMonster->activestate != MONSTERACTIVE::DEATH && _viMonster->hp <= 0) {
 		_viMonster->hp = 0;
 		_viMonster->activestate = MONSTERACTIVE::DEATH;
 		_viMonster->framecount = 0;
 		_viMonster->patternCount = 0;
 		PLAYERDATA->expUP(10);
+		_motherm->dropCoin(_viMonster->x,_viMonster->y);
 	}
 }
 

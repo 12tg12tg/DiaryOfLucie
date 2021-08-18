@@ -153,6 +153,7 @@
     <ClInclude Include="Cbullets.h" />
     <ClInclude Include="chest.h" />
     <ClInclude Include="Cmap.h" />
+    <ClInclude Include="coin.h" />
     <ClInclude Include="collisionManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="Cplayer.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="Cbullets.cpp" />
     <ClCompile Include="chest.cpp" />
     <ClCompile Include="Cmap.cpp" />
+    <ClCompile Include="coin.cpp" />
     <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="Cplayer.cpp" />
     <ClCompile Include="Cmonsters.cpp" />

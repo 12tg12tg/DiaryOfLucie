@@ -6,6 +6,7 @@
 #include"Cplayer.h"
 collisionManager::collisionManager()
 {
+
 }
 
 collisionManager::~collisionManager()
@@ -14,7 +15,7 @@ collisionManager::~collisionManager()
 
 HRESULT collisionManager::init()
 {
-
+	
 	return S_OK;
 }
 

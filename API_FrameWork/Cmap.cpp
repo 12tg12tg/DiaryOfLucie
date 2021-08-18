@@ -78,7 +78,7 @@ void Cmap::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 530, _portal);
 	}
-
+	_gold_coin->render();
 }
 
 Cmap2::Cmap2()
@@ -160,7 +160,7 @@ void Cmap2::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 530, _portal);
 	}
-
+	_gold_coin->render();
 }
 
 Cmap3::Cmap3()
@@ -241,7 +241,7 @@ void Cmap3::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 580, _portal);
 	}
-
+	_gold_coin->render();
 }
 
 
@@ -321,7 +321,7 @@ void Cmap4::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 580, _portal);
 	}
-
+	_gold_coin->render();
 }
 
 Cmap5::Cmap5()
@@ -402,6 +402,7 @@ void Cmap5::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 530, _portal);
 	}
+	_gold_coin->render();
 }
 
 Cmap6::Cmap6()
@@ -479,6 +480,7 @@ void Cmap6::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 580, _portal);
 	}
+	_gold_coin->render();
 }
 
 Cmap7::Cmap7()
@@ -556,6 +558,7 @@ void Cmap7::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 530, _portal);
 	}
+	_gold_coin->render();
 }
 
 Cmap8::Cmap8()
@@ -634,6 +637,7 @@ void Cmap8::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 590, _portal);
 	}
+	_gold_coin->render();
 }
 
 Cmap9::Cmap9()
@@ -713,6 +717,7 @@ void Cmap9::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 530, _portal);
 	}
+	_gold_coin->render();
 }
 
 Cmap10::Cmap10()

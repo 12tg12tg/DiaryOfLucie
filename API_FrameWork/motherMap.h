@@ -6,6 +6,7 @@
 #include"fountain.h"
 #include"moru.h"
 #include"statue.h"
+#include"coin.h"
 enum MONKIND
 {
 	SNABY,
@@ -49,6 +50,9 @@ protected:
 	animation* _portal;
 	monsterManager* mm;
 	bulletManager* bm;
+	goldCoin* _gold_coin;
+	sliverCoin* _sliver_coin;
+	bronzeCoin* _bronze_coin;
 	int aniCount = 0;
 	int chooseMon;
 public:
@@ -72,7 +76,7 @@ public:
 	virtual void setrightDoor(bool isrightRoom) { this->isrightRoom = isrightRoom; }
 	virtual void setbotDoor(bool isbotRoom) { this->isbotRoom = isbotRoom; }
 	virtual void settopDoor(bool istopRoom) { this->istopRoom = istopRoom; }
-	
+	virtual void dropCoin(int x, int y);
 
 };
 
