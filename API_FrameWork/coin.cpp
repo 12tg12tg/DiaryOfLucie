@@ -20,6 +20,7 @@ void goldCoin::release()
 
 void goldCoin::update()
 {
+	move();
 }
 
 void goldCoin::render()
@@ -40,10 +41,11 @@ void goldCoin::drop(float x, float y)
 	coin.coinImage = IMAGE->addFrameImage("금화", "images/item/gold_coin.bmp", 128, 16,8,1, true);
 	coin.coinAni = new animation;
 	coin.coinAni = ANIMATION->addNoneKeyAnimation("금화", 10, false, true);
-	coin.x = x;
-	coin.y = y;
+	coin.x =coin.realX= x;
+	coin.y =coin.realY= y;
+	coin.angle = UTIL::getAngle(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y, coin.x, coin.y);
 	coin.howmuch = 100;
-	coin.rc = RectMakeCenter(coin.x, coin.y,
+	coin.rc = RectMake(coin.x, coin.y,
 		coin.coinImage->getFrameWidth(),
 		coin.coinImage->getFrameHeight());
 	_vCoin.push_back(coin);
@@ -51,35 +53,52 @@ void goldCoin::drop(float x, float y)
 
 void goldCoin::move()
 {
+	_viCoin = _vCoin.begin();
+	for (_viCoin; _viCoin != _vCoin.end();)
+	{
+		_viCoin->x += cosf(_viCoin->angle) * 0;
+		_viCoin->y -= sinf(_viCoin->angle) * 0;
+
+		_viCoin->rc = RectMake(_viCoin->x, _viCoin->y,
+			_viCoin->coinImage->getFrameWidth(),
+			_viCoin->coinImage->getFrameHeight());
+
+		if (_viCoin->howmuch == 200)
+		{
+			_viCoin = _vCoin.erase(_viCoin);
+		}
+		else ++_viCoin;
+	}
 }
+
 
 void goldCoin::removecoin(int arrNum)
 {
 	_vCoin.erase(_vCoin.begin() + arrNum);
 }
 
-sliverCoin::sliverCoin()
+silverCoin::silverCoin()
 {
 }
 
-sliverCoin::~sliverCoin()
+silverCoin::~silverCoin()
 {
 }
 
-HRESULT sliverCoin::init()
+HRESULT silverCoin::init()
 {
 	return S_OK;
 }
 
-void sliverCoin::release()
+void silverCoin::release()
 {
 }
 
-void sliverCoin::update()
+void silverCoin::update()
 {
 }
 
-void sliverCoin::render()
+void silverCoin::render()
 {
 	_viCoin = _vCoin.begin();
 	for (_viCoin; _viCoin != _vCoin.end(); ++_viCoin)
@@ -89,12 +108,12 @@ void sliverCoin::render()
 	}
 }
 
-void sliverCoin::drop(float x, float y)
+void silverCoin::drop(float x, float y)
 {
 	tagcoin coin;
 	ZeroMemory(&coin, sizeof(tagcoin));
 	coin.coinImage = new  image;
-	coin.coinImage = IMAGE->addFrameImage("금화", "images/item/gold_coin.bmp", 128, 16, 8, 1, true);
+	coin.coinImage = IMAGE->addFrameImage("은화", "images/item/bronze_coin.bmp", 128, 16, 8, 1, true);
 	coin.coinAni = new animation;
 	coin.coinAni = ANIMATION->addNoneKeyAnimation("금화", 10, false, true);
 	coin.x = x;
@@ -106,11 +125,11 @@ void sliverCoin::drop(float x, float y)
 	_vCoin.push_back(coin);
 }
 
-void sliverCoin::move()
+void silverCoin::move()
 {
 }
 
-void sliverCoin::removecoin(int arrNum)
+void silverCoin::removecoin(int arrNum)
 {
 	_vCoin.erase(_vCoin.begin() + arrNum);
 }
@@ -151,9 +170,9 @@ void bronzeCoin::drop(float x, float y)
 	tagcoin coin;
 	ZeroMemory(&coin, sizeof(tagcoin));
 	coin.coinImage = new  image;
-	coin.coinImage = IMAGE->addFrameImage("금화", "images/item/gold_coin.bmp", 128, 16, 8, 1, true);
+	coin.coinImage = IMAGE->addFrameImage("동화", "images/item/bronze_coin.bmp", 128, 16, 8, 1, true);
 	coin.coinAni = new animation;
-	coin.coinAni = ANIMATION->addNoneKeyAnimation("금화", 10, false, true);
+	coin.coinAni = ANIMATION->addNoneKeyAnimation("동화", 10, false, true);
 	coin.x = x;
 	coin.y = y;
 	coin.howmuch = 10;

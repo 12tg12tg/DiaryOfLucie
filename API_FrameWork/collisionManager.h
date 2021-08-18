@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "monster.h"
 #include "OBBCollision.h"
+#include "coin.h"
 class bulletManager;
 class monsterManager;
 class mapManager;
@@ -12,6 +13,10 @@ private:
 	monsterManager* mm;
 	OBBCollision* obb;
 	mapManager* mapm;
+	goldCoin* gcoin;
+	silverCoin* scoin;
+	bronzeCoin* bcoin;
+
 	float _x;
 	float _y;
 	int _probeY;
@@ -42,6 +47,7 @@ public:
 	void playerToDoor();
 	void bulletToMap();
 	void bulletTobullet();
+	void playerToCoin();
 	//보조함수
 	void checkMonsterRectColl(monster* monster, bool isBoss);
 	void checkMonsterRectPlayer(monster* monster);
@@ -49,6 +55,9 @@ public:
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
 	void setmapManagerMemoryLink(mapManager* mapManager) { mapm = mapManager; }
+	void setGoldCoinMemoryLink(goldCoin* goldCoin) { gcoin = goldCoin; }
+	void setSilverCoinMemoryLink(silverCoin* silverCoin) { scoin = silverCoin; }
+	void setBronzeCoinMemoryLink(bronzeCoin* bronzeCoin) { bcoin = bronzeCoin; }
 	//void setMonsterManagerMemoryLink(mapManager* mapManager) { mapm = mapManager; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }

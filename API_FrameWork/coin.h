@@ -5,8 +5,11 @@ struct tagcoin {
 	image* coinImage;
 	animation* coinAni;
 	RECT rc;
+	float angle;
 	int howmuch;
 	float x, y;
+	float realX, realY;
+	bool isCollison;
 };
 class goldCoin : public gameNode
 {
@@ -33,7 +36,7 @@ public:
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
-class sliverCoin : public gameNode
+class silverCoin : public gameNode
 {
 private:
 	vector<tagcoin> _vCoin;
@@ -41,8 +44,8 @@ private:
 private:
 	bool _isDebug;
 public:
-	sliverCoin();
-	~sliverCoin();
+	silverCoin();
+	~silverCoin();
 
 	HRESULT init();
 	void release();

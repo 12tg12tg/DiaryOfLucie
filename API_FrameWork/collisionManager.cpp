@@ -33,6 +33,7 @@ void collisionManager::update()
 	playerToDoor();
 	mapTomon();
 	bulletTobullet();
+	playerToCoin();
 }
 
 void collisionManager::bulletToplayer()
@@ -1173,6 +1174,31 @@ void collisionManager::bulletTobullet()
 			{
 				bm->getIce_spearInstance()->getVBullet()[i].colPoison = true;
 			}
+		}
+	}
+}
+
+void collisionManager::playerToCoin()
+{
+	for (int i = 0; i < gcoin->getVCoin().size(); i++)
+	{
+		if (IntersectRect(&temprc, &PLAYER->getPlayerAddress().playerRect, &gcoin->getVCoin()[i].rc))
+		{
+			gcoin->removecoin(i);
+		}
+	}
+	for (int i = 0; i < scoin->getVCoin().size(); i++)
+	{
+		if (IntersectRect(&temprc, &PLAYER->getPlayerAddress().playerRect, &scoin->getVCoin()[i].rc))
+		{
+			scoin->removecoin(i);
+		}
+	}
+	for (int i = 0; i < bcoin->getVCoin().size(); i++)
+	{
+		if (IntersectRect(&temprc, &PLAYER->getPlayerAddress().playerRect, &bcoin->getVCoin()[i].rc))
+		{
+			bcoin->removecoin(i);
 		}
 	}
 }

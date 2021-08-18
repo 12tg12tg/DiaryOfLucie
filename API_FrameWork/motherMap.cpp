@@ -4,7 +4,7 @@
 motherMap::motherMap()
 {
 	_gold_coin = new goldCoin;
-	_sliver_coin = new sliverCoin;
+	_silver_coin = new silverCoin;
 	_bronze_coin = new bronzeCoin;
 }
 
@@ -88,6 +88,6 @@ void motherMap::summonBoss(int x)
 void motherMap::dropCoin(int x , int y)
 {
 	_gold_coin->drop(x,y);
-	_sliver_coin->drop(x,y);
+	_silver_coin->drop(x,y);
 	_bronze_coin->drop(x,y);
 }

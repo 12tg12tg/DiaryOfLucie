@@ -48,6 +48,7 @@ void Cmap::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
+	_gold_coin->update();
 }
 
 void Cmap::render()
@@ -131,6 +132,7 @@ void Cmap2::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
+	_gold_coin->update();
 }
 
 void Cmap2::render()
@@ -212,6 +214,7 @@ void Cmap3::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
+	_gold_coin->update();
 }
 
 void Cmap3::render()
@@ -292,6 +295,7 @@ void Cmap4::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
+	_gold_coin->update();
 }
 
 void Cmap4::render()
@@ -372,6 +376,7 @@ void Cmap5::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
+	_gold_coin->update();
 }
 
 void Cmap5::render()
@@ -453,6 +458,7 @@ void Cmap6::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
+	_gold_coin->update();
 }
 
 void Cmap6::render()
@@ -531,6 +537,7 @@ void Cmap7::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
+	_gold_coin->update();
 }
 
 void Cmap7::render()
@@ -610,6 +617,7 @@ void Cmap8::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
+	_gold_coin->update();
 }
 
 void Cmap8::render()
@@ -690,6 +698,7 @@ void Cmap9::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
+	_gold_coin->update();
 }
 
 void Cmap9::render()

@@ -51,7 +51,7 @@ protected:
 	monsterManager* mm;
 	bulletManager* bm;
 	goldCoin* _gold_coin;
-	sliverCoin* _sliver_coin;
+	silverCoin* _silver_coin;
 	bronzeCoin* _bronze_coin;
 	int aniCount = 0;
 	int chooseMon;
