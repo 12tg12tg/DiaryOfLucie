@@ -84,7 +84,8 @@ private:
 	map<string,motherMap*> _mStage1;
 	map<string, motherMap*>::iterator _imStage1;
 	
-
+	bool isAlphaDownward = true;
+	BYTE alpha = 220;
 	bool _isDebug;
 public:
 	virtual HRESULT init();

@@ -167,7 +167,7 @@ HRESULT mapManager::init()
 		}
 	}
 	goNextStage = false;
-	
+	PLAYER->getDIRECTIONAddress() = DOWN;
 	return S_OK;
 }
 
@@ -293,52 +293,58 @@ void mapManager::render()
 	SCENE->render();
 	if (InputManager->isToggleKey(VK_TAB))
 	{
-		ZORDER->UIAlphaRender(_back, ZUIFIRTH, 500, 300,180,170);
+		ZORDER->UIAlphaRender(_back, ZUIFIRTH, 501, 300+160, 180, 170);
 		for (size_t i = 0; i < MAXSIZE; i++)
 		{
 			for (size_t j = 0; j < MAXSIZE; j++)
 			{
 				if (stage1[i][j].mapkind == MAPKIND::START)
 				{
-					ZORDER->UIAlphaRender(_start, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_start, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (stage1[i][j].mapkind == MAPKIND::NORMAL)
 				{
-					ZORDER->UIAlphaRender(_fight, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_fight, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (stage1[i][j].mapkind == MAPKIND::BOSSROOM)
 				{
-					ZORDER->UIAlphaRender(_boss, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_boss, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (stage1[i][j].mapkind == MAPKIND::NEXTSTAGE)
 				{
-					ZORDER->UIAlphaRender(_goal, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_goal, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (stage1[i][j].mapkind == MAPKIND::CHESTROOM)
 				{
-					ZORDER->UIAlphaRender(_chest, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_chest, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (stage1[i][j].mapkind == MAPKIND::FOUNTAIN)
 				{
-					ZORDER->UIAlphaRender(_event, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_event, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (stage1[i][j].mapkind == MAPKIND::MORUROOM)
 				{
-					ZORDER->UIAlphaRender(_event, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_event, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (stage1[i][j].mapkind == MAPKIND::SHOP)
 				{
-					ZORDER->UIAlphaRender(_shop, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_shop, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (stage1[i][j].mapkind == MAPKIND::STATUEROOM)
 				{
-					ZORDER->UIAlphaRender(_event, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_event, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (currentIndex.x == i && currentIndex.y == j)
 				{
-					int alpha = 170;
-					ZORDER->UIAlphaRender(_none, ZUIFIRTH, 501, 400 + currentIndex.x * 30, 200 + currentIndex.y * 30, alpha);
-					alpha += 50;
+					if (isAlphaDownward) {
+						alpha-=7;
+						if (alpha < 50) isAlphaDownward = false;
+					}
+					else {
+						alpha+=7;
+						if (alpha > 240) isAlphaDownward = true;
+					}
+					ZORDER->UIAlphaRender(_none, ZUIFIRTH, 501, 400 + currentIndex.x * 30 + 160, 200 + currentIndex.y * 30, alpha);
 				}
 			}
 		}
