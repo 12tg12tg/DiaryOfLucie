@@ -172,6 +172,18 @@ public:
 				_imageInfo->height / (_imageInfo->maxFrameY + 1));
 		return rc;
 	}
+	inline RECT getBoundingBox(int x, int y)
+	{
+		RECT rc;
+		if (_imageInfo->maxFrameX == 0 && _imageInfo->maxFrameY == 0)
+			rc = RectMake(x, y, _imageInfo->width, _imageInfo->height);
+		else
+			rc = RectMake(x, y,
+				_imageInfo->width / (_imageInfo->maxFrameX + 1),
+				_imageInfo->height / (_imageInfo->maxFrameY + 1));
+		return rc;
+	}
+
 
 	//프레임 x 셋팅
 	inline int getFrameX()const { return _imageInfo->currentFrameX; }
