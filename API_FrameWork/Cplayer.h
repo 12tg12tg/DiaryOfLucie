@@ -10,7 +10,6 @@ struct swordEffect {
 	image* swordEffect;
 	int count;
 	float angle;
-	int x, y;
 	int frameX;
 	int frameY;
 };
@@ -181,7 +180,7 @@ private:
 private:
 	void pushbackDashEffect(int x,int y, int FrameX,DIRECTION direction);
 	void renderDashEffecct(HDC hdc);
-	void pushbackSwordEffect(float angle,int x,int y,int frameY);
+	void pushbackSwordEffect(float angle,int frameY);
 	void renderSwordEffecct(HDC hdc);
 
 	void hitStateCheck();

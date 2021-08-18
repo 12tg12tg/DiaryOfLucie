@@ -387,21 +387,18 @@ void Cplayer::stateCheck()
 				_state = STATE::ATTSWORD;
 				_combo++;
 				_comboCount = 0;
-				_attAngle = UTIL::getAngle(_player.x, _player.y +3- shootingCorrection, CAMMOUSEX, CAMMOUSEY);
+				_attAngle = UTIL::getAngle(_player.x, _player.y - shootingCorrection, CAMMOUSEX, CAMMOUSEY);
 				this->angleCheckDirection(_attAngle);
-				_attAngle = _attAngle - 0.03 + 0.00003 * RND->getFromInTo(0, 2000);
+				//_attAngle = _attAngle - 0.03 + 0.00003 * RND->getFromInTo(0, 2000);
 				_Cbullet->getMgcBulInstance()->fire(_player.x +cosf(_attAngle)*_swordCorrent,
 					_player.y - shootingCorrection -sinf(_attAngle)*_swordCorrent , _attAngle,0);
 				PLAYERDATA->useStamina(2);
 				if(_combo==1||_combo==3)
-				pushbackSwordEffect(_attAngle, _player.x + cosf(_attAngle) * _swordCorrent,
-					_player.y  - shootingCorrection - sinf(_attAngle) * _swordCorrent, 0);
+				pushbackSwordEffect(_attAngle,  0);
 				else if(_combo==2||_combo==4)
-				pushbackSwordEffect(_attAngle, _player.x + cosf(_attAngle) * _swordCorrent,
-					_player.y  - shootingCorrection - sinf(_attAngle) * _swordCorrent, 1);
+				pushbackSwordEffect(_attAngle,  1);
 				else if(_combo>=5)
-				pushbackSwordEffect(_attAngle , _player.x + cosf(_attAngle) * _swordCorrent,
-					_player.y  - shootingCorrection - sinf(_attAngle) * _swordCorrent, 2);
+				pushbackSwordEffect(_attAngle , 2);
 			}
 		}
 		if (INPUT->isOnceKeyDown(VK_SPACE))
@@ -748,12 +745,12 @@ void Cplayer::renderDashEffecct(HDC hdc)
 	}
 }
 
-void Cplayer::pushbackSwordEffect(float angle, int x, int y, int frameY)
+void Cplayer::pushbackSwordEffect(float angle, int frameY)
 {
 	while (angle-PI_2-PI_16 < 0) {
 		angle += PI2;
 	}
-	swordEffect temp = { _swordeffect, 0,angle-PI_2 - PI_16,x,y,0,frameY };
+	swordEffect temp = { _swordeffect, 0,angle-PI_2 - PI_16 ,0,frameY };
 	_vectSwordEffect.push_back(temp);
 }
 
@@ -765,6 +762,7 @@ void Cplayer::renderSwordEffecct(HDC hdc)
 		_iterSwordEffect->count++;
 		if (_iterSwordEffect->count>2) 
 		{
+
 			_iterSwordEffect->count = 0;
 			_iterSwordEffect->frameX++;
 			
@@ -776,7 +774,10 @@ void Cplayer::renderSwordEffecct(HDC hdc)
 	}
 	for (_iterSwordEffect = _vectSwordEffect.begin(); _iterSwordEffect != _vectSwordEffect.end(); ++_iterSwordEffect)
 	{
-		ZORDER->ZorderRotateFrameRender(_iterSwordEffect->swordEffect, ZUNIT, _iterSwordEffect->y, _iterSwordEffect->x, _iterSwordEffect->y, _iterSwordEffect->angle, _iterSwordEffect->frameX, _iterSwordEffect->frameY);
+		//testrect=_iterSwordEffect->swordEffect->getBoundingBox(_iterSwordEffect->x- _iterSwordEffect->swordEffect->getFrameWidth()/2, _iterSwordEffect->y - _iterSwordEffect->swordEffect->getFrameHeight()/2);
+		//ZORDER->ZorderRectangleRotate(testrect, ZCOL1, _iterSwordEffect->angle);
+		ZORDER->ZorderRotateFrameRender(_iterSwordEffect->swordEffect, ZUNIT, _player.y - shootingCorrection - sinf(_attAngle) * _swordCorrent, _player.x + cosf(_attAngle) * _swordCorrent,
+			_player.y - shootingCorrection - sinf(_attAngle) * _swordCorrent, _iterSwordEffect->angle, _iterSwordEffect->frameX, _iterSwordEffect->frameY);
 	}
 }
 
