@@ -5,7 +5,7 @@ static image* _DOLBuffer = IMAGE->addImage("DOLBuffer", WINSIZEX*3, WINSIZEY*3);
 class gameNode
 {
 private:
-
+	HWND hWnd;
 	//image* _backBuffer;//백버퍼
 	//void setBackBuffer();//백버프셋팅
 	HDC _hdc;
@@ -27,6 +27,7 @@ public:
 	HDC getMemDC()const { return _backBuffer->getMemDC(); }
 
 	HDC getDolDC()const { return _DOLBuffer->getMemDC(); }		//팀프용 DC
+	HWND gethwnd()const { return hWnd; }
 
 	LRESULT MainProc(HWND hWnd, UINT imessage, WPARAM wParam, LPARAM lParam);
 

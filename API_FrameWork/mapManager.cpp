@@ -211,7 +211,7 @@ void mapManager::update()
 	}
 	if (checkright)
 	{
-		if (currentIndex.x < 9)
+		if (currentIndex.x < 8)
 		{
 			SCENE->changeScene(stage1[currentIndex.x + 1][currentIndex.y].sceneKey);
 			currentIndex.x = currentIndex.x + 1;
@@ -239,7 +239,7 @@ void mapManager::update()
 	}
 	if (checkbottom)
 	{
-		if (currentIndex.y < 8)
+		if (currentIndex.y <8)
 		{
 			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y + 1].sceneKey);
 			currentIndex.x = currentIndex.x;

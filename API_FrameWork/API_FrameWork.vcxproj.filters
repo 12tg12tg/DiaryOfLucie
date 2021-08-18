@@ -106,6 +106,9 @@
     <Filter Include="DOL\title">
       <UniqueIdentifier>{722dc68b-5e6f-45cd-92ec-d3dcfc20c279}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DOL\option">
+      <UniqueIdentifier>{5c6623c5-4149-4d72-8aba-edcc7f2ce6bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -255,6 +258,9 @@
     <ClInclude Include="DOL_Title.h">
       <Filter>DOL\title</Filter>
     </ClInclude>
+    <ClInclude Include="option.h">
+      <Filter>DOL\option</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -385,6 +391,9 @@
     </ClCompile>
     <ClCompile Include="DOL_Title.cpp">
       <Filter>DOL\title</Filter>
+    </ClCompile>
+    <ClCompile Include="option.cpp">
+      <Filter>DOL\option</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

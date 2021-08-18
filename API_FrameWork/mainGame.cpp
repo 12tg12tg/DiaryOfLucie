@@ -92,7 +92,7 @@ RECT mainGame::checkGameSize()
 		top = hei / 2 - h / 2;
 		bottom = top + h;
 	}
-	
+	//MoveWindow(gethwnd(), left, top, right, bottom, TRUE);    // listbox¿« size∏¶ change
 	return { left, top, right, bottom };
 
 }

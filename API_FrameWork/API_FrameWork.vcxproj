@@ -179,6 +179,7 @@
     <ClInclude Include="motherMap.h" />
     <ClInclude Include="OBBCollision.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="option.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
@@ -228,6 +229,7 @@
     <ClCompile Include="motherMap.cpp" />
     <ClCompile Include="OBBCollision.cpp" />
     <ClCompile Include="object.cpp" />
+    <ClCompile Include="option.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="shop.cpp" />
