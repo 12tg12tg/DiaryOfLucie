@@ -48,13 +48,9 @@ void Cmap::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
-<<<<<<< HEAD
-	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
-=======
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?ˆê· ?ˆìž‘??
 }
 
 void Cmap::render()
@@ -85,7 +81,7 @@ void Cmap::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 530, _portal);
 	}
-	_gold_coin->render(); _silver_coin->render(); _bronze_coin->render();
+	_gold_coin->render();
 }
 
 Cmap2::Cmap2()
@@ -138,13 +134,9 @@ void Cmap2::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
-<<<<<<< HEAD
-	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
-=======
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?ˆê· ?ˆìž‘??
 }
 
 void Cmap2::render()
@@ -174,7 +166,7 @@ void Cmap2::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 530, _portal);
 	}
-	_gold_coin->render(); _silver_coin->render(); _bronze_coin->render();
+	_gold_coin->render();
 }
 
 Cmap3::Cmap3()
@@ -226,13 +218,9 @@ void Cmap3::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
-<<<<<<< HEAD
-	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
-=======
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?ˆê· ?ˆìž‘??
 }
 
 void Cmap3::render()
@@ -262,7 +250,7 @@ void Cmap3::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 580, _portal);
 	}
-	_gold_coin->render(); _silver_coin->render(); _bronze_coin->render();
+	_gold_coin->render();
 }
 
 
@@ -313,13 +301,9 @@ void Cmap4::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
-<<<<<<< HEAD
-	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
-=======
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?ˆê· ?ˆìž‘??
 }
 
 void Cmap4::render()
@@ -349,7 +333,7 @@ void Cmap4::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 580, _portal);
 	}
-	_gold_coin->render(); _silver_coin->render(); _bronze_coin->render();
+	_gold_coin->render();
 }
 
 Cmap5::Cmap5()
@@ -400,13 +384,9 @@ void Cmap5::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
-<<<<<<< HEAD
-	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
-=======
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?ˆê· ?ˆìž‘??
 }
 
 void Cmap5::render()
@@ -437,7 +417,7 @@ void Cmap5::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 530, _portal);
 	}
-	_gold_coin->render(); _silver_coin->render(); _bronze_coin->render();
+	_gold_coin->render();
 }
 
 Cmap6::Cmap6()
@@ -488,13 +468,9 @@ void Cmap6::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
-<<<<<<< HEAD
-	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
-=======
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?ˆê· ?ˆìž‘??
 }
 
 void Cmap6::render()
@@ -522,7 +498,7 @@ void Cmap6::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 580, _portal);
 	}
-	_gold_coin->render(); _silver_coin->render(); _bronze_coin->render();
+	_gold_coin->render();
 }
 
 Cmap7::Cmap7()
@@ -573,13 +549,9 @@ void Cmap7::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
-<<<<<<< HEAD
-	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
-=======
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?ˆê· ?ˆìž‘??
 }
 
 void Cmap7::render()
@@ -607,7 +579,7 @@ void Cmap7::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 530, _portal);
 	}
-	_gold_coin->render(); _silver_coin->render(); _bronze_coin->render();
+	_gold_coin->render();
 }
 
 Cmap8::Cmap8()
@@ -659,13 +631,9 @@ void Cmap8::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
-<<<<<<< HEAD
-	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
-=======
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?ˆê· ?ˆìž‘??
 }
 
 void Cmap8::render()
@@ -693,7 +661,7 @@ void Cmap8::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 590, _portal);
 	}
-	_gold_coin->render(); _silver_coin->render(); _bronze_coin->render();
+	_gold_coin->render();
 }
 
 Cmap9::Cmap9()
@@ -746,13 +714,9 @@ void Cmap9::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
-<<<<<<< HEAD
-	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
-=======
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?ˆê· ?ˆìž‘??
 }
 
 void Cmap9::render()
@@ -780,7 +744,7 @@ void Cmap9::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 530, _portal);
 	}
-	_gold_coin->render(); _silver_coin->render(); _bronze_coin->render();
+	_gold_coin->render();
 }
 
 Cmap10::Cmap10()
@@ -1294,13 +1258,9 @@ void stage1_Boss::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
-<<<<<<< HEAD
-	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
-=======
 	//Ä«¸Þ¶ó¾÷µ¥ÀÌÆ®
 	//CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?ˆê· ?ˆìž‘??
 }
 
 void stage1_Boss::render()
@@ -1329,9 +1289,6 @@ void stage1_Boss::render()
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 450, 810, _portal);
 	}
-<<<<<<< HEAD
-	_gold_coin->render(); _silver_coin->render(); _bronze_coin->render();
-=======
 
 	//hpÇÁ·¹ÀÓ & hp¹Ù
 	if (count > 200 && currenthp != 0) {
@@ -1355,7 +1312,6 @@ void stage1_Boss::render()
 			ZORDER->UIAlphaRender(IMAGE->findImage("Å¸ÀÌÆ²_º¸½º¸Ó½¬¸¾"), ZUIFIRTH, 150, 0, 0, alpha);
 		}
 	}
->>>>>>> ?ˆê· ?ˆìž‘??
 }
 
 nextStage::nextStage()
@@ -1486,12 +1442,8 @@ void fountainMap::update()
 		_portal = ANIMATION->addNoneKeyAnimation("Æ÷Å»", 6, 12, 7, true, true);
 	}
 	_fountain->update(bm);
-<<<<<<< HEAD
-	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
-=======
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?ˆê· ?ˆìž‘??
 }
 
 void fountainMap::render()
@@ -1520,7 +1472,6 @@ void fountainMap::render()
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 400, 530, _portal);
 	}
 	_fountain->render();
-	_gold_coin->render(); _silver_coin->render(); _bronze_coin->render();
 }
 
 before_Boss::before_Boss()
@@ -1624,9 +1575,6 @@ void last_Boss::release()
 
 void last_Boss::update()
 {
-<<<<<<< HEAD
-	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
-=======
 	//hp¹Ù¼³Á¤
 	currenthp = mm->getYggdrasil()->getHp();
 	hpbar->setGauge(currenthp, totalhp);
@@ -1679,7 +1627,6 @@ void last_Boss::update()
 	//Ä«¸Þ¶ó¾÷µ¥ÀÌÆ®
 	//CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?ˆê· ?ˆìž‘??
 }
 
 void last_Boss::render()
@@ -1689,7 +1636,6 @@ void last_Boss::render()
 	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("¶óº¸ÇÈ¼¿"), ZCOLMAP, WINSIZEX, 0, 0);
 	ZORDER->ZorderRender(IMAGE->findImage("¶óº¸°¡¸²"), ZABOVEMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
-	_gold_coin->render(); _silver_coin->render(); _bronze_coin->render();
 
 	//hpÇÁ·¹ÀÓ & hp¹Ù
 	if (imgCount > 200 && currenthp != 0) {

@@ -70,7 +70,9 @@ class monster : public gameNode
 protected:
 	vector<tagMonster> _vMonster;
 	vector<tagMonster>::iterator _viMonster;
-	motherMap* _motherm;
+	motherMap* _motherm;	//20210819 - 코인때문에 추가
+
+	bool _stop = true;		//20210819 - 보스피벗때문에추가
 	bool _isDebug;
 public:
 	monster();
@@ -95,6 +97,7 @@ public:
 	virtual void checkInvincibility();
 	virtual void setmotherMapMemoryLink(motherMap* motherMap) { _motherm = motherMap; }
 	vector<tagMonster>& getVMonster() { return _vMonster; }
+	void setStop(bool st) { _stop = st; }
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
 

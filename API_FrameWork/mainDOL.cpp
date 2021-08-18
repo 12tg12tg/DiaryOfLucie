@@ -66,8 +66,6 @@ void mainDOL::update()
 		EFFECT->update();
 
 		CAMERA->FadeUpdate();
-		CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
-		CAMERA->update();
 	}
 	SCENE->update();
 }
@@ -109,6 +107,9 @@ void mainDOL::render()
 	CAMERA->FadeRender(getMemDC());
 	//커서 - 마우스는 최후반.
 	IMAGE->findImage("DOL_cursor")->render(getMemDC(), m_ptMouse.x, m_ptMouse.y);
+	TCHAR str[128];
+	wsprintf(str, "카메라 레프트/탑 : %d, %d", CAMERA->getRect().left, CAMERA->getRect().top);
+	TextOut(getMemDC(),0, 0, str, lstrlen(str));
 }
 
 void mainDOL::gameInit()

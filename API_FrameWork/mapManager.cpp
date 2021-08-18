@@ -212,11 +212,11 @@ void mapManager::update()
 	{
 		if (currentIndex.x < 8)
 		{
-			SCENE->changeScene(stage1[currentIndex.x + 1][currentIndex.y].sceneKey);
 			currentIndex.x = currentIndex.x + 1;
 			currentIndex.y = currentIndex.y;
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.right + 20;
 			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.bottom - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.bottom - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.top) / 2;
+			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y].sceneKey);
 			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
 			clearbullet();
 
@@ -226,11 +226,11 @@ void mapManager::update()
 	{
 		if (currentIndex.x > 0)
 		{
-			SCENE->changeScene(stage1[currentIndex.x - 1][currentIndex.y].sceneKey);
 			currentIndex.x = currentIndex.x - 1;
 			currentIndex.y = currentIndex.y;
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.left - 20;
 			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.bottom - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.bottom - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.top) / 2;
+			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y].sceneKey);
 
 			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
 			clearbullet();
@@ -240,11 +240,11 @@ void mapManager::update()
 	{
 		if (currentIndex.y <8)
 		{
-			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y + 1].sceneKey);
 			currentIndex.x = currentIndex.x;
 			currentIndex.y = currentIndex.y + 1;
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.right - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.right - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.left) / 2;
 			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.bottom + 20;
+			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y].sceneKey);
 
 			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
 			clearbullet();
@@ -254,11 +254,11 @@ void mapManager::update()
 	{
 		if (currentIndex.y >= 0)
 		{
-			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y - 1].sceneKey);
 			currentIndex.x = currentIndex.x;
 			currentIndex.y = currentIndex.y - 1;
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.right - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.right - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.left) / 2;
 			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.top - 20;
+			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y].sceneKey);
 
 			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
 			clearbullet();
@@ -387,7 +387,8 @@ void mapManager::doorstate(monster* monster)
 
 void mapManager::UseableDoor()
 {
-	if (stage1[currentIndex.x - 1][currentIndex.y].mapkind != MAPKIND::NONE)
+	//왼쪽문
+	if (currentIndex.x-1 >= 0&& stage1[currentIndex.x - 1][currentIndex.y].mapkind != MAPKIND::NONE)
 	{
 		_mStage1.find(currentMap)->second->getDungeonDoor()[0].isOpen = true;
 		stage1[currentIndex.x][currentIndex.y]._motherMap->setleftDoor(true);
@@ -397,8 +398,8 @@ void mapManager::UseableDoor()
 		_mStage1.find(currentMap)->second->getDungeonDoor()[0].isOpen = false;
 		stage1[currentIndex.x][currentIndex.y]._motherMap->setleftDoor(false);
 	}
-
-	if (stage1[currentIndex.x][currentIndex.y - 1].mapkind != MAPKIND::NONE)
+	//위쪽문
+	if (currentIndex.y-1 >=0 && stage1[currentIndex.x][currentIndex.y - 1].mapkind != MAPKIND::NONE)
 	{
 		_mStage1.find(currentMap)->second->getDungeonDoor()[1].isOpen = true;
 		stage1[currentIndex.x][currentIndex.y]._motherMap->settopDoor(true);
@@ -408,7 +409,8 @@ void mapManager::UseableDoor()
 		_mStage1.find(currentMap)->second->getDungeonDoor()[1].isOpen = false;
 		stage1[currentIndex.x][currentIndex.y]._motherMap->settopDoor(false);
 	}
-	if (stage1[currentIndex.x + 1][currentIndex.y].mapkind != MAPKIND::NONE)
+	//오른쪽문
+	if (currentIndex.x+1<9 && stage1[currentIndex.x + 1][currentIndex.y].mapkind != MAPKIND::NONE)
 	{
 		_mStage1.find(currentMap)->second->getDungeonDoor()[2].isOpen = true;
 		stage1[currentIndex.x][currentIndex.y]._motherMap->setrightDoor(true);
@@ -418,18 +420,16 @@ void mapManager::UseableDoor()
 		_mStage1.find(currentMap)->second->getDungeonDoor()[2].isOpen = false;
 		stage1[currentIndex.x][currentIndex.y]._motherMap->setrightDoor(false);
 	}
-	if (stage1[currentIndex.x][currentIndex.y + 1].mapkind != MAPKIND::NONE)
+	//아래쪽문
+	if (currentIndex.y+1 < 9 && stage1[currentIndex.x][currentIndex.y + 1].mapkind != MAPKIND::NONE)
 	{
-
 		_mStage1.find(currentMap)->second->getDungeonDoor()[3].isOpen = true;
 		stage1[currentIndex.x][currentIndex.y]._motherMap->setbotDoor(true);
-
 	}
 	else
 	{
 		_mStage1.find(currentMap)->second->getDungeonDoor()[3].isOpen = false;
 		stage1[currentIndex.x][currentIndex.y]._motherMap->setbotDoor(false);
-
 	}
 
 }

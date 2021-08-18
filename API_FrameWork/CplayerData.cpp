@@ -224,7 +224,8 @@ void CplayerData::renderUI(HDC hdc)
 {
 	POINT temp;
 	temp.x = (PLAYER->getPlayerAddress().x -CAMERA->getRect().left)* GAMEDCRATIO;
-	temp.y = (PLAYER->getPlayerAddress().y -CAMERA->getRect().top)*GAMEDCRATIO;
+	temp.y = (PLAYER->getPlayerAddress().y -CAMERA->getRect().top)* GAMEDCRATIO;
+
 	if (PtInRect(&_UIrect, temp)) {
 		UIalpha -= 5;
 		if (UIalpha < 100) {

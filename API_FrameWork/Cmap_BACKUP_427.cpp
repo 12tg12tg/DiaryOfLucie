@@ -54,7 +54,7 @@ void Cmap::update()
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?�균?�작??
+>>>>>>> 예균새작업
 }
 
 void Cmap::render()
@@ -144,7 +144,7 @@ void Cmap2::update()
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?�균?�작??
+>>>>>>> 예균새작업
 }
 
 void Cmap2::render()
@@ -232,7 +232,7 @@ void Cmap3::update()
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?�균?�작??
+>>>>>>> 예균새작업
 }
 
 void Cmap3::render()
@@ -319,7 +319,7 @@ void Cmap4::update()
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?�균?�작??
+>>>>>>> 예균새작업
 }
 
 void Cmap4::render()
@@ -406,7 +406,7 @@ void Cmap5::update()
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?�균?�작??
+>>>>>>> 예균새작업
 }
 
 void Cmap5::render()
@@ -494,7 +494,7 @@ void Cmap6::update()
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?�균?�작??
+>>>>>>> 예균새작업
 }
 
 void Cmap6::render()
@@ -579,7 +579,7 @@ void Cmap7::update()
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?�균?�작??
+>>>>>>> 예균새작업
 }
 
 void Cmap7::render()
@@ -665,7 +665,7 @@ void Cmap8::update()
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?�균?�작??
+>>>>>>> 예균새작업
 }
 
 void Cmap8::render()
@@ -752,7 +752,7 @@ void Cmap9::update()
 	_gold_coin->update();
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?�균?�작??
+>>>>>>> 예균새작업
 }
 
 void Cmap9::render()
@@ -1300,7 +1300,7 @@ void stage1_Boss::update()
 	//ī�޶������Ʈ
 	//CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?�균?�작??
+>>>>>>> 예균새작업
 }
 
 void stage1_Boss::render()
@@ -1355,7 +1355,7 @@ void stage1_Boss::render()
 			ZORDER->UIAlphaRender(IMAGE->findImage("Ÿ��Ʋ_�����ӽ���"), ZUIFIRTH, 150, 0, 0, alpha);
 		}
 	}
->>>>>>> ?�균?�작??
+>>>>>>> 예균새작업
 }
 
 nextStage::nextStage()
@@ -1491,7 +1491,7 @@ void fountainMap::update()
 =======
 	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?�균?�작??
+>>>>>>> 예균새작업
 }
 
 void fountainMap::render()
@@ -1679,7 +1679,7 @@ void last_Boss::update()
 	//ī�޶������Ʈ
 	//CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
->>>>>>> ?�균?�작??
+>>>>>>> 예균새작업
 }
 
 void last_Boss::render()
