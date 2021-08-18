@@ -453,7 +453,7 @@ void collisionManager::checkUp()
 
 		if (!(r == 255 && g == 0 && b == 255))
 		{
-			PLAYER->getPlayerAddress().y++;
+			PLAYER->getPlayerAddress().y+=2;
 		}
 
 	}
@@ -471,7 +471,7 @@ void collisionManager::checkRight()
 
 		if (!(r == 255 && g == 0 && b == 255))
 		{
-			PLAYER->getPlayerAddress().x--;
+			PLAYER->getPlayerAddress().x-=2;
 		}
 	}
 }
@@ -488,7 +488,7 @@ void collisionManager::checkLeft()
 
 		if (!(r == 255 && g == 0 && b == 255))
 		{
-			PLAYER->getPlayerAddress().x++;
+			PLAYER->getPlayerAddress().x+=2;
 		}
 	}
 }
@@ -505,7 +505,7 @@ void collisionManager::checkDown()
 
 		if (!(r == 255 && g == 0 && b == 255))
 		{
-			PLAYER->getPlayerAddress().y--;
+			PLAYER->getPlayerAddress().y-=2;
 		}
 
 	}
@@ -528,7 +528,7 @@ void collisionManager::checkMonUp(monster* monster)
 
 			if (!(r == 255 && g == 0 && b == 255))
 			{
-				iter->y++;
+				iter->y+=2;
 				monster->makeCollisionRect(iter);
 			}
 
@@ -552,7 +552,7 @@ void collisionManager::checkMonDown(monster* monster)
 
 			if (!(r == 255 && g == 0 && b == 255))
 			{
-				iter->y--;
+				iter->y-=2;
 				monster->makeCollisionRect(iter);
 			}
 
@@ -577,7 +577,7 @@ void collisionManager::checkMonLeft(monster* monster)
 
 			if (!(r == 255 && g == 0 && b == 255))
 			{
-				iter->x++;
+				iter->x+=2;
 				monster->makeCollisionRect(iter);
 			}
 		}
@@ -600,7 +600,7 @@ void collisionManager::checkMonRight(monster* monster)
 
 			if (!(r == 255 && g == 0 && b == 255))
 			{
-				iter->x--;
+				iter->x-=2;
 				monster->makeCollisionRect(iter);
 			}
 		}
@@ -1348,12 +1348,12 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 				{
 					if (!iter->isGraceperiod) {
 						monster->knockback(iter,
-							bm->getMgcBulInstance()->getVBullet()[i].x,
-							bm->getMgcBulInstance()->getVBullet()[i].y,
+							bm->getArwBulInstance()->getVBullet()[i].x,
+							bm->getArwBulInstance()->getVBullet()[i].y,
 							PLAYERDATA->getDamage(),
 							5, false);
 					}
-					bm->getMgcBulInstance()->removeBullet(i);
+					bm->getArwBulInstance()->removeBullet(i);
 				}
 			}
 		}
@@ -1489,6 +1489,111 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 							10, false);
 					}
 				
+				}
+			}
+		}
+		//6.짱쌘검
+		for (int i = 0; i < bm->getSwordInstance()->getVBullet().size(); i++)
+		{
+			if (!isBoss) {
+				if (iter->activestate != MONSTERACTIVE::DEATH &&
+					OBB->isOBBCollision(bm->getSwordInstance()->getVBullet()[i].rc, bm->getSwordInstance()->getVBullet()[i].angle+PI/2,
+						iter->rc, 0))
+				{
+					if (!iter->isGraceperiod) {
+						monster->knockback(iter,
+							bm->getSwordInstance()->getVBullet()[i].x,
+							bm->getSwordInstance()->getVBullet()[i].y,
+							PLAYERDATA->getDamage(),
+							5, false);
+					}
+				}
+			}
+			//보스의경우 RECT가 두개이므로 따로진행
+			else {
+				if (iter->activestate != MONSTERACTIVE::DEATH &&
+					(OBB->isOBBCollision(bm->getSwordInstance()->getVBullet()[i].rc, bm->getSwordInstance()->getVBullet()[i].angle + PI / 2,
+						iter->bossRc[0], 0)) ||
+					(OBB->isOBBCollision(bm->getSwordInstance()->getVBullet()[i].rc, bm->getSwordInstance()->getVBullet()[i].angle + PI / 2,
+						iter->bossRc[1], 0)))
+				{
+					if (!iter->isGraceperiod) {
+						monster->knockback(iter,
+							bm->getSwordInstance()->getVBullet()[i].x,
+							bm->getSwordInstance()->getVBullet()[i].y,
+							PLAYERDATA->getDamage(),
+							5, false);
+					}
+				}
+			}
+		}
+		//fire2
+		for (int i = 0; i < bm->getSwordInstance()->getVBullet2().size(); i++)
+		{
+			if (!isBoss) {
+				if (iter->activestate != MONSTERACTIVE::DEATH &&
+					OBB->isOBBCollision(bm->getSwordInstance()->getVBullet2()[i].rc, bm->getSwordInstance()->getVBullet2()[i].angle + PI / 2,
+						iter->rc, 0))
+				{
+					if (!iter->isGraceperiod) {
+						monster->knockback(iter,
+							bm->getSwordInstance()->getVBullet2()[i].x,
+							bm->getSwordInstance()->getVBullet2()[i].y,
+							PLAYERDATA->getDamage(),
+							5, false);
+					}
+				}
+			}
+			//보스의경우 RECT가 두개이므로 따로진행
+			else {
+				if (iter->activestate != MONSTERACTIVE::DEATH &&
+					(OBB->isOBBCollision(bm->getSwordInstance()->getVBullet2()[i].rc, bm->getSwordInstance()->getVBullet2()[i].angle + PI / 2,
+						iter->bossRc[0], 0)) ||
+					(OBB->isOBBCollision(bm->getSwordInstance()->getVBullet2()[i].rc, bm->getSwordInstance()->getVBullet2()[i].angle + PI / 2,
+						iter->bossRc[1], 0)))
+				{
+					if (!iter->isGraceperiod) {
+						monster->knockback(iter,
+							bm->getSwordInstance()->getVBullet2()[i].x,
+							bm->getSwordInstance()->getVBullet2()[i].y,
+							PLAYERDATA->getDamage(),
+							5, false);
+					}
+				}
+			}
+		}
+		//fire3
+		for (int i = 0; i < bm->getSwordInstance()->getVBullet3().size(); i++)
+		{
+			if (!isBoss) {
+				if (iter->activestate != MONSTERACTIVE::DEATH &&
+					OBB->isOBBCollision(bm->getSwordInstance()->getVBullet3()[i].rc, bm->getSwordInstance()->getVBullet3()[i].angle + PI / 2,
+						iter->rc, 0))
+				{
+					if (!iter->isGraceperiod) {
+						monster->knockback(iter,
+							bm->getSwordInstance()->getVBullet3()[i].x,
+							bm->getSwordInstance()->getVBullet3()[i].y,
+							PLAYERDATA->getDamage(),
+							5, false);
+					}
+				}
+			}
+			//보스의경우 RECT가 두개이므로 따로진행
+			else {
+				if (iter->activestate != MONSTERACTIVE::DEATH &&
+					(OBB->isOBBCollision(bm->getSwordInstance()->getVBullet3()[i].rc, bm->getSwordInstance()->getVBullet3()[i].angle + PI / 2,
+						iter->bossRc[0], 0)) ||
+					(OBB->isOBBCollision(bm->getSwordInstance()->getVBullet3()[i].rc, bm->getSwordInstance()->getVBullet3()[i].angle + PI / 2,
+						iter->bossRc[1], 0)))
+				{
+					if (!iter->isGraceperiod) {
+						monster->knockback(iter,
+							bm->getSwordInstance()->getVBullet3()[i].x,
+							bm->getSwordInstance()->getVBullet3()[i].y,
+							PLAYERDATA->getDamage(),
+							5, false);
+					}
 				}
 			}
 		}
