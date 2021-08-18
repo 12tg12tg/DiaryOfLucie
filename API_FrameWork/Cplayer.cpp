@@ -92,7 +92,7 @@ void Cplayer::render(HDC hdc)
 	}
 
 	this->renderDashEffecct(hdc);
-
+	renderAfterImage(hdc);
 	if (_state == STATE::STOP)
 		ZORDER->ZorderFrameRender(_walk_img, ZUNIT, RecCenY(_player.playerRect), _player.playerRect.left - imageLeftCorrection, _player.playerRect.top - imageTopCorrection, 1, _moveDirection);
 	else if (_state == STATE::DIE)
@@ -457,7 +457,7 @@ void Cplayer::stateCheck()
 			this->angleCheckDirection(_attAngle);
 			_Cbullet->getMgcBulInstance()->fire(_player.x + cosf(_attAngle) * _swordCorrent,
 				_player.y - shootingCorrection - sinf(_attAngle) * _swordCorrent, _attAngle, 0);
-			pushbackSwordEffect(_attAngle, 2);//나는 병신
+			pushbackSwordEffect(_attAngle, 2);
 			_dashAtkChance = false;
 			_player.isDashHit = false;
 			_dashCount = 0;
@@ -511,8 +511,8 @@ void Cplayer::movePlayer()
 		_player.y -= sinf(_dashAngle) * PLAYERDATA->getData().presentSpeed * 3;
 		break;
 	case STATE::DASHATT:
-		_player.x += cosf(_attAngle) * PLAYERDATA->getData().presentSpeed * 4;
-		_player.y -= sinf(_attAngle) * PLAYERDATA->getData().presentSpeed * 4;
+		_player.x += cosf(_attAngle) * PLAYERDATA->getData().presentSpeed * 5;
+		_player.y -= sinf(_attAngle) * PLAYERDATA->getData().presentSpeed * 5;
 		break;
 	case STATE::ATTSWORD:
 	case STATE::ATTSTAFF:
@@ -674,6 +674,8 @@ void Cplayer::setPlayerFrame()
 		break;
 	case STATE::DASHATT:
 		_attCount++;
+		if (_attCount % 4 == 0)
+			pushbackAfterImage(_player.x, _player.y, _attIndex, _moveDirection, _attSword_img);
 		if (_attCount > 8 )
 		{
 			_attCount = 0;
@@ -698,6 +700,8 @@ void Cplayer::setPlayerFrame()
 		break;
 	case STATE::STAFFCHARGE:
 		_attCount++;
+		if (_attCount % ((5 * 2 - (PLAYERDATA->getData().AtkSpeed / 10))/2) == 0)
+			pushbackAfterImage(_player.x, _player.y, _attIndex, _moveDirection, _chargeAtt_img);
 		if (_attCount > 5*2 - (PLAYERDATA->getData().AtkSpeed / 10))
 		{
 			_attCount = 0;
@@ -783,6 +787,24 @@ void Cplayer::renderDashEffecct(HDC hdc)
 	}
 }
 
+void Cplayer::pushbackAfterImage(int x, int y, int FrameX, DIRECTION direction, image* image)
+{
+	afterImage temp = { image,x - 50, y - 70, FrameX,direction, 200 };
+	_vectAfterImage.push_back(temp);
+}
+
+void Cplayer::renderAfterImage(HDC hdc)
+{
+	for (_iterAfterImage = _vectAfterImage.begin(); _iterAfterImage != _vectAfterImage.end();)
+	{
+		ZORDER->ZorderAlphaFrameRender(_iterAfterImage->afterImage, ZUNIT, RecCenY(_player.playerRect) - 1, _iterAfterImage->x, _iterAfterImage->y, _iterAfterImage->FrameX, _iterAfterImage->direction, _iterAfterImage->Alpha);
+		_iterAfterImage->Alpha -= 10;
+
+		if (_iterAfterImage->Alpha < 0) _iterAfterImage = _vectAfterImage.erase(_iterAfterImage);
+		else ++_iterAfterImage;
+	}
+}
+
 void Cplayer::pushbackSwordEffect(float angle, int frameY)
 {
 	while (angle-PI_2-PI_16 < 0) {
@@ -835,6 +857,7 @@ void Cplayer::hitDash()
 		_player.isDashHit = true;
 		PLAYERDATA->changeMP(1);
 		_dashAtkChance = true;
+		//if(_player.weapon==WEAPONTYPE::)
 	}
 }
 
