@@ -88,6 +88,7 @@ private:
 	bool _isDebug;
 	bool _isAutoRun;
 	bool _frameswitching;
+	RECT testrect;
 
 private:
 	vector<tagDamegeFont*> _damageFont;
