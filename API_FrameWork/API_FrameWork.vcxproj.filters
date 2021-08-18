@@ -109,6 +109,9 @@
     <Filter Include="DOL\Item\coin">
       <UniqueIdentifier>{f8d3292b-11d0-4566-89b7-9f56cbd3e833}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DOL\option">
+      <UniqueIdentifier>{7213c159-80a8-47ff-8076-bf66c1ccac5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -261,6 +264,9 @@
     <ClInclude Include="coin.h">
       <Filter>DOL\Item\coin</Filter>
     </ClInclude>
+    <ClInclude Include="option.h">
+      <Filter>DOL\option</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -394,6 +400,9 @@
     </ClCompile>
     <ClCompile Include="coin.cpp">
       <Filter>DOL\Item\coin</Filter>
+    </ClCompile>
+    <ClCompile Include="option.cpp">
+      <Filter>DOL\option</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
