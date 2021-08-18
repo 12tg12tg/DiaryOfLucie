@@ -87,7 +87,18 @@ void motherMap::summonBoss(int x)
 
 void motherMap::dropCoin(int x , int y)
 {
+	
+	int rand = RND->getInt(6);
+	if (rand == 0)
+	{
 	_gold_coin->drop(x,y);
+	}
+	else if (1 <= rand && rand <= 2)
+	{
 	_silver_coin->drop(x,y);
+	}
+	else
+	{
 	_bronze_coin->drop(x,y);
+	}
 }

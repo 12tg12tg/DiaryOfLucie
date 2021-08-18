@@ -10,6 +10,8 @@ struct tagcoin {
 	float x, y;
 	float realX, realY;
 	bool isCollison;
+	float distance;
+	float range;
 };
 class goldCoin : public gameNode
 {

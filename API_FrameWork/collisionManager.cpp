@@ -1185,6 +1185,7 @@ void collisionManager::playerToCoin()
 		if (IntersectRect(&temprc, &PLAYER->getPlayerAddress().playerRect, &dynamic_cast<motherMap*>(SCENE->curScene())->getGoldCoinInstance()->getVCoin()[i].rc))
 		{
 			dynamic_cast<motherMap*>(SCENE->curScene())->getGoldCoinInstance()->removecoin(i);
+			PLAYERDATA->changeGold(30);
 		}
 	}
 	for (int i = 0; i < dynamic_cast<motherMap*>(SCENE->curScene())->getSilverCoinInstance()->getVCoin().size(); i++)
@@ -1192,6 +1193,7 @@ void collisionManager::playerToCoin()
 		if (IntersectRect(&temprc, &PLAYER->getPlayerAddress().playerRect, &dynamic_cast<motherMap*>(SCENE->curScene())->getSilverCoinInstance()->getVCoin()[i].rc))
 		{
 			dynamic_cast<motherMap*>(SCENE->curScene())->getSilverCoinInstance()->removecoin(i);
+			PLAYERDATA->changeGold(20);
 		}
 	}
 	for (int i = 0; i < dynamic_cast<motherMap*>(SCENE->curScene())->getBronzeCoinInstance()->getVCoin().size(); i++)
@@ -1199,6 +1201,7 @@ void collisionManager::playerToCoin()
 		if (IntersectRect(&temprc, &PLAYER->getPlayerAddress().playerRect, &dynamic_cast<motherMap*>(SCENE->curScene())->getBronzeCoinInstance()->getVCoin()[i].rc))
 		{
 			dynamic_cast<motherMap*>(SCENE->curScene())->getBronzeCoinInstance()->removecoin(i);
+			PLAYERDATA->changeGold(10);
 		}
 	}
 }
@@ -1469,7 +1472,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 							PLAYERDATA->getDamage(),
 							10, false);
 					}
-					bm->getChargeInstance()->removeBullet(i);
+		
 				}
 			}
 			//보스의경우 RECT가 두개이므로 따로진행
@@ -1485,7 +1488,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 							PLAYERDATA->getDamage(),
 							10, false);
 					}
-					bm->getChargeInstance()->removeBullet(i);
+				
 				}
 			}
 		}

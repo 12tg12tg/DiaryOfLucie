@@ -21,6 +21,7 @@ void goldCoin::release()
 void goldCoin::update()
 {
 	move();
+
 }
 
 void goldCoin::render()
@@ -43,8 +44,9 @@ void goldCoin::drop(float x, float y)
 	coin.coinAni = ANIMATION->addNoneKeyAnimation("금화", 10, false, true);
 	coin.x =coin.realX= x;
 	coin.y =coin.realY= y;
-	coin.angle = UTIL::getAngle(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y, coin.x, coin.y);
+	coin.angle = UTIL::getAngle(coin.realX, coin.realY, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	coin.howmuch = 100;
+	coin.range = 100;
 	coin.rc = RectMake(coin.x, coin.y,
 		coin.coinImage->getFrameWidth(),
 		coin.coinImage->getFrameHeight());
@@ -54,7 +56,7 @@ void goldCoin::drop(float x, float y)
 void goldCoin::move()
 {
 	_viCoin = _vCoin.begin();
-	for (_viCoin; _viCoin != _vCoin.end();)
+	for (_viCoin; _viCoin != _vCoin.end();++_viCoin)
 	{
 		_viCoin->x += cosf(_viCoin->angle) * 0;
 		_viCoin->y -= sinf(_viCoin->angle) * 0;
@@ -63,11 +65,18 @@ void goldCoin::move()
 			_viCoin->coinImage->getFrameWidth(),
 			_viCoin->coinImage->getFrameHeight());
 
-		if (_viCoin->howmuch == 200)
+		if (_viCoin->range >= UTIL::getDistance(_viCoin->x,_viCoin->y,PLAYER->getPlayerAddress().x,PLAYER->getPlayerAddress().y))
 		{
-			_viCoin = _vCoin.erase(_viCoin);
+			_viCoin->angle = UTIL::getAngle(_viCoin->realX, _viCoin->realY, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+			_viCoin->x += cosf(_viCoin->angle) * 1;
+			_viCoin->y -= sinf(_viCoin->angle) * 1;
+
+			_viCoin->rc = RectMake(_viCoin->x, _viCoin->y,
+				_viCoin->coinImage->getFrameWidth(),
+				_viCoin->coinImage->getFrameHeight());
+			_viCoin->realX = _viCoin->x;
+			_viCoin->realY = _viCoin->y;
 		}
-		else ++_viCoin;
 	}
 }
 
@@ -96,6 +105,8 @@ void silverCoin::release()
 
 void silverCoin::update()
 {
+	move();
+
 }
 
 void silverCoin::render()
@@ -113,11 +124,13 @@ void silverCoin::drop(float x, float y)
 	tagcoin coin;
 	ZeroMemory(&coin, sizeof(tagcoin));
 	coin.coinImage = new  image;
-	coin.coinImage = IMAGE->addFrameImage("은화", "images/item/bronze_coin.bmp", 128, 16, 8, 1, true);
+	coin.coinImage = IMAGE->addFrameImage("은화", "images/item/silver_coin.bmp", 128, 16, 8, 1, true);
 	coin.coinAni = new animation;
-	coin.coinAni = ANIMATION->addNoneKeyAnimation("금화", 10, false, true);
+	coin.coinAni = ANIMATION->addNoneKeyAnimation("은화", 10, false, true);
 	coin.x = x;
 	coin.y = y;
+	coin.angle = UTIL::getAngle(coin.realX, coin.realY, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	coin.range = 100;
 	coin.howmuch = 50;
 	coin.rc = RectMakeCenter(coin.x, coin.y,
 		coin.coinImage->getFrameWidth(),
@@ -127,6 +140,29 @@ void silverCoin::drop(float x, float y)
 
 void silverCoin::move()
 {
+	_viCoin = _vCoin.begin();
+	for (_viCoin; _viCoin != _vCoin.end(); ++_viCoin)
+	{
+		_viCoin->x += cosf(_viCoin->angle) * 0;
+		_viCoin->y -= sinf(_viCoin->angle) * 0;
+
+		_viCoin->rc = RectMake(_viCoin->x, _viCoin->y,
+			_viCoin->coinImage->getFrameWidth(),
+			_viCoin->coinImage->getFrameHeight());
+
+		if (_viCoin->range >= UTIL::getDistance(_viCoin->x, _viCoin->y, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y))
+		{
+			_viCoin->angle = UTIL::getAngle(_viCoin->realX, _viCoin->realY, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+			_viCoin->x += cosf(_viCoin->angle) * 1;
+			_viCoin->y -= sinf(_viCoin->angle) * 1;
+
+			_viCoin->rc = RectMake(_viCoin->x, _viCoin->y,
+				_viCoin->coinImage->getFrameWidth(),
+				_viCoin->coinImage->getFrameHeight());
+			_viCoin->realX = _viCoin->x;
+			_viCoin->realY = _viCoin->y;
+		}
+	}
 }
 
 void silverCoin::removecoin(int arrNum)
@@ -153,6 +189,8 @@ void bronzeCoin::release()
 
 void bronzeCoin::update()
 {
+	move();
+	
 }
 
 void bronzeCoin::render()
@@ -175,6 +213,8 @@ void bronzeCoin::drop(float x, float y)
 	coin.coinAni = ANIMATION->addNoneKeyAnimation("동화", 10, false, true);
 	coin.x = x;
 	coin.y = y;
+	coin.angle = UTIL::getAngle(coin.realX, coin.realY, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	coin.range = 100;
 	coin.howmuch = 10;
 	coin.rc = RectMakeCenter(coin.x, coin.y,
 		coin.coinImage->getFrameWidth(),
@@ -184,6 +224,29 @@ void bronzeCoin::drop(float x, float y)
 
 void bronzeCoin::move()
 {
+	_viCoin = _vCoin.begin();
+	for (_viCoin; _viCoin != _vCoin.end(); ++_viCoin)
+	{
+		_viCoin->x += cosf(_viCoin->angle) * 0;
+		_viCoin->y -= sinf(_viCoin->angle) * 0;
+
+		_viCoin->rc = RectMake(_viCoin->x, _viCoin->y,
+			_viCoin->coinImage->getFrameWidth(),
+			_viCoin->coinImage->getFrameHeight());
+
+		if (_viCoin->range >= UTIL::getDistance(_viCoin->x, _viCoin->y, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y))
+		{
+			_viCoin->angle = UTIL::getAngle(_viCoin->realX, _viCoin->realY, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+			_viCoin->x += cosf(_viCoin->angle) * 1;
+			_viCoin->y -= sinf(_viCoin->angle) * 1;
+
+			_viCoin->rc = RectMake(_viCoin->x, _viCoin->y,
+				_viCoin->coinImage->getFrameWidth(),
+				_viCoin->coinImage->getFrameHeight());
+			_viCoin->realX = _viCoin->x;
+			_viCoin->realY = _viCoin->y;
+		}
+	}
 }
 
 void bronzeCoin::removecoin(int arrNum)
