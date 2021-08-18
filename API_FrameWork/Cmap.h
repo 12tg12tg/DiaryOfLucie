@@ -1,6 +1,7 @@
 #pragma once
 #include"gameNode.h"
 #include"motherMap.h"
+#include"progressBar.h"
 class Cmap : public motherMap
 {
 private:
@@ -245,7 +246,14 @@ public:
 class stage1_Boss : public motherMap
 {
 private:
-
+	int count;
+	BYTE alpha;
+	int totalhp;
+	int currenthp;
+	bool isShake;
+	int shaketime;
+	bool changePivot;
+	progressBar* hpbar;
 public:
 	stage1_Boss(int currentboss);
 	~stage1_Boss();
@@ -287,7 +295,15 @@ public:
 class last_Boss : public motherMap
 {
 private:
-
+	int count;
+	BYTE alpha;
+	int totalhp;
+	int currenthp;
+	bool isShake;
+	int shaketime;
+	bool changePivot;
+	bool isWait;
+	progressBar* hpbar;
 public:
 	last_Boss();
 	~last_Boss();

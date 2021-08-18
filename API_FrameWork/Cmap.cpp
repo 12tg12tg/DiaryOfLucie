@@ -49,6 +49,8 @@ void Cmap::update()
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
 	_gold_coin->update();
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void Cmap::render()
@@ -133,6 +135,8 @@ void Cmap2::update()
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
 	_gold_coin->update();
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void Cmap2::render()
@@ -215,6 +219,8 @@ void Cmap3::update()
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
 	_gold_coin->update();
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void Cmap3::render()
@@ -296,6 +302,8 @@ void Cmap4::update()
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
 	_gold_coin->update();
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void Cmap4::render()
@@ -377,6 +385,8 @@ void Cmap5::update()
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
 	_gold_coin->update();
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void Cmap5::render()
@@ -459,6 +469,8 @@ void Cmap6::update()
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
 	_gold_coin->update();
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void Cmap6::render()
@@ -538,6 +550,8 @@ void Cmap7::update()
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
 	_gold_coin->update();
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void Cmap7::render()
@@ -618,6 +632,8 @@ void Cmap8::update()
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
 	_gold_coin->update();
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void Cmap8::render()
@@ -699,6 +715,8 @@ void Cmap9::update()
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
 	_gold_coin->update();
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void Cmap9::render()
@@ -772,7 +790,8 @@ void Cmap10::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
-
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void Cmap10::render()
@@ -847,6 +866,8 @@ void chestMap::update()
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
 	_chest->update(bm);
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void chestMap::render()
@@ -925,6 +946,8 @@ void shopMap::update()
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
 	_shop->update(bm);
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void shopMap::render()
@@ -1000,6 +1023,8 @@ void statueMap::update()
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
 	_statue->update(bm);
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void statueMap::render()
@@ -1053,7 +1078,6 @@ moruMap::~moruMap()
 
 HRESULT moruMap::init()
 {
-
 	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
 		1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	return S_OK;
@@ -1077,6 +1101,8 @@ void moruMap::update()
 	}
 
 	_moru->update(bm);
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void moruMap::render()
@@ -1118,7 +1144,14 @@ stage1_Boss::stage1_Boss(int currentboss)
 	_door[1].Door = RectMake(482, 0, 140, 25); //top
 	_door[2].Door = RectMake(1085, 450, 25, 150);//right
 	_door[3].Door = RectMake(476, 940, 140, 25); //bottom
-	
+
+	IMAGE->addImage("타이틀_보스플라임", "images/bossUi/Boss_flime.bmp", WINSIZEX, WINSIZEY, true);
+	IMAGE->addImage("타이틀_보스슬라임", "images/bossUi/Boss_slime.bmp", WINSIZEX, WINSIZEY, true);
+	IMAGE->addImage("타이틀_보스머쉬맘", "images/bossUi/Boss_mushmam.bmp", WINSIZEX, WINSIZEY, true);
+
+	IMAGE->addImage("보스hp_front", "images/bossUi/hp_front.bmp", 482, 22);
+	IMAGE->addImage("보스hp_back", "images/bossUi/hp_back.bmp", 482, 22);
+	IMAGE->addImage("보스hp_프레임", "images/bossUi/hpframe.bmp", 506, 32, true);
 }
 
 stage1_Boss::~stage1_Boss()
@@ -1127,25 +1160,96 @@ stage1_Boss::~stage1_Boss()
 
 HRESULT stage1_Boss::init()
 {
-
+	//프로그래스바init
+	hpbar = new progressBar;
+	hpbar->init("images/bossUi/hp_front.bmp", "images/bossUi/hp_back.bmp", WINSIZEX / 2 - IMAGE->findImage("보스hp_front")->getWidth() / 2,
+		50, 482, 22, true);
+	//이름 알파값
+	alpha = 255;
+	//피벗체인지를위한카운트
+	changePivot = false;
+	count = 0;
+	shaketime = 0;
+	isShake = false;
+	//카메라피벗
 	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
 		1104, 960, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
+	//보스소환 1~3까지.
 	if (isClear == false)
 	{
 		summonBoss(stage);
 		stage++;
-
+	}
+	//보스초기hp설정
+	if (stage == 2) {
+		totalhp = mm->getBoss_Slime()->getHp();
+	}
+	else if (stage == 3) {
+		totalhp = mm->getBoss_Flime()->getHp();
+	}
+	else if (stage == 4) {
+		totalhp = mm->getBoss_Mushmam()->getHp();
 	}
 	return S_OK;
 }
 
 void stage1_Boss::release()
 {
+	SAFE_DELETE(hpbar);
 }
 
 void stage1_Boss::update()
 {
+	//hp바설정
+	if (stage == 2) {
+		currenthp = mm->getBoss_Slime()->getHp();
+	}
+	else if (stage == 3) {
+		currenthp = mm->getBoss_Flime()->getHp();
+	}
+	else if (stage == 4) {
+		currenthp = mm->getBoss_Mushmam()->getHp();
+	}
+	hpbar->setGauge(currenthp, totalhp);
+	hpbar->update();
+	//애니메이션카운트
 	aniCount++;
+	//피벗조정 보스 대기 bool
+	if (!isClear) {
+		count++;
+		if (count == 100) {
+			PLAYER->playerStop();
+			CAMERA->ChangePivot(552, 480 - 50, 2);		//보스쪽으로 카메라이동
+			changePivot = true;
+		}
+		if (!isShake && changePivot && CAMERA->getCMState() == CAMERASTATE::FOLLOWPIVOT)
+		{
+			CAMERA->movePivot(552, 480 - 50);			//잠시 보스가 카메라중심. 흔들기.
+			CAMERA->setShake(20, 150, 10);
+			isShake = true;
+			changePivot = false;
+		}
+		if (isShake) {
+			shaketime++;
+			if (shaketime > 150) {
+				isShake = false;						//150카운트동안 흔들기
+				PLAYER->playerStop();
+			}
+		}
+	}
+	if (!isShake && !changePivot) {	//특정조건이 아닐때는 무조건 플레이어가 카메라의 중심.
+		CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	}
+	//보스들정지풀기
+	if (count == 450) {
+		if (stage == 2)
+			mm->getBoss_Slime()->setStop(false);
+		if (stage == 3)
+			mm->getBoss_Flime()->setStop(false);
+		if (stage == 4)
+			mm->getBoss_Mushmam()->setStop(false);
+	}
+	//포탈
 	if (aniCount == 1)
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 5, false, false);
@@ -1154,10 +1258,14 @@ void stage1_Boss::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
+	//카메라업데이트
+	//CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void stage1_Boss::render()
 {
+	//맵이미지
 	ZORDER->ZorderRender(IMAGE->findImage("보스방배경"), ZFLOORMAP, WINSIZEX, 0, 0);
 	ZORDER->ZorderRender(IMAGE->findImage("보스방가림"), ZABOVEMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("보스방픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
@@ -1180,6 +1288,29 @@ void stage1_Boss::render()
 	{
 		if (_isDebug)ZORDER->ZorderRectangle(_door[3].Door, ZEFFECT1);
 		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 400, 450, 810, _portal);
+	}
+
+	//hp프레임 & hp바
+	if (count > 200 && currenthp != 0) {
+		ZORDER->UIRender(IMAGE->findImage("보스hp_프레임"), ZUIFIRTH, 0, WINSIZEX / 2 - IMAGE->findImage("보스hp_프레임")->getWidth() / 2,
+			50 - 5);
+		hpbar->render();
+	}
+
+	//보스등장씬 출력
+	if (!isClear && count > 50 && count < 500) {
+		if (count > 400) {
+			alpha -= 2;
+		}
+		if (stage == 2) {
+			ZORDER->UIAlphaRender(IMAGE->findImage("타이틀_보스슬라임"), ZUIFIRTH, 150, 0, 0, alpha);
+		}
+		else if (stage == 3) {
+			ZORDER->UIAlphaRender(IMAGE->findImage("타이틀_보스플라임"), ZUIFIRTH, 150, 0, 0, alpha);
+		}
+		else if (stage == 4) {
+			ZORDER->UIAlphaRender(IMAGE->findImage("타이틀_보스머쉬맘"), ZUIFIRTH, 150, 0, 0, alpha);
+		}
 	}
 }
 
@@ -1226,6 +1357,8 @@ void nextStage::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void nextStage::render()
@@ -1309,6 +1442,8 @@ void fountainMap::update()
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
 	_fountain->update(bm);
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void fountainMap::render()
@@ -1375,6 +1510,8 @@ void before_Boss::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
+	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void before_Boss::render()
@@ -1393,6 +1530,11 @@ last_Boss::last_Boss()
 	_collisionMap = IMAGE->addImage("라보픽셀", "images/map/!m55.bmp", 1344, 1200, true, RGB(255, 0, 255));
 	IMAGE->addImage("라보가림", "images/map/Par55.bmp", 1344, 1200, true, RGB(255, 0, 255));
 	_door[3].Door = RectMake(636, 1100, 160, 25); //bottom
+
+	IMAGE->addImage("타이틀_이그드라실", "images/bossUi/Boss_Iggdrasil.bmp", WINSIZEX, WINSIZEY, true);
+	IMAGE->addImage("보스hp_front", "images/bossUi/hp_front.bmp", 482, 22);
+	IMAGE->addImage("보스hp_back", "images/bossUi/hp_back.bmp", 482, 22);
+	IMAGE->addImage("보스hp_프레임", "images/bossUi/hpframe.bmp", 506, 32, true);
 }
 
 last_Boss::~last_Boss()
@@ -1401,13 +1543,29 @@ last_Boss::~last_Boss()
 
 HRESULT last_Boss::init()
 {
+	//프로그래스바init
+	hpbar = new progressBar;
+	hpbar->init("images/bossUi/hp_front.bmp", "images/bossUi/hp_back.bmp", WINSIZEX / 2 - IMAGE->findImage("보스hp_front")->getWidth() / 2,
+		50, 482, 22, true);
+	//이름 알파값
+	alpha = 255;
+	//피벗체인지를위한카운트
+	changePivot = false;
+	count = 0;
+	shaketime = 0;
+	isShake = false;
 	if (!(getClear()))
 	{
 		summonBoss(4);
 	}
 	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
 		1344, 1200, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
+	
+	//보스초기hp설정
+	totalhp = mm->getYggdrasil()->getHp();
+
 	return S_OK;
+
 }
 
 void last_Boss::release()
@@ -1416,6 +1574,55 @@ void last_Boss::release()
 
 void last_Boss::update()
 {
+	//hp바설정
+	currenthp = mm->getYggdrasil()->getHp();
+	hpbar->setGauge(currenthp, totalhp);
+	hpbar->update();
+
+	//피벗조정 보스 대기 bool
+	if (!isClear) {
+		count++;
+		if (!isWait && count == 100) {
+			PLAYER->playerStop();
+			CAMERA->ChangePivot(650, 349 + 110, 2);		//보스쪽으로 카메라이동
+			changePivot = true;
+		}
+		if (!isWait && !isShake && changePivot && CAMERA->getCMState() == CAMERASTATE::FOLLOWPIVOT)
+		{
+			CAMERA->movePivot(650, 349 + 110);			//잠시 보스가 카메라중심.
+			mm->getYggdrasil()->setStop(false);			//보스 스탑해제.
+			isWait = true;
+			count = 0;
+		}
+		if (isWait) {
+			if (count > 300) {
+				CAMERA->setShake(10, 200, 10);
+				isShake = true;
+				changePivot = false;
+				isWait = false;
+			}
+		}
+		if (isShake) {
+			shaketime++;
+			//gameRatio-=0.1f;
+			//if (gameRatio < 1) gameRatio = 1;
+			if (shaketime > 200) {
+				isShake = false;						//150카운트동안 흔들기
+				PLAYER->playerStop();
+				//gameRatio = 1;
+			}
+		}
+	}
+	if (!isWait && !isShake && !changePivot) {	//특정조건이 아닐때는 무조건 플레이어가 카메라의 중심.
+		CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	}
+	////보스들정지풀기
+	//if (count == 450) {
+	//	mm->getYggdrasil()->setStop(false);
+	//}
+	//카메라업데이트
+	//CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	CAMERA->update();
 }
 
 void last_Boss::render()

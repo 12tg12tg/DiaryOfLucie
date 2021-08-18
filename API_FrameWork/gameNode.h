@@ -2,6 +2,7 @@
 #include "image.h"
 static image* _backBuffer = IMAGE->addImage("backBuffer", WINSIZEX, WINSIZEY);
 static image* _DOLBuffer = IMAGE->addImage("DOLBuffer", WINSIZEX*3, WINSIZEY*3);	//팀프용 DC
+static float StretchRatio = 1.5;													//팀프용 배수
 class gameNode
 {
 private:
@@ -23,6 +24,7 @@ public:
 	HDC getHDC()const { return _hdc; }
 	HDC getMemDC()const { return _backBuffer->getMemDC(); }
 	HDC getDolDC()const { return _DOLBuffer->getMemDC(); }		//팀프용 DC
+	void setStretchRatio(float rt) { StretchRatio = rt; }		//팀프용 배수
 
 	LRESULT MainProc(HWND hWnd, UINT imessage, WPARAM wParam, LPARAM lParam);
 	RECT getClRect() { return _rt; }	//현재창의 사각형 가져오기(0, 0, 가로, 세로)

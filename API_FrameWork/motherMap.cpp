@@ -81,7 +81,7 @@ void motherMap::summonBoss(int x)
 	}
 	if (x == 4)
 	{
-		mm->getYggdrasil()->addMonster(650, 349);
+		mm->getYggdrasil()->addMonster(650, 349 + 117);
 	}
 }
 

@@ -223,8 +223,9 @@ void CplayerData::goldRender(HDC hdc)
 void CplayerData::renderUI(HDC hdc)
 {
 	POINT temp;
-	temp.x = (PLAYER->getPlayerAddress().x -CAMERA->getRect().left)* GAMEDCRATIO;
-	temp.y = (PLAYER->getPlayerAddress().y -CAMERA->getRect().top)*GAMEDCRATIO;
+	temp.x = (PLAYER->getPlayerAddress().x -CAMERA->getRect().left)* StretchRatio;
+	temp.y = (PLAYER->getPlayerAddress().y -CAMERA->getRect().top)* StretchRatio;
+
 	if (PtInRect(&_UIrect, temp)) {
 		UIalpha -= 5;
 		if (UIalpha < 100) {

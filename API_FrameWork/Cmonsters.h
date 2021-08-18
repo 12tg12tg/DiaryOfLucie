@@ -182,7 +182,7 @@ public:
 class Cboss_slime : public monster
 {
 private:
-
+	int hp = 220;
 
 
 
@@ -204,12 +204,13 @@ public:
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
 	virtual void makeCollisionRect(vector<tagMonster>::iterator iter);
+	int getHp() { return hp; }
 };
 //////////////////////////////////////////////////////////////
 class Cboss_flime : public monster
 {
 private:
-
+	int hp = 450;
 
 
 public:
@@ -230,6 +231,7 @@ public:
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
 	virtual void makeCollisionRect(vector<tagMonster>::iterator iter);
+	int getHp() { return hp; }
 };
 //////////////////////////////////////////////////////////////
 class Cmushmam_mushroom_G : public monster
@@ -311,7 +313,7 @@ class Cboss_mushmam : public monster
 {
 private:
 	int color;
-
+	int hp = 450;
 
 public:
 	Cboss_mushmam();
@@ -331,6 +333,7 @@ public:
 	virtual void stuncheck();
 	virtual void checkPlayerXY(Cplayer* py);
 	virtual void makeCollisionRect(vector<tagMonster>::iterator iter);
+	int getHp() { return hp; }
 };
 //////////////////////////////////////////////////////////////
 class Cyggdrasil_bomb: public monster
@@ -361,7 +364,7 @@ public:
 class Cyggdrasil : public monster
 {
 private:
-
+	int hp = 900;
 
 public:
 	Cyggdrasil();
@@ -382,6 +385,7 @@ public:
 	virtual void checkPlayerXY(Cplayer* py);
 	virtual void makeCollisionRect(vector<tagMonster>::iterator iter);
 	void checkPhase();
+	int getHp() { return hp; }
 };
 
 

@@ -2160,6 +2160,7 @@ void Cboss_slime::update(Cplayer* py, bulletManager* bm, Csemiboss_slime* ss)
 	//업뎃
 	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
 	{
+		hp = _viMonster->hp;
 		//stuncheck();
 		checkPlayerXY(py);
 		move(bm, ss);
@@ -2248,7 +2249,7 @@ void Cboss_slime::addMonster(float centerx, float centery)
 
 void Cboss_slime::move(bulletManager* bm, Csemiboss_slime* ss)
 {
-	_viMonster->patternCount++;
+	if(!_stop) _viMonster->patternCount++;
 	switch (_viMonster->activestate)
 	{
 	case MONSTERACTIVE::NONE:
@@ -2330,7 +2331,7 @@ void Cboss_slime::move(bulletManager* bm, Csemiboss_slime* ss)
 		}
 		break;
 	case MONSTERACTIVE::DEATH:
-		_viMonster->deathalpha -= 3;
+		if (!_stop) _viMonster->deathalpha -= 3;
 		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
 		if (_viMonster->deathalpha == 0) {
 			ss->addMonster(_viMonster->rc.left + (_viMonster->rc.right - _viMonster->rc.left) / 2 - 30,
@@ -2907,6 +2908,8 @@ void Cboss_flime::update(Cplayer* py, bulletManager* bm)
 	//업뎃
 	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
 	{
+		hp = _viMonster->hp;
+
 		_viMonster->x = _viMonster->neverchangeX;
 		_viMonster->y = _viMonster->neverchangeY;
 		makeCollisionRect(_viMonster);
@@ -2996,7 +2999,7 @@ void Cboss_flime::addMonster(float centerx, float centery)
 
 void Cboss_flime::move(bulletManager* bm)
 {
-	_viMonster->patternCount++;
+	if (!_stop) _viMonster->patternCount++;
 	switch (_viMonster->activestate)
 	{
 	case MONSTERACTIVE::NONE:
@@ -3116,7 +3119,7 @@ void Cboss_flime::move(bulletManager* bm)
 	case MONSTERACTIVE::RNDMOVE:
 		break;
 	case MONSTERACTIVE::DEATH:
-		_viMonster->deathalpha -= 3;
+		if (!_stop) _viMonster->deathalpha -= 3;
 		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
 		if (_viMonster->deathalpha == 0) {
 			_viMonster->afterDeath = true;
@@ -3279,6 +3282,8 @@ void Cboss_mushmam::update(Cplayer* py, bulletManager* bm, Cmushmam_mushroom_G* 
 	//업뎃
 	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
 	{
+		hp = _viMonster->hp;
+
 		checkPlayerXY(py);
 		move(bm, mrG, mrP, mrB, smr);
 		checkAngle();
@@ -3352,7 +3357,7 @@ void Cboss_mushmam::addMonster(float centerx, float centery)
 	newMonster.range = 340;
 	newMonster.framecount = 0;
 	newMonster.stunCount = 0;
-	newMonster.patternCount = 300;
+	newMonster.patternCount = 299;
 	newMonster.deathalpha = 255;
 	newMonster.attackNum = 1;
 	newMonster.activestate = MONSTERACTIVE::NONE;
@@ -3363,7 +3368,7 @@ void Cboss_mushmam::addMonster(float centerx, float centery)
 
 void Cboss_mushmam::move(bulletManager* bm, Cmushmam_mushroom_G* mrG, Cmushmam_mushroom_P* mrP, Cmushmam_mushroom_B* mrB, Cmushman_mushroom* smr)
 {
-	_viMonster->patternCount++;
+	if (!_stop) _viMonster->patternCount++;
 	switch (_viMonster->activestate)
 	{
 	case MONSTERACTIVE::NONE:
@@ -3425,7 +3430,7 @@ void Cboss_mushmam::move(bulletManager* bm, Cmushmam_mushroom_G* mrG, Cmushmam_m
 		break;
 
 	case MONSTERACTIVE::DEATH:
-		_viMonster->deathalpha -= 3;
+		if (!_stop) _viMonster->deathalpha -= 3;
 		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
 		if (_viMonster->deathalpha == 0) {
 			_viMonster->afterDeath = true;
@@ -4223,6 +4228,8 @@ void Cyggdrasil::update(Cplayer* py, bulletManager* bm, Cyggdrasil_bomb* bomb)
 	//업뎃
 	for (_viMonster = _vMonster.begin(); _viMonster != _vMonster.end(); ++_viMonster)
 	{
+		hp = _viMonster->hp;
+
 		_viMonster->x = _viMonster->neverchangeX;
 		_viMonster->y = _viMonster->neverchangeY;
 		_viMonster->bossRc[0] = RectMake(_viMonster->x + _viMonster->img->getFrameWidth() / 10, _viMonster->y + _viMonster->img->getFrameHeight() * 2 / 10, _viMonster->width, _viMonster->height);
@@ -4285,7 +4292,8 @@ void Cyggdrasil::addMonster(float centerx, float centery)
 {
 	tagMonster newMonster;
 	newMonster.img = IMAGE->findImage("이그드라실");
-	newMonster.ani = ANIMATION->addNoneKeyAnimation("이그드라실", 0, 2, 2, false, false);
+	int aniarr[] = { 0 };
+	newMonster.ani = ANIMATION->addNoneKeyAnimation("이그드라실", aniarr, sizeof(aniarr)/sizeof(int), 2, false);
 	newMonster.frameX = 0;
 	newMonster.frameY = 0;
 	newMonster.width = newMonster.img->getFrameWidth() * 4 / 5;
@@ -4295,7 +4303,7 @@ void Cyggdrasil::addMonster(float centerx, float centery)
 	newMonster.neverchangeX = newMonster.x;
 	newMonster.neverchangeY = newMonster.y;
 	newMonster.rc = RectMake(newMonster.x + newMonster.img->getFrameWidth() / 10, newMonster.y + newMonster.img->getFrameHeight() * 1 / 4, newMonster.width, newMonster.img->getFrameHeight() * 4 / 5);
-	newMonster.footRc = RectMake(newMonster.x + newMonster.img->getFrameWidth() / 10, newMonster.y + newMonster.img->getFrameHeight() * 1 / 4, newMonster.width, newMonster.img->getFrameHeight() * 4 / 5);
+	newMonster.footRc = RectMake(newMonster.x + newMonster.img->getFrameWidth()/4, newMonster.y + newMonster.img->getFrameHeight() * 19 / 22, newMonster.img->getFrameWidth() / 2, newMonster.img->getFrameHeight() * 2 / 22);
 	newMonster.bossRc[0] = RectMake(newMonster.x + newMonster.img->getFrameWidth() / 10, newMonster.y + newMonster.img->getFrameHeight() * 2 / 10, newMonster.width, newMonster.height);
 	newMonster.bossRc[1] = RectMake(newMonster.x + newMonster.img->getFrameWidth()* 4 / 10, newMonster.y + newMonster.img->getFrameHeight() * 7 / 10, newMonster.width * 1 / 4, newMonster.height * 3 / 5);
 	newMonster.speed = 2;
@@ -4310,7 +4318,7 @@ void Cyggdrasil::addMonster(float centerx, float centery)
 	newMonster.range = 1500;
 	newMonster.framecount = 0;
 	newMonster.stunCount = 0;
-	newMonster.patternCount = 0;
+	newMonster.patternCount = 1;
 	newMonster.deathalpha = 255;
 	newMonster.attackNum = 0;
 	newMonster.isLeft = false;
@@ -4325,7 +4333,7 @@ void Cyggdrasil::addMonster(float centerx, float centery)
 
 void Cyggdrasil::move(bulletManager* bm, Cyggdrasil_bomb* bomb)
 {
-	_viMonster->patternCount++;
+	if (!_stop) _viMonster->patternCount++;
 	switch (_viMonster->activestate)
 	{
 	case MONSTERACTIVE::NONE:
@@ -4516,7 +4524,7 @@ void Cyggdrasil::move(bulletManager* bm, Cyggdrasil_bomb* bomb)
 	case MONSTERACTIVE::RNDMOVE:
 		break;
 	case MONSTERACTIVE::DEATH:
-		_viMonster->deathalpha -= 1;
+		if(!_stop) _viMonster->deathalpha -= 1;
 		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
 		if (_viMonster->deathalpha == 0) {
 			_viMonster->afterDeath = true;
@@ -4535,7 +4543,8 @@ void Cyggdrasil::giveFrame()
 				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "이그드라실", 15, 18, 3, false, false);
 			}
 			else {
-				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "이그드라실", 6, 8, 3, false, false);
+				int aniarr[] = { 0, 1, 2, 6, 7, 8 };
+				ANIMATION->changeNonKeyAnimation(_viMonster->ani, "이그드라실", aniarr, sizeof(aniarr)/sizeof(int), 5, false);
 			}
 		}
 		if (_viMonster->patternCount == 251) {
@@ -4610,7 +4619,7 @@ void Cyggdrasil::giveFrame()
 	}
 
 	//프레임카운트증가(상태변화 알림외에 기능 없음)
-	_viMonster->framecount++;
+	if (!_stop) _viMonster->framecount++;
 }
 
 void Cyggdrasil::knockback(vector<tagMonster>::iterator iter, float x, float y, int damage, float knockbackRange, bool stun)
@@ -4939,5 +4948,5 @@ void Cyggdrasil_bomb::checkPlayerXY(Cplayer* py)
 void Cyggdrasil_bomb::makeCollisionRect(vector<tagMonster>::iterator iter)
 {
 	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() * 1 / 6, iter->y + iter->img->getFrameHeight() * 1 / 6, iter->width, iter->height);
-	iter->footRc = RectMake(iter->rc.left, iter->rc.top + iter->height / 2, iter->width, iter->height / 2);
+	iter->footRc = RectMake(iter->x + iter->img->getFrameWidth() / 4, iter->y + iter->img->getFrameHeight() * 19 / 22, iter->img->getFrameWidth() / 2, iter->img->getFrameHeight() * 2 / 22);
 }

@@ -133,12 +133,12 @@ void camera::update()
 		//pivot 거리가 충분히 가까워졌다면 그냥 자석
 		if (UTIL::getDistance(_x, _y, _changePivotX, _changePivotY) < _changeSpeed + 1.f)
 		{
-			_pivotX = _changePivotX;
-			_pivotY = _changePivotY;
-			//pivotX = _pivotX;
-			//pivotY = _pivotY;
-			_savePivot.x = _pivotX;
-			_savePivot.y = _pivotY;
+			//_pivotX = _changePivotX;
+			//_pivotY = _changePivotY;
+			////pivotX = _pivotX;
+			////pivotY = _pivotY;
+			//_savePivot.x = _pivotX;
+			//_savePivot.y = _pivotY;
 			_state = CAMERASTATE::FOLLOWPIVOT;
 		}
 		break;

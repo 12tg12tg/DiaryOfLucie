@@ -66,8 +66,6 @@ void mainDOL::update()
 		EFFECT->update();
 
 		CAMERA->FadeUpdate();
-		CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
-		CAMERA->update();
 	}
 	SCENE->update();
 }
@@ -99,7 +97,7 @@ void mainDOL::render()
 		_DOLBuffer->render(IMAGE->findImage("SCORPDC")->getMemDC(), 0, 0, CAMERA->getRect().left, CAMERA->getRect().top,
 			RecWidth(CAMERA->getRect()), RecHeight(CAMERA->getRect()));
 		//3. SCORPDC를 확대하여 memDC에 출력.
-		IMAGE->findImage("SCORPDC")->stretchRenderXY(getMemDC(), 0, 0, GAMEDCRATIO);
+		IMAGE->findImage("SCORPDC")->stretchRenderXY(getMemDC(), 0, 0, StretchRatio);
 		//--------------------------------------------------------------------------------------
 	}
 
@@ -109,6 +107,9 @@ void mainDOL::render()
 	CAMERA->FadeRender(getMemDC());
 	//커서 - 마우스는 최후반.
 	IMAGE->findImage("DOL_cursor")->render(getMemDC(), m_ptMouse.x, m_ptMouse.y);
+	TCHAR str[128];
+	wsprintf(str, "카메라 레프트/탑 : %d, %d", CAMERA->getRect().left, CAMERA->getRect().top);
+	TextOut(getMemDC(),0, 0, str, lstrlen(str));
 }
 
 void mainDOL::gameInit()
