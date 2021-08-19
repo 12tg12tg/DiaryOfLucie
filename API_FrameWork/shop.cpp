@@ -28,6 +28,7 @@ HRESULT shop::add(float centerx, float centery)
 	isConversation2 = false;
 	isConversation3 = false;
 	isConversation4 = false;
+	isConversation5 = false;
 
 	boxAlpha = 200;
 
@@ -84,7 +85,7 @@ void shop::render()
 	}
 	
 	//항상 ON 대화상자
-	if (isConversation1 || isConversation2 || isConversation3 || isConversation4)
+	if (isConversation1 || isConversation2 || isConversation3 || isConversation4 || isConversation5)
 	{
 		ZORDER->UIAlphaRender(IMAGE->findImage("마리이름상자"), ZUISECOND, 0, 188 + ADJUSTSHOPX, talkRc.top - 5 - IMAGE->findImage("마리이름상자")->getHeight(), boxAlpha);
 		ZORDER->UIAlphaRender(IMAGE->findImage("상점대화상자"), ZUISECOND, 0, talkRc.left, talkRc.top, boxAlpha);
@@ -151,6 +152,14 @@ void shop::render()
 					0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
 				RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 		}
+		if (isConversation5) {
+			RECT txtRc = RectMake(talkRc.left + 15, talkRc.top + 15, RecWidth(talkRc) - 30, RecHeight(talkRc) - 30);
+			string str = "인벤토리 창이 부족한거 같은데?";
+			ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
+				CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+					0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
+				RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
+		}
 	//수리를 할거냐는 문구와 버튼 두개가 뜸.
 	if (BUTTON->isMouseOver("수락")) {
 		ZORDER->UIAlphaRender(mouseoverImg, ZUISECOND, 1, 225+ ADJUSTSHOPX, 516, 100);
@@ -207,18 +216,32 @@ void shop::soldItem()
 					isConversation2 = false;
 					if (PLAYERDATA->changeGold(/*가격*/-itemdata[currentItemIndex].price, true))//돈 비교. 차감 구문
 					{
-						PLAYERDATA->changeGold(/*가격*/-itemdata[currentItemIndex].price, false);
 						_speakCount = 0;
-						isConversation3 = true;	//고마워!
 						if (itemdata[currentItemIndex].itemType == ITEMTYPE::accesory)
 						{
-							;
+						PLAYERDATA->changeGold(/*가격*/-itemdata[currentItemIndex].price, false);
+							INVENTORY->InventoryDataPushBack(itemdata[currentItemIndex].item_name, itemdata[currentItemIndex].equipHP, itemdata[currentItemIndex].equipMP);
+							emptyitem(currentItemIndex);;
+							isConversation3 = true;	//고마워!
 						}
 						else
 						{
-						INVENTORY->InventoryDataPushBack(itemdata[currentItemIndex].item_name, itemdata[currentItemIndex].equipHP, itemdata[currentItemIndex].equipMP);
+							if (INVENTORY->inventoryEmptyCheck())
+							{
+								PLAYERDATA->changeGold(/*가격*/-itemdata[currentItemIndex].price, false);
+								INVENTORY->InventoryDataPushBack(itemdata[currentItemIndex].item_name, itemdata[currentItemIndex].equipHP, itemdata[currentItemIndex].equipMP);
+								emptyitem(currentItemIndex);
+							isConversation3 = true;	//고마워!
+							}
+							else
+							{
+								_speakCount = 0;
+								isConversation3 = false;
+								isConversation4 = false;
+								isConversation5 = true;
+							}
 						}
-						emptyitem(currentItemIndex);
+					
 					}
 					else {
 						_speakCount = 0;
@@ -250,6 +273,15 @@ void shop::soldItem()
 				_speakCount = 0;
 				isConversation3 = false;
 				isConversation4 = false;
+				PLAYER->playerStop();
+			}
+		}
+
+		if (isConversation5)
+		{
+			if (_speakCount > 140) {
+				_speakCount = 0;
+				isConversation5 = false;
 				PLAYER->playerStop();
 			}
 		}

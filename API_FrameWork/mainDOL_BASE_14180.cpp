@@ -68,6 +68,7 @@ void mainDOL::update()
 		break;
 	case mainDOL::DOLSTATE::INMAP:
 	{
+		if (INPUT->isOnceKeyDown('K')) _sk->addSkill();
 
 		_bm->update();
 		_mm->update();
@@ -92,9 +93,7 @@ void mainDOL::update()
 	}
 	SCENE->update();			//INMAP상태일때는 mapManager에서 씬업데이트중.
 
-	if (INPUT->isOnceKeyDown(VK_F5)) {
-		_mapm->clearMonster();
-	}
+
 }
 
 void mainDOL::render()
@@ -176,7 +175,6 @@ void mainDOL::gameInit()
 	_cm->setmapManagerMemoryLink(_mapm);		//충돌에서 맵링크
 	_mapm->setMonsterManagerMemoryLink(_mm);	//맵에서 몬스터링크
 	_mapm->setBulletManagerMemoryLink(_bm);		//맵에서 불릿링크
-	_mapm->setSkillMemoryLink(_sk);				//맵에서 스킬
 	PLAYER->setBulletManagerMemoryLink(_bm);
 	_sk->setBulletManagerMemoryLink(_bm);
 

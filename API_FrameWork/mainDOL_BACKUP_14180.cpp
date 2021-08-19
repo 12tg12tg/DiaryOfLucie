@@ -68,7 +68,11 @@ void mainDOL::update()
 		break;
 	case mainDOL::DOLSTATE::INMAP:
 	{
+<<<<<<< HEAD
+		
 
+=======
+>>>>>>> origin/ì˜ˆê· ìƒˆìž‘ì—…
 		_bm->update();
 		_mm->update();
 		_cm->update();
@@ -92,9 +96,7 @@ void mainDOL::update()
 	}
 	SCENE->update();			//INMAP»óÅÂÀÏ¶§´Â mapManager¿¡¼­ ¾À¾÷µ¥ÀÌÆ®Áß.
 
-	if (INPUT->isOnceKeyDown(VK_F5)) {
-		_mapm->clearMonster();
-	}
+
 }
 
 void mainDOL::render()
