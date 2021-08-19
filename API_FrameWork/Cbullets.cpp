@@ -2963,7 +2963,7 @@ void CpSkil_Charge::fire(float x, float y, float angle, int plussize)
 	bullet.bulletImage = new  image;
 	bullet.bulletImage = IMAGE->addImage("ÃæÀüÃÑ¾Ë", "images/bullet_bmp/PBullet_Charge.bmp", 26+ plussize, 26+ plussize, true);
 	bullet.angle = angle;
-	bullet.speed = 3.0f;
+	bullet.speed = 2.0f;
 	bullet.x = bullet.fireX = x;
 	bullet.y = bullet.fireY = y;
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,

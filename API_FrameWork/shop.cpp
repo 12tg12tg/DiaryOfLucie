@@ -210,7 +210,14 @@ void shop::soldItem()
 						PLAYERDATA->changeGold(/*가격*/-itemdata[currentItemIndex].price, false);
 						_speakCount = 0;
 						isConversation3 = true;	//고마워!
+						if (itemdata[currentItemIndex].itemType == ITEMTYPE::accesory)
+						{
+							;
+						}
+						else
+						{
 						INVENTORY->InventoryDataPushBack(itemdata[currentItemIndex].item_name, itemdata[currentItemIndex].equipHP, itemdata[currentItemIndex].equipMP);
+						}
 						emptyitem(currentItemIndex);
 					}
 					else {
