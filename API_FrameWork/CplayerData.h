@@ -62,6 +62,8 @@ private:
 	int correct;
 
 private:
+	void imageInit();
+private:
 	int UIalpha;
 	progressBar* _EXPBar;
 	progressBar* _StaminaBar;
@@ -78,8 +80,6 @@ public:
 	void update();
 	void render(HDC hdc);
 
-private:
-	void imageInit();
 
 public:
 	void changeHP(int HP);

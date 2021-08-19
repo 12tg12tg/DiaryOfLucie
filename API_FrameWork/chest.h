@@ -1,5 +1,6 @@
 #pragma once
 #include "object.h"
+#include "Item.h"
 class chest : public object
 {
 private:
@@ -14,6 +15,10 @@ private:
 	int _openCount;
 	bool _isOpen;
 	int _curBox;
+	ITEMDATA itemdata[4] = {};
+	
+
+	
 
 	//bool _isDebug;
 public:

@@ -143,6 +143,8 @@ private:
 	int _swordCorrent;
 
 private:
+	void imageInit();
+private:
 	int imageLeftCorrection;
 	int imageTopCorrection;
 	int _alpha;
@@ -178,8 +180,6 @@ public:
 	void update();
 	void render(HDC hdc);
 
-private:
-	void imageInit();
 
 private:
 	void inputCheck();

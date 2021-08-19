@@ -66,6 +66,8 @@ void chest::render()
 		ZORDER->ZorderRectangleColor(_footRc, ZCOL2, MINT);
 	}
 	ZORDER->ZorderAniRender(_img, ZUNIT, _footRc.bottom, _x, _y, _ani);
+	if(_isOpen)
+	ZORDER->ZorderRender(itemdata[0].item_image, ZUNIT, _y + _img->getHeight() / 2 + 10,RecCenX(_footRc),RecCenY(_footRc)+30);
 }
 
 void chest::playerInterCollision()
@@ -150,14 +152,24 @@ void chest::afterHit()
 	if (!_isOpen) return;
 	if (_openCount == 0) {
 		//작은상자
+			
 		if (_curBox == 0)
 		{
 			/*아이템뱉기*/
+			int random = 0;
+			random = RND->getFromInTo(0, ITEM->getV_Item().size() - 1);
+			itemdata[0] = ITEM->getV_Item()[random];
+			ITEM->removeitem(random);
+		
 		}
 		//큰상자
 		else
 		{
 			/*아이템뱉기*/
+			int random = 0;
+			random = RND->getFromInTo(0, ITEM->getV_Item().size() - 1);
+			itemdata[0] = ITEM->getV_Item()[random];
+			ITEM->removeitem(random);
 		}
 	}
 }

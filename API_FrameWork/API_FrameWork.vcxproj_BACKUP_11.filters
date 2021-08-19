@@ -109,8 +109,13 @@
     <Filter Include="DOL\option">
       <UniqueIdentifier>{7213c159-80a8-47ff-8076-bf66c1ccac5e}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
+    <Filter Include="DOL\skill">
+      <UniqueIdentifier>{b46f5ae9-8718-4de5-afbd-bfe98964ac35}</UniqueIdentifier>
+=======
     <Filter Include="DOL\Aplayer">
       <UniqueIdentifier>{2fa5e2d3-ba00-42e2-90dc-782fa39e9f51}</UniqueIdentifier>
+>>>>>>> mapbranch
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -267,8 +272,13 @@
     <ClInclude Include="option.h">
       <Filter>DOL\option</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="Cskill.h">
+      <Filter>DOL\skill</Filter>
+=======
     <ClInclude Include="Inventory.h">
       <Filter>DOL\Item</Filter>
+>>>>>>> mapbranch
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -407,8 +417,13 @@
     <ClCompile Include="option.cpp">
       <Filter>DOL\option</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="Cskill.cpp">
+      <Filter>DOL\skill</Filter>
+=======
     <ClCompile Include="Inventory.cpp">
       <Filter>DOL\Item</Filter>
+>>>>>>> mapbranch
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

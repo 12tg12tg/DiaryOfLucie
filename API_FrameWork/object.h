@@ -10,10 +10,7 @@ protected:
 	float _x, _y;
 	int _hp;
 	animation* _ani;
-
-
-
-
+	
 
 	bool _isDebug;
 public:

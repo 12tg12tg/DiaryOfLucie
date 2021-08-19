@@ -1437,10 +1437,6 @@ fountainMap::fountainMap()
 	_door[2].Door = RectMake(990, 355, 25, 120);//right
 	_door[3].Door = RectMake(427, 650, 160, 25); //bottom
 
-	monpos[0] = { 470,263 };
-	monpos[1] = { 473,573 };
-	monpos[2] = { 681,381 };
-	monpos[3] = { 330,440 };
 	_portalImage = IMAGE->addFrameImage("Æ÷Å»", "images/map/portal2.bmp", 960, 768, 5, 4, true, RGB(255, 0, 255));
 	_fountain = new fountain;
 	_fountain->add(504, 362);

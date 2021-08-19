@@ -17,7 +17,7 @@ HRESULT mainDOL::init()
 	_DOLtitle = dynamic_cast<DOL_Title*>(SCENE->addScene("타이틀", new DOL_Title, false));
 	_loading = dynamic_cast<loading*>(SCENE->addScene("로딩", new loading(_mapm), false));
 	SCENE->changeScene("타이틀");
-	_state = DOLSTATE::LOADING;
+
 
 	return S_OK;
 }
@@ -39,86 +39,55 @@ void mainDOL::release()
 
 void mainDOL::update()
 {
-	//반환형에 따른 DOLSTATE변경
-	if (_state == DOLSTATE::LOADING && _loading->getIsLodingDone()) {
-		_state = DOLSTATE::INMAP;
+	//로딩끝났는지확인
+	if (_loading->getIsLodingDone()) {
+		canUpdate = true;
 	}
-	if (_state == DOLSTATE::INMAP && _mapm->getGoNextStage())
+	if (_mapm->getGoNextStage())
 	{
-		_state = DOLSTATE::LOADING;
+		canUpdate = false;
 	}
-	if (_state != DOLSTATE::LOADING) {
-		if (_sk->getIsSkillInfo()) {
-			_state = DOLSTATE::GETSKILL;
-		}
-		else{
-			_state = DOLSTATE::INMAP;
-		}
-	}
-
-
-	//상태별로
-	switch (_state)
-	{
-	case mainDOL::DOLSTATE::LOADING:
+	//타이틀과 게임시작화면 & 로딩
+	if (!canUpdate) {
 		SCENE->update();
 		EFFECT->update();
 		SCENE->update();
 		BUTTON->update();
-		break;
-	case mainDOL::DOLSTATE::INMAP:
-	{
-		if (INPUT->isOnceKeyDown('K')) _sk->addSkill();
-
+	}
+	//로딩준비가끝났을때부터 업데이트가능.
+	else {
 		_bm->update();
 		_mm->update();
 		_cm->update();
 		_mapm->update();
 		BUTTON->update();
-		_sk->update();
 		PLAYER->update();
 		PLAYERDATA->update();
 		EFFECT->update();
 		INVENTORY->update();
-		ITEM->update();
+
 		CAMERA->FadeUpdate();
 	}
-		break;
-	case mainDOL::DOLSTATE::GETSKILL:
-		_sk->update();
-		break;
-	default:
-		break;
-	}
-	SCENE->update();			//INMAP상태일때는 mapManager에서 씬업데이트중.
-
-
+	SCENE->update();
 }
 
 void mainDOL::render()
 {
-	//상태별로 ZORDER에 담을 인스턴스 결정.
-	switch (_state)
-	{
-	case mainDOL::DOLSTATE::LOADING:
-	{
+	if (!canUpdate) {
+		//씬
 		SCENE->render();
 		BUTTON->render(getMemDC());
 	}
-		break;
-	case mainDOL::DOLSTATE::INMAP:
-	case mainDOL::DOLSTATE::GETSKILL:
-	{
+	else {
 		//아래로 쭉 Zorder에 저장
 		_bm->render();
 		_mm->render();
 		_cm->render();
 		_mapm->render();
-		_sk->render();
 		PLAYER->render(getDolDC());
 		EFFECT->render();
-		ITEM->render();
-		//화면 고정형 UI 여기서부터 ZORDER에 담기.
+
+		//화면 고정형 UI 여기서부터 출력.
 		PLAYERDATA->render(getMemDC());
 		BUTTON->render(getMemDC());
 		INVENTORY->render(getMemDC());
@@ -133,23 +102,16 @@ void mainDOL::render()
 		IMAGE->findImage("SCORPDC")->stretchRenderXY(getMemDC(), 0, 0, GAMEDCRATIO);
 		//--------------------------------------------------------------------------------------
 	}
-		break;
-	default:
-		break;
-	}
 
-	//전 상태 공통출력
-	//4. ZORDER UI 출력
+	//실제 UI 출력
 	ZORDER->ZorderUITotalRender(getMemDC());
-	//5. 페이드 효과 출력 - UI까지 덮어버리기.
+	//페이드 효과 출력 - UI까지 덮어버리기.
 	CAMERA->FadeRender(getMemDC());
-	//6. 커서 - 마우스는 최후반.
+	//커서 - 마우스는 최후반.
 	IMAGE->findImage("DOL_cursor")->render(getMemDC(), m_ptMouse.x, m_ptMouse.y);
-
-	//-----------------------------------------테스트-----------------------------------------
-	//TCHAR str[128];
-	//wsprintf(str, "카메라 레프트/탑 : %d, %d", CAMERA->getRect().left, CAMERA->getRect().top);
-	//TextOut(getMemDC(),0, 0, str, lstrlen(str));
+	TCHAR str[128];
+	wsprintf(str, "카메라 레프트/탑 : %d, %d", CAMERA->getRect().left, CAMERA->getRect().top);
+	TextOut(getMemDC(),0, 0, str, lstrlen(str));
 }
 
 void mainDOL::gameInit()
@@ -158,29 +120,32 @@ void mainDOL::gameInit()
 	_cm = new collisionManager;
 	_mm = new monsterManager;
 	_mapm = new mapManager;
-	_sk = new Cskill;
+
 	PLAYER->init();
 	PLAYERDATA->init();
-	ITEM->init();
+<<<<<<< HEAD
 	INVENTORY->init();
 
+=======
+>>>>>>> a45f1af7a33c7962588f5c37b14e8c2441156df3
 	_bm->init();
 	_cm->init();
 	_mm->init();
-	_sk->init();
 	_mm->setBulletManagerMemoryLink(_bm);		//몬스터에서 블릿링크
+
 	_cm->setBulletManagerMemoryLink(_bm);		//충돌에서 불릿링크
 	_cm->setMonsterManagerMemoryLink(_mm);		//충돌에서 몬스터링크
 	_cm->setmapManagerMemoryLink(_mapm);		//충돌에서 맵링크
 	_mapm->setMonsterManagerMemoryLink(_mm);	//맵에서 몬스터링크
 	_mapm->setBulletManagerMemoryLink(_bm);		//맵에서 불릿링크
 	PLAYER->setBulletManagerMemoryLink(_bm);
-	_sk->setBulletManagerMemoryLink(_bm);
 
 	//_mapm->init();		//로딩에서 init되도록 막음.
 
 
-	//CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
-	//	1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
-	//CAMERA->FadeStart();
+
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
+	CAMERA->FadeStart();
+
 }

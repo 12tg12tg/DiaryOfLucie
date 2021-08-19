@@ -6,19 +6,6 @@ enum ITEMTYPE {
 	usefule,
 	accesory
 };
-enum WEAPON_TYPE
-{
-	bow,
-	staff,
-	sword
-};
-
-enum EQUIPTYPE 
-{
-	hat,
-	armor,
-	boot
-};
 struct ITEMDATA 
 {
 	image* item_image;
@@ -26,8 +13,6 @@ struct ITEMDATA
 	string item_name;
 	string item_info;
 	string item_shopInfo;
-	WEAPON_TYPE weapon_type;
-	EQUIPTYPE equip_type;
 	int price = 0;
 	int x, y;
 	ITEMTYPE itemType;
@@ -62,12 +47,12 @@ public:
 
 	vector<ITEMDATA> getV_Item() { return _vItem; }
 	vector<ITEMDATA>::iterator getVI_Item() { return _viItem; }
+<<<<<<< HEAD
 	vector<ITEMDATA> copyItemVect() { return _vItem; }
 	vector<ITEMDATA>::iterator copyItemIter() { return _viItem; }
+=======
+>>>>>>> aa7f09d8cec0ef161603b3cc6ec1792fb17db411
 
-	void setIsDebug(bool isDebug) { 
-		_isDebug = isDebug;
-	
-}
+	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
 

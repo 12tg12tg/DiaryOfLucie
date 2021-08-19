@@ -1,5 +1,6 @@
 #pragma once
 #include "object.h"
+#include "Item.h"
 class shop : public object
 {
 protected:
@@ -10,9 +11,10 @@ protected:
 
 	Button* but1;
 	Button* but2;
+	
+	ITEMDATA itemdata[4] = {};
 
 	BYTE boxAlpha;
-
 	RECT interRc[4];
 	RECT talkRc;
 
@@ -35,7 +37,11 @@ public:
 	virtual void release();
 	virtual void update(bulletManager* bm);
 	virtual void render();
-
+	void emptyitem(int array) {
+		itemdata[array].item_image = IMAGE->addImage("°ø¹é", "images/item/empty.bmp", 32, 32, true, RGB(255, 0, 255));
+		itemdata[array].item_name = "ÆÈ·È¾î";
+		itemdata[array].item_shopInfo = "";
+	}
 	void playerInterCollision();
 	void soldItem();
 };
