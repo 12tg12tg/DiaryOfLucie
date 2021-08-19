@@ -6,6 +6,21 @@ enum ITEMTYPE {
 	usefule,
 	accesory
 };
+enum WEAPONTYPE
+{
+	empty,
+	bow,
+	staff,
+	sword
+};
+
+enum EQUIPTYPE 
+{
+	empty,
+	hat,
+	armor,
+	boot
+};
 struct ITEMDATA 
 {
 	image* item_image;
@@ -13,6 +28,8 @@ struct ITEMDATA
 	string item_name;
 	string item_info;
 	string item_shopInfo;
+	WEAPONTYPE weapon_type;
+	EQUIPTYPE equip_type;
 	int price = 0;
 	int x, y;
 	ITEMTYPE itemType;
