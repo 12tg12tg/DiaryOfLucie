@@ -44,7 +44,7 @@ HRESULT shop::add(float centerx, float centery)
 	//아이템 위치 : RecCenX(interRc[i]), RecCenY(interRc[i])
 
 	
-	//usableBt = BUTTON->addFixableRect("사각1", MINT);
+
 	return S_OK;
 }
 
@@ -138,7 +138,7 @@ void shop::render()
 			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 	}
 
-	//수리를 할거냐는 문구와 버튼 두개가 뜸.
+	//수락/거절
 	if (BUTTON->isMouseOver("수락")) {
 		ZORDER->UIAlphaRender(mouseoverImg, ZUISECOND, 1, 225+ ADJUSTSHOPX, 516, 100);
 	}

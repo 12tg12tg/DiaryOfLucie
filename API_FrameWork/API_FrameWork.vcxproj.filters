@@ -112,6 +112,9 @@
     <Filter Include="DOL\option">
       <UniqueIdentifier>{7213c159-80a8-47ff-8076-bf66c1ccac5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DOL\skill">
+      <UniqueIdentifier>{b46f5ae9-8718-4de5-afbd-bfe98964ac35}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -267,6 +270,9 @@
     <ClInclude Include="option.h">
       <Filter>DOL\option</Filter>
     </ClInclude>
+    <ClInclude Include="Cskill.h">
+      <Filter>DOL\skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -403,6 +409,9 @@
     </ClCompile>
     <ClCompile Include="option.cpp">
       <Filter>DOL\option</Filter>
+    </ClCompile>
+    <ClCompile Include="Cskill.cpp">
+      <Filter>DOL\skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

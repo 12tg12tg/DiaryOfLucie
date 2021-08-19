@@ -6,7 +6,7 @@
 #include "mapManager.h"
 #include "DOL_Title.h"
 #include "loading.h"
-
+#include "Cskill.h"
 class mainDOL : public gameNode
 {
 //DOL 관련 매니저 인스턴스
@@ -15,7 +15,7 @@ private:
 	collisionManager*	_cm;
 	monsterManager*		_mm;
 	mapManager*			_mapm;
-
+	Cskill*				_sk;
 //-----------------------------
 //각자의 브렌치 인스턴스
 private:
@@ -23,6 +23,15 @@ private:
 	loading* _loading;
 	bool canUpdate;
 
+//현재 게임 상태
+private:
+	enum class DOLSTATE
+	{
+		LOADING,
+		INMAP,
+		GETSKILL,
+	};
+	DOLSTATE _state;
 //-----------------------------
 //디버그모드 관련
 private:
@@ -41,17 +50,26 @@ public:
 
 	void setIsdebug(bool isDebug) {
 		_isDebug = isDebug;
-		if (!canUpdate) {
+		switch (_state)
+		{
+		case mainDOL::DOLSTATE::LOADING:
 			BUTTON->setIsDebug(_isDebug);
-		}
-		if (canUpdate) {
+			break;
+		case mainDOL::DOLSTATE::INMAP:
 			_bm->setIsDebug(_isDebug);
 			_cm->setIsDebug(_isDebug);
 			_mm->setIsDebug(_isDebug);
 			_mapm->setIsDebug(_isDebug);
+			_sk->setIsDebug(_isDebug);
 			BUTTON->setIsDebug(_isDebug);
 			PLAYER->setIsDebug(_isDebug);
 			PLAYERDATA->setIsDebug(_isDebug);
+			break;
+		case mainDOL::DOLSTATE::GETSKILL:
+			_sk->setIsDebug(_isDebug);
+			break;
+		default:
+			break;
 		}
 	}
 };

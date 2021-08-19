@@ -1558,7 +1558,6 @@ void before_Boss::render()
 	ZORDER->ZorderRender(IMAGE->findImage("보스전가림"), ZABOVEMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("보스전픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
-		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 504, 169, -120, _portal);
 	
 }
 
