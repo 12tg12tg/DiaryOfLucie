@@ -109,11 +109,8 @@
     <Filter Include="DOL\option">
       <UniqueIdentifier>{7213c159-80a8-47ff-8076-bf66c1ccac5e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DOL\A_player">
+    <Filter Include="DOL\Aplayer">
       <UniqueIdentifier>{2fa5e2d3-ba00-42e2-90dc-782fa39e9f51}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DOL\skill">
-      <UniqueIdentifier>{792f8d20-e7aa-4586-9a88-8e23c112a12f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -199,7 +196,7 @@
       <Filter>DOL\DOL_Manager</Filter>
     </ClInclude>
     <ClInclude Include="Cplayer.h">
-      <Filter>DOL\A_player</Filter>
+      <Filter>DOL\Aplayer</Filter>
     </ClInclude>
     <ClInclude Include="Cmonsters.h">
       <Filter>DOL\monsters</Filter>
@@ -220,7 +217,7 @@
       <Filter>manager\OBB</Filter>
     </ClInclude>
     <ClInclude Include="CplayerData.h">
-      <Filter>DOL\A_player</Filter>
+      <Filter>DOL\Aplayer</Filter>
     </ClInclude>
     <ClInclude Include="Zorder.h">
       <Filter>manager\Zorder</Filter>
@@ -272,9 +269,6 @@
     </ClInclude>
     <ClInclude Include="Inventory.h">
       <Filter>DOL\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Cskill.h">
-      <Filter>DOL\skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -342,7 +336,7 @@
       <Filter>DOL\DOL_Manager</Filter>
     </ClCompile>
     <ClCompile Include="Cplayer.cpp">
-      <Filter>DOL\A_player</Filter>
+      <Filter>DOL\Aplayer</Filter>
     </ClCompile>
     <ClCompile Include="Cmonsters.cpp">
       <Filter>DOL\monsters</Filter>
@@ -363,7 +357,7 @@
       <Filter>manager\OBB</Filter>
     </ClCompile>
     <ClCompile Include="CplayerData.cpp">
-      <Filter>DOL\A_player</Filter>
+      <Filter>DOL\Aplayer</Filter>
     </ClCompile>
     <ClCompile Include="Zorder.cpp">
       <Filter>manager\Zorder</Filter>
@@ -415,9 +409,6 @@
     </ClCompile>
     <ClCompile Include="Inventory.cpp">
       <Filter>DOL\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Cskill.cpp">
-      <Filter>DOL\skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

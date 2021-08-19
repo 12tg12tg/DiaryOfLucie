@@ -75,13 +75,17 @@ void mainDOL::update()
 		_cm->update();
 		_mapm->update();
 		BUTTON->update();
-		INVENTORY->update();
 		_sk->update();
 		PLAYER->update();
 		PLAYERDATA->update();
 		EFFECT->update();
+<<<<<<< HEAD
 		INVENTORY->update();
+=======
+
+>>>>>>> 새로태어나자브랜치
 		ITEM->update();
+		INVENTORY->update();
 		CAMERA->FadeUpdate();
 	}
 		break;

@@ -1206,9 +1206,12 @@ void collisionManager::playerToCoin()
 	}
 }
 
-void collisionManager::playerToitem()
+void collisionManager::playerToDropItem()
 {
+	
 }
+
+
 
 void collisionManager::checkMonsterRectPlayer(monster* monster)
 {
@@ -1375,6 +1378,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 							bm->getIce_spearInstance()->getVBullet()[i].y,
 							PLAYERDATA->getDamage(),
 							10, false);
+						bm->getIce_spearInstance()->getVBullet()[i].iscollison = true;
 					}
 					
 				}
@@ -1391,6 +1395,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 							bm->getIce_spearInstance()->getVBullet()[i].y,
 							PLAYERDATA->getDamage(),
 							10, false);
+						bm->getIce_spearInstance()->getVBullet()[i].iscollison = true;
 					}
 				}
 			}

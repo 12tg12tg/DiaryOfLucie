@@ -50,7 +50,13 @@ void Cmap::update()
 	}
 
 	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+
+
+
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
 }
 
@@ -138,9 +144,11 @@ void Cmap2::update()
 
 	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
 
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
-
 }
 
 void Cmap2::render()
@@ -225,9 +233,11 @@ void Cmap3::update()
 
 	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
 
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
-
 }
 
 void Cmap3::render()
@@ -311,9 +321,11 @@ void Cmap4::update()
 
 	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
 
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
-
 }
 
 void Cmap4::render()
@@ -397,9 +409,11 @@ void Cmap5::update()
 
 	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
 
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
-
 }
 
 void Cmap5::render()
@@ -484,9 +498,11 @@ void Cmap6::update()
 
 	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
 
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
-
 }
 
 void Cmap6::render()
@@ -568,9 +584,11 @@ void Cmap7::update()
 
 	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
 
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
-
 }
 
 void Cmap7::render()
@@ -653,9 +671,11 @@ void Cmap8::update()
 
 	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
 
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
-
 }
 
 void Cmap8::render()
@@ -739,9 +759,11 @@ void Cmap9::update()
 
 	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
 
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
-
 }
 
 void Cmap9::render()
@@ -815,7 +837,11 @@ void Cmap10::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
 }
 
@@ -891,7 +917,11 @@ void chestMap::update()
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
 	_chest->update(bm);
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
 }
 
@@ -971,7 +1001,11 @@ void shopMap::update()
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
 	_shop->update(bm);
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
 }
 
@@ -1048,7 +1082,11 @@ void statueMap::update()
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
 	_statue->update(bm);
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
 }
 
@@ -1126,7 +1164,11 @@ void moruMap::update()
 	}
 
 	_moru->update(bm);
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
 }
 
@@ -1263,7 +1305,11 @@ void stage1_Boss::update()
 		}
 	}
 	if (!isShake && !changePivot) {	//특정조건이 아닐때는 무조건 플레이어가 카메라의 중심.
-		CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+		POINT lerp;
+		lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+		lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+		CAMERA->movePivot(lerp.x, lerp.y);
+		CAMERA->update();
 	}
 	//보스들정지풀기
 	if (count == 450) {
@@ -1390,7 +1436,11 @@ void nextStage::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
 }
 
@@ -1474,9 +1524,11 @@ void fountainMap::update()
 
 	_gold_coin->update(); _silver_coin->update(); _bronze_coin->update();
 
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
-
 }
 
 void fountainMap::render()
@@ -1544,7 +1596,11 @@ void before_Boss::update()
 	{
 		_portal = ANIMATION->addNoneKeyAnimation("포탈", 6, 12, 7, true, true);
 	}
-	CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
+
+	POINT lerp;
+	lerp.x = CAMERA->getPivotX() * (1 - 0.02) + PLAYER->getPlayerAddress().x * 0.02;
+	lerp.y = CAMERA->getPivotY() * (1 - 0.02) + PLAYER->getPlayerAddress().y * 0.02;
+	CAMERA->movePivot(lerp.x, lerp.y);
 	CAMERA->update();
 }
 
@@ -1554,7 +1610,6 @@ void before_Boss::render()
 	ZORDER->ZorderRender(IMAGE->findImage("보스전가림"), ZABOVEMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("보스전픽셀"), ZCOLMAP, WINSIZEX, 0, 0);
 	if (_isDebug)ZORDER->ZorderRectangle(_door[1].Door, ZEFFECT1);
-		ZORDER->ZorderAniRender(_portalImage, ZEFFECT1, 504, 169, -120, _portal);
 	
 }
 

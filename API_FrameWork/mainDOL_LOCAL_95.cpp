@@ -75,7 +75,6 @@ void mainDOL::update()
 		_cm->update();
 		_mapm->update();
 		BUTTON->update();
-		INVENTORY->update();
 		_sk->update();
 		PLAYER->update();
 		PLAYERDATA->update();

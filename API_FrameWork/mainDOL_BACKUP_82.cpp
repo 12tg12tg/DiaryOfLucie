@@ -75,8 +75,11 @@ void mainDOL::update()
 		_cm->update();
 		_mapm->update();
 		BUTTON->update();
+<<<<<<< HEAD
 		INVENTORY->update();
+=======
 		_sk->update();
+>>>>>>> eab43b4e2a57756d08f815b34f5de4c88da62b1a
 		PLAYER->update();
 		PLAYERDATA->update();
 		EFFECT->update();

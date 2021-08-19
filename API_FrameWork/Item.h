@@ -29,7 +29,7 @@ struct ITEMDATA
 	WEAPON_TYPE weapon_type;
 	EQUIPTYPE equip_type;
 	int price = 0;
-	int x, y;
+	int x, y = 0;
 	ITEMTYPE itemType;
 	int equipHP = 0;
 	int equipMaxHP =0;
@@ -65,6 +65,9 @@ public:
 	vector<ITEMDATA> copyItemVect() { return _vItem; }
 	vector<ITEMDATA>::iterator copyItemIter() { return _viItem; }
 
-	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+	void setIsDebug(bool isDebug) { 
+		_isDebug = isDebug;
+	
+}
 };
 

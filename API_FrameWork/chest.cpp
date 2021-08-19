@@ -56,6 +56,7 @@ void chest::update(bulletManager* bm)
 	playerCollision();
 	afterHit();
 	giveFrame();
+	takeItem();
 }
 
 void chest::render()
@@ -67,7 +68,10 @@ void chest::render()
 	}
 	ZORDER->ZorderAniRender(_img, ZUNIT, _footRc.bottom, _x, _y, _ani);
 	if(_isOpen)
-	ZORDER->ZorderRender(itemdata[0].item_image, ZUNIT, _y + _img->getHeight() / 2 + 10,RecCenX(_footRc),RecCenY(_footRc)+30);
+		if (_istake == false)
+		{
+			ZORDER->ZorderRender(itemdata[0].item_image, ZUNIT, _y + _img->getHeight() / 2 + 10, RecCenX(itemdata[0].item_colbox),RecCenY(itemdata[0].item_colbox));
+		}
 }
 
 void chest::playerInterCollision()
@@ -159,8 +163,12 @@ void chest::afterHit()
 			int random = 0;
 			random = RND->getFromInTo(0, ITEM->getV_Item().size() - 1);
 			itemdata[0] = ITEM->getV_Item()[random];
+			itemdata[0].x = 500;
+			itemdata[0].y = 500;
+		
 			ITEM->removeitem(random);
 		
+			
 		}
 		//Å«»óÀÚ
 		else
@@ -169,7 +177,10 @@ void chest::afterHit()
 			int random = 0;
 			random = RND->getFromInTo(0, ITEM->getV_Item().size() - 1);
 			itemdata[0] = ITEM->getV_Item()[random];
+			itemdata[0].x = 500;
+			itemdata[0].y = 500;
 			ITEM->removeitem(random);
+		
 		}
 	}
 }
@@ -190,4 +201,24 @@ void chest::giveFrame()
 		}
 	}
 	_openCount++;
+}
+
+void chest::takeItem()
+{
+	RECT rcTemp;
+	if (IntersectRect(&rcTemp, &PLAYER->getPlayerAddress().playerRect, &itemdata[0].item_colbox))
+	{
+		if (_istake == false)
+		{
+			if (itemdata[0].itemType == ITEMTYPE::accesory)
+			{
+				;
+			}
+			else
+			{
+			INVENTORY->InventoryDataPushBack(itemdata[0].item_name, itemdata[0].equipHP, itemdata[0].equipMP);
+			}
+		}
+		_istake = true;
+	}
 }

@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "shop.h"
+
 #define ADJUSTSHOPX	74
 shop::shop()
 {
@@ -63,6 +64,7 @@ void shop::update(bulletManager* bm)
 {
 	playerInterCollision();
 	soldItem();
+	
 }
 
 void shop::render()
@@ -110,46 +112,45 @@ void shop::render()
 				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
 			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 	}
-	if (isConversation2) {
+		if (isConversation2) {
 
-		RECT txtRc = RectMake(talkRc.left + 15, talkRc.top + 15, RecWidth(talkRc) - 30, RecHeight(talkRc) - 30);
-		string str = "가격은 " + to_string(itemdata[currentItemIndex].price) +" 골드인데, 살래?"; /*아이템 가격*/
-		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
-			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
-				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
-			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
+			RECT txtRc = RectMake(talkRc.left + 15, talkRc.top + 15, RecWidth(talkRc) - 30, RecHeight(talkRc) - 30);
+			string str = "가격은 " + to_string(itemdata[currentItemIndex].price) + " 골드인데, 살래?"; /*아이템 가격*/
+			ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
+				CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+					0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
+				RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 
-		txtRc = RectMake(but1->rc.left + 5, but1->rc.top + 5, RecWidth(but1->rc) - 10, RecHeight(but1->rc) - 10);
-		str = "응";
-		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
-			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
-				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
-			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
+			txtRc = RectMake(but1->rc.left + 5, but1->rc.top + 5, RecWidth(but1->rc) - 10, RecHeight(but1->rc) - 10);
+			str = "응";
+			ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
+				CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+					0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
+				RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 
-		txtRc = RectMake(but2->rc.left + 5, but2->rc.top + 5, RecWidth(but2->rc) - 10, RecHeight(but2->rc) - 10);
-		str = "아니";
-		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
-			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
-				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
-			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
-	}
-	if (isConversation3) {
-		RECT txtRc = RectMake(talkRc.left + 15, talkRc.top + 15, RecWidth(talkRc) - 30, RecHeight(talkRc) - 30);
-		string str = "고마워!";
-		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
-			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
-				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
-			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
-	}
-	if (isConversation4) {
-		RECT txtRc = RectMake(talkRc.left + 15, talkRc.top + 15, RecWidth(talkRc) - 30, RecHeight(talkRc) - 30);
-		string str = "돈이 모자란것 같은데?";
-		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
-			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
-				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
-			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
-	}
-
+			txtRc = RectMake(but2->rc.left + 5, but2->rc.top + 5, RecWidth(but2->rc) - 10, RecHeight(but2->rc) - 10);
+			str = "아니";
+			ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
+				CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+					0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
+				RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
+		}
+		if (isConversation3) {
+			RECT txtRc = RectMake(talkRc.left + 15, talkRc.top + 15, RecWidth(talkRc) - 30, RecHeight(talkRc) - 30);
+			string str = "고마워!";
+			ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
+				CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+					0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
+				RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
+		}
+		if (isConversation4) {
+			RECT txtRc = RectMake(talkRc.left + 15, talkRc.top + 15, RecWidth(talkRc) - 30, RecHeight(talkRc) - 30);
+			string str = "돈이 모자란것 같은데?";
+			ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
+				CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+					0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
+				RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
+		}
 	//수리를 할거냐는 문구와 버튼 두개가 뜸.
 	if (BUTTON->isMouseOver("수락")) {
 		ZORDER->UIAlphaRender(mouseoverImg, ZUISECOND, 1, 225+ ADJUSTSHOPX, 516, 100);
@@ -186,48 +187,72 @@ void shop::soldItem()
 	//충돌매니저에서 inter상자 충돌시 e키가 눌리면 canInteraction이 true가 됨.
 	if (isConversation1)	//그건 이름\n. 설명\n.
 	{
-		if (_speakCount > 200) {
-			BUTTON->buttonOn("수락");
-			BUTTON->buttonOn("거절");
-			_speakCount = 0;
-			isConversation1 = false;
-			isConversation2 = true;
-		}
+			if (_speakCount > 200) {
+				BUTTON->buttonOn("수락");
+				BUTTON->buttonOn("거절");
+				_speakCount = 0;
+				isConversation1 = false;
+				isConversation2 = true;
+			}
 	}
-	if (isConversation2)		//가격은 가격 골드인데, 살래?
-	{
-		//산다 선택시
-		if (BUTTON->isClick("수락")) {
-			BUTTON->buttonOff("수락");
-			BUTTON->buttonOff("거절");
-			isConversation2 = false;
-			if (PLAYERDATA->changeGold(/*가격*/-itemdata[currentItemIndex].price, true))//돈 비교. 차감 구문
-			{
-				PLAYERDATA->changeGold(/*가격*/-itemdata[currentItemIndex].price, false);
-				_speakCount = 0;
-				isConversation3 = true;	//고마워!
-			}
-			else {
-				_speakCount = 0;
-				isConversation4 = true;	//돈이 모자란 것 같은데?
-			}
-		}
-		//안산다 선택시
-		else if (BUTTON->isClick("거절"))
+	
+		if (isConversation2)		//가격은 가격 골드인데, 살래?
 		{
-			BUTTON->buttonOff("수락");
-			BUTTON->buttonOff("거절");
-			isConversation2 = false;
-			PLAYER->playerStop();
+			//산다 선택시
+			if (!(itemdata[currentItemIndex].item_name == "팔렸어"))
+			{
+				if (BUTTON->isClick("수락")) {
+					BUTTON->buttonOff("수락");
+					BUTTON->buttonOff("거절");
+					isConversation2 = false;
+					if (PLAYERDATA->changeGold(/*가격*/-itemdata[currentItemIndex].price, true))//돈 비교. 차감 구문
+					{
+						PLAYERDATA->changeGold(/*가격*/-itemdata[currentItemIndex].price, false);
+						_speakCount = 0;
+						isConversation3 = true;	//고마워!
+						if (itemdata[currentItemIndex].itemType == ITEMTYPE::accesory)
+						{
+							;
+						}
+						else
+						{
+						INVENTORY->InventoryDataPushBack(itemdata[currentItemIndex].item_name, itemdata[currentItemIndex].equipHP, itemdata[currentItemIndex].equipMP);
+						}
+						emptyitem(currentItemIndex);
+					}
+					else {
+						_speakCount = 0;
+						isConversation4 = true;	//돈이 모자란 것 같은데?
+					}
+				}
+				//안산다 선택시
+				else if (BUTTON->isClick("거절"))
+				{
+					BUTTON->buttonOff("수락");
+					BUTTON->buttonOff("거절");
+					isConversation2 = false;
+					PLAYER->playerStop();
+				}
+			}
+			else
+			{
+				BUTTON->buttonOff("수락");
+				BUTTON->buttonOff("거절");
+				isConversation2 = false;
+				PLAYER->playerStop();
+			}
 		}
-	}
-	if (isConversation3 || isConversation4)
-	{
-		if (_speakCount > 140) {
-			_speakCount = 0;
-			isConversation3 = false;
-			isConversation4 = false;
-			PLAYER->playerStop();
+	
+
+		if (isConversation3 || isConversation4)
+		{
+			if (_speakCount > 140) {
+				_speakCount = 0;
+				isConversation3 = false;
+				isConversation4 = false;
+				PLAYER->playerStop();
+			}
 		}
-	}
+	
+	
 }

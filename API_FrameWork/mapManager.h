@@ -54,7 +54,7 @@ private:
 	image* _fight;
 	image* _chest;
 	image* _back;
-
+	
 
 	string currentMap;
 	
@@ -140,6 +140,7 @@ public:
 	bool checkNextStage();
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }
+
 	void setIsDebug(bool isDebug) {
 		_isDebug = isDebug;
 		for (int i = 0; i < MAXSIZE; i++)
