@@ -123,9 +123,11 @@ void Cskill::skillFire()
     if (InputManager->isOnceKeyDown(VK_RBUTTON))
     {
         if (skillnum==0 || storage[currentIndex].isCool) return;
-        storage[currentIndex].isCool = true;
-        storage[currentIndex].isOn = true;
-
+        if (PLAYERDATA->costMP(storage[currentIndex].burnMp, true)) {
+            PLAYERDATA->costMP(storage[currentIndex].burnMp);
+            storage[currentIndex].isCool = true;
+            storage[currentIndex].isOn = true;
+        }
     }
 }
 
@@ -174,6 +176,7 @@ void Cskill::selectSKill()
 
 void Cskill::uirender()
 {
+    //BYTE addAlpha = PLAYERDATA->getUIAlpha();
     //4개의 스킬표시
 	for (size_t i = 0; i < skillnum; i++)
 	{
