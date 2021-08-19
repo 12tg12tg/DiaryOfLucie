@@ -176,7 +176,7 @@ void Cskill::selectSKill()
 
 void Cskill::uirender()
 {
-    //BYTE addAlpha = PLAYERDATA->getUIAlpha();
+    BYTE addAlpha = PLAYERDATA->getUIAlpha();
     //4°³ÀÇ ½ºÅ³Ç¥½Ã
 	for (size_t i = 0; i < skillnum; i++)
 	{
@@ -184,21 +184,24 @@ void Cskill::uirender()
             ZORDER->UIRectangle(skillUI[i], ZUISECOND);
             ZORDER->UIRectangle(curRc, ZUISECOND);
         }
-		ZORDER->UIFrameRender(IMAGE->findImage("½ºÅ³ÀÌ¹ÌÁö"), ZUISECOND, 99, skillUI[i].left, skillUI[i].top,
-			storage[i].frameX, storage[i].frameY);
+		ZORDER->UIAlphaFrameRender(IMAGE->findImage("½ºÅ³ÀÌ¹ÌÁö"), ZUISECOND, 99, skillUI[i].left, skillUI[i].top,
+			storage[i].frameX, storage[i].frameY, addAlpha);
+
         if (storage[i].isCool)
         {
             int ctime = (int)(storage[i].cooltime - storage[i].cooldown);
             float ratio = (float)ctime / storage[i].cooltime;
             //ÇØ´ç¹Ú½º¿¡ Èå¸´ÇÑ ÀÌ¹ÌÁö ¾ËÆÄ·£´õÇÏ°í
-            ZORDER->UIAlphaRender(IMAGE->findImage("»ç¿ëºÒ°¡´Éµ¤°³"), ZUISECOND, 100, skillUI[i].left - 4, skillUI[i].top - 4, 180);
+            BYTE thisalpha = (addAlpha > 180) ? 180 : addAlpha;
+            ZORDER->UIAlphaRender(IMAGE->findImage("»ç¿ëºÒ°¡´Éµ¤°³"), ZUISECOND, 100, skillUI[i].left - 4, skillUI[i].top - 4, thisalpha);
+            thisalpha = (addAlpha > 255 * ratio) ? 255 * ratio : addAlpha;
             ZORDER->UIAlphaRender(IMAGE->findImage("ÄðÅ¸ÀÓµ¤°³"),
                 ZUISECOND, 101,
                 skillUI[i].left - 4, skillUI[i].top - 4 + IMAGE->findImage("ÄðÅ¸ÀÓµ¤°³")->getHeight() - IMAGE->findImage("ÄðÅ¸ÀÓµ¤°³")->getHeight() * ratio,
                 0, IMAGE->findImage("ÄðÅ¸ÀÓµ¤°³")->getHeight() - IMAGE->findImage("ÄðÅ¸ÀÓµ¤°³")->getHeight()*ratio,
                 IMAGE->findImage("ÄðÅ¸ÀÓµ¤°³")->getWidth(),
                 IMAGE->findImage("ÄðÅ¸ÀÓµ¤°³")->getHeight()*ratio,
-                255*ratio);
+                thisalpha);
             //ÀÜ¿© ÄðÅ¸ÀÓ Ç¥½Ã
             ZORDER->UIDrawText(to_string(ctime), ZUISECOND,
                 { skillUI[i].left-4, skillUI[i].top+4, skillUI[i].right+4, skillUI[i].bottom+4},
@@ -209,21 +212,31 @@ void Cskill::uirender()
 	}
     //ÇöÀç ¼±ÅÃÁßÀÎ ½ºÅ³ Ç¥½Ã.
     if (skillnum != 0) {
-        ZORDER->UIFrameRender(IMAGE->findImage("½ºÅ³ÀÌ¹ÌÁö"), ZUISECOND, -2, curRc.left, curRc.top-2,
-            storage[currentIndex].frameX, storage[currentIndex].frameY);
+        ZORDER->UIAlphaFrameRender(IMAGE->findImage("½ºÅ³ÀÌ¹ÌÁö"), ZUISECOND, -2, curRc.left, curRc.top-2,
+            storage[currentIndex].frameX, storage[currentIndex].frameY, addAlpha);
         if (storage[currentIndex].isCool)
         {
             int ctime = (int)(storage[currentIndex].cooltime - storage[currentIndex].cooldown);
             float ratio = (float)ctime / storage[currentIndex].cooltime;
             //ÇØ´ç¹Ú½º¿¡ Èå¸´ÇÑ ÀÌ¹ÌÁö ¾ËÆÄ·£´õÇÏ°í
-            ZORDER->UIAlphaRender(IMAGE->findImage("»ç¿ëºÒ°¡´Éµ¤°³È®´ë"), ZUISECOND, -1, curRc.left - 4 - 8, curRc.top - 4 - 6, 180);
+            BYTE thisalpha = (addAlpha > 180) ? 180 : addAlpha;
+            ZORDER->UIAlphaRender(IMAGE->findImage("»ç¿ëºÒ°¡´Éµ¤°³È®´ë"), ZUISECOND, -1, curRc.left - 4 - 8, curRc.top - 4 - 6, thisalpha);
+            thisalpha = (addAlpha > 255 * ratio) ? 255 * ratio : addAlpha;
             ZORDER->UIAlphaRender(IMAGE->findImage("ÄðÅ¸ÀÓµ¤°³È®´ë"),
                 ZUISECOND, 0,
                 curRc.left - 4 - 8, curRc.top - 4 - 8 + IMAGE->findImage("ÄðÅ¸ÀÓµ¤°³È®´ë")->getHeight() - IMAGE->findImage("ÄðÅ¸ÀÓµ¤°³È®´ë")->getHeight() * ratio,
                 0, IMAGE->findImage("ÄðÅ¸ÀÓµ¤°³È®´ë")->getHeight() - IMAGE->findImage("ÄðÅ¸ÀÓµ¤°³È®´ë")->getHeight() * ratio,
                 IMAGE->findImage("ÄðÅ¸ÀÓµ¤°³È®´ë")->getWidth(),
                 IMAGE->findImage("ÄðÅ¸ÀÓµ¤°³È®´ë")->getHeight() * ratio,
-                255 * ratio);
+                thisalpha);
+            //ÀÜ¿© ÄðÅ¸ÀÓ Ç¥½Ã
+            ZORDER->UIDrawText(to_string(ctime), ZUISECOND,
+                { curRc.left - 4, curRc.top + 4, curRc.right + 4, curRc.bottom + 4 },
+                CreateFont(20, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+                    0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY°ß°íµñ")),
+                RGB(255, 255 * (1 - ratio), 255 * (1 - ratio)), DT_CENTER | DT_VCENTER);
+            //¸¶³ª Ç¥½Ã
+            
             //ÀÜ¿© ÄðÅ¸ÀÓ Ç¥½Ã
             ZORDER->UIDrawText(to_string(ctime), ZUISECOND,
                 { curRc.left - 4, curRc.top + 4, curRc.right + 4, curRc.bottom + 4 },
