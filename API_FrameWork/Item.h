@@ -26,6 +26,7 @@ struct ITEMDATA
 	string item_name;
 	string item_info;
 	string item_shopInfo;
+	string item_stat_Info;
 	WEAPON_TYPE weapon_type;
 	EQUIPTYPE equip_type;
 	int price = 0;

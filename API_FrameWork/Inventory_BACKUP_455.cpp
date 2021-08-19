@@ -104,8 +104,12 @@ void Inventory::render(HDC hdc)
 				{
 					if (j.item_name == _vectInventory[i].item_name)
 					{
+<<<<<<< HEAD
+						ZORDER->UIRender(j.item_image, ZUIFIRST, 1, _InvenSlot[i].left + 11, _InvenSlot[i].top + 11);
+=======
 						ZORDER->UIRender(j.item_image, ZUIFIRST, 1, _InvenSlot[i].left+11, _InvenSlot[i].top+11);
 						InventoryInfoRender(i);
+>>>>>>> a70cbc9551063d3f81991adab4e88fe3ab4251fe
 					}
 				}
 			}

@@ -1,8 +1,7 @@
 #pragma once
 #include"gameNode.h"
 #include"Cmap.h"
-#include<map>
-
+#include"Cskill.h"
 #define MAXSIZE 9
 
 
@@ -61,6 +60,7 @@ private:
 	POINT currentIndex;
 	monsterManager* mm;
 	bulletManager* bm;
+	Cskill* sk;
 	int currentMonNum =0;
 	int remainRoom = 12;
 	int mapSize;
@@ -140,7 +140,7 @@ public:
 	bool checkNextStage();
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }
-
+	void setSkillMemoryLink(Cskill* skill) { sk = skill; }
 	void setIsDebug(bool isDebug) {
 		_isDebug = isDebug;
 		for (int i = 0; i < MAXSIZE; i++)

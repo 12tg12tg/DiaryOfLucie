@@ -8,32 +8,32 @@ HRESULT Inventory::init()
 	_isDebug = false;
 
 	this->imageInit();
-
+	
 	for (int i = 0; i < 15; i++)
 	{
-		_InvenSlot[i] = RectMake(1067 + (i % 5) * (_Bright_button_image->getWidth() + 2),
-			256 + (i / 5) * (_Bright_button_image->getHeight() + 5),
+		_InvenSlot[i] = RectMake(1067+(i%5)* (_Bright_button_image->getWidth()+2), 
+			256+(i/5)*( _Bright_button_image->getHeight()+5),
 			_Bright_button_image->getWidth(), _Bright_button_image->getHeight());
 	}
 
-	_vectItemData = ITEM->copyItemVect();
+	_vectItemData= ITEM->copyItemVect();
 
 	return S_OK;
 }
 
-void Inventory::release() {}
+void Inventory::release(){}
 
 void Inventory::update()
 {
 
-	if (INPUT->isOnceKeyDown('I'))
+	if (INPUT->isOnceKeyDown('I')) 
 	{
 		_isInvenON = !_isInvenON;
 	}
 
-	if (INPUT->isOnceKeyDown('K'))
+	if (INPUT->isOnceKeyDown('K')) 
 	{
-		randnum = RND->getFromInTo(0, _vectItemData.size() - 1);
+		randnum=RND->getFromInTo(0, _vectItemData.size()-1);
 		InventoryDataPushBack(_vectItemData[randnum].item_name, _vectItemData[randnum].equipHP, _vectItemData[randnum].equipMP);
 	}
 
@@ -66,14 +66,6 @@ void Inventory::update()
 						}
 					}
 				}
-				else if (INPUT->isOnceKeyDown(VK_RBUTTON) && i < _vectInventory.size())
-				{
-					if (!_vectInventory[i].isEquip)
-					{
-						_iterInventory = _vectInventory.begin() + i;
-						_vectInventory.erase(_iterInventory);
-					}
-				}
 			}
 		}
 	}
@@ -81,28 +73,26 @@ void Inventory::update()
 
 void Inventory::render(HDC hdc)
 {
-	if (_isInvenON)
+	if (_isInvenON) 
 	{
 		//레이아웃 출력
 		ZORDER->UIRender(_inventory_layout, ZUIFIRST, 0, 1033, 195);
-
+		
 		for (int i = 0; i < 15; i++)
 		{
 			if (PtInRect(&_InvenSlot[i], { m_ptMouse.x,m_ptMouse.y }))
 			{
 				//밝게하기 출력
-				ZORDER->UIAlphaRender(_Bright_button_image, ZUIFIRST, 3, _InvenSlot[i].left, _InvenSlot[i].top, 50);
+				ZORDER->UIAlphaRender(_Bright_button_image, ZUIFIRST, 2, _InvenSlot[i].left, _InvenSlot[i].top, 50);
+
 			}
 
 			//현재아이템 인벤토리에 출력하는 부분
-			if (i < _vectInventory.size())
+			if (i < _vectInventory.size()) 
 			{
-				if (_vectInventory[i].isEquip) {
-					ZORDER->UIRender(_Equip_Mark_image, ZUIFIRST, 2, _InvenSlot[i].left, _InvenSlot[i].top);
-				}
 				for (auto& j : _vectItemData)
 				{
-					if (j.item_name == _vectInventory[i].item_name)
+					if (j.item_name == _vectInventory[i].item_name) 
 					{
 						ZORDER->UIRender(j.item_image, ZUIFIRST, 1, _InvenSlot[i].left+11, _InvenSlot[i].top+11);
 						InventoryInfoRender(i);
@@ -116,7 +106,7 @@ void Inventory::render(HDC hdc)
 	int accindex = 0;
 	for (auto& i : _vectAccesory)
 	{
-		ZORDER->UIAlphaRender(i, ZUIFIRST, 0, WINSIZEX / 2 - (i->getWidth() / 2) * (_vectAccesory.size()) + accindex * i->getWidth(), 699, PLAYERDATA->getUIAlpha());
+		ZORDER->UIAlphaRender(i, ZUIFIRST, 0, WINSIZEX / 2 - (i->getWidth() / 2) * (_vectAccesory.size()) + accindex * i->getWidth() , 699, PLAYERDATA->getUIAlpha());
 		accindex++;
 	}
 
@@ -125,9 +115,8 @@ void Inventory::render(HDC hdc)
 
 void Inventory::imageInit()
 {
-	_inventory_layout = IMAGE->addImage("인벤토리레이아웃", "images/UI/인벤layout2.bmp", 240 * 1.3, 296 * 1.3, 1);
-	_Bright_button_image = IMAGE->addImage("버튼밝게", "images/UI/버튼밝게.bmp", 38 * 1.3, 38 * 1.3, 1);
-	_Equip_Mark_image = IMAGE->addImage("장착표시", "images/UI/장착틀1.bmp", 38 * 1.3, 38 * 1.3, 1);
+	_inventory_layout=IMAGE->addImage("인벤토리레이아웃", "images/UI/인벤layout2.bmp", 240 * 1.3, 296 * 1.3, 1);
+	_Bright_button_image=IMAGE->addImage("버튼밝게", "images/UI/버튼밝게.bmp", 38 * 1.3, 38 * 1.3, 1);
 }
 
 void Inventory::InventoryDataPushBack(string item_name, int equipHP, int equipMP)
@@ -147,6 +136,10 @@ void Inventory::InventoryDataPushBack(string item_name, int equipHP, int equipMP
 	}
 }
 
+void Inventory::itemErase()
+{
+
+}
 
 bool Inventory::inventoryEmptyCheck()
 {

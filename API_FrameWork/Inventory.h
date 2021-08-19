@@ -34,7 +34,8 @@ private:
 	image* _Equip_Mark_image;
 
 	RECT _InvenSlot[15];
-
+	RECT infoRc;
+	bool isclicked = true;
 	vector<ITEMDATA> _vectItemData;
 
 	vector<InventoryData> _vectInventory;
@@ -46,4 +47,5 @@ public:
 
 	bool inventoryEmptyCheck();
 
+	void InventoryInfoRender(int array);
 };

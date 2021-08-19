@@ -3,7 +3,6 @@
 
 HRESULT Inventory::init()
 {
-	IMAGE->addImage("인벤토리정보상자", "images/object/inventoryinfobox.bmp", WINSIZEX * 3 / 5, 150, false);
 	_isInvenON = false;
 	_isDebug = false;
 
@@ -104,8 +103,7 @@ void Inventory::render(HDC hdc)
 				{
 					if (j.item_name == _vectInventory[i].item_name)
 					{
-						ZORDER->UIRender(j.item_image, ZUIFIRST, 1, _InvenSlot[i].left+11, _InvenSlot[i].top+11);
-						InventoryInfoRender(i);
+						ZORDER->UIRender(j.item_image, ZUIFIRST, 1, _InvenSlot[i].left + 11, _InvenSlot[i].top + 11);
 					}
 				}
 			}
@@ -119,8 +117,6 @@ void Inventory::render(HDC hdc)
 		ZORDER->UIAlphaRender(i, ZUIFIRST, 0, WINSIZEX / 2 - (i->getWidth() / 2) * (_vectAccesory.size()) + accindex * i->getWidth(), 699, PLAYERDATA->getUIAlpha());
 		accindex++;
 	}
-
-	
 }
 
 void Inventory::imageInit()
@@ -152,50 +148,4 @@ bool Inventory::inventoryEmptyCheck()
 {
 	if (_vectInventory.size() < 15) return true;
 	else return false;
-}
-
-void Inventory::InventoryInfoRender(int array)
-{
-	//장비 설명
-	if (PtInRect(&_InvenSlot[array], m_ptMouse))
-	{
-		isclicked = true;
-	}
-	else
-	{
-		isclicked = false;
-	}
-	if (isclicked) {
-	infoRc = RectMake(600,240,
-		IMAGE->findImage("인벤토리정보상자")->getWidth(),
-		IMAGE->findImage("인벤토리정보상자")->getHeight());
-		RECT txtRc = RectMake(infoRc.left + 15, infoRc.top + 15, RecWidth(infoRc) - 30, RecHeight(infoRc) - 30);
-		string str = _vectItemData[array].item_name; /*아이템 이름*/
-		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
-			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
-				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
-			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
-
-		//txtRc = RectMake(infoRc.left + 15, infoRc.top + 15 + 40, RecWidth(infoRc) - 30, RecHeight(infoRc) - 30 - 40);
-		//str = _vectItemData[array].item_image; /*아이템 이미지*/
-		//ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
-		//	CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
-		//		0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
-		//	RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
-
-		txtRc = RectMake(infoRc.left + 15, infoRc.top + 15 + 40, RecWidth(infoRc) - 30, RecHeight(infoRc) - 30 - 120);
-		str = _vectItemData[array].item_stat_Info; /*아이템 설명*/
-		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
-			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
-				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
-			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
-
-		txtRc = RectMake(infoRc.left + 15, infoRc.top + 15 + 40, RecWidth(infoRc) - 30, RecHeight(infoRc) - 30 - 160);
-		str = _vectItemData[array].item_info; /*아이템 설명*/
-		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
-			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
-				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
-			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
-
-	}
 }
