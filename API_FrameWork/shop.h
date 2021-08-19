@@ -1,5 +1,6 @@
 #pragma once
 #include "object.h"
+#include "Item.h"
 class shop : public object
 {
 protected:
@@ -10,9 +11,10 @@ protected:
 
 	Button* but1;
 	Button* but2;
+	
+	ITEMDATA itemdata[4];
 
 	BYTE boxAlpha;
-
 	RECT interRc[4];
 	RECT talkRc;
 

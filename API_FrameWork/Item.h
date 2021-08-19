@@ -14,7 +14,7 @@ struct ITEMDATA
 	string item_info;
 	string item_shopInfo;
 	int price = 0;
-
+	int x, y;
 	ITEMTYPE itemType;
 	int equipHP = 0;
 	int equipMaxHP =0;
@@ -27,7 +27,7 @@ struct ITEMDATA
 	int equipSkillPower = 0; 
 	int equipSkillCollTime = 0;
 };
-class Item
+class Item:public Singleton<Item>
 {
 private:
 
@@ -39,7 +39,7 @@ public:
 	Item();
 	~Item();
 
-	HRESULT init();
+	HRESULT init(int x , int y);
 	void release();
 	void update();
 	void render();

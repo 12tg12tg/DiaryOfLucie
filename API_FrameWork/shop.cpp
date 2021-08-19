@@ -41,10 +41,16 @@ HRESULT shop::add(float centerx, float centery)
 		IMAGE->findImage("상점대화상자")->getHeight());
 
 	/*아이템4개 랜덤 뽑기 함수*/
+	for (int i = 0; i < 4; i++)
+	{
+		int random = RND->getFromInTo(0, ITEM->getV_Item().size());
+		itemdata[i] = ITEM->getVI_Item()[random];
+		ITEM->removeitem(random);
+	}
+	
 	//아이템 위치 : RecCenX(interRc[i]), RecCenY(interRc[i])
 
-	
-	//usableBt = BUTTON->addFixableRect("사각1", MINT);
+
 	return S_OK;
 }
 
@@ -67,7 +73,6 @@ void shop::render()
 			ZORDER->ZorderRectangle(interRc[i], ZCOL1);
 		}
 	}
-
 	//항상 ON 대화상자
 	if (isConversation1 || isConversation2 || isConversation3 || isConversation4)
 	{

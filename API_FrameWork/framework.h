@@ -46,7 +46,7 @@ using namespace std;
 
 #include"Cplayer.h"
 #include"CplayerData.h"
-
+#include "Item.h"
 //=======================//
 //		Manager			//
 //=====================//
@@ -67,6 +67,7 @@ using namespace std;
 
 #define PLAYER			Cplayer::getSingleton()
 #define PLAYERDATA		CplayerData::getSingleton()
+#define ITEM			Item::getSingleton()
 
 
 //===================//

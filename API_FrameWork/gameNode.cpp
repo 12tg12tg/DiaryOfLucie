@@ -79,6 +79,8 @@ void gameNode::release()
 		ZORDER->releaseSingleton();
 		BUTTON->releaseSingleton();
 		
+		//아이템 해제
+		ITEM->release();
 
 
 		//플레이어 해제
