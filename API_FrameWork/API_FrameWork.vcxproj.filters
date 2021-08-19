@@ -112,6 +112,9 @@
     <Filter Include="DOL\Aplayer">
       <UniqueIdentifier>{2fa5e2d3-ba00-42e2-90dc-782fa39e9f51}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DOL\skill">
+      <UniqueIdentifier>{792f8d20-e7aa-4586-9a88-8e23c112a12f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -270,6 +273,9 @@
     <ClInclude Include="Inventory.h">
       <Filter>DOL\Item</Filter>
     </ClInclude>
+    <ClInclude Include="Cskill.h">
+      <Filter>DOL\skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -409,6 +415,9 @@
     </ClCompile>
     <ClCompile Include="Inventory.cpp">
       <Filter>DOL\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Cskill.cpp">
+      <Filter>DOL\skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
