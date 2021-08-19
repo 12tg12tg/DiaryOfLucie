@@ -33,12 +33,38 @@ void Inventory::update()
 	if (INPUT->isOnceKeyDown('K')) 
 	{
 		randnum=RND->getFromInTo(0, _vectItemData.size()-1);
-		if (_vectItemData[randnum].itemType != ITEMTYPE::accesory) {
-			InventoryDataPushBack(_vectItemData[randnum].item_name, _vectItemData[randnum].equipHP, _vectItemData[randnum].equipMP);
-		}
-		else {
-			_vectAccesory.push_back(_vectItemData[randnum].item_image);
-			//여기도 바로착용 거시기해라
+		InventoryDataPushBack(_vectItemData[randnum].item_name, _vectItemData[randnum].equipHP, _vectItemData[randnum].equipMP);
+	}
+
+	if (_isInvenON)
+	{
+		for (int i = 0; i < 15; i++)
+		{
+			if (PtInRect(&_InvenSlot[i], { m_ptMouse.x,m_ptMouse.y }))
+			{
+				//클릭햇을때 아이템 타입에 따라 상호작용
+				if (INPUT->isOnceKeyDown(VK_LBUTTON) && i < _vectInventory.size())
+				{
+					for (auto& j : _vectItemData)
+					{
+						if (j.item_name == _vectInventory[i].item_name)
+						{
+							if (!_vectInventory[i].isEquip)
+							{//미착용중 아이템
+								if (PLAYERDATA->PartsEquipCheck(j))
+								{//착용가능
+									PLAYERDATA->setEquip(j, _vectInventory[i].equipHP, _vectInventory[i].equipMP);
+									_vectInventory[i].isEquip = true;
+								}
+							}
+							else if (_vectInventory[i].isEquip)
+							{//착용해제
+								PLAYERDATA->takeOffEquip(j, _vectInventory[i].equipHP, _vectInventory[i].equipMP);
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
@@ -57,31 +83,6 @@ void Inventory::render(HDC hdc)
 				//밝게하기 출력
 				ZORDER->UIAlphaRender(_Bright_button_image, ZUIFIRST, 2, _InvenSlot[i].left, _InvenSlot[i].top, 50);
 
-				//클릭햇을때 아이템 타입에 따라 상호작용
-				if (INPUT->isOnceKeyDown(VK_LBUTTON)&& i<_vectInventory.size())
-				{
-					for (auto& j : _vectItemData)
-					{
-						if (j.item_name == _vectInventory[i].item_name) 
-						{
-							if (!_vectInventory[i].isEquip) {
-								switch (j.itemType)
-								{
-								case equip://장비부위 장착
-
-									break;
-								case weapon://무기종류 장착
-
-									break;
-								case usefule://사용 로직 사용 이름에 따라 미구현
-									break;
-								case accesory://그냥 능력치 상승 들어올일 없음
-									break;
-								}
-							}
-						}
-					}
-				}
 			}
 
 			//현재아이템 인벤토리에 출력하는 부분
@@ -124,7 +125,7 @@ void Inventory::InventoryDataPushBack(string item_name, int equipHP, int equipMP
 			}
 			else {
 				_vectAccesory.push_back(i.item_image);
-				//바로착용로직 넣어주세욤
+				PLAYERDATA->setEquip(_vectItemData[randnum], _vectItemData[randnum].equipHP, _vectItemData[randnum].equipMP);
 			}
 		}
 	}

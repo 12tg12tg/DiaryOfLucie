@@ -114,10 +114,11 @@ public:
 	int getPresentHP() { return _presentHP; }
 	int getDamage();
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+	
 	int getUIAlpha() { return UIalpha; }
-	void setEquip(int equipHP=0,int equipMaxHP=0,int equipMP=0,int equipMaxMP=0,float equipSpeed = 0,int equipAtk = 0,int equipAtkSpeed = 0,int equipCritical = 0,int equipSkillPower = 0,int equipSkillCollTime = 0);
-	void takeOffEquip(int& equipHP, int equipMaxHP , int& equipMP , int equipMaxMP = 0, float equipSpeed = 0, int equipAtk = 0, int equipAtkSpeed = 0, int equipCritical = 0, int equipSkillPower = 0, int equipSkillCollTime = 0);
+	//void setEquip(int equipHP=0,int equipMaxHP=0,int equipMP=0,int equipMaxMP=0,float equipSpeed = 0,int equipAtk = 0,int equipAtkSpeed = 0,int equipCritical = 0,int equipSkillPower = 0,int equipSkillCollTime = 0);
+	//void takeOffEquip(int& equipHP, int equipMaxHP , int& equipMP , int equipMaxMP = 0, float equipSpeed = 0, int equipAtk = 0, int equipAtkSpeed = 0, int equipCritical = 0, int equipSkillPower = 0, int equipSkillCollTime = 0);
 	void setEquip(ITEMDATA itemData,int equipHP,int equipMP);
 	void takeOffEquip(ITEMDATA itemData,int& equipHP, int& equipMP);
-	bool PartsEquipCheck();
+	bool PartsEquipCheck(ITEMDATA itemData);
 };

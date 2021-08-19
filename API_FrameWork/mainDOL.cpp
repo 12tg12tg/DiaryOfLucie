@@ -61,12 +61,12 @@ void mainDOL::update()
 		_cm->update();
 		_mapm->update();
 		BUTTON->update();
+		INVENTORY->update();
 		PLAYER->update();
 		PLAYERDATA->update();
 		EFFECT->update();
 
 		ITEM->update();
-		INVENTORY->update();
 		CAMERA->FadeUpdate();
 	}
 	SCENE->update();
