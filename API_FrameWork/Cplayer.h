@@ -190,7 +190,7 @@ private:
 	void movePlayer();
 	void setPlayerFrame();
 
-private:
+public:
 	void angleCheckDirection(float angle, bool inputdirection = false);
 
 private:
