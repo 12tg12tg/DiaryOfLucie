@@ -376,7 +376,19 @@ void CplayerData::setEquip(ITEMDATA itemData, int equipHP, int equipMP)
 	switch (itemData.itemType)
 	{
 	case ITEMTYPE::weapon:
-		_isEquipParts._isEquipWeapon=true;
+		_isEquipParts._isEquipWeapon = true;
+		switch (itemData.weapon_type)
+		{
+		case WEAPON_TYPE::bow:
+			PLAYER->getPlayerAddress().weapon = WEAPONTYPE::BOW;
+			break;
+		case WEAPON_TYPE::staff:
+			PLAYER->getPlayerAddress().weapon = WEAPONTYPE::STAFF;
+			break;
+		case WEAPON_TYPE::sword:
+			PLAYER->getPlayerAddress().weapon = WEAPONTYPE::SWORD;
+			break;
+		}
 		break;
 
 	case ITEMTYPE::equip:
@@ -416,9 +428,9 @@ void CplayerData::takeOffEquip(ITEMDATA itemData, int& equipHP, int& equipMP)
 	switch (itemData.itemType)
 	{
 	case ITEMTYPE::weapon:
-		_isEquipParts._isEquipWeapon = false;
+		_isEquipParts._isEquipWeapon = false;	
+		PLAYER->getPlayerAddress().weapon = WEAPONTYPE::EMPTY;
 		break;
-
 	case ITEMTYPE::equip:
 		switch (itemData.equip_type)
 		{
@@ -432,7 +444,6 @@ void CplayerData::takeOffEquip(ITEMDATA itemData, int& equipHP, int& equipMP)
 		case EQUIPTYPE::boot:
 			_isEquipParts._isEquipBoots = false;
 			break;
-
 		}
 		break;
 
