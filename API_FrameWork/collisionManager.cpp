@@ -1208,10 +1208,11 @@ void collisionManager::playerToCoin()
 
 void collisionManager::playerToitem()
 {
-	if (IntersectRect(&temprc, &ITEM->getVI_Item()->item_colbox))
-	{
-		;
-	}
+	for (int i = 0; i < ITEM->getV_Item().size(); ITEM->getVI_Item()++)
+		if (IntersectRect(&temprc, &ITEM->getV_Item()[i].item_colbox, &PLAYER->getPlayerAddress().playerRect))
+		{
+			ITEM->removeitem(i);
+		}
 }
 
 void collisionManager::checkMonsterRectPlayer(monster* monster)
