@@ -24,6 +24,7 @@ protected:
 	bool isConversation2;	
 	bool isConversation3;	
 	bool isConversation4;	
+	bool isConversation5;	
 
 	int currentItemIndex;
 	Button* usableBt;

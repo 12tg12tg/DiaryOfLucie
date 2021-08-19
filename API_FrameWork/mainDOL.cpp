@@ -68,7 +68,7 @@ void mainDOL::update()
 		break;
 	case mainDOL::DOLSTATE::INMAP:
 	{
-		if (INPUT->isOnceKeyDown('K')) _sk->addSkill();
+		
 
 		_bm->update();
 		_mm->update();

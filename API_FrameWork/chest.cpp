@@ -212,13 +212,21 @@ void chest::takeItem()
 		{
 			if (itemdata[0].itemType == ITEMTYPE::accesory)
 			{
-				;
+				INVENTORY->InventoryDataPushBack(itemdata[0].item_name, itemdata[0].equipHP, itemdata[0].equipMP);
+				_istake = true;
 			}
 			else
 			{
-			INVENTORY->InventoryDataPushBack(itemdata[0].item_name, itemdata[0].equipHP, itemdata[0].equipMP);
+				if (INVENTORY->inventoryEmptyCheck())
+				{
+				INVENTORY->InventoryDataPushBack(itemdata[0].item_name, itemdata[0].equipHP, itemdata[0].equipMP);
+				_istake = true;
+				}
+				else
+				{
+					
+				}
 			}
 		}
-		_istake = true;
 	}
 }
