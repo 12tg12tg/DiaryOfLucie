@@ -39,14 +39,14 @@ public:
 	Item();
 	~Item();
 
-	HRESULT init(int x , int y);
+	HRESULT init();
 	void release();
 	void update();
 	void render();
 	void removeitem(int arrNum);
 
-	vector<ITEMDATA>& getV_Item() { return _vItem; }
-	vector<ITEMDATA>::iterator& getVI_Item() { return _viItem; }
+	vector<ITEMDATA> getV_Item() { return _vItem; }
+	vector<ITEMDATA>::iterator getVI_Item() { return _viItem; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };

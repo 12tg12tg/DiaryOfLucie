@@ -29,7 +29,7 @@ Item::~Item()
 {
 }
 
-HRESULT Item::init(int x , int y)
+HRESULT Item::init()
 {
 	ITEMDATA item1;
 	ZeroMemory(&item1, sizeof(Item));
@@ -37,8 +37,8 @@ HRESULT Item::init(int x , int y)
 	item1.item_image = new image;
 	item1.item_image = IMAGE->addImage("신발", "images/item/shoes.bmp", 19,23, true);
 	item1.item_colbox = RectMakeCenter(item1.x, item1.y,
-		item1.item_image->getWidth(),
-		item1.item_image->getHeight());
+		item1.item_image->getWidth() ,
+		item1.item_image->getHeight()+100);
 	item1.item_name = "신발";
 	item1.item_info = "이동하기 편리하게 만들어진 신발 이동속도가 증가한다";
 	item1.item_shopInfo = "착용감이 편한 신발이야";
@@ -60,9 +60,9 @@ HRESULT Item::init(int x , int y)
 
 	item2.item_image = new image;
 	item2.item_image = IMAGE->addImage("오발탄", "images/item/wrongbullet.bmp", 26, 26, true);
-	item2.item_colbox = RectMakeCenter(item2.x, item2.y,
-		item2.item_image->getWidth(),
-		item2.item_image->getHeight());
+	item2.item_colbox = RectMakeCenter(item1.x, item1.y,
+		item1.item_image->getWidth(),
+		item1.item_image->getHeight() + 100);
 	item2.item_name = "오발탄";
 	item2.item_info = "일반공격의 대미지 30% 감소 탄약을 3방향으로 발사";
 	item2.item_shopInfo = "엄청난 유물이야 꼭 사는 것을 추천해";
@@ -86,9 +86,9 @@ HRESULT Item::init(int x , int y)
 
 	item3.item_image = new image;
 	item3.item_image = IMAGE->addImage("눈의원피스", "images/item/winterdress.bmp", 22, 21, true);
-	item3.item_colbox = RectMakeCenter(item3.x, item3.y,
-		item3.item_image->getWidth(),
-		item3.item_image->getHeight());
+	item3.item_colbox = RectMakeCenter(item1.x, item1.y,
+		item1.item_image->getWidth(),
+		item1.item_image->getHeight() + 100);
 	item3.item_name = "눈의 원피스";
 	item3.item_info = "북쪽나라에서 입는 롱 원피스 체력이 늘어난다";
 	item3.item_shopInfo = "좋은 원단으로 만든 옷이야";
@@ -110,9 +110,9 @@ HRESULT Item::init(int x , int y)
 
 	item4.item_image = new image;
 	item4.item_image = IMAGE->addImage("관악피리", "images/item/whisle.bmp", 26, 26, true);
-	item4.item_colbox = RectMakeCenter(item4.x, item4.y,
-		item4.item_image->getWidth(),
-		item4.item_image->getHeight());
+	item4.item_colbox = RectMakeCenter(item1.x, item1.y,
+		item1.item_image->getWidth(),
+		item1.item_image->getHeight() + 100);
 	item4.item_name = "관악-피리";
 	item4.item_info ="어느검사가 불던 피리 치명타가 증가한다";
 	item4.item_shopInfo ="야스오라는 검사가 놓고간 피리야 치명타가 증가해";
@@ -134,9 +134,9 @@ HRESULT Item::init(int x , int y)
 
 	item5.item_image = new image;
 	item5.item_image = IMAGE->addImage("죽도", "images/item/wood_sword.bmp", 29, 31, true);
-	item5.item_colbox = RectMakeCenter(item5.x, item5.y,
-		item5.item_image->getWidth(),
-		item5.item_image->getHeight());
+	item5.item_colbox = RectMakeCenter(item1.x, item1.y,
+		item1.item_image->getWidth(),
+		item1.item_image->getHeight() + 100);
 	item5.item_name = "죽도";
 	item5.item_info = "검술 단련을 위한 검 1천 일의 연습을 '단'이라 하고, 1만일의 연습을 '련'이라 한다";
 	item5.item_shopInfo = "훈련을 위해서 많이 쓰는 검이야 설마 이런거 쓰니..?";
@@ -157,9 +157,9 @@ HRESULT Item::init(int x , int y)
 
 	item6.item_image = new image;
 	item6.item_image = IMAGE->addImage("이상나라의드레스", "images/item/aliceDress.bmp", 26, 24, true);
-	item6.item_colbox = RectMakeCenter(item6.x, item6.y,
-		item6.item_image->getWidth(),
-		item6.item_image->getHeight());
+	item6.item_colbox = RectMakeCenter(item1.x, item1.y,
+		item1.item_image->getWidth(),
+		item1.item_image->getHeight() + 100);
 	item6.item_name ="이상한 나라의 드레스";
 	item6.item_info ="이상한 나라에서 온 소녀가 입던 옷 어째서인지 거미가 들러붙는다 체력이 증가하고 이동속도가 증가한다";
 	item6.item_shopInfo = "고급스러운 디자인의 옷이야";
@@ -181,9 +181,9 @@ HRESULT Item::init(int x , int y)
 
 	item7.item_image = new image;
 	item7.item_image = IMAGE->addImage("이상한나라의부츠", "images/item/aliceboots.bmp", 20, 25, true);
-	item7.item_colbox = RectMakeCenter(item7.x, item7.y,
-		item7.item_image->getWidth(),
-		item7.item_image->getHeight());
+	item7.item_colbox = RectMakeCenter(item1.x, item1.y,
+		item1.item_image->getWidth(),
+		item1.item_image->getHeight() + 100);
 	item7.item_name = "이상한 나라의 부츠";
 	item7.item_info = "이상한 나라에서 온 소녀가 입던 신발 어째서인지 거미가 들러붙는다 공격력이 증가하고 이동속도가 증가한다.";
 	item7.item_shopInfo= " 고급스러운 디자인의 신발이야";
@@ -205,9 +205,9 @@ HRESULT Item::init(int x , int y)
 
 	item8.item_image=new image;
 	item8.item_image =  IMAGE->addImage("신성한유물", "images/item/holy_relric.bmp", 28, 24, true);
-	item8.item_colbox = RectMakeCenter(item8.x, item8.y,
-		item8.item_image->getWidth(),
-		item8.item_image->getHeight());
+	item8.item_colbox = RectMakeCenter(item1.x, item1.y,
+		item1.item_image->getWidth(),
+		item1.item_image->getHeight() + 100);
 	item8.item_name = "신성한 유물";
 	item8.item_info = "신성시 여겨지는 유물-의외로 상점에서 구입가능 공격력이 증가하고 공격속도가 증가한다 ";
 	item8.item_shopInfo="비밀스러운 방법으로 가져온 유물이야 살래?";
@@ -229,9 +229,9 @@ HRESULT Item::init(int x , int y)
 
 	item9.item_image = new image;
 	item9.item_image = IMAGE->addImage("리치왕의투구", "images/item/halem.bmp", 24, 26, true);
-	item9.item_colbox = RectMakeCenter(item9.x, item9.y,
-		item9.item_image->getWidth(),
-		item9.item_image->getHeight());
+	item9.item_colbox = RectMakeCenter(item1.x, item1.y,
+		item1.item_image->getWidth(),
+		item1.item_image->getHeight() + 100);
 	item9.item_name = "리치왕의 투구";
 	item9.item_info = "얼어붙어있는 투구이다 체력이 크게 증가한다";
 	item9.item_shopInfo = "왕위에 계승할 느낌이 들어 'Succeeding you father'";
@@ -253,9 +253,9 @@ HRESULT Item::init(int x , int y)
 
 	item10.item_image = new image;
 	item10.item_image = IMAGE->addImage("테미나리", "images/item/seed.bmp", 28, 25, true);
-	item10.item_colbox = RectMakeCenter(item10.x, item10.y,
-		item10.item_image->getWidth(),
-		item10.item_image->getHeight());
+	item10.item_colbox = RectMakeCenter(item1.x, item1.y,
+		item1.item_image->getWidth(),
+		item1.item_image->getHeight() + 100);
 	item10.item_name ="테미나리";
 	item10.item_info ="기분좋은 향기가 솔솔 피어난다";
 	item10.item_shopInfo="외국에서 구해온 식물이야 그곳에선 모코코라고 부르던데?";
@@ -277,9 +277,9 @@ HRESULT Item::init(int x , int y)
 
 	item11.item_image = new image;
 	item11.item_image = IMAGE->addImage("다크클라우드", "images/item/darksword.bmp", 30, 30, true);
-	item11.item_colbox = RectMakeCenter(item11.x, item11.y,
-		item11.item_image->getWidth(),
-		item11.item_image->getHeight());
+	item11.item_colbox = RectMakeCenter(item1.x, item1.y,
+		item1.item_image->getWidth(),
+		item1.item_image->getHeight() + 100);
 	item11.item_name = "다크클라우드";
 	item11.item_info = "사용자의 생명을 뺏어가는 작은 소검";
 	item11.item_shopInfo = "만지면 저주에 걸리는 검이야 강력하지만 추천은 하지않아 ";
@@ -301,9 +301,9 @@ HRESULT Item::init(int x , int y)
 
 	item12.item_image = new image;
 	item12.item_image = IMAGE->addImage("냄뚜", "images/item/pot_head.bmp", 28, 25, true);
-	item12.item_colbox = RectMakeCenter(item12.x, item12.y,
-		item12.item_image->getWidth(),
-		item12.item_image->getHeight());
+	item12.item_colbox = RectMakeCenter(item1.x, item1.y,
+		item1.item_image->getWidth(),
+		item1.item_image->getHeight() + 100);
 	item12.item_name = "냄뚜";
 	item12.item_info = "체력+2";
 	item12.item_shopInfo = "집에서 쓰던 냄뚜야";
@@ -325,9 +325,9 @@ HRESULT Item::init(int x , int y)
 
 	item13.item_image = new image;
 	item13.item_image = IMAGE->addImage("우드보우", "images/item/wood_bow.bmp", 24, 24, true);
-	item13.item_colbox = RectMakeCenter(item13.x, item13.y,
-		item13.item_image->getWidth(),
-		item13.item_image->getHeight());
+	item13.item_colbox = RectMakeCenter(item1.x, item1.y,
+		item1.item_image->getWidth(),
+		item1.item_image->getHeight() + 100);
 	item13.item_name="우드보우";
 	item13.item_info ="간단한 나무로 만든 활 쉡게 당겨지지만 탄성이 약하다";
 	item13.item_shopInfo ="내 수제작이야... 웃지마";
@@ -349,9 +349,9 @@ HRESULT Item::init(int x , int y)
 
 	item14.item_image = new image;
 	item14.item_image = IMAGE->addImage("골든보우", "images/item/gold_bow.bmp", 24, 24, true);
-	item14.item_colbox = RectMakeCenter(item14.x, item14.y,
-		item14.item_image->getWidth(),
-		item14.item_image->getHeight());
+	item14.item_colbox = RectMakeCenter(item1.x, item1.y,
+		item1.item_image->getWidth(),
+		item1.item_image->getHeight() + 100);
 	item14.item_name="골든보우";
 	item14.item_info="금! 금이 최고야! 메달도! 성적도!";
 	item14.item_shopInfo="왜 금을 이런데 쓰는걸까 살래?";
@@ -373,9 +373,9 @@ HRESULT Item::init(int x , int y)
 
 	item15.item_image = new image;
 	item15.item_image = IMAGE->addImage("나무지팡이", "images/item/wood_staff.bmp", 24, 24, true);
-	item15.item_colbox = RectMakeCenter(item15.x, item15.y,
-		item15.item_image->getWidth(),
-		item15.item_image->getHeight());
+	item15.item_colbox = RectMakeCenter(item1.x, item1.y,
+		item1.item_image->getWidth(),
+		item1.item_image->getHeight() + 100);
 	item15.item_name = "나무 지팡이";
 	item15.item_info = "평범한 나무지팡이 착용자의 마력을 높여준다";
 	item15.item_shopInfo = "집에 있던 지팡이야 할어버지꺼는 아니겠지...?";

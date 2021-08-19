@@ -52,6 +52,7 @@ public:
 			BUTTON->setIsDebug(_isDebug);
 			PLAYER->setIsDebug(_isDebug);
 			PLAYERDATA->setIsDebug(_isDebug);
+			ITEM->setIsDebug(_isDebug);
 		}
 	}
 };

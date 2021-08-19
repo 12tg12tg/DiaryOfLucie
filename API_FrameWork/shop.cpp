@@ -30,10 +30,10 @@ HRESULT shop::add(float centerx, float centery)
 
 	boxAlpha = 200;
 
-	interRc[0] = RectMake(_x+_img->getWidth()*3/14 + 5 , _y+ _img->getHeight()*6/12, _img->getWidth()/14, _img->getHeight()*4 / 12+5);
-	interRc[1] = RectMake(_x+_img->getWidth()*5/14 + 5, _y+ _img->getHeight()*6/12, _img->getWidth()/14, _img->getHeight()*4 / 12 + 5);
-	interRc[2] = RectMake(_x+_img->getWidth()*8/14 + 5, _y+ _img->getHeight()*6/12, _img->getWidth()/14, _img->getHeight()*4 / 12 + 5);
-	interRc[3] = RectMake(_x+_img->getWidth()*10/14 + 5, _y+ _img->getHeight()*6/12, _img->getWidth()/14, _img->getHeight()*4 / 12 + 5);
+	interRc[0] = RectMake(_x+_img->getWidth()*3/14 + 5 , _y+ _img->getHeight()*6/12, _img->getWidth()/14, _img->getHeight()*4 / 12+20);
+	interRc[1] = RectMake(_x+_img->getWidth()*5/14 + 5, _y+ _img->getHeight()*6/12, _img->getWidth()/14, _img->getHeight()*4 / 12 + 20);
+	interRc[2] = RectMake(_x+_img->getWidth()*8/14 + 5, _y+ _img->getHeight()*6/12, _img->getWidth()/14, _img->getHeight()*4 / 12 + 20);
+	interRc[3] = RectMake(_x+_img->getWidth()*10/14 - 5, _y+ _img->getHeight()*6/12, _img->getWidth()/14, _img->getHeight()*4 / 12 + 20);
 
 	talkRc = RectMake(WINSIZEX / 2 - IMAGE->findImage("상점대화상자")->getWidth() / 2,
 		WINSIZEY*3/5,
@@ -43,8 +43,9 @@ HRESULT shop::add(float centerx, float centery)
 	/*아이템4개 랜덤 뽑기 함수*/
 	for (int i = 0; i < 4; i++)
 	{
-		int random = RND->getFromInTo(0, ITEM->getV_Item().size());
-		itemdata[i] = ITEM->getVI_Item()[random];
+		int random = 0;
+		random = RND->getFromInTo(0,ITEM->getV_Item().size()-1);
+		itemdata[i] = ITEM->getV_Item()[random];
 		ITEM->removeitem(random);
 	}
 	
@@ -66,13 +67,20 @@ void shop::update(bulletManager* bm)
 
 void shop::render()
 {
+	
 	ZORDER->ZorderRender(_img, ZUNIT, _y + _img->getHeight() / 2 + 10, _x, _y);
 	if (_isDebug) {
 		for (size_t i = 0; i < 4; i++)
 		{
 			ZORDER->ZorderRectangle(interRc[i], ZCOL1);
+			ZORDER->ZorderRender(itemdata[i].item_image, ZUNIT, _y + _img->getHeight() / 2 + 10, RecCenX(interRc[i]), interRc[i].top);
 		}
 	}
+	for (int i = 0; i < 4; i++)
+	{
+		ZORDER->ZorderRender(itemdata[i].item_image, ZUNIT, _y + _img->getHeight() / 2 + 10, RecCenX(interRc[i]), interRc[i].top);
+	}
+	
 	//항상 ON 대화상자
 	if (isConversation1 || isConversation2 || isConversation3 || isConversation4)
 	{
@@ -88,16 +96,15 @@ void shop::render()
 			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 	}
 	if (isConversation1) {
-
 		RECT txtRc = RectMake(talkRc.left + 15, talkRc.top + 15, RecWidth(talkRc) - 30, RecHeight(talkRc) - 30);
-		string str = "그건 빵"; /*아이템 이름*/
+		string str ="이건 " + itemdata[currentItemIndex].item_name; /*아이템 이름*/
 		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
 			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
 				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
 			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 
 		txtRc = RectMake(talkRc.left + 15, talkRc.top + 15 + 40, RecWidth(talkRc) - 30, RecHeight(talkRc) - 30 - 40);
-		str = "내가 아침에 먹고 남은거야."; /*아이템 설명*/
+		str = itemdata[currentItemIndex].item_shopInfo; /*아이템 설명*/
 		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
 			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
 				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
@@ -106,7 +113,7 @@ void shop::render()
 	if (isConversation2) {
 
 		RECT txtRc = RectMake(talkRc.left + 15, talkRc.top + 15, RecWidth(talkRc) - 30, RecHeight(talkRc) - 30);
-		string str = "가격은 " + to_string(100) + "골드인데, 살래?"; /*아이템 가격*/
+		string str = "가격은 " + to_string(itemdata[currentItemIndex].price) +" 골드인데, 살래?"; /*아이템 가격*/
 		ZORDER->UIDrawText(str, ZUITHIRD, txtRc,
 			CreateFont(25, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
 				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
@@ -179,7 +186,7 @@ void shop::soldItem()
 	//충돌매니저에서 inter상자 충돌시 e키가 눌리면 canInteraction이 true가 됨.
 	if (isConversation1)	//그건 이름\n. 설명\n.
 	{
-		if (_speakCount > 100) {
+		if (_speakCount > 200) {
 			BUTTON->buttonOn("수락");
 			BUTTON->buttonOn("거절");
 			_speakCount = 0;
@@ -194,9 +201,9 @@ void shop::soldItem()
 			BUTTON->buttonOff("수락");
 			BUTTON->buttonOff("거절");
 			isConversation2 = false;
-			if (PLAYERDATA->changeGold(/*가격*/-60, true))//돈 비교. 차감 구문
+			if (PLAYERDATA->changeGold(/*가격*/-itemdata[currentItemIndex].price, true))//돈 비교. 차감 구문
 			{
-				PLAYERDATA->changeGold(/*가격*/-60, false);
+				PLAYERDATA->changeGold(/*가격*/-itemdata[currentItemIndex].price, false);
 				_speakCount = 0;
 				isConversation3 = true;	//고마워!
 			}

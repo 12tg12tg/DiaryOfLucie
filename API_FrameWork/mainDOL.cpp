@@ -64,7 +64,7 @@ void mainDOL::update()
 		PLAYER->update();
 		PLAYERDATA->update();
 		EFFECT->update();
-
+		ITEM->update();
 		CAMERA->FadeUpdate();
 	}
 	SCENE->update();
@@ -85,7 +85,7 @@ void mainDOL::render()
 		_mapm->render();
 		PLAYER->render(getDolDC());
 		EFFECT->render();
-
+		ITEM->render();
 		//화면 고정형 UI 여기서부터 출력.
 		PLAYERDATA->render(getMemDC());
 		BUTTON->render(getMemDC());
@@ -121,6 +121,7 @@ void mainDOL::gameInit()
 
 	PLAYER->init();
 	PLAYERDATA->init();
+	ITEM->init();
 	_bm->init();
 	_cm->init();
 	_mm->init();
