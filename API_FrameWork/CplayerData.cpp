@@ -50,6 +50,8 @@ HRESULT CplayerData::init()
 
 	UIalpha = 255;
 
+	_isEquipParts = { 0,0,0,0 };
+
 	return S_OK;
 }
 
@@ -353,4 +355,12 @@ void CplayerData::takeOffEquip(int& equipHP, int equipMaxHP, int& equipMP, int e
 	_Data.Critical -= equipCritical;
 	_Data.equipSkillCoolTime -= equipSkillPower;
 	_Data.equipSkillCoolTime -= equipSkillCollTime;
+}
+
+void CplayerData::setEquip(ITEMDATA itemData, int equipHP, int equipMP)
+{
+}
+
+void CplayerData::takeOffEquip(ITEMDATA itemData, int& equipHP, int& equipMP)
+{
 }

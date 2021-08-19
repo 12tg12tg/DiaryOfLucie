@@ -81,7 +81,6 @@ void mainDOL::update()
 		EFFECT->update();
 		INVENTORY->update();
 		ITEM->update();
-		INVENTORY->update();
 		CAMERA->FadeUpdate();
 	}
 		break;

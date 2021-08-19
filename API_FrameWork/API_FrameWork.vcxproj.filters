@@ -109,7 +109,7 @@
     <Filter Include="DOL\option">
       <UniqueIdentifier>{7213c159-80a8-47ff-8076-bf66c1ccac5e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DOL\Aplayer">
+    <Filter Include="DOL\A_player">
       <UniqueIdentifier>{2fa5e2d3-ba00-42e2-90dc-782fa39e9f51}</UniqueIdentifier>
     </Filter>
     <Filter Include="DOL\skill">
@@ -199,7 +199,7 @@
       <Filter>DOL\DOL_Manager</Filter>
     </ClInclude>
     <ClInclude Include="Cplayer.h">
-      <Filter>DOL\Aplayer</Filter>
+      <Filter>DOL\A_player</Filter>
     </ClInclude>
     <ClInclude Include="Cmonsters.h">
       <Filter>DOL\monsters</Filter>
@@ -220,7 +220,7 @@
       <Filter>manager\OBB</Filter>
     </ClInclude>
     <ClInclude Include="CplayerData.h">
-      <Filter>DOL\Aplayer</Filter>
+      <Filter>DOL\A_player</Filter>
     </ClInclude>
     <ClInclude Include="Zorder.h">
       <Filter>manager\Zorder</Filter>
@@ -342,7 +342,7 @@
       <Filter>DOL\DOL_Manager</Filter>
     </ClCompile>
     <ClCompile Include="Cplayer.cpp">
-      <Filter>DOL\Aplayer</Filter>
+      <Filter>DOL\A_player</Filter>
     </ClCompile>
     <ClCompile Include="Cmonsters.cpp">
       <Filter>DOL\monsters</Filter>
@@ -363,7 +363,7 @@
       <Filter>manager\OBB</Filter>
     </ClCompile>
     <ClCompile Include="CplayerData.cpp">
-      <Filter>DOL\Aplayer</Filter>
+      <Filter>DOL\A_player</Filter>
     </ClCompile>
     <ClCompile Include="Zorder.cpp">
       <Filter>manager\Zorder</Filter>
