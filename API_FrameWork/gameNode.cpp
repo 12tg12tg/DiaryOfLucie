@@ -86,6 +86,9 @@ void gameNode::release()
 		PLAYER->releaseSingleton();
 		PLAYERDATA->release();
 		PLAYERDATA->releaseSingleton();
+
+		INVENTORY->release();
+		INVENTORY->releaseSingleton();
 	}
 	ReleaseDC(m_hWnd, _hdc);
 
