@@ -65,6 +65,9 @@ public:
 	vector<ITEMDATA> copyItemVect() { return _vItem; }
 	vector<ITEMDATA>::iterator copyItemIter() { return _viItem; }
 
-	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
+	void setIsDebug(bool isDebug) { 
+		_isDebug = isDebug;
+	
+}
 };
 
