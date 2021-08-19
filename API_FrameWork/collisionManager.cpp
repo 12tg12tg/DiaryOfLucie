@@ -1206,6 +1206,10 @@ void collisionManager::playerToCoin()
 	}
 }
 
+void collisionManager::playerToitem()
+{
+}
+
 void collisionManager::checkMonsterRectPlayer(monster* monster)
 {
 	vector<tagMonster>& vMonster = monster->getVMonster();

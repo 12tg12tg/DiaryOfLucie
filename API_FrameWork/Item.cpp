@@ -5,7 +5,7 @@ Item::Item()
 {
 	/*ITEMDATA item1;
 	ZeroMemory(&item1, sizeof(Item));
-	WEAPONTYPE weapon_type;
+	WEAPON_TYPE weapon_type;
 	EQUIPTYPE equip_type;
 	item1.item_image;
 	item1.item_colbox;
@@ -145,7 +145,7 @@ HRESULT Item::init()
 	item5.item_shopInfo = "훈련을 위해서 많이 쓰는 검이야 설마 이런거 쓰니..?";
 	item5.price = 60;
 	item5.itemType = ITEMTYPE::weapon;
-	item5.weapon_type = WEAPONTYPE::SWORD;
+	item5.weapon_type = WEAPON_TYPE::sword;
 	item5.equipHP = 0;
 	item5.equipMaxHP = 0;
 	item5.equipMP = 0;
@@ -243,7 +243,7 @@ HRESULT Item::init()
 	item9.item_shopInfo = "왕위에 계승할 느낌이 들어 'Succeeding you father'";
 	item9.price = 300;
 	item9.itemType = ITEMTYPE::equip;
-	item1.equip_type = EQUIPTYPE::hat;
+	item9.equip_type = EQUIPTYPE::hat;
 	item9.equipHP = 0;
 	item9.equipMaxHP = 6;
 	item9.equipMP = 0;
@@ -292,7 +292,7 @@ HRESULT Item::init()
 	item11.item_shopInfo = "만지면 저주에 걸리는 검이야 강력하지만 추천은 하지않아 ";
 	item11.price = 300;
 	item11.itemType = ITEMTYPE::weapon;
-	item11.weapon_type = WEAPONTYPE::SWORD;
+	item11.weapon_type = WEAPON_TYPE::sword;
 	item11.equipHP = -2;
 	item11.equipMaxHP = -2;
 	item11.equipMP = 0;
@@ -341,7 +341,7 @@ HRESULT Item::init()
 	item13.item_shopInfo ="내 수제작이야... 웃지마";
 	item13.price = 60;
 	item13.itemType = ITEMTYPE::weapon;
-	item13.weapon_type = WEAPONTYPE::BOW;
+	item13.weapon_type = WEAPON_TYPE::bow;
 	item13.equipHP = 0;
 	item13.equipMaxHP = 0;
 	item13.equipMP = 0;
@@ -366,7 +366,7 @@ HRESULT Item::init()
 	item14.item_shopInfo="왜 금을 이런데 쓰는걸까 살래?";
 	item14.price = 120;
 	item14.itemType = ITEMTYPE::weapon;
-	item14.weapon_type = WEAPONTYPE::BOW;
+	item14.weapon_type = WEAPON_TYPE::bow;
 	item14.equipHP = 0;
 	item14.equipMaxHP = 1;
 	item14.equipMP = 0;
@@ -391,7 +391,7 @@ HRESULT Item::init()
 	item15.item_shopInfo = "집에 있던 지팡이야 할어버지꺼는 아니겠지...?";
 	item15.price = 60;
 	item15.itemType = ITEMTYPE::weapon;
-	item15.weapon_type = WEAPONTYPE::STAFF;
+	item15.weapon_type = WEAPON_TYPE::staff;
 	item15.equipHP = 0;
 	item15.equipMaxHP = 0;
 	item15.equipMP = 0;

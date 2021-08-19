@@ -6,9 +6,8 @@ enum ITEMTYPE {
 	usefule,
 	accesory
 };
-enum WEAPONTYPE
+enum WEAPON_TYPE
 {
-	empty,
 	bow,
 	staff,
 	sword
@@ -16,7 +15,6 @@ enum WEAPONTYPE
 
 enum EQUIPTYPE 
 {
-	empty,
 	hat,
 	armor,
 	boot
@@ -28,7 +26,7 @@ struct ITEMDATA
 	string item_name;
 	string item_info;
 	string item_shopInfo;
-	WEAPONTYPE weapon_type;
+	WEAPON_TYPE weapon_type;
 	EQUIPTYPE equip_type;
 	int price = 0;
 	int x, y;
