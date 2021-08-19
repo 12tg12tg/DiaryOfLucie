@@ -14,8 +14,10 @@ struct InventoryData {
 
 class Inventory : public Singleton<Inventory>
 {
+private:
 	bool _isDebug;
 	bool _isInvenON;
+
 public:
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	HRESULT init();
@@ -24,22 +26,22 @@ public:
 	void render(HDC hdc);
 
 private:
-	int _correct;
 	int randnum;
+
 	void imageInit();
 	image* _inventory_layout;
 	image* _Bright_button_image;
+
 	RECT _InvenSlot[15];
 
 	vector<ITEMDATA> _vectItemData;
-	//vector<ITEMDATA>::iterator _iterItemData;
 
 	vector<InventoryData> _vectInventory;
 	vector<InventoryData>::iterator _iterInventory;
-
+	vector<image*> _vectAccesory;
 public:
 	void InventoryDataPushBack(string item_name,int equipHP = 0,int equipMP = 0);
-	void InventoryItemRender();
+	
 	void itemErase();
 	bool inventoryEmptyCheck();
 };

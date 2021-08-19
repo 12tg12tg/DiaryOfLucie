@@ -3,7 +3,6 @@
 
 HRESULT Inventory::init()
 {
-	_correct = 1;
 	_isInvenON = false;
 	_isDebug = false;
 
@@ -17,7 +16,6 @@ HRESULT Inventory::init()
 	}
 
 	_vectItemData= ITEM->copyItemVect();
-	//_iterItemData= ITEM->copyItemIter();
 
 	return S_OK;
 }
@@ -27,15 +25,21 @@ void Inventory::release(){}
 void Inventory::update()
 {
 
-	if (INPUT->isOnceKeyDown('I')) {
+	if (INPUT->isOnceKeyDown('I')) 
+	{
 		_isInvenON = !_isInvenON;
 	}
 
-	if (INPUT->isOnceKeyDown('K')) {
+	if (INPUT->isOnceKeyDown('K')) 
+	{
 		randnum=RND->getFromInTo(0, _vectItemData.size()-1);
-		InventoryDataPushBack(_vectItemData[randnum].item_name, _vectItemData[randnum].equipHP, _vectItemData[randnum].equipMP);
+		if (_vectItemData[randnum].itemType != ITEMTYPE::accesory) {
+			InventoryDataPushBack(_vectItemData[randnum].item_name, _vectItemData[randnum].equipHP, _vectItemData[randnum].equipMP);
+		}
+		else {
+			_vectAccesory.push_back(_vectItemData[randnum].item_image);
+		}
 	}
-
 }
 
 void Inventory::render(HDC hdc)
@@ -52,6 +56,7 @@ void Inventory::render(HDC hdc)
 				//밝게하기 출력
 				ZORDER->UIAlphaRender(_Bright_button_image, ZUIFIRST, 2, _InvenSlot[i].left, _InvenSlot[i].top, 50);
 
+				//클릭햇을때 아이템 타입에 따라 상호작용
 				if (INPUT->isOnceKeyDown(VK_LBUTTON)&& i<_vectInventory.size())
 				{
 					for (auto& j : _vectItemData)
@@ -71,11 +76,13 @@ void Inventory::render(HDC hdc)
 					}
 				}
 			}
+
+			//현재아이템 인벤토리에 출력하는 부분
 			if (i < _vectInventory.size()) {
 				for (auto& j : _vectItemData)
 				{
 					if (j.item_name == _vectInventory[i].item_name) {
-						ZORDER->UIRender(j.item_image, ZUIFIRST, 1, _InvenSlot[i].left+10+ _correct, _InvenSlot[i].top+10+ _correct);
+						ZORDER->UIRender(j.item_image, ZUIFIRST, 1, _InvenSlot[i].left+11, _InvenSlot[i].top+11);
 					}
 				}
 			}
@@ -89,17 +96,22 @@ void Inventory::imageInit()
 	_Bright_button_image=IMAGE->addImage("버튼밝게", "images/UI/버튼밝게.bmp", 38 * 1.3, 38 * 1.3, 1);
 }
 
-
 void Inventory::InventoryDataPushBack(string item_name, int equipHP, int equipMP)
 {
-	InventoryData temp = { item_name,0,equipHP,equipMP };
-	_vectInventory.push_back(temp);
-}
+	for (auto& i : _vectItemData)
+	{
+		if (i.item_name == item_name) {
+			if (i.itemType != ITEMTYPE::accesory) {
+				InventoryData temp = { item_name,0,equipHP,equipMP };
+				_vectInventory.push_back(temp);
+			}
+			else {
+				_vectAccesory.push_back(i.item_image);
 
-void Inventory::InventoryItemRender()
-{
+			}
+		}
+	}
 }
-
 
 void Inventory::itemErase()
 {

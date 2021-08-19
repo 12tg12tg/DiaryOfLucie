@@ -65,8 +65,8 @@ void mainDOL::update()
 		PLAYERDATA->update();
 		EFFECT->update();
 
-		INVENTORY->update();
 		ITEM->update();
+		INVENTORY->update();
 		CAMERA->FadeUpdate();
 	}
 	SCENE->update();
