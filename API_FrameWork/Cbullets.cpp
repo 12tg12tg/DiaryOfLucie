@@ -2427,20 +2427,17 @@ void CpSword::render()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		if (_isDebug) ZORDER->ZorderRectangle(_viBullet->rc, ZCOL1);
-		ZORDER->ZorderRotateRender(_viBullet->bulletImage, ZMAXLAYER, 1200, RecCenX(_viBullet->rc), RecCenY(_viBullet->rc), _viBullet->angle-PI);
+		if (_isDebug) ZORDER->ZorderRectangleRotate(_viBullet->rc, 1, _viBullet->angle + PI / 2);
 	}
 	_viBullet2 = _vBullet2.begin();
 	for (_viBullet2; _viBullet2 != _vBullet2.end(); ++_viBullet2)
 	{
-		if (_isDebug) ZORDER->ZorderRectangle(_viBullet2->rc, ZCOL1);
-		ZORDER->ZorderRotateRender(_viBullet2->bulletImage2, ZMAXLAYER, 1200, RecCenX(_viBullet2->rc), RecCenY(_viBullet2->rc), _viBullet2->angle - PI/2);
+		if (_isDebug) ZORDER->ZorderRectangleRotate(_viBullet2->rc, 1, _viBullet2->angle + PI / 2);
 	}
 	_viBullet3 = _vBullet3.begin();
 	for (_viBullet3; _viBullet3 != _vBullet3.end(); ++_viBullet3)
 	{
-		if (_isDebug) ZORDER->ZorderRectangle(_viBullet3->rc, ZCOL1);
-		ZORDER->ZorderRotateRender(_viBullet3->bulletImage3, ZMAXLAYER, 1200, RecCenX(_viBullet3->rc), RecCenY(_viBullet3->rc), _viBullet3->angle - PI/2);
+		if (_isDebug) ZORDER->ZorderRectangleRotate(_viBullet3->rc, 1, _viBullet3->angle + PI / 2);
 	}
 }
 
@@ -2457,7 +2454,7 @@ void CpSword::fire(float x, float y, float angle, int plussize)
 	bullet.y = bullet.fireY = y;
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage->getWidth(),
-		bullet.bulletImage->getHeight());
+		bullet.bulletImage->getHeight()-80);
 	bullet.iscollison = false;
 	bullet.isPlayerBullet = true;
 	_vBullet.push_back(bullet);
@@ -2468,7 +2465,7 @@ void CpSword::fire2(float x, float y, float angle, int plussize)
 	tagBullet bullet;
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage2 = new  image;
-	bullet.bulletImage2 = IMAGE->addImage("검2", "images/bullet_bmp/sword2.bmp", 192, 192, true, RGB(255, 0, 255));
+	bullet.bulletImage2 = IMAGE->addImage("검1", "images/bullet_bmp/sword1.bmp", 192, 192, true, RGB(255, 0, 255));
 	bullet.angle = angle;
 	bullet.rotateangle = angle + PI / 2;
 	bullet.speed = 5.0f;
@@ -2476,7 +2473,7 @@ void CpSword::fire2(float x, float y, float angle, int plussize)
 	bullet.y = bullet.fireY = y;
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage2->getWidth(),
-		bullet.bulletImage2->getHeight());
+		bullet.bulletImage2->getHeight()-80);
 	bullet.iscollison = false;
 	bullet.isPlayerBullet = true;
 	_vBullet2.push_back(bullet);
@@ -2487,7 +2484,7 @@ void CpSword::fire3(float x, float y, float angle, int plussize)
 	tagBullet bullet;
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage3 = new  image;
-	bullet.bulletImage3 = IMAGE->addImage("검3", "images/bullet_bmp/sword3.bmp", 192, 192,true, RGB(255, 0, 255));
+	bullet.bulletImage3 = IMAGE->addImage("검1", "images/bullet_bmp/sword1.bmp", 192, 192,true, RGB(255, 0, 255));
 	bullet.angle = angle;
 	bullet.rotateangle = angle + PI / 2;
 	bullet.speed = 5.0f;
@@ -2495,7 +2492,7 @@ void CpSword::fire3(float x, float y, float angle, int plussize)
 	bullet.y = bullet.fireY = y;
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
 		bullet.bulletImage3->getWidth(),
-		bullet.bulletImage3->getHeight());
+		bullet.bulletImage3->getHeight()-80);
 	bullet.iscollison = false;
 	bullet.isPlayerBullet = true;
 	_vBullet3.push_back(bullet);
@@ -2518,7 +2515,7 @@ void CpSword::move()
 
 			_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
 				_viBullet->bulletImage->getWidth(),
-				_viBullet->bulletImage->getHeight());
+				_viBullet->bulletImage->getHeight()-80);
 			_viBullet->fireX = _viBullet->x;
 			_viBullet->fireY = _viBullet->y;
 		}
@@ -2548,7 +2545,7 @@ void CpSword::move2()
 
 			_viBullet2->rc = RectMakeCenter(_viBullet2->x, _viBullet2->y,
 				_viBullet2->bulletImage2->getWidth(),
-				_viBullet2->bulletImage2->getHeight());
+				_viBullet2->bulletImage2->getHeight()-80);
 			_viBullet2->fireX = _viBullet2->x;
 			_viBullet2->fireY = _viBullet2->y;
 		}
@@ -2573,12 +2570,12 @@ void CpSword::move3()
 		}
 		if (_viBullet3->count > 0 && _viBullet3->count < 10)
 		{
-			_viBullet3->x += cosf(_viBullet3->angle) * 0;
-			_viBullet3->y -= sinf(_viBullet3->angle) * 0;
+			_viBullet3->x += cosf(_viBullet3->angle) * PLAYERDATA->getData().presentSpeed *5;
+			_viBullet3->y -= sinf(_viBullet3->angle) * PLAYERDATA->getData().presentSpeed * 5;
 
 			_viBullet3->rc = RectMakeCenter(_viBullet3->x, _viBullet3->y,
 				_viBullet3->bulletImage3->getWidth(),
-				_viBullet3->bulletImage3->getHeight());
+				_viBullet3->bulletImage3->getHeight()-80);
 			_viBullet3->fireX = _viBullet3->x;
 			_viBullet3->fireY = _viBullet3->y;
 		}

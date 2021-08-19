@@ -103,8 +103,11 @@
     <Filter Include="DOL\title">
       <UniqueIdentifier>{722dc68b-5e6f-45cd-92ec-d3dcfc20c279}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DOL\Item\coin">
+      <UniqueIdentifier>{f8d3292b-11d0-4566-89b7-9f56cbd3e833}</UniqueIdentifier>
+    </Filter>
     <Filter Include="DOL\option">
-      <UniqueIdentifier>{5c6623c5-4149-4d72-8aba-edcc7f2ce6bc}</UniqueIdentifier>
+      <UniqueIdentifier>{7213c159-80a8-47ff-8076-bf66c1ccac5e}</UniqueIdentifier>
     </Filter>
     <Filter Include="DOL\Aplayer">
       <UniqueIdentifier>{2fa5e2d3-ba00-42e2-90dc-782fa39e9f51}</UniqueIdentifier>
@@ -258,6 +261,9 @@
     <ClInclude Include="DOL_Title.h">
       <Filter>DOL\title</Filter>
     </ClInclude>
+    <ClInclude Include="coin.h">
+      <Filter>DOL\Item\coin</Filter>
+    </ClInclude>
     <ClInclude Include="option.h">
       <Filter>DOL\option</Filter>
     </ClInclude>
@@ -394,6 +400,9 @@
     </ClCompile>
     <ClCompile Include="DOL_Title.cpp">
       <Filter>DOL\title</Filter>
+    </ClCompile>
+    <ClCompile Include="coin.cpp">
+      <Filter>DOL\Item\coin</Filter>
     </ClCompile>
     <ClCompile Include="option.cpp">
       <Filter>DOL\option</Filter>

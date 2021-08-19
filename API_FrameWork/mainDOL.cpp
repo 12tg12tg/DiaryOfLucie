@@ -60,7 +60,6 @@ void mainDOL::update()
 		_mm->update();
 		_cm->update();
 		_mapm->update();
-
 		BUTTON->update();
 		PLAYER->update();
 		PLAYERDATA->update();
@@ -68,8 +67,6 @@ void mainDOL::update()
 		INVENTORY->update();
 
 		CAMERA->FadeUpdate();
-		CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
-		CAMERA->update();
 	}
 	SCENE->update();
 }
@@ -112,6 +109,9 @@ void mainDOL::render()
 	CAMERA->FadeRender(getMemDC());
 	//커서 - 마우스는 최후반.
 	IMAGE->findImage("DOL_cursor")->render(getMemDC(), m_ptMouse.x, m_ptMouse.y);
+	TCHAR str[128];
+	wsprintf(str, "카메라 레프트/탑 : %d, %d", CAMERA->getRect().left, CAMERA->getRect().top);
+	TextOut(getMemDC(),0, 0, str, lstrlen(str));
 }
 
 void mainDOL::gameInit()
@@ -128,7 +128,6 @@ void mainDOL::gameInit()
 	_bm->init();
 	_cm->init();
 	_mm->init();
-
 	_mm->setBulletManagerMemoryLink(_bm);		//몬스터에서 블릿링크
 
 	_cm->setBulletManagerMemoryLink(_bm);		//충돌에서 불릿링크

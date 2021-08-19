@@ -1,6 +1,7 @@
 #pragma once
 #include"gameNode.h"
 #include"motherMap.h"
+#include"progressBar.h"
 class Cmap : public motherMap
 {
 private:
@@ -165,12 +166,15 @@ public:
 	void update();
 	void render();
 
-
+	virtual void setIsDebug(bool isDebug) {
+		_isDebug = isDebug; 
+		_chest->setIsDebug(_isDebug);
+	}
 };
 class shopMap : public motherMap
 {
 private:
-	
+	shop* _shop;
 public:
 	shopMap();
 	~shopMap();
@@ -179,7 +183,10 @@ public:
 	void update();
 	void render();
 
-
+	virtual void setIsDebug(bool isDebug)	{
+		_isDebug = isDebug;
+		_shop->setIsDebug(_isDebug);
+	}
 };
 class statueMap : public motherMap
 {
@@ -193,7 +200,10 @@ public:
 	void update();
 	void render();
 
-
+	virtual void setIsDebug(bool isDebug) {
+		_isDebug = isDebug;
+		_statue->setIsDebug(_isDebug);
+	}
 };
 
 
@@ -209,8 +219,12 @@ public:
 	void update();
 	void render();
 
-
+	virtual void setIsDebug(bool isDebug) {
+		_isDebug = isDebug;
+		_moru->setIsDebug(_isDebug);
+	}
 };
+
 class fountainMap : public motherMap
 {
 private:
@@ -222,11 +236,24 @@ public:
 	void release();
 	void update();
 	void render();
+
+	virtual void setIsDebug(bool isDebug) {
+		_isDebug = isDebug;
+		_fountain->setIsDebug(_isDebug);
+	}
 };
+
 class stage1_Boss : public motherMap
 {
 private:
-
+	int count;
+	BYTE alpha;
+	int totalhp;
+	int currenthp;
+	bool isShake;
+	int shaketime;
+	bool changePivot;
+	progressBar* hpbar;
 public:
 	stage1_Boss(int currentboss);
 	~stage1_Boss();
@@ -268,7 +295,16 @@ public:
 class last_Boss : public motherMap
 {
 private:
-
+	int count;
+	int imgCount;
+	BYTE alpha;
+	int totalhp;
+	int currenthp;
+	bool isShake;
+	int shaketime;
+	bool changePivot;
+	bool isWait;
+	progressBar* hpbar;
 public:
 	last_Boss();
 	~last_Boss();

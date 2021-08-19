@@ -131,31 +131,27 @@ void camera::update()
 		_pivotY = _y;
 
 		//pivot 거리가 충분히 가까워졌다면 그냥 자석
-		if (UTIL::getDistance(_x, _y, _changePivotX, _changePivotY) < _changeSpeed + 1.f)
+		if (UTIL::getDistance(_x, _y, _changePivotX, _changePivotY)
+			< 50)
 		{
-			_pivotX = _changePivotX;
-			_pivotY = _changePivotY;
-			//pivotX = _pivotX;
-			//pivotY = _pivotY;
-			_savePivot.x = _pivotX;
-			_savePivot.y = _pivotY;
+			//_pivotX = _changePivotX;
+			//_pivotY = _changePivotY;
+			////pivotX = _pivotX;
+			////pivotY = _pivotY;
+			_pivotX = _savePivot.x;
+			_pivotY = _savePivot.y;
 			_state = CAMERASTATE::FOLLOWPIVOT;
 		}
 		break;
 
 
 	case CAMERASTATE::SHAKE:
-		break;
-	}
-
-
-	if (_isShake == true)
-	{
 		_shakeTime.current++;
 		if (_shakeTime.current > _shakeTime.max)
 		{
 			_isShake = false;
 			_cameraRect = RectMake(_savePivot.x - _distanceX, _savePivot.y - _distanceY, _cameraSizeX, _cameraSizeY);
+			_state = CAMERASTATE::FOLLOWPIVOT;
 		}
 		if (_shakeTime.current % _shakeTime.cool == 0)
 		{
@@ -163,6 +159,13 @@ void camera::update()
 			_shakePivot.y = RND->getFromInTo(_savePivot.y - _shakePower, _savePivot.y + _shakePower);
 			_cameraRect = RectMake(_shakePivot.x - _distanceX, _shakePivot.y - _distanceY, _cameraSizeX, _cameraSizeY);
 		}
+		break;
+	}
+
+
+	if (_isShake == true)
+	{
+
 	}
 }
 void camera::release()
@@ -310,6 +313,7 @@ void camera::setShake(float power, int time, int cool)
 	_shakeTime.current = 0;
 	_shakeTime.max = time;
 	_shakeTime.cool = cool;
+	_state = CAMERASTATE::SHAKE;
 }
 
 int camera::getRelativeX(float x)

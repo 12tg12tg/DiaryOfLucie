@@ -15,6 +15,7 @@ private:
 	collisionManager*	_cm;
 	monsterManager*		_mm;
 	mapManager*			_mapm;
+
 //-----------------------------
 //각자의 브렌치 인스턴스
 private:

@@ -2,6 +2,7 @@
 #include "mapManager.h"
 #include"monsterManager.h"
 
+
 mapManager::mapManager()
 {
 	_curstage = 1;
@@ -32,8 +33,6 @@ HRESULT mapManager::init()
 	_boss = IMAGE->addImage("보스방", "images/minimap/minimap_cellIcon_boss.bmp", 30, 30, true, RGB(255, 0, 255));
 	_goal = IMAGE->addImage("다음층", "images/minimap/minimap_cellIcon_goal.bmp", 30, 30, true, RGB(255, 0, 255));
 	_back = IMAGE->addImage("바탕", "images/minimap/minimap_backSpriteL.bmp", 455, 317, true, RGB(255, 0, 255));
-	
-
 
 	if (_curstage < 4)
 	{
@@ -168,7 +167,7 @@ HRESULT mapManager::init()
 		}
 	}
 	goNextStage = false;
-	
+	PLAYER->getDIRECTIONAddress() = DOWN;
 	return S_OK;
 }
 
@@ -213,11 +212,11 @@ void mapManager::update()
 	{
 		if (currentIndex.x < 8)
 		{
-			SCENE->changeScene(stage1[currentIndex.x + 1][currentIndex.y].sceneKey);
 			currentIndex.x = currentIndex.x + 1;
 			currentIndex.y = currentIndex.y;
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.right + 20;
 			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.bottom - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.bottom - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.top) / 2;
+			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y].sceneKey);
 			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
 			clearbullet();
 
@@ -227,11 +226,11 @@ void mapManager::update()
 	{
 		if (currentIndex.x > 0)
 		{
-			SCENE->changeScene(stage1[currentIndex.x - 1][currentIndex.y].sceneKey);
 			currentIndex.x = currentIndex.x - 1;
 			currentIndex.y = currentIndex.y;
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.left - 20;
 			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.bottom - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.bottom - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.top) / 2;
+			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y].sceneKey);
 
 			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
 			clearbullet();
@@ -241,11 +240,11 @@ void mapManager::update()
 	{
 		if (currentIndex.y <8)
 		{
-			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y + 1].sceneKey);
 			currentIndex.x = currentIndex.x;
 			currentIndex.y = currentIndex.y + 1;
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.right - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.right - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.left) / 2;
 			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.bottom + 20;
+			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y].sceneKey);
 
 			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
 			clearbullet();
@@ -255,11 +254,11 @@ void mapManager::update()
 	{
 		if (currentIndex.y >= 0)
 		{
-			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y - 1].sceneKey);
 			currentIndex.x = currentIndex.x;
 			currentIndex.y = currentIndex.y - 1;
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.right - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.right - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.left) / 2;
 			PLAYER->getPlayerAddress().y = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.top - 20;
+			SCENE->changeScene(stage1[currentIndex.x][currentIndex.y].sceneKey);
 
 			currentMap = stage1[currentIndex.x][currentIndex.y].sceneKey;
 			clearbullet();
@@ -294,52 +293,58 @@ void mapManager::render()
 	SCENE->render();
 	if (InputManager->isToggleKey(VK_TAB))
 	{
-		ZORDER->UIAlphaRender(_back, ZUIFIRTH, 500, 300,180,170);
+		ZORDER->UIAlphaRender(_back, ZUIFIRTH, 501, 300+160, 180, 170);
 		for (size_t i = 0; i < MAXSIZE; i++)
 		{
 			for (size_t j = 0; j < MAXSIZE; j++)
 			{
 				if (stage1[i][j].mapkind == MAPKIND::START)
 				{
-					ZORDER->UIAlphaRender(_start, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_start, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (stage1[i][j].mapkind == MAPKIND::NORMAL)
 				{
-					ZORDER->UIAlphaRender(_fight, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_fight, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (stage1[i][j].mapkind == MAPKIND::BOSSROOM)
 				{
-					ZORDER->UIAlphaRender(_boss, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_boss, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (stage1[i][j].mapkind == MAPKIND::NEXTSTAGE)
 				{
-					ZORDER->UIAlphaRender(_goal, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_goal, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (stage1[i][j].mapkind == MAPKIND::CHESTROOM)
 				{
-					ZORDER->UIAlphaRender(_chest, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_chest, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (stage1[i][j].mapkind == MAPKIND::FOUNTAIN)
 				{
-					ZORDER->UIAlphaRender(_event, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_event, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (stage1[i][j].mapkind == MAPKIND::MORUROOM)
 				{
-					ZORDER->UIAlphaRender(_event, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_event, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (stage1[i][j].mapkind == MAPKIND::SHOP)
 				{
-					ZORDER->UIAlphaRender(_shop, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_shop, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (stage1[i][j].mapkind == MAPKIND::STATUEROOM)
 				{
-					ZORDER->UIAlphaRender(_event, ZUIFIRTH, 501, 400 + i * 30, 200 + j * 30, 170);
+					ZORDER->UIAlphaRender(_event, ZUIFIRTH, 501, 400 + i * 30 + 160, 200 + j * 30, 170);
 				}
 				if (currentIndex.x == i && currentIndex.y == j)
 				{
-					int alpha = 170;
-					ZORDER->UIAlphaRender(_none, ZUIFIRTH, 501, 400 + currentIndex.x * 30, 200 + currentIndex.y * 30, alpha);
-					alpha += 50;
+					if (isAlphaDownward) {
+						alpha-=7;
+						if (alpha < 50) isAlphaDownward = false;
+					}
+					else {
+						alpha+=7;
+						if (alpha > 240) isAlphaDownward = true;
+					}
+					ZORDER->UIAlphaRender(_none, ZUIFIRTH, 501, 400 + currentIndex.x * 30 + 160, 200 + currentIndex.y * 30, alpha);
 				}
 			}
 		}
@@ -382,7 +387,8 @@ void mapManager::doorstate(monster* monster)
 
 void mapManager::UseableDoor()
 {
-	if (stage1[currentIndex.x - 1][currentIndex.y].mapkind != MAPKIND::NONE)
+	//왼쪽문
+	if (currentIndex.x-1 >= 0&& stage1[currentIndex.x - 1][currentIndex.y].mapkind != MAPKIND::NONE)
 	{
 		_mStage1.find(currentMap)->second->getDungeonDoor()[0].isOpen = true;
 		stage1[currentIndex.x][currentIndex.y]._motherMap->setleftDoor(true);
@@ -392,8 +398,8 @@ void mapManager::UseableDoor()
 		_mStage1.find(currentMap)->second->getDungeonDoor()[0].isOpen = false;
 		stage1[currentIndex.x][currentIndex.y]._motherMap->setleftDoor(false);
 	}
-
-	if (stage1[currentIndex.x][currentIndex.y - 1].mapkind != MAPKIND::NONE)
+	//위쪽문
+	if (currentIndex.y-1 >=0 && stage1[currentIndex.x][currentIndex.y - 1].mapkind != MAPKIND::NONE)
 	{
 		_mStage1.find(currentMap)->second->getDungeonDoor()[1].isOpen = true;
 		stage1[currentIndex.x][currentIndex.y]._motherMap->settopDoor(true);
@@ -403,7 +409,8 @@ void mapManager::UseableDoor()
 		_mStage1.find(currentMap)->second->getDungeonDoor()[1].isOpen = false;
 		stage1[currentIndex.x][currentIndex.y]._motherMap->settopDoor(false);
 	}
-	if (stage1[currentIndex.x + 1][currentIndex.y].mapkind != MAPKIND::NONE)
+	//오른쪽문
+	if (currentIndex.x+1<9 && stage1[currentIndex.x + 1][currentIndex.y].mapkind != MAPKIND::NONE)
 	{
 		_mStage1.find(currentMap)->second->getDungeonDoor()[2].isOpen = true;
 		stage1[currentIndex.x][currentIndex.y]._motherMap->setrightDoor(true);
@@ -413,18 +420,16 @@ void mapManager::UseableDoor()
 		_mStage1.find(currentMap)->second->getDungeonDoor()[2].isOpen = false;
 		stage1[currentIndex.x][currentIndex.y]._motherMap->setrightDoor(false);
 	}
-	if (stage1[currentIndex.x][currentIndex.y + 1].mapkind != MAPKIND::NONE)
+	//아래쪽문
+	if (currentIndex.y+1 < 9 && stage1[currentIndex.x][currentIndex.y + 1].mapkind != MAPKIND::NONE)
 	{
-
 		_mStage1.find(currentMap)->second->getDungeonDoor()[3].isOpen = true;
 		stage1[currentIndex.x][currentIndex.y]._motherMap->setbotDoor(true);
-
 	}
 	else
 	{
 		_mStage1.find(currentMap)->second->getDungeonDoor()[3].isOpen = false;
 		stage1[currentIndex.x][currentIndex.y]._motherMap->setbotDoor(false);
-
 	}
 
 }

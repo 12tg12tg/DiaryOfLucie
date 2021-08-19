@@ -75,6 +75,11 @@ void SceneManager::render()
     //}
 }
 
+gameNode* SceneManager::curScene()
+{
+    return _currentScene;
+}
+
 gameNode* SceneManager::addScene(string sceneName, gameNode* scene, bool islight)
 {
     if (!scene) return nullptr;

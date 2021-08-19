@@ -81,7 +81,7 @@ void CplayerData::render(HDC hdc)
 	if (_isDebug)
 	{
 		ZORDER->UIRectangle(_UIrect, 0);
-		SetBkMode(hdc, OPAQUE);
+		//SetBkMode(hdc, OPAQUE);
 		//		카메라영향을 받지 않는 상태확인.
 		wsprintf(str, "맵상마우스위치x,y? : %d, %d", (int)CAMMOUSEX, (int)CAMMOUSEY);
 		ZORDER->UITextOut(str, ZUITHIRD, 0, WINSIZEY - 100, RGB(0, 0, 255));
@@ -224,7 +224,8 @@ void CplayerData::renderUI(HDC hdc)
 {
 	POINT temp;
 	temp.x = (PLAYER->getPlayerAddress().x -CAMERA->getRect().left)* GAMEDCRATIO;
-	temp.y = (PLAYER->getPlayerAddress().y -CAMERA->getRect().top)*GAMEDCRATIO;
+	temp.y = (PLAYER->getPlayerAddress().y -CAMERA->getRect().top)* GAMEDCRATIO;
+
 	if (PtInRect(&_UIrect, temp)) {
 		UIalpha -= 5;
 		if (UIalpha < 100) {
