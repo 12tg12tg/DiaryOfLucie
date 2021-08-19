@@ -60,6 +60,7 @@ void Inventory::update()
 							else if (_vectInventory[i].isEquip)
 							{//Âø¿ëÇØÁ¦
 								PLAYERDATA->takeOffEquip(j, _vectInventory[i].equipHP, _vectInventory[i].equipMP);
+								_vectInventory[i].isEquip = false;
 							}
 						}
 					}
