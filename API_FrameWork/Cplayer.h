@@ -96,6 +96,8 @@ private:
 	bool _isDebug;
 	bool _isAutoRun;
 	bool _frameswitching;
+	bool checkwalksound = true;
+	bool checkrunsound = true;
 	RECT testrect;
 
 private:

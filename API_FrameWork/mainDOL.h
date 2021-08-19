@@ -22,7 +22,7 @@ private:
 	DOL_Title* _DOLtitle;
 	loading* _loading;
 	bool canUpdate;
-
+	bool soundplay;
 //현재 게임 상태
 private:
 	enum class DOLSTATE
@@ -47,7 +47,7 @@ public:
 	void render();
 
 	void gameInit();
-
+	void initForsound();
 	void setIsdebug(bool isDebug) {
 		_isDebug = isDebug;
 		switch (_state)

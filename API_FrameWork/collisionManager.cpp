@@ -1478,7 +1478,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 						monster->knockback(iter,
 							bm->getChargeInstance()->getVBullet()[i].x,
 							bm->getChargeInstance()->getVBullet()[i].y,
-							PLAYERDATA->getDamage(),
+							PLAYERDATA->getDamage()*0.5,
 							10, false);
 					}
 		

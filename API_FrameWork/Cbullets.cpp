@@ -47,6 +47,7 @@ void CpMagicBullet::release()
 
 void CpMagicBullet::update()
 {
+
 	move();
 }
 
@@ -79,12 +80,19 @@ void CpMagicBullet::fire(float x, float y, float angle,int plussize)
 	bullet.iscollison = false;
 	bullet.isPlayerBullet = true;
 	bullet.colPoison = false;
+	bullet.checksound = true;
 	_vBullet.push_back(bullet);
 }
 void CpMagicBullet::move()
 {
+
 	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end();)
 	{
+		if (_viBullet->checksound == true)
+		{
+			SOUND->play("傍拜家府", 0.1);
+		}
+		_viBullet->checksound = false;
 		_viBullet->x += cosf(_viBullet->angle) * _viBullet->speed;
 		_viBullet->y -= sinf(_viBullet->angle) * _viBullet->speed;
 
@@ -102,6 +110,7 @@ void CpMagicBullet::move()
 }
 void CpMagicBullet::removeBullet(int arrNum)
 {
+	
 	_vBullet.erase(_vBullet.begin() + arrNum);
 }
 //////////////////////////////////////////////////////////////
@@ -159,6 +168,7 @@ void CpArrowBullet::fire(float x, float y, float angle, int plussize)
 	bullet.iscollison = false;
 	bullet.isPlayerBullet = true;
 	bullet.colPoison = false;
+	bullet.checksound = true;
 	_vBullet.push_back(bullet);
 }
 
@@ -166,6 +176,11 @@ void CpArrowBullet::move()
 {
 	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end();)
 	{
+		if (_viBullet->checksound == true)
+		{
+			SOUND->play("劝家府", 0.1);
+		}
+		_viBullet->checksound = false;
 		_viBullet->x += cosf(_viBullet->angle) * _viBullet->speed;
 		_viBullet->y -= sinf(_viBullet->angle) * _viBullet->speed;
 
@@ -2457,6 +2472,7 @@ void CpSword::fire(float x, float y, float angle, int plussize)
 		bullet.bulletImage->getHeight()-80);
 	bullet.iscollison = false;
 	bullet.isPlayerBullet = true;
+	bullet.checksound = true;
 	_vBullet.push_back(bullet);
 }
 
@@ -2476,6 +2492,7 @@ void CpSword::fire2(float x, float y, float angle, int plussize)
 		bullet.bulletImage2->getHeight()-80);
 	bullet.iscollison = false;
 	bullet.isPlayerBullet = true;
+	bullet.checksound = true;
 	_vBullet2.push_back(bullet);
 }
 
@@ -2495,6 +2512,7 @@ void CpSword::fire3(float x, float y, float angle, int plussize)
 		bullet.bulletImage3->getHeight()-80);
 	bullet.iscollison = false;
 	bullet.isPlayerBullet = true;
+	bullet.checksound = true;
 	_vBullet3.push_back(bullet);
 }
 
@@ -2503,6 +2521,11 @@ void CpSword::move()
 	_viBullet = _vBullet.begin();
 	for (_viBullet; _viBullet != _vBullet.end();)
 	{
+		if (_viBullet->checksound == true)
+		{
+			SOUND->play("漠家府", 0.1);
+		}
+		_viBullet->checksound = false;
 		_viBullet->count++;
 		if (_vBullet.size() == 0)
 		{
@@ -2533,6 +2556,11 @@ void CpSword::move2()
 	_viBullet2 = _vBullet2.begin();
 	for (_viBullet2; _viBullet2 != _vBullet2.end();)
 	{
+		if (_viBullet2->checksound == true)
+		{
+			SOUND->play("漠家府", 0.1);
+		}
+		_viBullet2->checksound = false;
 		_viBullet2->count++;
 		if (_vBullet2.size() == 0)
 		{
@@ -2563,6 +2591,11 @@ void CpSword::move3()
 	_viBullet3 = _vBullet3.begin();
 	for (_viBullet3; _viBullet3 != _vBullet3.end();)
 	{
+		if (_viBullet3->checksound == true)
+		{
+			SOUND->play("漠家府", 0.1);
+		}
+		_viBullet3->checksound = false;
 		_viBullet3->count++;
 		if (_vBullet3.size() == 0)
 		{
@@ -2985,7 +3018,7 @@ void CpSkil_Charge::move()
 		{
 			_viBullet->count = 0;
 		}
-		if (_viBullet->count < 250)
+		if (_viBullet->count < 150)
 		{
 			_viBullet->x += cosf(_viBullet->angle) * _viBullet->speed;
 			_viBullet->y -= sinf(_viBullet->angle) * _viBullet->speed;
@@ -3000,10 +3033,10 @@ void CpSkil_Charge::move()
 			}
 			if (_viBullet->iscollison )
 			{
-				_viBullet->count = 249;
+				_viBullet->count = 149;
 			}
 		}
-		else if (_viBullet->count == 250)
+		else if (_viBullet->count == 150)
 		{
 			_viBullet = _vBullet.erase(_viBullet);
 			continue;

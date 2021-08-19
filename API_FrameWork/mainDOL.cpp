@@ -7,6 +7,7 @@ mainDOL::mainDOL()
 	IMAGE->addImage("DOL_cursor", "images/UI/cursor.bmp", 32, 32, true);
 	ShowCursor(false);					//커서숨김
 	SetBkMode(getMemDC(), TRANSPARENT);	//글자배경 투명
+
 }
 
 mainDOL::~mainDOL(){}
@@ -81,6 +82,7 @@ void mainDOL::update()
 		EFFECT->update();
 		INVENTORY->update();
 		ITEM->update();
+		SOUND->update();
 		CAMERA->FadeUpdate();
 	}
 		break;
@@ -91,7 +93,6 @@ void mainDOL::update()
 		break;
 	}
 	SCENE->update();			//INMAP상태일때는 mapManager에서 씬업데이트중.
-
 
 }
 
@@ -177,11 +178,37 @@ void mainDOL::gameInit()
 	_mapm->setSkillMemoryLink(_sk);				//맵에서 스킬
 	PLAYER->setBulletManagerMemoryLink(_bm);
 	_sk->setBulletManagerMemoryLink(_bm);
-
+	initForsound();
 	//_mapm->init();		//로딩에서 init되도록 막음.
 
 
 	//CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
 	//	1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
 	//CAMERA->FadeStart();
+}
+
+void mainDOL::initForsound()
+{
+	SOUND->addSound("배경음악", "sound/stage_forest.ogg", true, true);
+	SOUND->addSound("보스음악", "sound/boss_forest.ogg", true, true);
+	SOUND->addSound("마지막보스음악", "sound/lastboss.ogg", true, true);
+	
+	SOUND->addSound("달리는소리", "sound/footstep_grass_run_01.ogg", false, false);
+	SOUND->addSound("걷는소리", "sound/footstep_grass_walk_04.ogg", false, false);
+
+	SOUND->addSound("슬라임소리", "sound/slime1.ogg", false, false);
+	SOUND->addSound("슬라임죽는소리", "sound/slime_dead.ogg", false, false);
+	SOUND->addSound("뱀죽는소리", "sound/snaby_dead.ogg", false, false);
+	SOUND->addSound("뱀소리", "sound/snaby1.ogg", false, false);
+	SOUND->addSound("버섯죽는소리", "sound/mushman_dead.ogg", false, false);
+	SOUND->addSound("요정죽는소리", "sound/fairy_dead.ogg", false, false);
+	SOUND->addSound("꽃죽는소리", "sound/se_dead1.ogg", false, false);
+	SOUND->addSound("버섯소리", "sound/mushman1.ogg", false, false);
+
+	SOUND->addSound("칼소리", "sound/se_sword1.ogg", false, false);
+	SOUND->addSound("활소리", "sound/bow1.ogg", false, false);
+	SOUND->addSound("공격소리", "sound/atk602.ogg", false, false);
+
+	SOUND->addSound("코인", "sound/Coin.ogg", false, false);
+	SOUND->play("배경음악",0.05);
 }

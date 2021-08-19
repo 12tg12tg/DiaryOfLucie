@@ -125,6 +125,7 @@ void Csnaby::addMonster(float x, float y)
 	newMonster.deathalpha = 255;
 	newMonster.activestate = MONSTERACTIVE::NONE;
 	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	newMonster.deathsoundplay = true;
 	_vMonster.push_back(newMonster);
 }
 
@@ -269,6 +270,9 @@ void Csnaby::giveFrame()
 	case MONSTERACTIVE::DEATH:
 		_viMonster->frameY = 12;
 		maxFrameX = 0;
+		if(_viMonster->deathsoundplay == true)
+		SOUND->play("轨磷绰家府", 0.1);
+		_viMonster->deathsoundplay = false;
 		break;
 	}
 
@@ -453,6 +457,7 @@ void Cslime::addMonster(float x, float y)
 	newMonster.activestate = MONSTERACTIVE::NONE;
 	newMonster.oldactivestate = MONSTERACTIVE::NONE;
 	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	newMonster.deathsoundplay = true;
 	_vMonster.push_back(newMonster);
 }
 
@@ -530,6 +535,8 @@ void Cslime::move(bulletManager* bm)
 		}
 		break;
 	case MONSTERACTIVE::DEATH:
+		if (_viMonster->deathsoundplay == true) { SOUND->play("浇扼烙磷绰家府",0.1); }
+		_viMonster->deathsoundplay = false;
 		_viMonster->deathalpha -= 2;
 		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
 		if (_viMonster->deathalpha == 0) {
@@ -822,6 +829,7 @@ void Cmushman::addMonster(float x, float y)
 	newMonster.activestate = MONSTERACTIVE::NONE;
 	newMonster.oldactivestate = MONSTERACTIVE::NONE;
 	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	newMonster.deathsoundplay = true;
 	_vMonster.push_back(newMonster);
 }
 
@@ -945,7 +953,9 @@ void Cmushman::giveFrame()
 		break;
 
 	case MONSTERACTIVE::DEATH:
+		if (_viMonster->deathsoundplay == true) { SOUND->play("滚几磷绰家府", 0.1); }
 		_viMonster->frameY = 10;
+		_viMonster->deathsoundplay = false;
 		maxFrameX = 0;
 		break;
 	}
@@ -1452,6 +1462,7 @@ void Cfairy::addMonster(float x, float y)
 	newMonster.activestate = MONSTERACTIVE::NONE;
 	newMonster.oldactivestate = MONSTERACTIVE::NONE;
 	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	newMonster.deathsoundplay = true;
 	_vMonster.push_back(newMonster);
 }
 
@@ -1518,6 +1529,8 @@ void Cfairy::move(bulletManager* bm)
 		}
 		break;
 	case MONSTERACTIVE::DEATH:
+		if (_viMonster->deathsoundplay == true) { SOUND->play("夸沥磷绰家府", 0.1); }
+		_viMonster->deathsoundplay = false;
 		_viMonster->deathalpha -= 2;
 		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
 		if (_viMonster->deathalpha == 0) {
@@ -1830,6 +1843,7 @@ void Cflime::addMonster(float x, float y)
 	newMonster.activestate = MONSTERACTIVE::NONE;
 	newMonster.oldactivestate = MONSTERACTIVE::NONE;
 	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	newMonster.deathsoundplay = true;
 	_vMonster.push_back(newMonster);
 }
 
@@ -1994,6 +2008,8 @@ void Cflime::giveFrame()
 		break;
 
 	case MONSTERACTIVE::DEATH:
+		if (_viMonster->deathsoundplay == true) { SOUND->play("采磷绰家府", 0.1); }
+		_viMonster->deathsoundplay = false;
 		_viMonster->frameY = 8;
 		maxFrameX = 0;
 		break;
