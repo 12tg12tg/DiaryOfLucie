@@ -68,13 +68,18 @@ void mainDOL::update()
 		break;
 	case mainDOL::DOLSTATE::INMAP:
 	{
+		if (INPUT->isOnceKeyDown('K')) _sk->addSkill();
+
 		_bm->update();
 		_mm->update();
 		_cm->update();
 		_mapm->update();
 		BUTTON->update();
+<<<<<<< HEAD
 		INVENTORY->update();
+=======
 		_sk->update();
+>>>>>>> eab43b4e2a57756d08f815b34f5de4c88da62b1a
 		PLAYER->update();
 		PLAYERDATA->update();
 		EFFECT->update();
@@ -173,7 +178,6 @@ void mainDOL::gameInit()
 	_cm->setmapManagerMemoryLink(_mapm);		//충돌에서 맵링크
 	_mapm->setMonsterManagerMemoryLink(_mm);	//맵에서 몬스터링크
 	_mapm->setBulletManagerMemoryLink(_bm);		//맵에서 불릿링크
-	_mapm->setSkillMemoryLink(_sk);				//맵에서 스킬
 	PLAYER->setBulletManagerMemoryLink(_bm);
 	_sk->setBulletManagerMemoryLink(_bm);
 
