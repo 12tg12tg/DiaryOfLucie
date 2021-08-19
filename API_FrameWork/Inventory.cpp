@@ -38,6 +38,7 @@ void Inventory::update()
 		}
 		else {
 			_vectAccesory.push_back(_vectItemData[randnum].item_image);
+			//여기도 바로착용 거시기해라
 		}
 	}
 }
@@ -61,16 +62,22 @@ void Inventory::render(HDC hdc)
 				{
 					for (auto& j : _vectItemData)
 					{
-						if (j.item_name == _vectInventory[i].item_name) {
-							switch (j.itemType) {
+						if (j.item_name == _vectInventory[i].item_name) 
+						{
+							if (!_vectInventory[i].isEquip) {
+								switch (j.itemType)
+								{
 								case equip://장비부위 장착
+
 									break;
 								case weapon://무기종류 장착
+
 									break;
-								case usefule://사용 로직 사용 이름에 따라
+								case usefule://사용 로직 사용 이름에 따라 미구현
 									break;
-								case accesory://그냥 능력치 상승
+								case accesory://그냥 능력치 상승 들어올일 없음
 									break;
+								}
 							}
 						}
 					}
@@ -78,15 +85,25 @@ void Inventory::render(HDC hdc)
 			}
 
 			//현재아이템 인벤토리에 출력하는 부분
-			if (i < _vectInventory.size()) {
+			if (i < _vectInventory.size()) 
+			{
 				for (auto& j : _vectItemData)
 				{
-					if (j.item_name == _vectInventory[i].item_name) {
+					if (j.item_name == _vectInventory[i].item_name) 
+					{
 						ZORDER->UIRender(j.item_image, ZUIFIRST, 1, _InvenSlot[i].left+11, _InvenSlot[i].top+11);
 					}
 				}
 			}
 		}
+	}
+
+	//현재악세서리 출력부분
+	int accindex = 0;
+	for (auto& i : _vectAccesory)
+	{
+		ZORDER->UIAlphaRender(i, ZUIFIRST, 0, WINSIZEX / 2 - (i->getWidth() / 2) * (_vectAccesory.size()) + accindex * i->getWidth() , 699, PLAYERDATA->getUIAlpha());
+		accindex++;
 	}
 }
 
@@ -107,7 +124,7 @@ void Inventory::InventoryDataPushBack(string item_name, int equipHP, int equipMP
 			}
 			else {
 				_vectAccesory.push_back(i.item_image);
-
+				//바로착용로직 넣어주세욤
 			}
 		}
 	}
@@ -115,6 +132,7 @@ void Inventory::InventoryDataPushBack(string item_name, int equipHP, int equipMP
 
 void Inventory::itemErase()
 {
+
 }
 
 bool Inventory::inventoryEmptyCheck()

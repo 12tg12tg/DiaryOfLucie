@@ -43,5 +43,7 @@ public:
 	void InventoryDataPushBack(string item_name,int equipHP = 0,int equipMP = 0);
 	
 	void itemErase();
+
 	bool inventoryEmptyCheck();
+
 };

@@ -3,7 +3,7 @@
 enum ITEMTYPE {
 	equip,
 	weapon,
-	usefule,
+	usefule,//¹Ì±¸Çö
 	accesory
 };
 enum WEAPON_TYPE
