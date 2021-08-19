@@ -301,7 +301,9 @@ void CplayerData::expUP(int exp)
 		{
 			_level++;
 			_EXP -= 100;
-			_getSkill == true;
+			_getSkill = true;
+			changeHP(_MaxHP);
+			changeMP(_MaxMP);
 		}
 		else
 		{

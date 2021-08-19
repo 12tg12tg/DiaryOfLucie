@@ -213,6 +213,10 @@ void mapManager::update()
 	{
 		if (currentIndex.x < 8)
 		{
+			if (PLAYERDATA->getskill()) {
+				sk->addSkill();
+				PLAYERDATA->getskill() = false;
+			}
 			currentIndex.x = currentIndex.x + 1;
 			currentIndex.y = currentIndex.y;
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.right + 20;
@@ -227,6 +231,10 @@ void mapManager::update()
 	{
 		if (currentIndex.x > 0)
 		{
+			if (PLAYERDATA->getskill()) {
+				sk->addSkill();
+				PLAYERDATA->getskill() = false;
+			}
 			currentIndex.x = currentIndex.x - 1;
 			currentIndex.y = currentIndex.y;
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.left - 20;
@@ -241,6 +249,10 @@ void mapManager::update()
 	{
 		if (currentIndex.y <8)
 		{
+			if (PLAYERDATA->getskill()) {
+				sk->addSkill();
+				PLAYERDATA->getskill() = false;
+			}
 			currentIndex.x = currentIndex.x;
 			currentIndex.y = currentIndex.y + 1;
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.right - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.right - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.left) / 2;
@@ -255,6 +267,10 @@ void mapManager::update()
 	{
 		if (currentIndex.y >= 0)
 		{
+			if (PLAYERDATA->getskill()) {
+				sk->addSkill();
+				PLAYERDATA->getskill() = false;
+			}
 			currentIndex.x = currentIndex.x;
 			currentIndex.y = currentIndex.y - 1;
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.right - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.right - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.left) / 2;

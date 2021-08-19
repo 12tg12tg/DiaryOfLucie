@@ -46,4 +46,5 @@ public:
 
 	bool inventoryEmptyCheck();
 
+	void showInvenUi();
 };
