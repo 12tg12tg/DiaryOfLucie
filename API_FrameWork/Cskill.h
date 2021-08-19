@@ -7,8 +7,16 @@ struct tagSkill
 	string info;
 	int burnMp;
 	int frameX, frameY;
-	int cooldown;
+
+	int cooltime;
+	float cooldown;
+	bool isCool;
+
+	int count;
+	float durationDown;
 	int duration;
+	bool isOn;
+
 	char key;
 };
 
@@ -57,7 +65,9 @@ public:
 	void skillFire();			//발사 입력을 받으면 현재선택중인 스킬을 발사하는 함수.
 	void showNewSkillInfo();	//얻은 스킬정보를 팝업.
 	void selectSKill();			//숫자키로 스킬선택
-	void uirender();
+	void uirender();			//유아이에 스킬정보 띄우기
+	void coolDown();			//사용직후 쿨다운부여.
+	void checkDuration();		//지속시간체크
 
 	bool getIsSkillInfo() { return isSkillInfo; }
 	void setBulletManagerMemoryLink(bulletManager* bm) { _bm = bm; }

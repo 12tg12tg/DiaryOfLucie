@@ -68,17 +68,15 @@ void mainDOL::update()
 		break;
 	case mainDOL::DOLSTATE::INMAP:
 	{
-		static int count = 0;
-		count++;
-		if (count == 200) _sk->addSkill();
+		if (INPUT->isOnceKeyDown('K')) _sk->addSkill();
 
 		_bm->update();
 		_mm->update();
 		_cm->update();
 		_mapm->update();
 		BUTTON->update();
-		PLAYER->update();
 		_sk->update();
+		PLAYER->update();
 		PLAYERDATA->update();
 		EFFECT->update();
 		CAMERA->FadeUpdate();
