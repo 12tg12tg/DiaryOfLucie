@@ -208,15 +208,15 @@ void mapManager::update()
 	{	
 		UseableDoor();
 		stage1[currentIndex.x][currentIndex.y]._motherMap->setClear(true);
+		if (PLAYERDATA->getskill()) {
+			sk->addSkill();
+			PLAYERDATA->getskill() = false;
+		}
 	}
 	if (checkright)
 	{
 		if (currentIndex.x < 8)
 		{
-			if (PLAYERDATA->getskill()) {
-				sk->addSkill();
-				PLAYERDATA->getskill() = false;
-			}
 			currentIndex.x = currentIndex.x + 1;
 			currentIndex.y = currentIndex.y;
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[0].Door.right + 20;
@@ -231,10 +231,6 @@ void mapManager::update()
 	{
 		if (currentIndex.x > 0)
 		{
-			if (PLAYERDATA->getskill()) {
-				sk->addSkill();
-				PLAYERDATA->getskill() = false;
-			}
 			currentIndex.x = currentIndex.x - 1;
 			currentIndex.y = currentIndex.y;
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[2].Door.left - 20;
@@ -249,10 +245,6 @@ void mapManager::update()
 	{
 		if (currentIndex.y <8)
 		{
-			if (PLAYERDATA->getskill()) {
-				sk->addSkill();
-				PLAYERDATA->getskill() = false;
-			}
 			currentIndex.x = currentIndex.x;
 			currentIndex.y = currentIndex.y + 1;
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.right - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.right - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[1].Door.left) / 2;
@@ -267,10 +259,6 @@ void mapManager::update()
 	{
 		if (currentIndex.y >= 0)
 		{
-			if (PLAYERDATA->getskill()) {
-				sk->addSkill();
-				PLAYERDATA->getskill() = false;
-			}
 			currentIndex.x = currentIndex.x;
 			currentIndex.y = currentIndex.y - 1;
 			PLAYER->getPlayerAddress().x = stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.right - (stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.right - stage1[currentIndex.x][currentIndex.y]._motherMap->getDungeonDoor()[3].Door.left) / 2;
@@ -933,4 +921,23 @@ void mapManager::clearbullet()
 	bm->getTriBulInstance()->getVBullet().clear();
 	bm->getWidBulInstance()->getVBullet().clear();
 
+}
+
+void mapManager::clearMonster()
+{
+	mm->getSnaby()->getVMonster().clear();
+	mm->getSlime()->getVMonster().clear();
+	mm->getFlime()->getVMonster().clear();
+	mm->getFairy()->getVMonster().clear();
+	mm->getMushman()->getVMonster().clear();
+	mm->getMushman_Mushroom()->getVMonster().clear();
+	mm->getBoss_Slime()->getVMonster().clear();
+	mm->getSemiBoss_Slime()->getVMonster().clear();
+	mm->getBoss_Flime()->getVMonster().clear();
+	mm->getBoss_Mushmam()->getVMonster().clear();
+	mm->getBoss_Mushroom_B()->getVMonster().clear();
+	mm->getBoss_Mushroom_P()->getVMonster().clear();
+	mm->getBoss_Mushroom_G()->getVMonster().clear();
+	mm->getYggdrasil()->getVMonster().clear();
+	mm->getYggdrasil_Bomb()->getVMonster().clear();
 }

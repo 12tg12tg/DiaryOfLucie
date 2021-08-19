@@ -91,7 +91,9 @@ void mainDOL::update()
 	}
 	SCENE->update();			//INMAP상태일때는 mapManager에서 씬업데이트중.
 
-
+	if (INPUT->isOnceKeyDown(VK_F5)) {
+		_mapm->clearMonster();
+	}
 }
 
 void mainDOL::render()

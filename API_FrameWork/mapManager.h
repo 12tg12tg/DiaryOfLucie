@@ -127,6 +127,7 @@ public:
 	void makeclear2();
 	bool getGoNextStage() {return goNextStage;}
 	void clearbullet();
+	void clearMonster();
 
 	bool setShopRoom();
 	bool setMORURoom();
