@@ -391,7 +391,7 @@ void Cplayer::stateCheck()
 				this->angleCheckDirection(_attAngle);
 				_state = STATE::ATTSTAFF;
 				_attAngle = _attAngle - 0.03 + 0.00003 * RND->getFromInTo(0, 2000);
-				_Cbullet->getMgcBulInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 0);
+				_Cbullet->getIce_spearInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 0);
 
 				PLAYERDATA->useStamina(2);
 			}

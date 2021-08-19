@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "shop.h"
+
 #define ADJUSTSHOPX	74
 shop::shop()
 {
@@ -63,6 +64,7 @@ void shop::update(bulletManager* bm)
 {
 	playerInterCollision();
 	soldItem();
+	
 }
 
 void shop::render()

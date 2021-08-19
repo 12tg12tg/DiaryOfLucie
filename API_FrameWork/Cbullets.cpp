@@ -150,7 +150,7 @@ void CpArrowBullet::fire(float x, float y, float angle, int plussize)
 	bullet.bulletImage = IMAGE->addImage("화살", "images/bullet_bmp/PBullet_arrow.bmp", 26  , 8  , true);
 	bullet.angle = angle;
 	bullet.rotateangle = angle ;
-	bullet.speed = 5.0f;
+	bullet.speed = 7.0f;
 	bullet.x = bullet.fireX = x;
 	bullet.y = bullet.fireY = y;
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
@@ -2779,7 +2779,7 @@ void CpSkil_Ice_spear::move()
 		{
 			_viBullet->count = 0;
 		}
-		if (_viBullet->count < 100)
+		if (_viBullet->count < 100 && !(_viBullet->iscollison))
 		{
 			_viBullet->x += cosf(_viBullet->angle2) * _viBullet->speed;
 			_viBullet->y -= sinf(_viBullet->angle2) * _viBullet->speed;
@@ -2790,18 +2790,18 @@ void CpSkil_Ice_spear::move()
 
 			_viBullet->fireX = _viBullet->x;
 			_viBullet->fireY = _viBullet->y;
-			if (_viBullet->iscollison)
-			{
-				_viBullet->count = 99;
-			}
 		}
-		else if (_viBullet->count == 100)
+		else if (_viBullet->iscollison)
+		{
+				_viBullet->count =100;
+		}
+		if (_viBullet->count == 100)
 		{
 			fire2(_viBullet->fireX, _viBullet->fireY, 0, 0);
 			_viBullet = _vBullet.erase(_viBullet);
 			continue;
 		}
-		++_viBullet;
+		else ++_viBullet;
 	}
 }
 void CpSkil_Ice_spear::move2()
@@ -2963,7 +2963,7 @@ void CpSkil_Charge::fire(float x, float y, float angle, int plussize)
 	bullet.bulletImage = new  image;
 	bullet.bulletImage = IMAGE->addImage("충전총알", "images/bullet_bmp/PBullet_Charge.bmp", 26+ plussize, 26+ plussize, true);
 	bullet.angle = angle;
-	bullet.speed = 5.0f;
+	bullet.speed = 3.0f;
 	bullet.x = bullet.fireX = x;
 	bullet.y = bullet.fireY = y;
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,

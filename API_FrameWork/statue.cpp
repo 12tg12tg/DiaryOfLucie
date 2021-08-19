@@ -178,7 +178,51 @@ void statue::bulletCollision(bulletManager* bm)
 		}
 	}
 	//3. 검
-
+	for (int i = 0; i < bm->getSwordInstance()->getVBullet().size(); i++)
+	{
+		if (OBB->isOBBCollision(bm->getSwordInstance()->getVBullet()[i].rc, bm->getSwordInstance()->getVBullet()[i].angle, _hitRc, 0))
+		{
+			if (_hp > 0) {
+				float angle = UTIL::getAngle(bm->getSwordInstance()->getVBullet()[i].x,
+					bm->getSwordInstance()->getVBullet()[i].y,
+					_x + _img->getFrameWidth() / 2, _y + _img->getFrameHeight() / 2);
+				_x += cosf(angle) * 5;
+				_y -= sinf(angle) * 5;
+				afterHit();
+			}
+			bm->getSwordInstance()->removeBullet(i);
+		}
+	}
+	for (int i = 0; i < bm->getSwordInstance()->getVBullet2().size(); i++)
+	{
+		if (OBB->isOBBCollision(bm->getSwordInstance()->getVBullet2()[i].rc, bm->getSwordInstance()->getVBullet2()[i].angle, _hitRc, 0))
+		{
+			if (_hp > 0) {
+				float angle = UTIL::getAngle(bm->getSwordInstance()->getVBullet2()[i].x,
+					bm->getSwordInstance()->getVBullet2()[i].y,
+					_x + _img->getFrameWidth() / 2, _y + _img->getFrameHeight() / 2);
+				_x += cosf(angle) * 5;
+				_y -= sinf(angle) * 5;
+				afterHit();
+			}
+			bm->getSwordInstance()->removeBullet2(i);
+		}
+	}
+	for (int i = 0; i < bm->getSwordInstance()->getVBullet3().size(); i++)
+	{
+		if (OBB->isOBBCollision(bm->getSwordInstance()->getVBullet3()[i].rc, bm->getSwordInstance()->getVBullet3()[i].angle, _hitRc, 0))
+		{
+			if (_hp > 0) {
+				float angle = UTIL::getAngle(bm->getSwordInstance()->getVBullet3()[i].x,
+					bm->getSwordInstance()->getVBullet3()[i].y,
+					_x + _img->getFrameWidth() / 2, _y + _img->getFrameHeight() / 2);
+				_x += cosf(angle) * 5;
+				_y -= sinf(angle) * 5;
+				afterHit();
+			}
+			bm->getSwordInstance()->removeBullet3(i);
+		}
+	}
 
 	//-------------------------------------------------------------------------블루석상
 	//1. 플레이어매직블릿
@@ -216,7 +260,51 @@ void statue::bulletCollision(bulletManager* bm)
 		}
 	}
 	//3. 검
-
+	for (int i = 0; i < bm->getSwordInstance()->getVBullet().size(); i++)
+	{
+		if (OBB->isOBBCollision(bm->getSwordInstance()->getVBullet()[i].rc, bm->getSwordInstance()->getVBullet()[i].angle, _hitRc, 0))
+		{
+			if (_hp > 0) {
+				float angle = UTIL::getAngle(bm->getSwordInstance()->getVBullet()[i].x,
+					bm->getSwordInstance()->getVBullet()[i].y,
+					_x + _img->getFrameWidth() / 2, _y + _img->getFrameHeight() / 2);
+				_x += cosf(angle) * 5;
+				_y -= sinf(angle) * 5;
+				afterHit();
+			}
+			bm->getSwordInstance()->removeBullet(i);
+		}
+	}
+	for (int i = 0; i < bm->getSwordInstance()->getVBullet2().size(); i++)
+	{
+		if (OBB->isOBBCollision(bm->getSwordInstance()->getVBullet2()[i].rc, bm->getSwordInstance()->getVBullet2()[i].angle, _hitRc, 0))
+		{
+			if (_hp > 0) {
+				float angle = UTIL::getAngle(bm->getSwordInstance()->getVBullet2()[i].x,
+					bm->getSwordInstance()->getVBullet2()[i].y,
+					_x + _img->getFrameWidth() / 2, _y + _img->getFrameHeight() / 2);
+				_x += cosf(angle) * 5;
+				_y -= sinf(angle) * 5;
+				afterHit();
+			}
+			bm->getSwordInstance()->removeBullet2(i);
+		}
+	}
+	for (int i = 0; i < bm->getSwordInstance()->getVBullet3().size(); i++)
+	{
+		if (OBB->isOBBCollision(bm->getSwordInstance()->getVBullet3()[i].rc, bm->getSwordInstance()->getVBullet3()[i].angle, _hitRc, 0))
+		{
+			if (_hp > 0) {
+				float angle = UTIL::getAngle(bm->getSwordInstance()->getVBullet3()[i].x,
+					bm->getSwordInstance()->getVBullet3()[i].y,
+					_x + _img->getFrameWidth() / 2, _y + _img->getFrameHeight() / 2);
+				_x += cosf(angle) * 5;
+				_y -= sinf(angle) * 5;
+				afterHit();
+			}
+			bm->getSwordInstance()->removeBullet3(i);
+		}
+	}
 }
 
 void statue::afterHit()

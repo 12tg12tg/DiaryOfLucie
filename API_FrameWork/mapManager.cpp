@@ -71,6 +71,7 @@ HRESULT mapManager::init()
 		_stage1_Boss->setMonstermemoryLink(mm);
 		_nextStage->setMonstermemoryLink(mm);
 		_fountainMap->setMonstermemoryLink(mm);
+		
 
 
 
