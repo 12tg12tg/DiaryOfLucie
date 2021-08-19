@@ -1,5 +1,6 @@
 #pragma once
 #include "object.h"
+#include "motherMap.h"
 class fountain : public object
 {
 private:
@@ -14,7 +15,7 @@ private:
 	float _neverChangeX;
 	float _neverChangeY;
 	BYTE boxAlpha;
-
+	motherMap* _motherm;
 //	bool _isDebug;
 public:
 	fountain();
@@ -31,5 +32,6 @@ public:
 	virtual void giveFrame();
 
 	void setBox();
+	void setmotherMapMemoryLink(motherMap* motherMap) { _motherm = motherMap; }
 };
 

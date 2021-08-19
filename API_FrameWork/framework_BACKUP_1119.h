@@ -46,9 +46,12 @@ using namespace std;
 
 #include"Cplayer.h"
 #include"CplayerData.h"
-#include "Item.h"
+<<<<<<< HEAD
 #include "Inventory.h"
 
+=======
+#include "Item.h"
+>>>>>>> 3e894a2202c6745f1f4ca5c36e855dabc6110456
 //=======================//
 //		Manager			//
 //=====================//
@@ -69,8 +72,13 @@ using namespace std;
 
 #define PLAYER			Cplayer::getSingleton()
 #define PLAYERDATA		CplayerData::getSingleton()
+<<<<<<< HEAD
 #define INVENTORY		Inventory::getSingleton()
+=======
 #define ITEM			Item::getSingleton()
+
+>>>>>>> 3e894a2202c6745f1f4ca5c36e855dabc6110456
+
 //===================//
 //	매크로 설정부분	//
 //=================//

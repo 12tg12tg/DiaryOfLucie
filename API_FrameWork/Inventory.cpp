@@ -10,6 +10,8 @@ HRESULT Inventory::init()
 	{
 		_InvenSlot[i] = RectMake(1067+(i%5)* (_Bright_button_image->getWidth()+2), 256+(i/5)*( _Bright_button_image->getHeight()+5), _Bright_button_image->getWidth(), _Bright_button_image->getHeight());
 	}
+	_vectItemData;
+	_iterItemData;
 	return S_OK;
 }
 
@@ -32,6 +34,9 @@ void Inventory::render(HDC hdc)
 			if (PtInRect(&_InvenSlot[i], { m_ptMouse.x,m_ptMouse.y }))
 			{
 				ZORDER->UIAlphaRender(_Bright_button_image, ZUIFIRST, 2, _InvenSlot[i].left, _InvenSlot[i].top, 50);
+				if (INPUT->isOnceKeyDown(VK_LBUTTON)) {
+
+				}
 			}
 		}
 	}

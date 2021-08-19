@@ -5,7 +5,7 @@
 
 mapManager::mapManager()
 {
-	_curstage = 1;
+	_curstage = 4;
 }
 mapManager::~mapManager()
 {

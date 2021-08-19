@@ -153,6 +153,7 @@ void chest::afterHit()
 		if (_curBox == 0)
 		{
 			/*아이템뱉기*/
+		
 		}
 		//큰상자
 		else

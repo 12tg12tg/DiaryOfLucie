@@ -11,6 +11,7 @@ object::~object()
 
 HRESULT object::add()
 {
+	
 	return S_OK;
 }
 
