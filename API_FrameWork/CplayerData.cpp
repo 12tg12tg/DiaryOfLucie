@@ -327,40 +327,135 @@ int CplayerData::getDamage()
 	return damage;
 }
 
-void CplayerData::setEquip(int equipHP, int equipMaxHP, int equipMP, int equipMaxMP, float equipSpeed, int equipAtk, int equipAtkSpeed, int equipCritical, int equipSkillPower, int equipSkillCollTime)
-{
-	_presentHP += equipHP;
-	_equipMaxHP += equipMaxHP;
-	_presentMP += equipMP;
-	_equipMaxMP += equipMaxMP;
+//void CplayerData::setEquip(int equipHP, int equipMaxHP, int equipMP, int equipMaxMP, float equipSpeed, int equipAtk, int equipAtkSpeed, int equipCritical, int equipSkillPower, int equipSkillCollTime)
+//{
+//	_presentHP += equipHP;
+//	_equipMaxHP += equipMaxHP;
+//	_presentMP += equipMP;
+//	_equipMaxMP += equipMaxMP;
+//
+//	_Data.equipspeed += equipSpeed;
+//	_Data.equipAtk += equipAtk;
+//	_Data.AtkSpeed += equipAtkSpeed;
+//	_Data.Critical += equipCritical;
+//	_Data.equipSkillCoolTime += equipSkillPower;
+//	_Data.equipSkillCoolTime += equipSkillCollTime;
+//}
 
-	_Data.equipspeed += equipSpeed;
-	_Data.equipAtk += equipAtk;
-	_Data.AtkSpeed += equipAtkSpeed;
-	_Data.Critical += equipCritical;
-	_Data.equipSkillCoolTime += equipSkillPower;
-	_Data.equipSkillCoolTime += equipSkillCollTime;
-}
-
-void CplayerData::takeOffEquip(int& equipHP, int equipMaxHP, int& equipMP, int equipMaxMP, float equipSpeed, int equipAtk, int equipAtkSpeed, int equipCritical, int equipSkillPower, int equipSkillCollTime)
-{
-	equipHP = costHP(equipMaxHP);
-	_equipMaxHP -= equipMaxHP;
-	equipMP = costMP(equipMaxMP);
-	_equipMaxMP -= equipMaxMP;
-
-	_Data.equipspeed -= equipSpeed;
-	_Data.equipAtk -= equipAtk;
-	_Data.AtkSpeed -= equipAtkSpeed;
-	_Data.Critical -= equipCritical;
-	_Data.equipSkillCoolTime -= equipSkillPower;
-	_Data.equipSkillCoolTime -= equipSkillCollTime;
-}
+//void CplayerData::takeOffEquip(int& equipHP, int equipMaxHP, int& equipMP, int equipMaxMP, float equipSpeed, int equipAtk, int equipAtkSpeed, int equipCritical, int equipSkillPower, int equipSkillCollTime)
+//{
+//	equipHP = costHP(equipMaxHP);
+//	_equipMaxHP -= equipMaxHP;
+//	equipMP = costMP(equipMaxMP);
+//	_equipMaxMP -= equipMaxMP;
+//
+//	_Data.equipspeed -= equipSpeed;
+//	_Data.equipAtk -= equipAtk;
+//	_Data.AtkSpeed -= equipAtkSpeed;
+//	_Data.Critical -= equipCritical;
+//	_Data.equipSkillCoolTime -= equipSkillPower;
+//	_Data.equipSkillCoolTime -= equipSkillCollTime;
+//}
 
 void CplayerData::setEquip(ITEMDATA itemData, int equipHP, int equipMP)
 {
+	_presentHP += equipHP;
+	_equipMaxHP += itemData.equipMaxHP;
+	_presentMP += equipMP;
+	_equipMaxMP += itemData.equipMaxMP;
+
+	_Data.equipspeed += itemData.equipSpeed;
+	_Data.equipAtk += itemData.equipAtk;
+	_Data.AtkSpeed += itemData.equipAtkSpeed;
+	_Data.Critical += itemData.equipCritical;
+	_Data.equipSkillCoolTime += itemData.equipSkillPower;
+	_Data.equipSkillCoolTime += itemData.equipSkillCollTime;
+
+	switch (itemData.itemType)
+	{
+	case ITEMTYPE::weapon:
+		_isEquipParts._isEquipWeapon=true;
+		break;
+
+	case ITEMTYPE::equip:
+		switch (itemData.equip_type)
+		{
+		case EQUIPTYPE::hat:
+			_isEquipParts._isEquipHat= true;
+			break;
+		case EQUIPTYPE::armor:
+			_isEquipParts._isEquipArmor= true;
+			break;
+
+		case EQUIPTYPE::boot:
+			_isEquipParts._isEquipBoots= true;
+			break;
+
+		}
+		break;
+
+	}
 }
 
 void CplayerData::takeOffEquip(ITEMDATA itemData, int& equipHP, int& equipMP)
 {
+	equipHP = costHP(itemData.equipMaxHP);
+	_equipMaxHP -= itemData.equipMaxHP;
+	equipMP = costMP(itemData.equipMaxMP);
+	_equipMaxMP -= itemData.equipMaxMP;
+
+	_Data.equipspeed -= itemData.equipSpeed;
+	_Data.equipAtk -= itemData.equipAtk;
+	_Data.AtkSpeed -= itemData.equipAtkSpeed;
+	_Data.Critical -= itemData.equipCritical;
+	_Data.equipSkillCoolTime -= itemData.equipSkillPower;
+	_Data.equipSkillCoolTime -= itemData.equipSkillCollTime;
+
+	switch (itemData.itemType)
+	{
+	case ITEMTYPE::weapon:
+		_isEquipParts._isEquipWeapon = false;
+		break;
+
+	case ITEMTYPE::equip:
+		switch (itemData.equip_type)
+		{
+		case EQUIPTYPE::hat:
+			_isEquipParts._isEquipHat = false;
+			break;
+		case EQUIPTYPE::armor:
+			_isEquipParts._isEquipArmor = false;
+			break;
+
+		case EQUIPTYPE::boot:
+			_isEquipParts._isEquipBoots = false;
+			break;
+
+		}
+		break;
+
+	}
+}
+
+bool CplayerData::PartsEquipCheck(ITEMDATA itemData)
+{
+	switch (itemData.itemType)
+	{
+	case ITEMTYPE::weapon:
+		if (_isEquipParts._isEquipWeapon) return false;
+		else return true;
+	case ITEMTYPE::equip:
+		switch (itemData.equip_type)
+		{
+		case EQUIPTYPE::hat:
+			if (_isEquipParts._isEquipHat) return false;
+			else return true;
+		case EQUIPTYPE::armor:
+			if(_isEquipParts._isEquipArmor) return false;
+			else return true;
+		case EQUIPTYPE::boot:
+			if (_isEquipParts._isEquipBoots) return false;
+			else return true;
+		}
+	}
 }

@@ -68,20 +68,20 @@ void mainDOL::update()
 		break;
 	case mainDOL::DOLSTATE::INMAP:
 	{
-		
+		if (INPUT->isOnceKeyDown('K')) _sk->addSkill();
 
 		_bm->update();
 		_mm->update();
 		_cm->update();
 		_mapm->update();
 		BUTTON->update();
-		INVENTORY->update();
 		_sk->update();
 		PLAYER->update();
 		PLAYERDATA->update();
 		EFFECT->update();
 		INVENTORY->update();
 		ITEM->update();
+		INVENTORY->update();
 		CAMERA->FadeUpdate();
 	}
 		break;
