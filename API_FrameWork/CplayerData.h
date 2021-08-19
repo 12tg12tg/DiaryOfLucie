@@ -121,4 +121,5 @@ public:
 	void setEquip(ITEMDATA itemData,int equipHP,int equipMP);
 	void takeOffEquip(ITEMDATA itemData,int& equipHP, int& equipMP);
 	bool PartsEquipCheck(ITEMDATA itemData);
+	bool& getskill() { return _getSkill; }
 };
