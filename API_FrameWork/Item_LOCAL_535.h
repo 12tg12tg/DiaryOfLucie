@@ -39,7 +39,7 @@ public:
 	Item();
 	~Item();
 
-	HRESULT init();
+	HRESULT init(int x , int y);
 	void release();
 	void update();
 	void render();

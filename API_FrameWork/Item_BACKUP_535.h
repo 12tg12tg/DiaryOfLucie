@@ -47,8 +47,11 @@ public:
 
 	vector<ITEMDATA> getV_Item() { return _vItem; }
 	vector<ITEMDATA>::iterator getVI_Item() { return _viItem; }
+<<<<<<< HEAD
 	vector<ITEMDATA> copyItemVect() { return _vItem; }
 	vector<ITEMDATA>::iterator copyItemIter() { return _viItem; }
+=======
+>>>>>>> aa7f09d8cec0ef161603b3cc6ec1792fb17db411
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };

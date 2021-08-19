@@ -15,8 +15,7 @@ private:
 	int _openCount;
 	bool _isOpen;
 	int _curBox;
-	Item* _item;
-	ITEMDATA* _itemdata;
+	ITEMDATA itemdata[4] = {};
 	
 
 	

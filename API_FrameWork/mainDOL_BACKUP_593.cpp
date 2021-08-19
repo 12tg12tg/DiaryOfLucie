@@ -64,9 +64,12 @@ void mainDOL::update()
 		PLAYER->update();
 		PLAYERDATA->update();
 		EFFECT->update();
+<<<<<<< HEAD
 		INVENTORY->update();
 
+=======
 		ITEM->update();
+>>>>>>> aa7f09d8cec0ef161603b3cc6ec1792fb17db411
 		CAMERA->FadeUpdate();
 	}
 	SCENE->update();
@@ -124,9 +127,12 @@ void mainDOL::gameInit()
 
 	PLAYER->init();
 	PLAYERDATA->init();
+<<<<<<< HEAD
 	INVENTORY->init();
 
+=======
 	ITEM->init();
+>>>>>>> aa7f09d8cec0ef161603b3cc6ec1792fb17db411
 	_bm->init();
 	_cm->init();
 	_mm->init();
