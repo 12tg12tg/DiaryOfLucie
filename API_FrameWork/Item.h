@@ -45,8 +45,10 @@ public:
 	void render();
 	void removeitem(int arrNum);
 
-	vector<ITEMDATA>& getV_Item() { return _vItem; }
-	vector<ITEMDATA>::iterator& getVI_Item() { return _viItem; }
+	vector<ITEMDATA> getV_Item() { return _vItem; }
+	vector<ITEMDATA>::iterator getVI_Item() { return _viItem; }
+	vector<ITEMDATA> copyItemVect() { return _vItem; }
+	vector<ITEMDATA>::iterator copyItemIter() { return _viItem; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 };
