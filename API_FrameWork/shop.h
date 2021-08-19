@@ -1,6 +1,8 @@
 #pragma once
 #include "object.h"
 #include "Item.h"
+
+
 class shop : public object
 {
 protected:
@@ -42,7 +44,9 @@ public:
 		itemdata[array].item_name = "ÆÈ·È¾î";
 		itemdata[array].item_shopInfo = "";
 	}
+
 	void playerInterCollision();
 	void soldItem();
+
 };
 

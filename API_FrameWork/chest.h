@@ -14,8 +14,10 @@ private:
 
 	int _openCount;
 	bool _isOpen;
+	bool _istake = false;
+	int currentItemIndex;
 	int _curBox;
-	ITEMDATA itemdata[4] = {};
+	ITEMDATA itemdata[2];
 	
 
 	
@@ -35,5 +37,7 @@ public:
 	virtual void bulletCollision(bulletManager* bm);
 	virtual void afterHit();
 	virtual void giveFrame();
+	virtual void takeItem();
+	virtual ITEMDATA getItemData() { return itemdata[0]; }
 };
 

@@ -3,6 +3,8 @@
 #include "monster.h"
 #include "OBBCollision.h"
 #include "coin.h"
+//#include "chest.h"
+//class chest;
 class bulletManager;
 class monsterManager;
 class mapManager;
@@ -13,7 +15,7 @@ private:
 	monsterManager* mm;
 	OBBCollision* obb;
 	mapManager* mapm;
-
+	//chest* _chest;
 
 	float _x;
 	float _y;
@@ -46,7 +48,7 @@ public:
 	void bulletToMap();
 	void bulletTobullet();
 	void playerToCoin();
-	void playerToitem();
+	void playerToDropItem();
 	//보조함수
 	void checkMonsterRectColl(monster* monster, bool isBoss);
 	void checkMonsterRectPlayer(monster* monster);
@@ -54,6 +56,7 @@ public:
 	void setBulletManagerMemoryLink(bulletManager* bulletManager) { bm = bulletManager; }
 	void setMonsterManagerMemoryLink(monsterManager* monsterManager) { mm = monsterManager; }
 	void setmapManagerMemoryLink(mapManager* mapManager) { mapm = mapManager; }
+//	void setChestManagerMemoryLink(chest* chest) { _chest = chest; }
 	//void setMonsterManagerMemoryLink(mapManager* mapManager) { mapm = mapManager; }
 
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }

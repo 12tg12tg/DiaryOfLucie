@@ -1206,14 +1206,12 @@ void collisionManager::playerToCoin()
 	}
 }
 
-void collisionManager::playerToitem()
+void collisionManager::playerToDropItem()
 {
-	for (int i = 0; i < ITEM->getV_Item().size(); ITEM->getVI_Item()++)
-		if (IntersectRect(&temprc, &ITEM->getV_Item()[i].item_colbox, &PLAYER->getPlayerAddress().playerRect))
-		{
-			ITEM->removeitem(i);
-		}
+	
 }
+
+
 
 void collisionManager::checkMonsterRectPlayer(monster* monster)
 {
@@ -1380,6 +1378,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 							bm->getIce_spearInstance()->getVBullet()[i].y,
 							PLAYERDATA->getDamage(),
 							10, false);
+						bm->getIce_spearInstance()->getVBullet()[i].iscollison = true;
 					}
 					
 				}
@@ -1396,6 +1395,7 @@ void collisionManager::checkMonsterRectColl(monster* monster, bool isBoss)      
 							bm->getIce_spearInstance()->getVBullet()[i].y,
 							PLAYERDATA->getDamage(),
 							10, false);
+						bm->getIce_spearInstance()->getVBullet()[i].iscollison = true;
 					}
 				}
 			}
