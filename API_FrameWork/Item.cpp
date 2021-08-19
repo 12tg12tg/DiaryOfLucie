@@ -194,7 +194,7 @@ HRESULT Item::init()
 	item7.item_shopInfo= " 고급스러운 디자인의 신발이야";
 	item7.price = 200;
 	item7.itemType = ITEMTYPE::equip;
-	item1.equip_type = EQUIPTYPE::boot;
+	item7.equip_type = EQUIPTYPE::boot;
 	item7.equipHP = 0;
 	item7.equipMaxHP = 0;
 	item7.equipMP = 0;
