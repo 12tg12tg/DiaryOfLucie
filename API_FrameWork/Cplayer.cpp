@@ -410,6 +410,8 @@ void Cplayer::stateCheck()
 					CAMERA->setShake(6, 15, 4);
 					_Cbullet->getChargeInstance()->fire(_player.x, _player.y - shootingCorrection, _attAngle, 20 + _chargeShotCount / 2 - 20);
 					_state = STATE::STAFFCHARGE;
+					this->angleCheckDirection(_attAngle);
+
 				}
 				_chargeShotCount = 0;
 			}
@@ -571,7 +573,6 @@ void Cplayer::movePlayer()
 		_player.y -= sinf(_attAngle);
 		break;
 	case STATE::STAFFCHARGE:
-		this->angleCheckDirection(_attAngle);
 		_player.x += cosf(_attAngle + PI) * 1.5;
 		_player.y -= sinf(_attAngle + PI) * 1.5;
 		break;
