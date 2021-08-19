@@ -186,7 +186,6 @@ void Cskill::uirender()
         }
 		ZORDER->UIAlphaFrameRender(IMAGE->findImage("½ºÅ³ÀÌ¹ÌÁö"), ZUISECOND, 99, skillUI[i].left, skillUI[i].top,
 			storage[i].frameX, storage[i].frameY, addAlpha);
-
         if (storage[i].isCool)
         {
             int ctime = (int)(storage[i].cooltime - storage[i].cooldown);
@@ -214,6 +213,12 @@ void Cskill::uirender()
     if (skillnum != 0) {
         ZORDER->UIAlphaFrameRender(IMAGE->findImage("½ºÅ³ÀÌ¹ÌÁö"), ZUISECOND, -2, curRc.left, curRc.top-2,
             storage[currentIndex].frameX, storage[currentIndex].frameY, addAlpha);
+        //¸¶³ª Ç¥½Ã
+        ZORDER->UIDrawText(to_string(storage[currentIndex].burnMp), ZUISECOND,
+            { curRc.left - 4, 623+3, curRc.right + 4, 642+3 },
+            CreateFont(15, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
+                0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY°ß°íµñ")),
+            RGB(255, 255, 255), DT_CENTER | DT_VCENTER);
         if (storage[currentIndex].isCool)
         {
             int ctime = (int)(storage[currentIndex].cooltime - storage[currentIndex].cooldown);
@@ -229,14 +234,6 @@ void Cskill::uirender()
                 IMAGE->findImage("ÄðÅ¸ÀÓµ¤°³È®´ë")->getWidth(),
                 IMAGE->findImage("ÄðÅ¸ÀÓµ¤°³È®´ë")->getHeight() * ratio,
                 thisalpha);
-            //ÀÜ¿© ÄðÅ¸ÀÓ Ç¥½Ã
-            ZORDER->UIDrawText(to_string(ctime), ZUISECOND,
-                { curRc.left - 4, curRc.top + 4, curRc.right + 4, curRc.bottom + 4 },
-                CreateFont(20, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET,
-                    0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY°ß°íµñ")),
-                RGB(255, 255 * (1 - ratio), 255 * (1 - ratio)), DT_CENTER | DT_VCENTER);
-            //¸¶³ª Ç¥½Ã
-            
             //ÀÜ¿© ÄðÅ¸ÀÓ Ç¥½Ã
             ZORDER->UIDrawText(to_string(ctime), ZUISECOND,
                 { curRc.left - 4, curRc.top + 4, curRc.right + 4, curRc.bottom + 4 },
