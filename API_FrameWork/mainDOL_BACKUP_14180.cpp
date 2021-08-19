@@ -68,7 +68,11 @@ void mainDOL::update()
 		break;
 	case mainDOL::DOLSTATE::INMAP:
 	{
+<<<<<<< HEAD
+		
 
+=======
+>>>>>>> origin/예균새작업
 		_bm->update();
 		_mm->update();
 		_cm->update();

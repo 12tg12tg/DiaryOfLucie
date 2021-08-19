@@ -68,7 +68,6 @@ void mainDOL::update()
 		break;
 	case mainDOL::DOLSTATE::INMAP:
 	{
-
 		_bm->update();
 		_mm->update();
 		_cm->update();
