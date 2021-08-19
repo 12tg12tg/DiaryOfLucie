@@ -64,8 +64,8 @@ void mainDOL::update()
 		PLAYER->update();
 		PLAYERDATA->update();
 		EFFECT->update();
-		INVENTORY->update();
 
+		INVENTORY->update();
 		ITEM->update();
 		CAMERA->FadeUpdate();
 	}
@@ -124,9 +124,9 @@ void mainDOL::gameInit()
 
 	PLAYER->init();
 	PLAYERDATA->init();
+	ITEM->init();
 	INVENTORY->init();
 
-	ITEM->init();
 	_bm->init();
 	_cm->init();
 	_mm->init();

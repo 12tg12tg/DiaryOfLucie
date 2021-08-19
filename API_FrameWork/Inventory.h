@@ -24,6 +24,8 @@ public:
 	void render(HDC hdc);
 
 private:
+	int _correct;
+	int randnum;
 	void imageInit();
 	image* _inventory_layout;
 	image* _Bright_button_image;
@@ -39,4 +41,5 @@ public:
 	void InventoryDataPushBack(string item_name,int equipHP = 0,int equipMP = 0);
 	void InventoryItemRender();
 	void itemErase();
+	bool inventoryEmptyCheck();
 };

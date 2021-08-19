@@ -3,11 +3,12 @@
 
 HRESULT Inventory::init()
 {
+	_correct = 1;
 	_isInvenON = false;
 	_isDebug = false;
 
 	this->imageInit();
-
+	
 	for (int i = 0; i < 15; i++)
 	{
 		_InvenSlot[i] = RectMake(1067+(i%5)* (_Bright_button_image->getWidth()+2), 
@@ -31,8 +32,8 @@ void Inventory::update()
 	}
 
 	if (INPUT->isOnceKeyDown('K')) {
-		int i=RND->getFromInTo(0, _vectItemData.size()-1);
-		InventoryDataPushBack(_vectItemData[i].item_name, _vectItemData[i].equipHP, _vectItemData[i].equipMP);
+		randnum=RND->getFromInTo(0, _vectItemData.size()-1);
+		InventoryDataPushBack(_vectItemData[randnum].item_name, _vectItemData[randnum].equipHP, _vectItemData[randnum].equipMP);
 	}
 
 }
@@ -74,7 +75,7 @@ void Inventory::render(HDC hdc)
 				for (auto& j : _vectItemData)
 				{
 					if (j.item_name == _vectInventory[i].item_name) {
-						ZORDER->UIRender(j.item_image, ZUIFIRST, 1, _InvenSlot[i].left, _InvenSlot[i].top);
+						ZORDER->UIRender(j.item_image, ZUIFIRST, 1, _InvenSlot[i].left+10+ _correct, _InvenSlot[i].top+10+ _correct);
 					}
 				}
 			}
@@ -102,4 +103,10 @@ void Inventory::InventoryItemRender()
 
 void Inventory::itemErase()
 {
+}
+
+bool Inventory::inventoryEmptyCheck()
+{
+	if (_vectInventory.size() < 15) return true;
+	else return false;
 }
