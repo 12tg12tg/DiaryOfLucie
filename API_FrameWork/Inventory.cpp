@@ -159,7 +159,7 @@ void Inventory::InventoryInfoRender(ITEMDATA itemdata, int index)
 	//장비 설명
 	if (PtInRect(&_InvenSlot[index], m_ptMouse))
 	{
-	infoRc = RectMake(m_ptMouse.x,m_ptMouse.y,
+	infoRc = RectMake(300,1000,
 		IMAGE->findImage("인벤토리정보상자")->getWidth(),
 		IMAGE->findImage("인벤토리정보상자")->getHeight());
 		RECT txtRc = RectMake(infoRc.left + 15, infoRc.top + 15, RecWidth(infoRc) - 30, RecHeight(infoRc) - 30);
@@ -192,7 +192,6 @@ void Inventory::InventoryInfoRender(ITEMDATA itemdata, int index)
 				0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("HY견고딕")),
 			RGB(255, 255, 255), DT_LEFT | DT_VCENTER);
 
-		ZORDER->UIRender(IMAGE->findImage("인벤토리정보상자"), ZUITHIRD, 0, m_ptMouse.x - 300, m_ptMouse.y - 100);
-
+		ZORDER->UIAlphaRender(IMAGE->findImage("인벤토리정보상자"), ZUITHIRD, 0, m_ptMouse.x -500, m_ptMouse.y - 100, 150);
 	}
 }
