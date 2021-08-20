@@ -94,11 +94,12 @@ void mainDOL::update()
 	}
 	SCENE->update();			//INMAP»óÅÂÀÏ¶§´Â mapManager¿¡¼­ ¾À¾÷µ¥ÀÌÆ®Áß.
 
-
+<<<<<<< HEAD
+=======
 	if (INPUT->isOnceKeyDown(VK_F5)) {
 		_mapm->clearMonster();
 	}
-
+>>>>>>> origin/ì˜ˆê· ìƒˆì‘ì—…
 }
 
 void mainDOL::render()

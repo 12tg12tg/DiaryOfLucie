@@ -1624,6 +1624,9 @@ last_Boss::last_Boss()
 	IMAGE->addImage("보스hp_front", "images/bossUi/hp_front.bmp", 482, 22);
 	IMAGE->addImage("보스hp_back", "images/bossUi/hp_back.bmp", 482, 22);
 	IMAGE->addImage("보스hp_프레임", "images/bossUi/hpframe.bmp", 506, 32, true);
+
+	SCENE->addScene("얼음맵", new newStage);
+	icerc = RectMake(630, 363, 36, 11);
 }
 
 last_Boss::~last_Boss()
@@ -1720,6 +1723,11 @@ void last_Boss::update()
 	//CAMERA->movePivot(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	CAMERA->update();
 
+	RECT temp;
+	if (mm->getYggdrasil()->getVMonster().size() == 0 && IntersectRect(&temp, &icerc, &PLAYER->getPlayerAddress().playerRect))
+	{
+		SCENE->changeScene("얼음맵");
+	}
 }
 
 void last_Boss::render()
@@ -1745,4 +1753,61 @@ void last_Boss::render()
 		}
 		ZORDER->UIAlphaRender(IMAGE->findImage("타이틀_이그드라실"), ZUIFIRTH, 150, 0, 0, alpha);
 	}
+}
+////////////////////////////////////////////////////////////////////////////////////////
+newStage::newStage()
+{
+	IMAGE->addImage("얼음맵", "images/map/ground139.bmp", 1056, 720, true, RGB(255, 0, 255));
+	IMAGE->addImage("얼음위", "images/map/par139.bmp", 1056, 720, true, RGB(255, 0, 255));
+	_collisionMap = IMAGE->addImage("얼음충돌", "images/map/!m139.bmp", 1056, 720, true, RGB(255, 0, 255));
+}
+
+newStage::~newStage()
+{
+}
+
+HRESULT newStage::init()
+{
+	CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
+		1056, 720, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
+	PLAYER->getPlayerAddress().x = 532;
+	PLAYER->getPlayerAddress().y = 389;
+	return S_OK;
+}
+
+void newStage::release()
+{
+}
+
+void newStage::update()
+{
+	//for (int i = PLAYER->getPlayerAddress().y - 1; i > PLAYER->getPlayerAddress().y - 10; i--)
+	//{
+	//	COLORREF  color = GetPixel(IMAGE->findImage("얼음충돌")->getMemDC(), PLAYER->getPlayerAddress().x, i);
+
+	//	int r = GetRValue(color);
+	//	int g = GetGValue(color);
+	//	int b = GetBValue(color);
+
+	//	if (!(r == 255 && g == 0 && b == 255))
+	//	{
+	//		PLAYER->getPlayerAddress().y += 2;
+	//	}
+	//}
+
+	float bossX = 650;
+	float bossY = 349 + 110;
+	POINT relativePivot;
+	relativePivot.x = (bossX + PLAYER->getPlayerAddress().x * 2) / 3;
+	relativePivot.y = (bossY + PLAYER->getPlayerAddress().y * 2) / 3;
+
+	CAMERA->movePivot(relativePivot.x, relativePivot.y);
+}
+
+void newStage::render()
+{
+	ZORDER->ZorderRender(IMAGE->findImage("얼음맵"), ZFLOORMAP, WINSIZEX, 0, 0);
+	ZORDER->ZorderRender(IMAGE->findImage("얼음위"), ZABOVEMAP, WINSIZEX, 0, 0);
+	if (_isDebug)ZORDER->ZorderRender(IMAGE->findImage("얼음충돌"), ZCOLMAP, WINSIZEX, 0, 0);
+
 }
