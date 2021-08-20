@@ -213,6 +213,7 @@ public:
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	void setBulletManagerMemoryLink(bulletManager* BM) { _Cbullet = BM; }
 	int getcharge() { return _chargeShotCount; }
+	float& getAttAngle() {return _attAngle;}
 	WEAPONTYPE getweapone() { return _player.weapon; }
 	Player& getPlayerAddress() { return _player; }
 	STATE& getSTATEAddress() { return _state; }

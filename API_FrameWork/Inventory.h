@@ -31,6 +31,7 @@ private:
 	void imageInit();
 	image* _inventory_layout;
 	image* _Bright_button_image;
+	image* _Equip_Mark_image;
 
 	RECT _InvenSlot[15];
 	RECT infoRc;
@@ -43,9 +44,9 @@ private:
 public:
 	void InventoryDataPushBack(string item_name,int equipHP = 0,int equipMP = 0);
 	
-	void itemErase();
 
 	bool inventoryEmptyCheck();
 
-
+	void showInvenUi();
+	void InventoryInfoRender(int array);
 };

@@ -305,6 +305,7 @@ private:
 	bool changePivot;
 	bool isWait;
 	progressBar* hpbar;
+	RECT icerc;
 public:
 	last_Boss();
 	~last_Boss();
@@ -315,7 +316,18 @@ public:
 
 };
 
+class newStage : public motherMap
+{
+private:
 
+public:
+	newStage();
+	~newStage();
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+};
 
 
 

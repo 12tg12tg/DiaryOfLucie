@@ -112,6 +112,9 @@ public:
 
 	DATA& getData() { return _Data; }
 	int getPresentHP() { return _presentHP; }
+	int getMaxHP() { return _MaxHP; }
+	int getMaxMP() { return _MaxMP; }
+	int getGold() { return _gold; }
 	int getDamage();
 	void setIsDebug(bool isDebug) { _isDebug = isDebug; }
 	

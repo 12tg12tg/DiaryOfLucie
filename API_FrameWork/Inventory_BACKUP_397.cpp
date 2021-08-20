@@ -104,8 +104,12 @@ void Inventory::render(HDC hdc)
 				{
 					if (j.item_name == _vectInventory[i].item_name)
 					{
+<<<<<<< HEAD
+						ZORDER->UIRender(j.item_image, ZUIFIRST, 1, _InvenSlot[i].left + 11, _InvenSlot[i].top + 11);
+=======
 						ZORDER->UIRender(j.item_image, ZUIFIRST, 1, _InvenSlot[i].left+11, _InvenSlot[i].top+11);
 						InventoryInfoRender(i);
+>>>>>>> a70cbc9551063d3f81991adab4e88fe3ab4251fe
 					}
 				}
 			}
@@ -120,8 +124,7 @@ void Inventory::render(HDC hdc)
 		accindex++;
 	}
 
-	//스탯정보출력
-	showInvenUi();
+	
 }
 
 void Inventory::imageInit()
@@ -153,26 +156,6 @@ bool Inventory::inventoryEmptyCheck()
 {
 	if (_vectInventory.size() < 15) return true;
 	else return false;
-}
-
-void Inventory::showInvenUi()
-{
-	//플레이어정보 출력
-	if (!_isInvenON) return;
-	ZORDER->UITextOut(to_string(PLAYERDATA->getMaxHP()), ZUISECOND, 1165, 424, RGB(0, 0, 0));
-	ZORDER->UITextOut(to_string(PLAYERDATA->getMaxMP()), ZUISECOND, 1280, 424, RGB(0, 0, 0));
-	ZORDER->UITextOut(to_string(PLAYERDATA->getData().presentAtk), ZUISECOND, 1165-7, 424+23, RGB(0, 0, 0));
-	ZORDER->UITextOut(to_string(PLAYERDATA->getData().AtkSpeed), ZUISECOND, 1280, 424 + 23, RGB(0, 0, 0));
-	ZORDER->UITextOut(to_string(PLAYERDATA->getData().presentSkillPower), ZUISECOND, 1165-7, 424 + 23*2, RGB(0, 0, 0));
-	ZORDER->UITextOut(to_string(PLAYERDATA->getData().equipSkillCoolTime), ZUISECOND, 1280, 424 + 23 * 2, RGB(0, 0, 0));
-	TCHAR str[128];
-	_stprintf_s(str, "%.1f", PLAYERDATA->getData().presentSpeed);
-	string speed(str);
-	ZORDER->UITextOut(speed, ZUISECOND, 1165-6, 424 + 23*3, RGB(0, 0, 0));
-	ZORDER->UITextOut(to_string(PLAYERDATA->getData().Critical), ZUISECOND, 1280, 424 + 23 * 3, RGB(0, 0, 0));
-	//인벤아이템수, 골드
-	ZORDER->UITextOut(to_string(_vectInventory.size()), ZUISECOND, 1074, 541, RGB(120, 112, 98));
-	ZORDER->UITextOut(to_string(PLAYERDATA->getGold()), ZUISECOND, 1273, 538, RGB(0, 0, 0));
 }
 
 void Inventory::InventoryInfoRender(int array)
