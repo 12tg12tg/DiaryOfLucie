@@ -125,6 +125,7 @@ void Csnaby::addMonster(float x, float y)
 	newMonster.deathalpha = 255;
 	newMonster.activestate = MONSTERACTIVE::NONE;
 	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	newMonster.deathsoundplay = true;
 	_vMonster.push_back(newMonster);
 }
 
@@ -269,6 +270,9 @@ void Csnaby::giveFrame()
 	case MONSTERACTIVE::DEATH:
 		_viMonster->frameY = 12;
 		maxFrameX = 0;
+		if(_viMonster->deathsoundplay == true)
+		SOUND->play("¹ìÁ×´Â¼Ò¸®", 0.1);
+		_viMonster->deathsoundplay = false;
 		break;
 	}
 
@@ -453,6 +457,7 @@ void Cslime::addMonster(float x, float y)
 	newMonster.activestate = MONSTERACTIVE::NONE;
 	newMonster.oldactivestate = MONSTERACTIVE::NONE;
 	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	newMonster.deathsoundplay = true;
 	_vMonster.push_back(newMonster);
 }
 
@@ -530,6 +535,8 @@ void Cslime::move(bulletManager* bm)
 		}
 		break;
 	case MONSTERACTIVE::DEATH:
+		if (_viMonster->deathsoundplay == true) { SOUND->play("½½¶óÀÓÁ×´Â¼Ò¸®",0.1); }
+		_viMonster->deathsoundplay = false;
 		_viMonster->deathalpha -= 2;
 		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
 		if (_viMonster->deathalpha == 0) {
@@ -822,6 +829,7 @@ void Cmushman::addMonster(float x, float y)
 	newMonster.activestate = MONSTERACTIVE::NONE;
 	newMonster.oldactivestate = MONSTERACTIVE::NONE;
 	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	newMonster.deathsoundplay = true;
 	_vMonster.push_back(newMonster);
 }
 
@@ -945,7 +953,9 @@ void Cmushman::giveFrame()
 		break;
 
 	case MONSTERACTIVE::DEATH:
+		if (_viMonster->deathsoundplay == true) { SOUND->play("¹ö¼¸Á×´Â¼Ò¸®", 0.1); }
 		_viMonster->frameY = 10;
+		_viMonster->deathsoundplay = false;
 		maxFrameX = 0;
 		break;
 	}
@@ -1014,15 +1024,15 @@ void Cmushman::knockback(vector<tagMonster>::iterator iter, float x, float y, in
 	iter->isGraceperiod = true;
 	//µ¥¹ÌÁö¹Ý¿µ
 	iter->hp -= damage;
-	//ÃÑ¾ËÀÌ ³ª¸¦ ¹Ù¶óº¸´ø ¹æÇâÀ¸·Î ³Ë¹é - ¹ö¼¸Àº ³Ë¹é¾ÈÇÔ.
-	//float centerx, centery;
-	//centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
-	//centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
-	//float nbangle = UTIL::getAngle(x, y, centerx, centery);
-	//iter->x += cosf(nbangle) * knockbackRange;
-	//iter->y -= sinf(nbangle) * knockbackRange;
-	//iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y, iter->width, iter->height);
-	//iter->footRc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y + iter->height * 2 / 3, iter->width, iter->height / 3);
+	//ÃÑ¾ËÀÌ ³ª¸¦ ¹Ù¶óº¸´ø ¹æÇâÀ¸·Î ³Ë¹é - ¹ö¼¸Àº ³Ë¹é¾ÈÇÔ. - Ãë¼Ò
+	float centerx, centery;
+	centerx = iter->rc.left + (iter->rc.right - iter->rc.left) / 2;
+	centery = iter->rc.top + (iter->rc.bottom - iter->rc.top) / 2;
+	float nbangle = UTIL::getAngle(x, y, centerx, centery);
+	iter->x += cosf(nbangle)*4;//knockbackRange;
+	iter->y -= sinf(nbangle)*4; //knockbackRange;
+	iter->rc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y, iter->width, iter->height);
+	iter->footRc = RectMake(iter->x + iter->img->getFrameWidth() / 6, iter->y + iter->height * 2 / 3, iter->width, iter->height / 3);
 
 	if (stun) {
 		iter->isStun = stun;
@@ -1452,6 +1462,7 @@ void Cfairy::addMonster(float x, float y)
 	newMonster.activestate = MONSTERACTIVE::NONE;
 	newMonster.oldactivestate = MONSTERACTIVE::NONE;
 	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	newMonster.deathsoundplay = true;
 	_vMonster.push_back(newMonster);
 }
 
@@ -1518,6 +1529,8 @@ void Cfairy::move(bulletManager* bm)
 		}
 		break;
 	case MONSTERACTIVE::DEATH:
+		if (_viMonster->deathsoundplay == true) { SOUND->play("¿äÁ¤Á×´Â¼Ò¸®", 0.1); }
+		_viMonster->deathsoundplay = false;
 		_viMonster->deathalpha -= 2;
 		if (_viMonster->deathalpha < 0) _viMonster->deathalpha = 0;
 		if (_viMonster->deathalpha == 0) {
@@ -1830,6 +1843,7 @@ void Cflime::addMonster(float x, float y)
 	newMonster.activestate = MONSTERACTIVE::NONE;
 	newMonster.oldactivestate = MONSTERACTIVE::NONE;
 	newMonster.movestate = MONSTERMOVESTATE::NONE;
+	newMonster.deathsoundplay = true;
 	_vMonster.push_back(newMonster);
 }
 
@@ -1994,6 +2008,8 @@ void Cflime::giveFrame()
 		break;
 
 	case MONSTERACTIVE::DEATH:
+		if (_viMonster->deathsoundplay == true) { SOUND->play("²ÉÁ×´Â¼Ò¸®", 0.1); }
+		_viMonster->deathsoundplay = false;
 		_viMonster->frameY = 8;
 		maxFrameX = 0;
 		break;

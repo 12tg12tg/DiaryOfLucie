@@ -13,6 +13,7 @@ mapManager::~mapManager()
 }
 HRESULT mapManager::init()
 {
+
 	_Cmap10 = nullptr;
 	_chestMap = nullptr;
 	_shopMap = nullptr;
@@ -208,6 +209,10 @@ void mapManager::update()
 	{	
 		UseableDoor();
 		stage1[currentIndex.x][currentIndex.y]._motherMap->setClear(true);
+		if (PLAYERDATA->getskill()) {
+			sk->addSkill();
+			PLAYERDATA->getskill() = false;
+		}
 	}
 	if (checkright)
 	{
@@ -917,4 +922,23 @@ void mapManager::clearbullet()
 	bm->getTriBulInstance()->getVBullet().clear();
 	bm->getWidBulInstance()->getVBullet().clear();
 
+}
+
+void mapManager::clearMonster()
+{
+	mm->getSnaby()->getVMonster().clear();
+	mm->getSlime()->getVMonster().clear();
+	mm->getFlime()->getVMonster().clear();
+	mm->getFairy()->getVMonster().clear();
+	mm->getMushman()->getVMonster().clear();
+	mm->getMushman_Mushroom()->getVMonster().clear();
+	mm->getBoss_Slime()->getVMonster().clear();
+	mm->getSemiBoss_Slime()->getVMonster().clear();
+	mm->getBoss_Flime()->getVMonster().clear();
+	mm->getBoss_Mushmam()->getVMonster().clear();
+	mm->getBoss_Mushroom_B()->getVMonster().clear();
+	mm->getBoss_Mushroom_P()->getVMonster().clear();
+	mm->getBoss_Mushroom_G()->getVMonster().clear();
+	mm->getYggdrasil()->getVMonster().clear();
+	mm->getYggdrasil_Bomb()->getVMonster().clear();
 }

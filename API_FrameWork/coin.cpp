@@ -47,6 +47,7 @@ void goldCoin::drop(float x, float y)
 	coin.angle = UTIL::getAngle(coin.realX, coin.realY, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	coin.howmuch = 100;
 	coin.range = 100;
+	coin.checkcoin = true;
 	coin.rc = RectMake(coin.x, coin.y,
 		coin.coinImage->getFrameWidth(),
 		coin.coinImage->getFrameHeight());
@@ -58,6 +59,11 @@ void goldCoin::move()
 	_viCoin = _vCoin.begin();
 	for (_viCoin; _viCoin != _vCoin.end();++_viCoin)
 	{
+		if (_viCoin->checkcoin == true)
+		{
+			SOUND->play("코인", 0.1);
+		}
+		_viCoin->checkcoin = false;
 		_viCoin->x += cosf(_viCoin->angle) * 0;
 		_viCoin->y -= sinf(_viCoin->angle) * 0;
 
@@ -132,6 +138,7 @@ void silverCoin::drop(float x, float y)
 	coin.angle = UTIL::getAngle(coin.realX, coin.realY, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	coin.range = 100;
 	coin.howmuch = 50;
+	coin.checkcoin = true;
 	coin.rc = RectMakeCenter(coin.x, coin.y,
 		coin.coinImage->getFrameWidth(),
 		coin.coinImage->getFrameHeight());
@@ -143,6 +150,11 @@ void silverCoin::move()
 	_viCoin = _vCoin.begin();
 	for (_viCoin; _viCoin != _vCoin.end(); ++_viCoin)
 	{
+		if (_viCoin->checkcoin == true)
+		{
+			SOUND->play("코인", 0.1);
+		}
+		_viCoin->checkcoin = false;
 		_viCoin->x += cosf(_viCoin->angle) * 0;
 		_viCoin->y -= sinf(_viCoin->angle) * 0;
 
@@ -215,6 +227,7 @@ void bronzeCoin::drop(float x, float y)
 	coin.y = y;
 	coin.angle = UTIL::getAngle(coin.realX, coin.realY, PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y);
 	coin.range = 100;
+	coin.checkcoin = true;
 	coin.howmuch = 10;
 	coin.rc = RectMakeCenter(coin.x, coin.y,
 		coin.coinImage->getFrameWidth(),
@@ -227,6 +240,11 @@ void bronzeCoin::move()
 	_viCoin = _vCoin.begin();
 	for (_viCoin; _viCoin != _vCoin.end(); ++_viCoin)
 	{
+		if (_viCoin->checkcoin == true)
+		{
+			SOUND->play("코인", 0.1);
+		}
+		_viCoin->checkcoin = false;
 		_viCoin->x += cosf(_viCoin->angle) * 0;
 		_viCoin->y -= sinf(_viCoin->angle) * 0;
 

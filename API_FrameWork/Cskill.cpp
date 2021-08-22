@@ -265,31 +265,48 @@ void Cskill::checkDuration()
     for (size_t i = 0; i < skillnum; i++)
     {
         if (!storage[i].isOn) continue;
-
+        storage[i].count++;
+        storage[i].durationDown += TIME->getElapsedTime();
         switch (storage[i].key)
         {
         case 0:
-            if (storage[i].count % 3 == 0 && storage[i].count < 10)
+        {
+            if (storage[i].count % 3 == 0 && storage[i].count < 10) {
+                float angle = UTIL::getAngle(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y, CAMMOUSEX, CAMMOUSEY);
                 _bm->getLucky_starInstance()->fire(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
-                    UTIL::getAngle(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y, CAMMOUSEX, CAMMOUSEY), 0);
+                    angle, 0);
+                PLAYER->angleCheckDirection(angle);
+                PLAYER->getSTATEAddress() = STATE::ATTSTAFF;
+            }
             /*지속시간동안 트리플샷 버프 부여하는 구문*/
+        }
             break;
         case 1:
+        {
+            float angle = UTIL::getAngle(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y, CAMMOUSEX, CAMMOUSEY);
             _bm->getIce_spearInstance()->fire(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
-                UTIL::getAngle(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y, CAMMOUSEX, CAMMOUSEY), 0);
+                angle, 0);
+            PLAYER->angleCheckDirection(angle);
+            PLAYER->getAttAngle() = angle;
+            PLAYER->getSTATEAddress() = STATE::STAFFCHARGE;
+        }
             break;
         case 2:
-            if (storage[i].count == 0)
+            if (storage[i].count == 0) {
                 _bm->getHasteInstance()->fire(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
                     UTIL::getAngle(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y, CAMMOUSEX, CAMMOUSEY), 0);
-            /*지속시간동안 이속 공속 증가*/
+                PLAYERDATA->getData().AtkSpeed += 1;
+                PLAYERDATA->getData().walkspeed += 0.2;
+            }
+            if (storage[i].durationDown >= storage[i].duration) {
+                PLAYERDATA->getData().AtkSpeed -= 1;
+                PLAYERDATA->getData().walkspeed -= 0.2;
+            }
             break;
         default:
             break;
         }
 
-        storage[i].count++;
-        storage[i].durationDown += TIME->getElapsedTime();
         if (storage[i].durationDown >= storage[i].duration)
         {
             storage[i].isOn = false;

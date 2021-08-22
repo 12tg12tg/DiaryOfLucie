@@ -28,6 +28,7 @@ struct tagBullet
 	bool iscollison;
 	int alpha;
 	bool colPoison;
+	bool checksound = true;
 };
 
 class CpMagicBullet : public gameNode

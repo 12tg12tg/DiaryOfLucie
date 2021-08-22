@@ -61,6 +61,7 @@ struct tagMonster
 	bool oldPhase;		//20210809 - 보스패턴구현
 	bool isGraceperiod = false;			//20210809 - 피격시 짧은 무적상태추가
 	int gracePeriodCount = 0;
+	bool deathsoundplay = true;
 	MONSTERACTIVE activestate;
 	MONSTERACTIVE oldactivestate;
 	MONSTERMOVESTATE movestate;

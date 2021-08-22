@@ -47,5 +47,7 @@ public:
 
 	bool inventoryEmptyCheck();
 
+	void showInvenUi();
+	void InventoryInfoRender(int array);
 	void InventoryInfoRender(ITEMDATA itemdata,int index);
 };

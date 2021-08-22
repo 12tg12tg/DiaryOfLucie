@@ -44,7 +44,6 @@ HRESULT Cplayer::init()
 	_dashCount = 0;
 	_dashIndex = 0;
 	_dashAtkChance = false;
-
 	imageLeftCorrection = 50 - (_player.playerRect.right - _player.playerRect.left) / 2;
 	imageTopCorrection = 70 - (_player.playerRect.bottom - _player.playerRect.top) / 2;
 	shootingCorrection = 20;

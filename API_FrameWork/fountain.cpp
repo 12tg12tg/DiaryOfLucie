@@ -190,7 +190,8 @@ void fountain::afterHit()
 	{
 		PLAYERDATA->costMP(1);
 		/*µ¿ÀüÅõÃ´*/ 
-		_motherm->dropCoin(600,362);
+		int random = RND->getFromInTo(0, 200);
+		_motherm->dropCoin(_x+random,_y+random);
 		//PLAYERDATA->changeGold(+100, false);
 	}
 	_hp--;
