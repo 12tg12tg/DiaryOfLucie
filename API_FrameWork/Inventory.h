@@ -11,7 +11,6 @@ struct InventoryData {
 	int equipMP;
 };
 
-
 class Inventory : public Singleton<Inventory>
 {
 private:
@@ -43,11 +42,8 @@ private:
 	vector<image*> _vectAccesory;
 public:
 	void InventoryDataPushBack(string item_name,int equipHP = 0,int equipMP = 0);
-	
-
 	bool inventoryEmptyCheck();
 
 	void showInvenUi();
-	void InventoryInfoRender(int array);
 	void InventoryInfoRender(ITEMDATA itemdata,int index);
 };
