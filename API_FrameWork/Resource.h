@@ -2,7 +2,7 @@
 // Microsoft Visual C++에서 생성한 포함 파일입니다.
 // API_FrameWork.rc에서 사용되고 있습니다.
 //
-#define IDC_MYICON                      2
+#define IDC_MYICON                      101
 #define IDD_APIFRAMEWORK_DIALOG         102
 #define IDS_APP_TITLE                   103
 #define IDD_ABOUTBOX                    103
@@ -12,7 +12,7 @@
 #define IDI_SMALL                       108
 #define IDC_APIFRAMEWORK                109
 #define IDR_MAINFRAME                   128
-#define IDI_ICON1                       129
+#define IDI_ICON1                       100
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
