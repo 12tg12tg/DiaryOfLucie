@@ -146,11 +146,11 @@ public:
 	//이미지 y좌표
 	inline float getY()const { return _imageInfo->y; }
 	inline float setY(const float y) { return _imageInfo->y = y; }
-
-	inline void setCenter(const float x, const float y)
+	//이미지 중심을 입력하여 이미지 x, y 설정.
+	inline void setCenter(const float centerx, const float centery)
 	{
-		_imageInfo->x = x - (_imageInfo->width / 2);
-		_imageInfo->y = y - (_imageInfo->height / 2);
+		_imageInfo->x = centerx - (_imageInfo->width / 2);
+		_imageInfo->y = centery - (_imageInfo->height / 2);
 	}
 
 	//가로세로 크기 얻기

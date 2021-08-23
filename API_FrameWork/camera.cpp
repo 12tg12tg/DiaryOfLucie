@@ -253,9 +253,9 @@ void camera::release()
 //{
 //}
 
-void camera::textOut(HDC hdc, int x, int y, const char* text, COLORREF color)
-{
-}
+//void camera::textOut(HDC hdc, int x, int y, const char* text, COLORREF color)
+//{
+//}
 
 void camera::FadeInit(int time, FADEKIND fadeKind)
 {

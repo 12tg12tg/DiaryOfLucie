@@ -169,6 +169,7 @@ void mainDOL::gameInit()
 	PLAYERDATA->init();
 	ITEM->init();
 	INVENTORY->init();
+	initForsound();
 
 	_bm->init();
 	_cm->init();
@@ -183,13 +184,8 @@ void mainDOL::gameInit()
 	_mapm->setSkillMemoryLink(_sk);				//맵에서 스킬
 	PLAYER->setBulletManagerMemoryLink(_bm);
 	_sk->setBulletManagerMemoryLink(_bm);
-	initForsound();
 	//_mapm->init();		//로딩에서 init되도록 막음.
 
-
-	//CAMERA->init(PLAYER->getPlayerAddress().x, PLAYER->getPlayerAddress().y,
-	//	1008, 672, 0, 0, CAMERASIZEX / 2, CAMERASIZEY / 2, CAMERASIZEX, CAMERASIZEY);
-	//CAMERA->FadeStart();
 }
 
 void mainDOL::initForsound()

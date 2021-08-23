@@ -71,7 +71,7 @@ public:
 	void update();
 	void release();
 
-	//피벗반영하여 좌표 당겨서 랜더하기.
+	//피벗반영하여 좌표 당겨서 랜더하기. - 필요없어짐
 	//void RelativeRectangle(HDC hdc, RECT rc);
 	//void RelativeRectangle(HDC hdc, int left, int top, int width, int height);
 	//void RelativeFrameRect(HDC hdc, RECT rc, COLORREF color);
@@ -91,6 +91,8 @@ public:
 	//void RelativeRotateFrameRender(HDC hdc, image* img, int centerX, int centerY, float angle, int frameX = 0, int frameY = 0);
 	//void RelativeRotateAlphaRender(HDC hdc, image* img, int centerX, int centerY, float angle, BYTE alpha);
 	//void RelativeRotateAlphaFrameRender(HDC hdc, image* img, int centerX, int centerY, float angle, int frameX, int frameY, BYTE alpha);
+	//글씨 당겨서 출력.
+	//void textOut(HDC hdc, int x, int y, const char* text, COLORREF color = RGB(255, 0, 0));
 
 	//페이드인아웃
 	void FadeInit(int time, FADEKIND fadeKind);	
@@ -98,9 +100,6 @@ public:
 	void FadeUpdate();
 	void FadeRender(HDC hdc);
 	bool& getFadeIsStart() { return _fadeInfo.isStart; }
-
-	//글씨 당겨서 출력.
-	void textOut(HDC hdc, int x, int y, const char* text, COLORREF color = RGB(255, 0, 0));
 
 	//카메라기능 : 피벗움직이기, 피벗바꾸기, 화면떨림
 	void movePivot(float x, float y);
