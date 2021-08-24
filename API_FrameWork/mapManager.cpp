@@ -13,6 +13,7 @@ mapManager::~mapManager()
 }
 HRESULT mapManager::init()
 {
+
 	_Cmap10 = nullptr;
 	_chestMap = nullptr;
 	_shopMap = nullptr;
